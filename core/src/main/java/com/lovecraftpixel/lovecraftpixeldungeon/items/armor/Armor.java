@@ -40,6 +40,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.curses.AntiEntropy;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.curses.Bulk;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.curses.Corrosion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.curses.Displacement;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.curses.Featherweight;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.curses.Metabolism;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.curses.Multiplicity;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.curses.Overgrowth;
@@ -48,7 +49,11 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Affection;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.AntiMagic;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Brimstone;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Camouflage;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Chaotic;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Cloning;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Deflection;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Entanglement;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Explosion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Flow;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Obfuscation;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Potential;
@@ -530,10 +535,10 @@ public class Armor extends EquipableItem {
 		
 		private static final Class<?>[] uncommon = new Class<?>[]{
 				Brimstone.class, Stone.class, Entanglement.class,
-				Repulsion.class, Camouflage.class, Flow.class };
+				Repulsion.class, Camouflage.class, Flow.class, Chaotic.class, Cloning.class};
 		
 		private static final Class<?>[] rare = new Class<?>[]{
-				Affection.class, AntiMagic.class, Thorns.class };
+				Affection.class, AntiMagic.class, Thorns.class, Explosion.class, Deflection.class};
 		
 		private static final float[] typeChances = new float[]{
 				50, //12.5% each
@@ -543,7 +548,7 @@ public class Armor extends EquipableItem {
 
 		private static final Class<?>[] curses = new Class<?>[]{
 				AntiEntropy.class, Corrosion.class, Displacement.class, Metabolism.class,
-				Multiplicity.class, Stench.class, Overgrowth.class, Bulk.class
+				Multiplicity.class, Stench.class, Overgrowth.class, Bulk.class, Featherweight.class,
 		};
 		
 		public abstract int proc( Armor armor, Char attacker, Char defender, int damage );

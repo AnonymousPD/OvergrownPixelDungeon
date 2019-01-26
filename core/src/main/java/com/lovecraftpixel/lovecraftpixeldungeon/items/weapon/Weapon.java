@@ -44,6 +44,8 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Blazin
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Chilling;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Dazzling;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Eldritch;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Explosion;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Flashing;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Grim;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Lucky;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Projecting;
@@ -53,7 +55,9 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Unstab
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Vampiric;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Venomous;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Vorpal;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Whirlwind;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
+import com.lovecraftpixel.lovecraftpixeldungeon.sprites.CharSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundlable;
@@ -98,8 +102,46 @@ abstract public class Weapon extends KindOfWeapon {
 	private int hitsToKnow = HITS_TO_KNOW;
 	
 	public Enchantment enchantment;
-	
-	@Override
+
+    public int torch_level = 0;
+
+    @Override
+    public void doDrop(Hero hero) {
+        if(this.torch_level != 0){
+            this.torch_level = 0;
+            if (Dungeon.level != null) {
+                hero.sprite.remove(CharSprite.State.ILLUMINATED);
+                hero.viewDistance = Dungeon.level.viewDistance;
+            }
+        }
+        super.doDrop(hero);
+    }
+
+    @Override
+    public void doThrow(Hero hero) {
+        if(this.torch_level != 0){
+            this.torch_level = 0;
+            if (Dungeon.level != null) {
+                hero.sprite.remove(CharSprite.State.ILLUMINATED);
+                hero.viewDistance = Dungeon.level.viewDistance;
+            }
+        }
+        super.doThrow(hero);
+    }
+
+    @Override
+    public boolean doUnequip(Hero hero, boolean collect, boolean single) {
+        if(this.torch_level != 0){
+            this.torch_level = 0;
+            if (Dungeon.level != null) {
+                hero.sprite.remove(CharSprite.State.ILLUMINATED);
+                hero.viewDistance = Dungeon.level.viewDistance;
+            }
+        }
+        return super.doUnequip(hero, collect, single);
+    }
+
+    @Override
 	public int proc( Char attacker, Char defender, int damage ) {
 		
 		if (enchantment != null && attacker.buff(MagicImmune.class) == null) {
@@ -120,6 +162,7 @@ abstract public class Weapon extends KindOfWeapon {
 	private static final String UNFAMILIRIARITY	= "unfamiliarity";
 	private static final String ENCHANTMENT		= "enchantment";
 	private static final String AUGMENT			= "augment";
+    private static final String TORCH_LEVEL		= "torchlevel";
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -127,6 +170,7 @@ abstract public class Weapon extends KindOfWeapon {
 		bundle.put( UNFAMILIRIARITY, hitsToKnow );
 		bundle.put( ENCHANTMENT, enchantment );
 		bundle.put( AUGMENT, augment );
+        bundle.put( TORCH_LEVEL, torch_level );
 	}
 	
 	@Override
@@ -134,6 +178,7 @@ abstract public class Weapon extends KindOfWeapon {
 		super.restoreFromBundle( bundle );
 		hitsToKnow = bundle.getInt( UNFAMILIRIARITY );
 		enchantment = (Enchantment)bundle.get( ENCHANTMENT );
+		torch_level = bundle.getInt(TORCH_LEVEL);
 		
 		//pre-0.6.5 saves
 		if (bundle.contains( "imbue" )){
@@ -278,10 +323,10 @@ abstract public class Weapon extends KindOfWeapon {
 		
 		private static final Class<?>[] uncommon = new Class<?>[]{
 				Chilling.class, Eldritch.class, Lucky.class,
-				Projecting.class, Unstable.class, Dazzling.class};
+				Projecting.class, Unstable.class, Dazzling.class, Flashing.class};
 		
 		private static final Class<?>[] rare = new Class<?>[]{
-				Grim.class, Stunning.class, Vampiric.class};
+				Grim.class, Stunning.class, Vampiric.class, Explosion.class, Whirlwind.class};
 		
 		private static final float[] typeChances = new float[]{
 				50, //12.5% each

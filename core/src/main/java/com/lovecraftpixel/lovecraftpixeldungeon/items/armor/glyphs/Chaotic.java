@@ -29,14 +29,12 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.Armor;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.Armor.Glyph;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Unstable;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
-import com.watabou.utils.Random;
 
 public class Chaotic extends Glyph {
-    private static Class<? extends Glyph>[] randomGlyphs = new Class[]{Affection.class, AntiMagic.class, Brimstone.class, Camouflage.class, Entanglement.class, Flow.class, Obfuscation.class, Potential.class, Repulsion.class, Stone.class, Swiftness.class, Thorns.class, Viscosity.class, Cloning.class, Deflection.class, Explosion.class};
 
     public int proc(Armor armor, Char attacker, Char defender, int damage) {
         try {
-            return ((Glyph) ((Class) Random.oneOf(randomGlyphs)).newInstance()).proc(armor, attacker, defender, damage);
+            return Glyph.random().proc(armor, attacker, defender, damage);
         } catch (Exception e) {
             LovecraftPixelDungeon.reportException(e);
         }
@@ -45,7 +43,7 @@ public class Chaotic extends Glyph {
 
     public ItemSprite.Glowing glowing() {
         try {
-            return ((Glyph) ((Class) Random.oneOf(randomGlyphs)).newInstance()).glowing();
+            return Glyph.random().glowing();
         } catch (Throwable e) {
             LovecraftPixelDungeon.reportException(e);
             return new Unstable().glowing();

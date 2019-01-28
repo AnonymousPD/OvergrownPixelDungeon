@@ -83,6 +83,10 @@ public class ItemSpriteSheet {
 	
 	public static final int GUIDE_PAGE      = UNCOLLECTIBLE+6;
 	public static final int ALCH_PAGE       = UNCOLLECTIBLE+7;
+    public static final int GOLD_TINY       = UNCOLLECTIBLE+8;
+    public static final int GOLD_SMALL      = UNCOLLECTIBLE+9;
+    public static final int GOLD_SOME       = UNCOLLECTIBLE+10;
+    public static final int GOLD_MUCH       = UNCOLLECTIBLE+11;
 	static{
 		assignItemRect(GOLD,        15, 13);
 		assignItemRect(DEWDROP,     10, 10);
@@ -92,6 +96,10 @@ public class ItemSpriteSheet {
 		
 		assignItemRect(GUIDE_PAGE,  10, 11);
 		assignItemRect(ALCH_PAGE,   10, 11);
+        assignItemRect(GOLD_TINY,   12, 12);
+        assignItemRect(GOLD_SMALL,  15, 13);
+        assignItemRect(GOLD_SOME,   15, 14);
+        assignItemRect(GOLD_MUCH,   15, 15);
 	}
 
 	private static final int CONTAINERS     =                               xy(1, 3);   //16 slots

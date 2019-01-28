@@ -31,6 +31,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.MasterThievesArmband;
 import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.CharSprite;
+import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
@@ -53,7 +54,20 @@ public class Gold extends Item {
 	
 	public Gold( int value ) {
 		this.quantity = value;
+        if(this.quantity >= 100){
+            setGoldImage(ItemSpriteSheet.GOLD_MUCH);
+        } else if(this.quantity >= 50){
+            setGoldImage(ItemSpriteSheet.GOLD_SOME);
+        } else if(this.quantity >= 25){
+            setGoldImage(ItemSpriteSheet.GOLD_SMALL);
+        } else if(this.quantity >= 1){
+            setGoldImage(ItemSpriteSheet.GOLD_TINY);
+        }
 	}
+
+	private void setGoldImage(int image){
+	    this.image = image;
+    }
 	
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
@@ -93,6 +107,15 @@ public class Gold extends Item {
 	@Override
 	public Item random() {
 		quantity = Random.Int( 30 + Dungeon.depth * 10, 60 + Dungeon.depth * 20 );
+        if(this.quantity >= 100){
+            setGoldImage(ItemSpriteSheet.GOLD_MUCH);
+        } else if(this.quantity >= 50){
+            setGoldImage(ItemSpriteSheet.GOLD_SOME);
+        } else if(this.quantity >= 25){
+            setGoldImage(ItemSpriteSheet.GOLD_SMALL);
+        } else if(this.quantity >= 1){
+            setGoldImage(ItemSpriteSheet.GOLD_TINY);
+        }
 		return this;
 	}
 	
@@ -108,5 +131,14 @@ public class Gold extends Item {
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle(bundle);
 		quantity = bundle.getInt( VALUE );
+        if(this.quantity >= 100){
+            setGoldImage(ItemSpriteSheet.GOLD_MUCH);
+        } else if(this.quantity >= 50){
+            setGoldImage(ItemSpriteSheet.GOLD_SOME);
+        } else if(this.quantity >= 25){
+            setGoldImage(ItemSpriteSheet.GOLD_SMALL);
+        } else if(this.quantity >= 1){
+            setGoldImage(ItemSpriteSheet.GOLD_TINY);
+        }
 	}
 }

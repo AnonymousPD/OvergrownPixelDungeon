@@ -31,7 +31,9 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.CellEmitter;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.LeafParticle;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.RotberryPoisonParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
+import com.watabou.noosa.particles.Emitter;
 
 public class Rotberry extends Plant {
 
@@ -65,6 +67,16 @@ public class Rotberry extends Plant {
 
 			plantClass = Rotberry.class;
 		}
+
+        @Override
+        public void onProc(Char attacker, Char defender, int damage) {
+
+        }
+
+        @Override
+        public Emitter.Factory getPixelParticle() {
+            return RotberryPoisonParticle.FACTORY;
+        }
 		
 		@Override
 		public int price() {

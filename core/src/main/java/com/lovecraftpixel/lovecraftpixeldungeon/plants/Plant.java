@@ -40,6 +40,8 @@ import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.noosa.particles.Emitter;
+import com.watabou.noosa.particles.PixelParticle;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
@@ -111,6 +113,17 @@ public abstract class Plant implements Bundlable {
 			actions.add( AC_PLANT );
 			return actions;
 		}
+
+		public void onProc( Char attacker, Char defender, int damage){
+            //attacker is the weapon wielder
+            //damage is used to scale effects
+            //defender is the poor victim
+
+        }
+
+        public Emitter.Factory getPixelParticle(){
+		    return null;
+        }
 		
 		@Override
 		protected void onThrow( int cell ) {
@@ -189,8 +202,8 @@ public abstract class Plant implements Bundlable {
 		public String info() {
 			return Messages.get( Seed.class, "info", desc() );
 		}
-		
-		public static class PlaceHolder extends Seed {
+
+        public static class PlaceHolder extends Seed {
 			
 			{
 				image = ItemSpriteSheet.SEED_HOLDER;

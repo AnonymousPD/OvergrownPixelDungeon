@@ -31,6 +31,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.CellEmitter;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.FadeleafPoisonParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.TimekeepersHourglass;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
@@ -38,6 +39,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.scenes.InterlevelScene;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
 import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
 import com.watabou.noosa.Game;
+import com.watabou.noosa.particles.Emitter;
 
 public class Fadeleaf extends Plant {
 	
@@ -105,5 +107,15 @@ public class Fadeleaf extends Plant {
 
 			plantClass = Fadeleaf.class;
 		}
+
+        @Override
+        public void onProc(Char attacker, Char defender, int damage) {
+
+        }
+
+        @Override
+        public Emitter.Factory getPixelParticle() {
+            return FadeleafPoisonParticle.FACTORY;
+        }
 	}
 }

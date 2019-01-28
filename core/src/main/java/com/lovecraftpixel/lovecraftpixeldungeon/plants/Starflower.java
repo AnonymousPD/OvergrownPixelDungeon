@@ -30,7 +30,9 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Recharging;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.StarflowerPoisonParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
+import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Random;
 
 public class Starflower extends Plant {
@@ -61,6 +63,16 @@ public class Starflower extends Plant {
 
 			plantClass = Starflower.class;
 		}
+
+        @Override
+        public void onProc(Char attacker, Char defender, int damage) {
+
+        }
+
+        @Override
+        public Emitter.Factory getPixelParticle() {
+            return StarflowerPoisonParticle.FACTORY;
+        }
 		
 		@Override
 		public int price() {

@@ -33,10 +33,12 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.CellEmitter;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.ShaftParticle;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.SungrassPoisonParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
+import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundle;
 
 public class Sungrass extends Plant {
@@ -69,6 +71,16 @@ public class Sungrass extends Plant {
 
 			bones = true;
 		}
+
+        @Override
+        public void onProc(Char attacker, Char defender, int damage) {
+
+        }
+
+        @Override
+        public Emitter.Factory getPixelParticle() {
+            return SungrassPoisonParticle.FACTORY;
+        }
 	}
 	
 	public static class Health extends Buff {

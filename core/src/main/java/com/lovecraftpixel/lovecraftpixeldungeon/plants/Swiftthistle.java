@@ -29,10 +29,12 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.FlavourBuff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Haste;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.SwiftthistlePoisonParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.BuffIndicator;
 import com.watabou.noosa.Image;
+import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundle;
 
 public class Swiftthistle extends Plant {
@@ -57,6 +59,16 @@ public class Swiftthistle extends Plant {
 			
 			plantClass = Swiftthistle.class;
 		}
+
+        @Override
+        public void onProc(Char attacker, Char defender, int damage) {
+
+        }
+
+        @Override
+        public Emitter.Factory getPixelParticle() {
+            return SwiftthistlePoisonParticle.FACTORY;
+        }
 	}
 	
 	public static class TimeBubble extends Buff {

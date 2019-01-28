@@ -27,6 +27,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.Badges;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.LovecraftPixelDungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Healing;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.MagicImmune;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
@@ -57,9 +58,14 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Venomo
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Vorpal;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Whirlwind;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Plant;
+import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.CharSprite;
+import com.lovecraftpixel.lovecraftpixeldungeon.sprites.HeroSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
+import com.lovecraftpixel.lovecraftpixeldungeon.windows.WndBag;
+import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -70,6 +76,10 @@ import java.util.Arrays;
 abstract public class Weapon extends KindOfWeapon {
 
 	private static final int HITS_TO_KNOW    = 20;
+
+    public static final String AC_POSION		= "POISON";
+
+    protected static final float TIME_TO_POISON	= 1f;
 
 	public float    ACC = 1f;	// Accuracy modifier
 	public float	DLY	= 1f;	// Speed modifier
@@ -103,34 +113,87 @@ abstract public class Weapon extends KindOfWeapon {
 	
 	public Enchantment enchantment;
 
+	public Plant.Seed seed;
+
     public int torch_level = 0;
+    public int poison_turns = 0;
+
+    @Override
+    public ArrayList<String> actions(Hero hero ) {
+        ArrayList<String> actions = super.actions( hero );
+        if(seed == null){
+            actions.add( AC_POSION );
+        }
+        return actions;
+    }
+
+    @Override
+    public void execute( Hero hero, String action ) {
+
+        super.execute( hero, action );
+
+        if (action.equals( AC_POSION )) {
+            GameScene.selectItem( itemSelector, mode, inventoryTitle );
+        }
+    }
+
+    @Override
+    public Emitter emitter() {
+        if (this.seed == null) {
+            return null;
+        }
+        Emitter emitter = new Emitter();
+        emitter.pos(12.5f, 3.0f);
+        emitter.fillTarget = false;
+        emitter.pour(seed.getPixelParticle(), 1.0f);
+        return emitter;
+    }
+
+    protected String inventoryTitle = Messages.get(this, "inv_title");
+
+    protected WndBag.Mode mode = WndBag.Mode.SEED;
+
+    protected static WndBag.Listener itemSelector = new WndBag.Listener() {
+        @Override
+        public void onSelect( Item item ) {
+
+            if (item != null) {
+                if(curItem instanceof Weapon && item instanceof Plant.Seed){
+                    ((Weapon) curItem).seed = (Plant.Seed) item;
+                    ((Weapon) curItem).setPoisonTurns();
+                    curUser.belongings.backpack.items.remove(item);
+                    curUser.spend( TIME_TO_POISON );
+                    curUser.busy();
+                    (curUser.sprite).operate(curUser.pos);
+                    GLog.i(Messages.get(Weapon.class, "poisoned", curItem.name(), item.name()));
+                }
+            }
+        }
+    };
 
     @Override
     public void doDrop(Hero hero) {
-        if(this.torch_level != 0){
-            this.torch_level = 0;
-            if (Dungeon.level != null) {
-                hero.sprite.remove(CharSprite.State.ILLUMINATED);
-                hero.viewDistance = Dungeon.level.viewDistance;
-            }
-        }
+        torchLevel(hero);
         super.doDrop(hero);
     }
 
     @Override
     public void doThrow(Hero hero) {
-        if(this.torch_level != 0){
-            this.torch_level = 0;
-            if (Dungeon.level != null) {
-                hero.sprite.remove(CharSprite.State.ILLUMINATED);
-                hero.viewDistance = Dungeon.level.viewDistance;
-            }
-        }
+        torchLevel(hero);
         super.doThrow(hero);
     }
 
     @Override
     public boolean doUnequip(Hero hero, boolean collect, boolean single) {
+        torchLevel(hero);
+        return super.doUnequip(hero, collect, single);
+    }
+
+    private void setPoisonTurns(){
+        this.poison_turns = 5+this.level();
+    }
+
+    private void torchLevel(Hero hero){
         if(this.torch_level != 0){
             this.torch_level = 0;
             if (Dungeon.level != null) {
@@ -138,7 +201,6 @@ abstract public class Weapon extends KindOfWeapon {
                 hero.viewDistance = Dungeon.level.viewDistance;
             }
         }
-        return super.doUnequip(hero, collect, single);
     }
 
     @Override
@@ -147,6 +209,15 @@ abstract public class Weapon extends KindOfWeapon {
 		if (enchantment != null && attacker.buff(MagicImmune.class) == null) {
 			damage = enchantment.proc( this, attacker, defender, damage );
 		}
+
+		if(this.seed != null && this.poison_turns > 0){
+		    this.seed.onProc(attacker, defender, damage);
+		    this.poison_turns--;
+		    if(this.poison_turns <= 0){
+		        this.seed = null;
+		        GLog.i(Messages.get(this, "wears_off", this.name()));
+            }
+        }
 		
 		if (!levelKnown && attacker == Dungeon.hero) {
 			if (--hitsToKnow <= 0) {
@@ -162,7 +233,9 @@ abstract public class Weapon extends KindOfWeapon {
 	private static final String UNFAMILIRIARITY	= "unfamiliarity";
 	private static final String ENCHANTMENT		= "enchantment";
 	private static final String AUGMENT			= "augment";
+    private static final String SEED		    = "seed";
     private static final String TORCH_LEVEL		= "torchlevel";
+    private static final String POISON_TURNS	= "poisonturns";
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -170,7 +243,9 @@ abstract public class Weapon extends KindOfWeapon {
 		bundle.put( UNFAMILIRIARITY, hitsToKnow );
 		bundle.put( ENCHANTMENT, enchantment );
 		bundle.put( AUGMENT, augment );
+        bundle.put( SEED, seed );
         bundle.put( TORCH_LEVEL, torch_level );
+        bundle.put( POISON_TURNS, poison_turns );
 	}
 	
 	@Override
@@ -178,17 +253,9 @@ abstract public class Weapon extends KindOfWeapon {
 		super.restoreFromBundle( bundle );
 		hitsToKnow = bundle.getInt( UNFAMILIRIARITY );
 		enchantment = (Enchantment)bundle.get( ENCHANTMENT );
-		torch_level = bundle.getInt(TORCH_LEVEL);
-		
-		//pre-0.6.5 saves
-		if (bundle.contains( "imbue" )){
-			String imbue = bundle.getString( "imbue" );
-			if (imbue.equals( "LIGHT" ))        augment = Augment.SPEED;
-			else if (imbue.equals( "HEAVY" ))   augment = Augment.DAMAGE;
-			else                                augment = Augment.NONE;
-		} else {
-			augment = bundle.getEnum(AUGMENT, Augment.class);
-		}
+        seed = (Plant.Seed) bundle.get( SEED );
+        torch_level = bundle.getInt(TORCH_LEVEL);
+        poison_turns = bundle.getInt(POISON_TURNS);
 	}
 	
 	@Override
@@ -256,8 +323,18 @@ abstract public class Weapon extends KindOfWeapon {
 	public String name() {
 		return enchantment != null && (cursedKnown || !enchantment.curse()) ? enchantment.name( super.name() ) : super.name();
 	}
-	
-	@Override
+
+    @Override
+    public String desc() {
+	    if(this.seed != null){
+	        //TODO: Custom text for each seed
+            return super.desc()+"\n\n"+Messages.get(this, "poison_desc", this.seed, this.poison_turns)+"\n"+Messages.get(this.seed, "weapon_desc");
+        } else {
+	        return super.desc();
+        }
+    }
+
+    @Override
 	public Item random() {
 		//+0: 75% (3/4)
 		//+1: 20% (4/20)

@@ -32,7 +32,9 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.CellEmitter;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.PoisonParticle;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.SorrowmossPoisonParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
+import com.watabou.noosa.particles.Emitter;
 
 public class Sorrowmoss extends Plant {
 
@@ -61,5 +63,15 @@ public class Sorrowmoss extends Plant {
 
 			plantClass = Sorrowmoss.class;
 		}
+
+        @Override
+        public void onProc(Char attacker, Char defender, int damage) {
+
+        }
+
+        @Override
+        public Emitter.Factory getPixelParticle() {
+            return SorrowmossPoisonParticle.FACTORY;
+        }
 	}
 }

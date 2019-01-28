@@ -29,7 +29,9 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Levitation;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Vertigo;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.StormvinePoisonParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
+import com.watabou.noosa.particles.Emitter;
 
 public class Stormvine extends Plant {
 
@@ -55,5 +57,15 @@ public class Stormvine extends Plant {
 
 			plantClass = Stormvine.class;
 		}
+
+        @Override
+        public void onProc(Char attacker, Char defender, int damage) {
+
+        }
+
+        @Override
+        public Emitter.Factory getPixelParticle() {
+            return StormvinePoisonParticle.FACTORY;
+        }
 	}
 }

@@ -25,8 +25,10 @@ package com.lovecraftpixel.lovecraftpixeldungeon.plants;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.BlandfruitPoisonParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.food.Blandfruit;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
+import com.watabou.noosa.particles.Emitter;
 
 public class BlandfruitBush extends Plant {
 
@@ -46,6 +48,16 @@ public class BlandfruitBush extends Plant {
 
 			plantClass = BlandfruitBush.class;
 		}
+
+        @Override
+        public void onProc(Char attacker, Char defender, int damage) {
+
+        }
+
+        @Override
+        public Emitter.Factory getPixelParticle() {
+            return BlandfruitPoisonParticle.FACTORY;
+        }
 
 	}
 }

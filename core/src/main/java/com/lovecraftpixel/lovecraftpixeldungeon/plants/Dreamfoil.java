@@ -37,9 +37,11 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Weakness;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.DreamfoilPoisonParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
 import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
+import com.watabou.noosa.particles.Emitter;
 
 public class Dreamfoil extends Plant {
 
@@ -77,5 +79,15 @@ public class Dreamfoil extends Plant {
 
 			plantClass = Dreamfoil.class;
 		}
+
+        @Override
+        public void onProc(Char attacker, Char defender, int damage) {
+
+        }
+
+        @Override
+        public Emitter.Factory getPixelParticle() {
+            return DreamfoilPoisonParticle.FACTORY;
+        }
 	}
 }

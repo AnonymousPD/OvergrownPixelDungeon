@@ -31,8 +31,11 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.FrostImbue;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.BloodParticle;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.IceCapPoisonParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
 import com.lovecraftpixel.lovecraftpixeldungeon.utils.BArray;
+import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.PathFinder;
 
 public class Icecap extends Plant {
@@ -65,5 +68,15 @@ public class Icecap extends Plant {
 
 			plantClass = Icecap.class;
 		}
-	}
+
+        @Override
+        public void onProc( Char attacker, Char defender, int damage) {
+
+        }
+
+        @Override
+        public Emitter.Factory getPixelParticle() {
+            return IceCapPoisonParticle.FACTORY;
+        }
+    }
 }

@@ -33,8 +33,10 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.CellEmitter;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.FlameParticle;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.FirebloomPoisonParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
+import com.watabou.noosa.particles.Emitter;
 
 public class Firebloom extends Plant {
 	
@@ -62,5 +64,15 @@ public class Firebloom extends Plant {
 
 			plantClass = Firebloom.class;
 		}
-	}
+
+        @Override
+        public void onProc(Char attacker, Char defender, int damage) {
+
+        }
+
+        @Override
+        public Emitter.Factory getPixelParticle() {
+            return FirebloomPoisonParticle.FACTORY;
+        }
+    }
 }

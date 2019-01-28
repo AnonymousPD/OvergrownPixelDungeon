@@ -34,7 +34,9 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.CellEmitter;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.BlindweedPoisonParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
+import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Random;
 
 public class Blindweed extends Plant {
@@ -71,5 +73,15 @@ public class Blindweed extends Plant {
 
 			plantClass = Blindweed.class;
 		}
+
+        @Override
+        public void onProc(Char attacker, Char defender, int damage) {
+
+        }
+
+        @Override
+        public Emitter.Factory getPixelParticle() {
+            return BlindweedPoisonParticle.FACTORY;
+        }
 	}
 }

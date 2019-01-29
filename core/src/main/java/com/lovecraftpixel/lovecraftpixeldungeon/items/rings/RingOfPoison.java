@@ -32,7 +32,7 @@ public class RingOfPoison extends Ring {
 	
 	public String statsInfo() {
 		if (isIdentified()){
-			return Messages.get(this, "stats", new DecimalFormat("#.##").format(100f * (Math.pow(1.5f, soloBonus()) - 1f)));
+			return Messages.get(this, "stats", new DecimalFormat("#.##").format(100f * (Math.pow(1.25f, soloBonus()) - 1f)));
 		} else {
 			return Messages.get(this, "typical_stats", new DecimalFormat("#.##").format(30f));
 		}
@@ -44,7 +44,7 @@ public class RingOfPoison extends Ring {
 	}
 	
 	public static float poisonMultiplier( Char target ){
-		return (float)Math.pow(1.5f, getBonus(target, Poison.class));
+		return (float)Math.pow(1.25f, getBonus(target, Poison.class));
 	}
 	
 	public class Poison extends RingBuff {

@@ -23,7 +23,7 @@
   -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.shatteredpixel.shatteredpixeldungeon"
+	package="com.lovecraftpixel.lovecraftpixeldungeon"
 	android:versionCode="323"
 	android:versionName="0.0.1"
 	android:installLocation="auto">

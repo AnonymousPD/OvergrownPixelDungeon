@@ -33,6 +33,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.KindOfWeapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.RingOfFuror;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.RingOfPoison;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.curses.Annoying;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.curses.Displacing;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.curses.Elastic;
@@ -160,7 +161,7 @@ abstract public class Weapon extends KindOfWeapon {
             if (item != null) {
                 if(curItem instanceof Weapon && item instanceof Plant.Seed){
                     ((Weapon) curItem).seed = (Plant.Seed) item;
-                    ((Weapon) curItem).setPoisonTurns();
+                    ((Weapon) curItem).setPoisonTurns(curUser);
                     curUser.belongings.backpack.items.remove(item);
                     curUser.spend( TIME_TO_POISON );
                     curUser.busy();
@@ -189,8 +190,8 @@ abstract public class Weapon extends KindOfWeapon {
         return super.doUnequip(hero, collect, single);
     }
 
-    private void setPoisonTurns(){
-        this.poison_turns = 5+this.level();
+    private void setPoisonTurns(Char ch){
+        this.poison_turns = (int) (5+this.level()*RingOfPoison.poisonMultiplier(ch));
     }
 
     private void torchLevel(Hero hero){

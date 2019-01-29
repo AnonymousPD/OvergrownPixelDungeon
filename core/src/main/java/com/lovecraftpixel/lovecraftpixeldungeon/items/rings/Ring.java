@@ -49,17 +49,18 @@ public class Ring extends KindofMisc {
 	protected Buff buff;
 	
 	private static final Class<?>[] rings = {
-		RingOfAccuracy.class,
-		RingOfEvasion.class,
-		RingOfElements.class,
-		RingOfForce.class,
-		RingOfFuror.class,
-		RingOfHaste.class,
-		RingOfEnergy.class,
-		RingOfMight.class,
-		RingOfSharpshooting.class,
-		RingOfTenacity.class,
-		RingOfWealth.class,
+	        RingOfAccuracy.class,
+            RingOfEvasion.class,
+		    RingOfElements.class,
+		    RingOfForce.class,
+		    RingOfFuror.class,
+		    RingOfHaste.class,
+		    RingOfEnergy.class,
+		    RingOfMight.class,
+		    RingOfSharpshooting.class,
+		    RingOfTenacity.class,
+		    RingOfWealth.class,
+            RingOfPoison.class,
 	};
 
 	private static final HashMap<String, Integer> gems = new HashMap<String, Integer>() {
@@ -76,6 +77,8 @@ public class Ring extends KindofMisc {
 			put("quartz",ItemSpriteSheet.RING_QUARTZ);
 			put("agate",ItemSpriteSheet.RING_AGATE);
 			put("diamond",ItemSpriteSheet.RING_DIAMOND);
+            //put("spinel",ItemSpriteSheet.RING_SPINEL);
+            put("andalusite",ItemSpriteSheet.RING_ANDALUSITE);
 		}
 	};
 	

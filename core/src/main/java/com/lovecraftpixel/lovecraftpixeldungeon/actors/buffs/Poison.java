@@ -29,6 +29,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.CellEmitter;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.PoisonParticle;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.RingOfPoison;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.BuffIndicator;
 import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
@@ -106,11 +107,19 @@ public class Poison extends Buff implements Hero.Doom {
 		if (target.isAlive()) {
 			
 			target.damage( (int)(left / 3) + 1, this );
-			spend( TICK );
-			
-			if ((left -= TICK) <= 0) {
-				detach();
-			}
+			if(((Hero) target).belongings.misc1 instanceof RingOfPoison || ((Hero) target).belongings.misc2 instanceof RingOfPoison){
+			    spend( TICK );
+
+			    if ((left -= TICK*2) <= 0) {
+			        detach();
+			    }
+			} else {
+                spend( TICK );
+
+                if ((left -= TICK) <= 0) {
+                    detach();
+                }
+            }
 			
 		} else {
 			

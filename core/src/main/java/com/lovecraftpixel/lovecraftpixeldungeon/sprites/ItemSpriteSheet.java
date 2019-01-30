@@ -192,9 +192,7 @@ public class ItemSpriteSheet {
 
 	private static final int WEP_TIER1      =                               xy(1, 7);   //8 slots
 	public static final int WORN_SHORTSWORD = WEP_TIER1+0;
-	public static final int CUDGEL          = WEP_TIER1+1;
 	public static final int GLOVES          = WEP_TIER1+2;
-	public static final int RAPIER          = WEP_TIER1+3;
 	public static final int DAGGER          = WEP_TIER1+4;
 	public static final int MAGES_STAFF     = WEP_TIER1+5;
 	static{
@@ -265,6 +263,22 @@ public class ItemSpriteSheet {
 		assignItemRect(GREATSHIELD, 12, 16);
 		assignItemRect(GAUNTLETS,   13, 15);
 	}
+
+    private static final int WEP_TIERSP     =                               xy(1, 9);   //8 slots
+    public static final int KATANA          = WEP_TIERSP+0;
+    public static final int KNIFE_GLOVE     = WEP_TIERSP+1;
+    public static final int RAPIER          = WEP_TIERSP+2;
+    public static final int SCYTHE          = WEP_TIERSP+3;
+    public static final int CLUB            = WEP_TIERSP+4;
+    public static final int KNIFE_ON_A_STICK= WEP_TIERSP+5;
+    static{
+        assignItemRect(KATANA,          15, 16);
+        assignItemRect(KNIFE_GLOVE,     14, 14);
+        assignItemRect(RAPIER,          13, 14);
+        assignItemRect(SCYTHE,          13, 15);
+        assignItemRect(CLUB,            16, 16);
+        assignItemRect(KNIFE_ON_A_STICK,15, 16);
+    }
 
 	                                                                                    //8 free slots
 

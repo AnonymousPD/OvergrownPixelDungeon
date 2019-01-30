@@ -264,7 +264,7 @@ public class ItemSpriteSheet {
 		assignItemRect(GAUNTLETS,   13, 15);
 	}
 
-    private static final int WEP_TIERSP     =                               xy(1, 9);   //8 slots
+    private static final int WEP_TIERSP     =                               xy(9, 9);   //8 slots
     public static final int KATANA          = WEP_TIERSP+0;
     public static final int KNIFE_GLOVE     = WEP_TIERSP+1;
     public static final int RAPIER          = WEP_TIERSP+2;

@@ -23,21 +23,31 @@
 
 package com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee;
 
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Cripple;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
+import com.watabou.utils.Random;
 
-public class Whip extends MeleeWeapon {
+public class Club extends MeleeWeapon {
 
 	{
-		image = ItemSpriteSheet.WHIP;
+		image = ItemSpriteSheet.CLUB;
 
 		tier = 3;
-		RCH = 4;    //lots of extra reach
 	}
 
 	@Override
 	public int max(int lvl) {
-		return  3*(tier+1) +    //12 base, down from 20
-				lvl*(tier);     //+3 per level, down from +4
+		return  4*(tier+1) +    //16 base, down from 20
+				lvl*(tier+1);   //scaling unchanged
 	}
 
+    @Override
+    public int proc(Char attacker, Char defender, int damage) {
+        if (Random.Int( 1 ) == 0) {
+            Buff.prolong( defender, Cripple.class, Cripple.DURATION );
+        }
+        return super.proc(attacker, defender, damage);
+    }
 }

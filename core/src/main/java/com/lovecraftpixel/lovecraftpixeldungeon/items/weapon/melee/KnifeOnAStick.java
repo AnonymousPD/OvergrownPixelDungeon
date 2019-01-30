@@ -25,19 +25,20 @@ package com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
 
-public class Whip extends MeleeWeapon {
+public class KnifeOnAStick extends MeleeWeapon {
 
 	{
-		image = ItemSpriteSheet.WHIP;
+		image = ItemSpriteSheet.KNIFE_ON_A_STICK;
 
-		tier = 3;
-		RCH = 4;    //lots of extra reach
+		tier = 2;
+		DLY = 0.9f; //1.12x speed
+		RCH = 3;    //extra reach
 	}
 
 	@Override
 	public int max(int lvl) {
-		return  3*(tier+1) +    //12 base, down from 20
-				lvl*(tier);     //+3 per level, down from +4
+		return  Math.round(6.4f*(tier+1)) +    //19 base, up from 15
+				lvl*(tier+1);                  //+3 per level, up from +3
 	}
 
 }

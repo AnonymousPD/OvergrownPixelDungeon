@@ -23,21 +23,30 @@
 
 package com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee;
 
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Bleeding;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
 
-public class Whip extends MeleeWeapon {
+public class KnifeGlove extends MeleeWeapon {
 
 	{
-		image = ItemSpriteSheet.WHIP;
+		image = ItemSpriteSheet.KNIFE_GLOVE;
 
-		tier = 3;
-		RCH = 4;    //lots of extra reach
+		tier = 1;
+		
+		bones = false;
 	}
 
 	@Override
 	public int max(int lvl) {
-		return  3*(tier+1) +    //12 base, down from 20
-				lvl*(tier);     //+3 per level, down from +4
+		return  (int)(3f*(tier+1)) +    //6 base, down from 10
+				lvl*tier;               //+1 per level, down from +2
 	}
 
+    @Override
+    public int proc(Char attacker, Char defender, int damage) {
+        Buff.affect( defender, Bleeding.class ).set( Math.round(damage/4) );
+        return super.proc(attacker, defender, Math.round(damage/1.2f));
+    }
 }

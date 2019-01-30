@@ -114,6 +114,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.wands.WandOfRegrowth;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.wands.WandOfTransfusion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.AssassinsBlade;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.BattleAxe;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Club;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Crossbow;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Dagger;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Dirk;
@@ -125,15 +126,20 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Greataxe;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Greatshield;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Greatsword;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.HandAxe;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Katana;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.KnifeGlove;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.KnifeOnAStick;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Longsword;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Mace;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.MagesStaff;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Quarterstaff;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Rapier;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.RoundShield;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.RunicBlade;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Sai;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Scimitar;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Scythe;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Shortsword;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Spear;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Sword;
@@ -320,18 +326,20 @@ public class Generator {
 					WornShortsword.class,
 					Gloves.class,
 					Dagger.class,
-					MagesStaff.class
+					MagesStaff.class,
+                    KnifeGlove.class
 			};
-			WEP_T1.probs = new float[]{ 1, 1, 1, 0 };
+			WEP_T1.probs = new float[]{ 1, 1, 1, 0, 1 };
 			
 			WEP_T2.classes = new Class<?>[]{
 					Shortsword.class,
 					HandAxe.class,
 					Spear.class,
 					Quarterstaff.class,
-					Dirk.class
+					Dirk.class,
+                    KnifeOnAStick.class
 			};
-			WEP_T2.probs = new float[]{ 6, 5, 5, 4, 4 };
+			WEP_T2.probs = new float[]{ 6, 5, 5, 4, 4, 3 };
 			
 			WEP_T3.classes = new Class<?>[]{
 					Sword.class,
@@ -339,9 +347,12 @@ public class Generator {
 					Scimitar.class,
 					RoundShield.class,
 					Sai.class,
-					Whip.class
+					Whip.class,
+                    Club.class,
+                    Rapier.class,
+                    Scythe.class
 			};
-			WEP_T3.probs = new float[]{ 6, 5, 5, 4, 4, 4 };
+			WEP_T3.probs = new float[]{ 6, 5, 5, 4, 4, 4, 3, 3, 3 };
 			
 			WEP_T4.classes = new Class<?>[]{
 					Longsword.class,
@@ -349,9 +360,10 @@ public class Generator {
 					Flail.class,
 					RunicBlade.class,
 					AssassinsBlade.class,
-					Crossbow.class
+					Crossbow.class,
+                    Katana.class
 			};
-			WEP_T4.probs = new float[]{ 6, 5, 5, 4, 4, 4 };
+			WEP_T4.probs = new float[]{ 6, 5, 5, 4, 4, 4, 3 };
 			
 			WEP_T5.classes = new Class<?>[]{
 					Greatsword.class,

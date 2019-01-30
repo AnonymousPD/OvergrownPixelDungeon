@@ -25,19 +25,18 @@ package com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
 
-public class Whip extends MeleeWeapon {
+public class Rapier extends MeleeWeapon {
 
 	{
-		image = ItemSpriteSheet.WHIP;
+		image = ItemSpriteSheet.RAPIER;
 
 		tier = 3;
-		RCH = 4;    //lots of extra reach
+		DLY = 0.25f; //4x speed
 	}
 
 	@Override
 	public int max(int lvl) {
-		return  3*(tier+1) +    //12 base, down from 20
-				lvl*(tier);     //+3 per level, down from +4
+		return  2*(tier+1) +                    //8 base, down from 20
+				lvl*Math.round(0.75f*(tier+1)); //+3 per level, down from +4
 	}
-
 }

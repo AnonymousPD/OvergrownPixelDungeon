@@ -334,7 +334,7 @@ abstract public class Weapon extends KindOfWeapon {
     public String desc() {
 	    if(this.seed != null){
 	        //TODO: Custom text for each seed
-            return super.desc()+"\n\n"+Messages.get(this, "poison_desc", this.seed, this.poison_turns)+"\n"+Messages.get(this.seed, "weapon_desc");
+            return super.desc()+"\n\n"+Messages.get(this, "poison_desc", this.seed, this.poison_turns);
         } else {
 	        return super.desc();
         }

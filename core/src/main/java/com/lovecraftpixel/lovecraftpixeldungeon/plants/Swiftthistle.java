@@ -28,6 +28,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.FlavourBuff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Haste;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Slow;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.SwiftthistlePoisonParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
@@ -62,7 +63,7 @@ public class Swiftthistle extends Plant {
 
         @Override
         public void onProc(Char attacker, Char defender, int damage) {
-
+            Buff.prolong( defender, Slow.class, Slow.DURATION);
         }
 
         @Override

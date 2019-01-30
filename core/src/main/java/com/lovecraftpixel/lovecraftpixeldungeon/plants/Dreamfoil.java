@@ -82,7 +82,7 @@ public class Dreamfoil extends Plant {
 
         @Override
         public void onProc(Char attacker, Char defender, int damage) {
-
+            new Dreamfoil().activate(defender);
         }
 
         @Override

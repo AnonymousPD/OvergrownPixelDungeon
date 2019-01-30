@@ -28,6 +28,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Barkskin;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.FlavourBuff;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Roots;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.CellEmitter;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.EarthParticle;
@@ -74,7 +75,7 @@ public class Earthroot extends Plant {
 
         @Override
         public void onProc(Char attacker, Char defender, int damage) {
-
+            Buff.prolong( defender, Roots.class, damage );
         }
 
         @Override

@@ -76,7 +76,7 @@ public class Blindweed extends Plant {
 
         @Override
         public void onProc(Char attacker, Char defender, int damage) {
-
+            new Blindweed().activate(defender);
         }
 
         @Override

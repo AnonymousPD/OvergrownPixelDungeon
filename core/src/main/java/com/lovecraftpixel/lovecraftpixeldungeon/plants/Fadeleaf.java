@@ -110,7 +110,7 @@ public class Fadeleaf extends Plant {
 
         @Override
         public void onProc(Char attacker, Char defender, int damage) {
-
+            new Fadeleaf().activate(defender);
         }
 
         @Override

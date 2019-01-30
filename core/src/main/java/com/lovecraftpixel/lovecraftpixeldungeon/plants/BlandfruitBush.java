@@ -51,7 +51,7 @@ public class BlandfruitBush extends Plant {
 
         @Override
         public void onProc(Char attacker, Char defender, int damage) {
-
+            defender.damage(damage*2, attacker);
         }
 
         @Override

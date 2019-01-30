@@ -74,7 +74,7 @@ public class Sungrass extends Plant {
 
         @Override
         public void onProc(Char attacker, Char defender, int damage) {
-
+            Buff.affect(defender, Healing.class).setHeal(damage*2, 0.25f, 0);
         }
 
         @Override

@@ -57,6 +57,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Vampir
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Venomous;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Vorpal;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Whirlwind;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Plant;
 import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
@@ -120,7 +121,7 @@ abstract public class Weapon extends KindOfWeapon {
     @Override
     public ArrayList<String> actions(Hero hero ) {
         ArrayList<String> actions = super.actions( hero );
-        if(seed == null && isIdentified()){
+        if(seed == null && isIdentified() && !(this instanceof MissileWeapon) && !(this instanceof SpiritBow)){
             actions.add( AC_POSION );
         }
         return actions;
@@ -158,13 +159,17 @@ abstract public class Weapon extends KindOfWeapon {
 
             if (item != null) {
                 if(curItem instanceof Weapon && item instanceof Plant.Seed){
-                    ((Weapon) curItem).seed = (Plant.Seed) item;
-                    ((Weapon) curItem).setPoisonTurns(5, true);
-                    curUser.belongings.backpack.items.remove(item);
-                    curUser.spend( TIME_TO_POISON );
-                    curUser.busy();
-                    (curUser.sprite).operate(curUser.pos);
-                    GLog.i(Messages.get(Weapon.class, "poisoned", curItem.name(), item.name()));
+                    try {
+                        ((Weapon) curItem).seed = (Plant.Seed) item.getClass().newInstance().quantity(1);
+                        ((Weapon) curItem).setPoisonTurns(5, true);
+                        item.detach(curUser.belongings.backpack);
+                        curUser.spend( TIME_TO_POISON );
+                        curUser.busy();
+                        (curUser.sprite).operate(curUser.pos);
+                        GLog.i(Messages.get(Weapon.class, "poisoned", curItem.name(), item.name()));
+                    } catch (Exception e) {
+                       LovecraftPixelDungeon.reportException(e);
+                    }
                 }
             }
         }

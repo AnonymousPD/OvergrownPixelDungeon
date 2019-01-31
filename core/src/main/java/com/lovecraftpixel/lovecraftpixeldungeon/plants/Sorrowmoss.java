@@ -65,21 +65,6 @@ public class Sorrowmoss extends Plant {
 		}
 
         @Override
-        public void onProc(Char attacker, Char defender, int damage) {
-            if (defender instanceof Hero && ((Hero) defender).subClass == HeroSubClass.WARDEN){
-                Buff.affect(defender, ToxicImbue.class).set(15f);
-            }
-
-            if (defender != null) {
-                Buff.affect( defender, Poison.class ).set( 4 + Dungeon.depth / 2 );
-            }
-
-            if (Dungeon.level.heroFOV[defender.pos]) {
-                CellEmitter.center( defender.pos ).burst( PoisonParticle.SPLASH, 3 );
-            }
-        }
-
-        @Override
         public Emitter.Factory getPixelParticle() {
             return SorrowmossPoisonParticle.FACTORY;
         }

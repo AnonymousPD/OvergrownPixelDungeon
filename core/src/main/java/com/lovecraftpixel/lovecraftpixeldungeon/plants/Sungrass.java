@@ -23,20 +23,29 @@
 
 package com.lovecraftpixel.lovecraftpixeldungeon.plants;
 
+import com.lovecraftpixel.lovecraftpixeldungeon.Badges;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
+import com.lovecraftpixel.lovecraftpixeldungeon.Statistics;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Corruption;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Doom;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.FlavourBuff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Healing;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.PinCushion;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.SoulMark;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.CellEmitter;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.ShaftParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.SungrassPoisonParticle;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.wands.WandOfCorruption;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.BuffIndicator;
+import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
 import com.watabou.noosa.Image;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundle;
@@ -61,6 +70,40 @@ public class Sungrass extends Plant {
 		if (Dungeon.level.heroFOV[pos]) {
 			CellEmitter.get( pos ).start( ShaftParticle.FACTORY, 0.2f, 3 );
 		}
+
+		if(ch instanceof Mob){
+            if(ch.properties().contains(Char.Property.UNDEAD)){
+                ch.damage(ch.HP, this);
+            }
+		    if(ch.properties().contains(Char.Property.DEMONIC)){
+                if(ch.buff(Corruption.class) != null || ch.buff(Doom.class) != null){
+                    GLog.w( Messages.get(WandOfCorruption.class, "already_corrupted") );
+                    return;
+                }
+                if (!ch.isImmune(Corruption.class)){
+                    ch.HP = ch.HT;
+                    for (Buff buff : ch.buffs()) {
+                        if (buff.type == Buff.buffType.NEGATIVE
+                                && !(buff instanceof SoulMark)) {
+                            buff.detach();
+                        } else if (buff instanceof PinCushion){
+                            buff.detach();
+                        }
+                    }
+                    Buff.affect(ch, Corruption.class);
+
+                    Statistics.enemiesSlain++;
+                    Badges.validateMonstersSlain();
+                    Statistics.qualifiedForNoKilling = false;
+                } else {
+                    Buff.affect(ch, Doom.class);
+                }
+            }
+            if(ch.properties().contains(Char.Property.FIERY) && ch.HT != ch.HP){
+                ch.HP = ch.HT;
+                ch.sprite.emitter().burst( Speck.factory( Speck.HEALING ), ch.HT-ch.HP );
+            }
+        }
 	}
 	
 	public static class Seed extends Plant.Seed {
@@ -71,11 +114,6 @@ public class Sungrass extends Plant {
 
 			bones = true;
 		}
-
-        @Override
-        public void onProc(Char attacker, Char defender, int damage) {
-            Buff.affect(defender, Healing.class).setHeal(damage*2, 0.25f, 0);
-        }
 
         @Override
         public Emitter.Factory getPixelParticle() {

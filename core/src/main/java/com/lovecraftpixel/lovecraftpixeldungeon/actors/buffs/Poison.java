@@ -107,18 +107,14 @@ public class Poison extends Buff implements Hero.Doom {
 		if (target.isAlive()) {
 			
 			target.damage( (int)(left / 3) + 1, this );
-			if(((Hero) target).belongings.misc1 instanceof RingOfPoison || ((Hero) target).belongings.misc2 instanceof RingOfPoison){
-			    spend( TICK );
-
-			    if ((left -= TICK*2) <= 0) {
-			        detach();
-			    }
-			} else {
-                spend( TICK );
-
-                if ((left -= TICK) <= 0) {
-                    detach();
+			if(target instanceof Hero){
+                if(((Hero) target).belongings.misc1 instanceof RingOfPoison || ((Hero) target).belongings.misc2 instanceof RingOfPoison){
+                    spendTicksPoison(true);
+                } else {
+                    spendTicksPoison(false);
                 }
+            } else {
+                spendTicksPoison(false);
             }
 			
 		} else {
@@ -129,6 +125,19 @@ public class Poison extends Buff implements Hero.Doom {
 		
 		return true;
 	}
+
+	private void spendTicksPoison(boolean doubleTickSpeed){
+        spend( TICK );
+
+        int multiplier = 1;
+        if(doubleTickSpeed){
+            multiplier = 2;
+        }
+
+        if ((left -= TICK*multiplier) <= 0) {
+            detach();
+        }
+    }
 
 	@Override
 	public void onDeath() {

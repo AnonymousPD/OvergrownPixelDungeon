@@ -26,10 +26,11 @@ package com.lovecraftpixel.lovecraftpixeldungeon.plants;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.AdrenalineSurge;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Bless;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Corruption;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.CellEmitter;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.LeafParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.RotberryPoisonParticle;
@@ -47,6 +48,9 @@ public class Rotberry extends Plant {
 		if (ch instanceof Hero && ((Hero) ch).subClass == HeroSubClass.WARDEN){
 			Buff.affect(ch, AdrenalineSurge.class).reset(1, 200f);
 		}
+		if(ch instanceof Mob){
+            Buff.prolong(ch, Bless.class, Bless.DURATION);
+        }
 		
 		Dungeon.level.drop( new Seed(), pos ).sprite.drop();
 	}
@@ -68,11 +72,6 @@ public class Rotberry extends Plant {
 
 			plantClass = Rotberry.class;
 		}
-
-        @Override
-        public void onProc(Char attacker, Char defender, int damage) {
-            Buff.affect(defender, Corruption.class);
-        }
 
         @Override
         public Emitter.Factory getPixelParticle() {

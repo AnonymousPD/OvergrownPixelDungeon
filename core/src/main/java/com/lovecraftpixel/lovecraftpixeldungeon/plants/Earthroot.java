@@ -30,6 +30,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.FlavourBuff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Roots;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.CellEmitter;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.EarthParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.EarthrootPoisonParticle;
@@ -57,6 +58,10 @@ public class Earthroot extends Plant {
 				Buff.affect(ch, Armor.class).level(ch.HT);
 			}
 		}
+
+		if(ch instanceof Mob){
+            Buff.prolong( ch, Roots.class, 3 );
+        }
 		
 		if (Dungeon.level.heroFOV[pos]) {
 			CellEmitter.bottom( pos ).start( EarthParticle.FACTORY, 0.05f, 8 );
@@ -72,11 +77,6 @@ public class Earthroot extends Plant {
 
 			bones = true;
 		}
-
-        @Override
-        public void onProc(Char attacker, Char defender, int damage) {
-            Buff.prolong( defender, Roots.class, damage );
-        }
 
         @Override
         public Emitter.Factory getPixelParticle() {

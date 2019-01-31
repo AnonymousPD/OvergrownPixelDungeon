@@ -59,15 +59,6 @@ public class Stormvine extends Plant {
 		}
 
         @Override
-        public void onProc(Char attacker, Char defender, int damage) {
-            if (defender instanceof Hero && ((Hero) defender).subClass == HeroSubClass.WARDEN){
-                Buff.affect(defender, Levitation.class, 10f);
-            } else {
-                Buff.affect(defender, Vertigo.class, Vertigo.DURATION);
-            }
-        }
-
-        @Override
         public Emitter.Factory getPixelParticle() {
             return StormvinePoisonParticle.FACTORY;
         }

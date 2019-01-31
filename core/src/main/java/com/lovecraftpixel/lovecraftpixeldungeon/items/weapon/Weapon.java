@@ -27,7 +27,6 @@ import com.lovecraftpixel.lovecraftpixeldungeon.Badges;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.LovecraftPixelDungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Healing;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.MagicImmune;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
@@ -62,7 +61,6 @@ import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Plant;
 import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.CharSprite;
-import com.lovecraftpixel.lovecraftpixeldungeon.sprites.HeroSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
 import com.lovecraftpixel.lovecraftpixeldungeon.windows.WndBag;
@@ -122,7 +120,7 @@ abstract public class Weapon extends KindOfWeapon {
     @Override
     public ArrayList<String> actions(Hero hero ) {
         ArrayList<String> actions = super.actions( hero );
-        if(seed == null){
+        if(seed == null && isIdentified()){
             actions.add( AC_POSION );
         }
         return actions;

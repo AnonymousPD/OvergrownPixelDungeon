@@ -41,7 +41,6 @@ import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.noosa.particles.Emitter;
-import com.watabou.noosa.particles.PixelParticle;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
@@ -118,6 +117,13 @@ public abstract class Plant implements Bundlable {
             //attacker is the weapon wielder
             //damage is used to scale effects
             //defender is the poor victim
+            try {
+                Plant plant = plantClass.newInstance();
+                plant.pos = defender.pos;
+                plant.activate(defender);
+            } catch (Exception e) {
+                LovecraftPixelDungeon.reportException(e);
+            }
 
         }
 

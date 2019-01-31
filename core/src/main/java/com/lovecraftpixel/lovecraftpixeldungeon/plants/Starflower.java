@@ -65,12 +65,6 @@ public class Starflower extends Plant {
 		}
 
         @Override
-        public void onProc(Char attacker, Char defender, int damage) {
-            Buff.prolong(defender, Bless.class, Bless.DURATION);
-            defender.damage(attacker.HP, attacker);
-        }
-
-        @Override
         public Emitter.Factory getPixelParticle() {
             return StarflowerPoisonParticle.FACTORY;
         }

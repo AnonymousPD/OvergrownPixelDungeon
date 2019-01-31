@@ -28,11 +28,9 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Fire;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Freezing;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Frost;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.FrostImbue;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
-import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.BloodParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.IceCapPoisonParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
 import com.lovecraftpixel.lovecraftpixeldungeon.utils.BArray;
@@ -69,11 +67,6 @@ public class Icecap extends Plant {
 
 			plantClass = Icecap.class;
 		}
-
-        @Override
-        public void onProc( Char attacker, Char defender, int damage) {
-            Buff.affect(defender, Frost.class, damage);
-        }
 
         @Override
         public Emitter.Factory getPixelParticle() {

@@ -95,6 +95,10 @@ public class Fadeleaf extends Plant {
 			}
 
 		}
+
+		if(ch instanceof Mob && ch.properties().contains(Char.Property.IMMOVABLE)){
+		    GLog.n(Messages.get(this, "baka"));
+        }
 		
 		if (Dungeon.level.heroFOV[pos]) {
 			CellEmitter.get( pos ).start( Speck.factory( Speck.LIGHT ), 0.2f, 3 );
@@ -107,11 +111,6 @@ public class Fadeleaf extends Plant {
 
 			plantClass = Fadeleaf.class;
 		}
-
-        @Override
-        public void onProc(Char attacker, Char defender, int damage) {
-            new Fadeleaf().activate(defender);
-        }
 
         @Override
         public Emitter.Factory getPixelParticle() {

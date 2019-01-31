@@ -28,8 +28,8 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.FlavourBuff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Haste;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Slow;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.SwiftthistlePoisonParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
@@ -52,6 +52,9 @@ public class Swiftthistle extends Plant {
 				Buff.affect(ch, Haste.class, 5f);
 			}
 		}
+		if(ch instanceof Mob){
+            Buff.prolong( ch, Haste.class, Haste.DURATION);
+        }
 	}
 	
 	public static class Seed extends Plant.Seed {
@@ -60,11 +63,6 @@ public class Swiftthistle extends Plant {
 			
 			plantClass = Swiftthistle.class;
 		}
-
-        @Override
-        public void onProc(Char attacker, Char defender, int damage) {
-            Buff.prolong( defender, Slow.class, Slow.DURATION);
-        }
 
         @Override
         public Emitter.Factory getPixelParticle() {

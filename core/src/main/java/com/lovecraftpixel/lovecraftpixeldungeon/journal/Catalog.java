@@ -80,6 +80,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.ScrollOfTeleportat
 import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.ScrollOfTerror;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.ScrollOfTransmutation;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.ScrollOfUpgrade;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.special.RoyalDecreeOfTheEmperor;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.wands.WandOfBlastWave;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.wands.WandOfCorrosion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.wands.WandOfCorruption;
@@ -268,6 +269,7 @@ public enum Catalog {
 		SCROLLS.seen.put( ScrollOfRage.class,               false);
 		SCROLLS.seen.put( ScrollOfRetribution.class,        false);
 		SCROLLS.seen.put( ScrollOfTransmutation.class,      false);
+        SCROLLS.seen.put( RoyalDecreeOfTheEmperor.class,    false);
 	}
 	
 	public static LinkedHashMap<Catalog, Badges.Badge> catalogBadges = new LinkedHashMap<>();

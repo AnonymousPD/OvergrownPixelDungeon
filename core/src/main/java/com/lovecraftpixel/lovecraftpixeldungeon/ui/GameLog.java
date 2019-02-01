@@ -86,7 +86,11 @@ public class GameLog extends Component implements Signal.Listener<String> {
 		if (text.startsWith( GLog.HIGHLIGHT )) {
 			text = text.substring( GLog.HIGHLIGHT.length() );
 			color = CharSprite.NEUTRAL;
-		}
+		} else
+        if (text.startsWith( GLog.SPECIAL )) {
+            text = text.substring( GLog.SPECIAL.length() );
+            color = CharSprite.SPECIAL;
+        }
 
 		if (lastEntry != null && color == lastColor && lastEntry.nLines < MAX_LINES) {
 

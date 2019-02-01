@@ -34,6 +34,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.Recipe;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.UnstableSpellbook;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.exotic.ExoticScroll;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.exotic.ScrollOfAntiMagic;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.special.RoyalDecreeOfTheEmperor;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.stones.Runestone;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.stones.StoneOfAffection;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.stones.StoneOfAggression;
@@ -67,18 +68,19 @@ public abstract class Scroll extends Item {
 	protected Integer initials;
 
 	private static final Class<?>[] scrolls = {
-		ScrollOfIdentify.class,
-		ScrollOfMagicMapping.class,
-		ScrollOfRecharging.class,
-		ScrollOfRemoveCurse.class,
-		ScrollOfTeleportation.class,
-		ScrollOfUpgrade.class,
-		ScrollOfRage.class,
-		ScrollOfTerror.class,
-		ScrollOfLullaby.class,
-		ScrollOfTransmutation.class,
-		ScrollOfRetribution.class,
-		ScrollOfMirrorImage.class
+		    ScrollOfIdentify.class,
+		    ScrollOfMagicMapping.class,
+		    ScrollOfRecharging.class,
+		    ScrollOfRemoveCurse.class,
+		    ScrollOfTeleportation.class,
+		    ScrollOfUpgrade.class,
+		    ScrollOfRage.class,
+		    ScrollOfTerror.class,
+		    ScrollOfLullaby.class,
+		    ScrollOfTransmutation.class,
+		    ScrollOfRetribution.class,
+		    ScrollOfMirrorImage.class,
+            RoyalDecreeOfTheEmperor.class
 	};
 
 	private static final HashMap<String, Integer> runes = new HashMap<String, Integer>() {
@@ -95,6 +97,7 @@ public abstract class Scroll extends Item {
 			put("BERKANAN",ItemSpriteSheet.SCROLL_BERKANAN);
 			put("ODAL",ItemSpriteSheet.SCROLL_ODAL);
 			put("TIWAZ",ItemSpriteSheet.SCROLL_TIWAZ);
+            put("JERA",ItemSpriteSheet.SCROLL_JERA);
 		}
 	};
 	

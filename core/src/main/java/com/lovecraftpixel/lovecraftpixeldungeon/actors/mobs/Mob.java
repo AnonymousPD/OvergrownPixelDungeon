@@ -36,6 +36,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Charm;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Corruption;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Hunger;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Midas;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Preparation;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Sleep;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.SoulMark;
@@ -47,6 +48,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.Surprise;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.Wound;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Generator;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.Gold;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.TimekeepersHourglass;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.Ring;
@@ -614,6 +616,10 @@ public abstract class Mob extends Char {
 		if (Dungeon.hero.isAlive() && !Dungeon.level.heroFOV[pos]) {
 			GLog.i( Messages.get(this, "died") );
 		}
+
+		if(buffs().contains(Midas.class)){
+		    Dungeon.level.drop(new Gold(EXP*Dungeon.hero.STR), pos);
+        }
 	}
 	
 	public void rollToDropLoot(){

@@ -29,6 +29,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.DarkBlock;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.EmoIcon;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.FloatingText;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.GoldBlock;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.IceBlock;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.ShieldHalo;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
@@ -82,7 +83,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected float shadowOffset    = 0.25f;
 
 	public enum State {
-		BURNING, LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, HEALING, SHIELDED
+		BURNING, LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, HEALING, SHIELDED, GOLD
 	}
 	
 	protected Animation idle;
@@ -103,6 +104,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected Emitter healing;
 	
 	protected IceBlock iceBlock;
+    protected GoldBlock goldBlock;
 	protected DarkBlock darkBlock;
 	protected TorchHalo light;
 	protected ShieldHalo shield;
@@ -346,6 +348,10 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				iceBlock = IceBlock.freeze( this );
 				paused = true;
 				break;
+            case GOLD:
+                goldBlock = GoldBlock.infuse( this );
+                paused = true;
+                break;
 			case ILLUMINATED:
 				GameScene.effect( light = new TorchHalo( this ) );
 				break;
@@ -401,6 +407,13 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 				}
 				paused = false;
 				break;
+            case GOLD:
+                if (goldBlock != null) {
+                    goldBlock.cure();
+                    goldBlock = null;
+                }
+                paused = false;
+                break;
 			case ILLUMINATED:
 				if (light != null) {
 					light.putOut();
@@ -461,6 +474,9 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		if (iceBlock != null) {
 			iceBlock.visible = visible;
 		}
+        if (goldBlock != null) {
+            goldBlock.visible = visible;
+        }
 		if (chilled != null) {
 			chilled.visible = visible;
 		}

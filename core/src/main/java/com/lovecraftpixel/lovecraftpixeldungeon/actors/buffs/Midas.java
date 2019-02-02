@@ -30,7 +30,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.sprites.CharSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.BuffIndicator;
 import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
 
-public class Midas extends FlavourBuff {
+public class Midas extends Buff {
 
 	{
 		type = buffType.NEGATIVE;

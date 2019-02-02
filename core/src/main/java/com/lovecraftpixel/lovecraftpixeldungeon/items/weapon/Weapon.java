@@ -49,6 +49,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Explos
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Flashing;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Grim;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Lucky;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Midas;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Projecting;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Shocking;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Stunning;
@@ -409,7 +410,7 @@ abstract public class Weapon extends KindOfWeapon {
 		
 		private static final Class<?>[] uncommon = new Class<?>[]{
 				Chilling.class, Eldritch.class, Lucky.class,
-				Projecting.class, Unstable.class, Dazzling.class, Flashing.class};
+				Projecting.class, Unstable.class, Dazzling.class, Flashing.class, Midas.class};
 		
 		private static final Class<?>[] rare = new Class<?>[]{
 				Grim.class, Stunning.class, Vampiric.class, Explosion.class, Whirlwind.class};

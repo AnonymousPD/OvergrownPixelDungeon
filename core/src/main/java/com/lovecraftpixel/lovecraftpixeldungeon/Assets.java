@@ -185,4 +185,7 @@ public class Assets {
 	public static final String SND_BEE      = "sounds/snd_bee.mp3";
 	public static final String SND_DEGRADE  = "sounds/snd_degrade.mp3";
 	public static final String SND_MIMIC    = "sounds/snd_mimic.mp3";
+
+    public static final String BOOKTITLES	= "booknames/booktitles.txt";
+    public static final String ITEMNAMES	= "booknames/itemnames.txt";
 }

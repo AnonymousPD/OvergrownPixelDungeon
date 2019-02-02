@@ -606,6 +606,9 @@ public abstract class Level implements Bundlable {
 	}
 
 	public void destroy( int pos ) {
+        if(map[pos] == Terrain.BOOKSHELF){
+            avoid[pos] = false;
+        }
 		set( pos, Terrain.EMBERS );
 	}
 

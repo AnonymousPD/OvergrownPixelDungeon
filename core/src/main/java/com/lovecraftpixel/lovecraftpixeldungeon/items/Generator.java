@@ -87,6 +87,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.ScrollOfTeleportat
 import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.ScrollOfTerror;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.ScrollOfTransmutation;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.ScrollOfUpgrade;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.special.RoyalDecreeOfTheEmperor;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.stones.Runestone;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.stones.StoneOfAffection;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.stones.StoneOfAggression;
@@ -281,9 +282,10 @@ public class Generator {
 					ScrollOfRage.class,
 					ScrollOfRetribution.class,
 					ScrollOfTerror.class,
-					ScrollOfTransmutation.class
+					ScrollOfTransmutation.class,
+                    RoyalDecreeOfTheEmperor.class //doesn't naturally spawn
 			};
-			SCROLL.probs = new float[]{ 0, 6, 4, 3, 3, 3, 2, 2, 2, 2, 2, 1 };
+			SCROLL.probs = new float[]{ 0, 6, 4, 3, 3, 3, 2, 2, 2, 2, 2, 1, 0 };
 			
 			STONE.classes = new Class<?>[]{
 					StoneOfEnchantment.class,   //1 is guaranteed to drop on floors 6-19

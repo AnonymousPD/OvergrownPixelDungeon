@@ -91,4 +91,10 @@ public class HeroAction {
 			this.target = target;
 		}
 	}
+
+    public static class Read extends HeroAction {
+        public Read( int shelf ) {
+            this.dst = shelf;
+        }
+    }
 }

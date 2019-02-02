@@ -62,6 +62,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Amulet;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Ankh;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Dewdrop;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.Generator;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Heap;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Heap.Type;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
@@ -69,12 +70,14 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.KindOfWeapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.AntiMagic;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Viscosity;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.AlchemistsToolkit;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.Artifact;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.CapeOfThorns;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.DriedRose;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.EtherealChains;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.HornOfPlenty;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.TimekeepersHourglass;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.UnstableSpellbook;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.keys.CrystalKey;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.keys.GoldenKey;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.keys.IronKey;
@@ -113,6 +116,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.ui.AttackIndicator;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.BuffIndicator;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.QuickSlotButton;
 import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
+import com.lovecraftpixel.lovecraftpixeldungeon.utils.TxtFileReader;
 import com.lovecraftpixel.lovecraftpixeldungeon.windows.WndMessage;
 import com.lovecraftpixel.lovecraftpixeldungeon.windows.WndResurrect;
 import com.lovecraftpixel.lovecraftpixeldungeon.windows.WndTradeItem;
@@ -550,7 +554,10 @@ public class Hero extends Char {
 			} else if (curAction instanceof HeroAction.Alchemy) {
 				actResult = actAlchemy( (HeroAction.Alchemy)curAction );
 				
-			} else {
+			} else if (curAction instanceof HeroAction.Read) {
+                actResult = actRead( (HeroAction.Read)curAction);
+
+            } else {
 				actResult = false;
 			}
 		}
@@ -822,6 +829,32 @@ public class Hero extends Char {
 			return false;
 		}
 	}
+
+    private boolean actRead( HeroAction.Read action ) {
+        int shelfCell = action.dst;
+        if (Dungeon.level.adjacent( pos, shelfCell )) {
+
+            int shelf = Dungeon.level.map[shelfCell];
+
+            if (shelf == Terrain.BOOKSHELF) {
+
+                sprite.operate( shelfCell );
+
+            } else {
+                ready();
+            }
+
+            return false;
+
+        } else if (getCloser( shelfCell )) {
+
+            return true;
+
+        } else {
+            ready();
+            return false;
+        }
+    }
 	
 	private boolean actDescend( HeroAction.Descend action ) {
 		int stairs = action.dst;
@@ -1202,7 +1235,11 @@ public class Hero extends Char {
 			
 			curAction = new HeroAction.Ascend( cell );
 			
-		} else  {
+		} else if (Dungeon.level.map[cell] == Terrain.BOOKSHELF) {
+
+            curAction = new HeroAction.Read( cell );
+
+        } else  {
 			
 			curAction = new HeroAction.Move( cell );
 			lastAction = null;
@@ -1511,7 +1548,50 @@ public class Hero extends Char {
 			GameScene.updateKeyDisplay();
 			heap.open( this );
 			spend( Key.TIME_TO_UNLOCK );
-		}
+		} else if (curAction instanceof HeroAction.Read) {
+
+            int shelfCell = ((HeroAction.Read)curAction).dst;
+            int shelf = Dungeon.level.map[shelfCell];
+
+            if (shelf == Terrain.BOOKSHELF && Dungeon.level.avoid[shelfCell] == false ){
+                Dungeon.level.avoid[shelfCell] = true;
+                if(Random.Int(10) >= 5){
+                    if(Random.Int(10) >= 8){
+                        if(Random.Int(10) >= 9){
+                            //Enforces artifact uniqueness
+                            Item item = new UnstableSpellbook();
+                            if (Generator.removeArtifact(((Artifact)item).getClass())) {
+                                try {
+                                    //generates a new artifact of the same type, always +0
+                                    Artifact artifact = (Artifact)item.getClass().newInstance();
+
+                                    artifact.cursed = true;
+                                    artifact.cursedKnown = true;
+
+                                    artifact.doDrop(this);
+                                } catch (Exception e) {
+                                    LovecraftPixelDungeon.reportException(e);
+                                    GLog.h(TxtFileReader.getRandomBookTitle());
+                                }
+                            } else {
+                                GLog.h(TxtFileReader.getRandomBookTitle());
+                            }
+                        } else {
+                            Generator.random(Generator.Category.SCROLL).doDrop(this);
+                        }
+                    } else {
+                        GLog.h(TxtFileReader.getRandomBookTitle());
+                    }
+                } else {
+                    GLog.i(Messages.get(Hero.class, "nothing_to_read"));
+                }
+            } else {
+                GLog.i(Messages.get(Hero.class, "nothing_to_read"));
+            }
+
+            spend( TIME_TO_SEARCH );
+
+        }
 		curAction = null;
 
 		super.onOperateComplete();

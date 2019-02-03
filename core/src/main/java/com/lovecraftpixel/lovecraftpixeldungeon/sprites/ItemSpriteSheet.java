@@ -275,7 +275,7 @@ public class ItemSpriteSheet {
         assignItemRect(KATANA,          15, 16);
         assignItemRect(KNIFE_GLOVE,     14, 14);
         assignItemRect(RAPIER,          13, 14);
-        assignItemRect(SCYTHE,          13, 15);
+        assignItemRect(SCYTHE,          14, 15);
         assignItemRect(CLUB,            16, 16);
         assignItemRect(KNIFE_ON_A_STICK,15, 16);
     }

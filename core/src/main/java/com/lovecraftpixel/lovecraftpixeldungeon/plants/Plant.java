@@ -31,11 +31,14 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.Actor;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.livingplants.LivingPlant;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.CellEmitter;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.Pushing;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.LeafParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Level;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Terrain;
+import com.lovecraftpixel.lovecraftpixeldungeon.levels.features.Door;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
@@ -44,8 +47,10 @@ import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public abstract class Plant implements Bundlable {
 
@@ -63,8 +68,44 @@ public abstract class Plant implements Bundlable {
 		}
 
 		wither();
-		activate( ch );
+		if(Random.Int(10) >= 7){
+            spawnLivingPlant(new LivingPlant().setPlantClass(this));
+        } else {
+            activate( ch );
+        }
 	}
+
+    public void spawnLivingPlant(LivingPlant livingPlant) {
+        Collection arrayList = new ArrayList();
+        for (int i : PathFinder.NEIGHBOURS8) {
+            int ip = pos + i;
+            if (Actor.findChar(ip) == null && ((Dungeon.level.passable[ip] || Dungeon.level.avoid[ip]) && !Dungeon.level.pit[ip])) {
+                arrayList.add(Integer.valueOf(ip));
+            }
+        }
+        if (arrayList.size() > 0) {
+            livingPlant.state = livingPlant.HUNTING;
+            livingPlant.pos = ((Integer) Random.element(arrayList)).intValue();
+            GameScene.add(livingPlant);
+            Actor.addDelayed(new Pushing(livingPlant, pos, livingPlant.pos), 0.0f);
+            if (Dungeon.level.map[livingPlant.pos] == 5) {
+                Door.enter(livingPlant.pos);
+            }
+            if (Dungeon.level.heroFOV[pos]) {
+                CellEmitter.get( pos ).burst( LeafParticle.GENERAL, 6 );
+            }
+            if (Dungeon.level.heroFOV[livingPlant.pos]) {
+                CellEmitter.get( livingPlant.pos ).burst( LeafParticle.GENERAL, 6 );
+            }
+            if (Dungeon.level.map[livingPlant.pos] == Terrain.EMBERS
+                    || Dungeon.level.map[livingPlant.pos] == Terrain.EMPTY_DECO
+                    || Dungeon.level.map[livingPlant.pos] == Terrain.EMPTY
+                    || Dungeon.level.map[livingPlant.pos] == Terrain.HIGH_GRASS){
+                Dungeon.level.map[livingPlant.pos] = Terrain.GRASS;
+            }
+            GameScene.updateMap(pos);
+        }
+    }
 	
 	public abstract void activate( Char ch );
 	

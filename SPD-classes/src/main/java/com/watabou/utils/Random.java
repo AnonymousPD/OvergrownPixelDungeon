@@ -58,6 +58,11 @@ public class Random {
 		return min + ((Float(max - min) + Float(max - min))/2f);
 	}
 
+	//random boolean
+    public static boolean Boolean(){
+	    return rand.nextBoolean();
+    }
+
 	//returns a uniformly distributed int in the range [0, max)
 	public static int Int( int max ) {
 		return max > 0 ? rand.nextInt(max) : 0;

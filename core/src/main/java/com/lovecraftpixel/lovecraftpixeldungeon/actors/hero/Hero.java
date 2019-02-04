@@ -1586,7 +1586,7 @@ public class Hero extends Char {
                     GLog.i(Messages.get(Hero.class, "nothing_to_read"));
                 }
             } else {
-                GLog.i(Messages.get(Hero.class, "nothing_to_read"));
+                GLog.i(Messages.get(Hero.class, "already_read"));
             }
 
             spend( TIME_TO_SEARCH );

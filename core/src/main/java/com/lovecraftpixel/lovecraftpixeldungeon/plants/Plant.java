@@ -29,6 +29,8 @@ import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.LovecraftPixelDungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Actor;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Haste;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.livingplants.LivingPlant;
@@ -68,14 +70,18 @@ public abstract class Plant implements Bundlable {
 		}
 
 		wither();
-		if(Random.Int(10) >= 7){
-            spawnLivingPlant(new LivingPlant().setPlantClass(this));
+		if(ch instanceof LivingPlant){
+            spawnLivingPlant(new LivingPlant().setPlantClass(this), ch);
         } else {
-            activate( ch );
+            if(Random.Int(10) >= 7){
+                spawnLivingPlant(new LivingPlant().setPlantClass(this), ch);
+            } else {
+                activate( ch );
+            }
         }
 	}
 
-    public void spawnLivingPlant(LivingPlant livingPlant) {
+    public void spawnLivingPlant(LivingPlant livingPlant, Char activator) {
         Collection arrayList = new ArrayList();
         for (int i : PathFinder.NEIGHBOURS8) {
             int ip = pos + i;
@@ -83,7 +89,7 @@ public abstract class Plant implements Bundlable {
                 arrayList.add(Integer.valueOf(ip));
             }
         }
-        if (arrayList.size() > 0) {
+        if (!arrayList.isEmpty()) {
             livingPlant.state = livingPlant.HUNTING;
             livingPlant.pos = ((Integer) Random.element(arrayList)).intValue();
             GameScene.add(livingPlant);
@@ -107,6 +113,12 @@ public abstract class Plant implements Bundlable {
                 Dungeon.level.plants.get(livingPlant.pos).activate(livingPlant);
             }
             GameScene.updateMap(pos);
+        } else {
+            if(activator instanceof LivingPlant){
+                Buff.prolong( activator, Haste.class, Haste.DURATION);
+            } else {
+                activate( activator );
+            }
         }
     }
 	

@@ -103,6 +103,9 @@ public abstract class Plant implements Bundlable {
                     || Dungeon.level.map[livingPlant.pos] == Terrain.HIGH_GRASS){
                 Dungeon.level.map[livingPlant.pos] = Terrain.GRASS;
             }
+            if (Dungeon.level.plants.get(livingPlant.pos) != null){
+                Dungeon.level.plants.get(livingPlant.pos).activate(livingPlant);
+            }
             GameScene.updateMap(pos);
         }
     }

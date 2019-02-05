@@ -88,6 +88,14 @@ public class LivingPlant extends Mob {
     }
 
     @Override
+    public int attackProc(Char enemy, int damage) {
+        if(!enemy.flying){
+            if(Random.Boolean()) this.plantClass.activate(enemy);
+        }
+        return super.attackProc(enemy, damage);
+    }
+
+    @Override
 	public int damageRoll() {
 		return Random.NormalIntRange( 1, 4 );
 	}

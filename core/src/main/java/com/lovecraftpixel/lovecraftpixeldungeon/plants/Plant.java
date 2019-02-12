@@ -36,6 +36,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.livingplants.LivingPlant;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.CellEmitter;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.Pushing;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.LeafParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Level;
@@ -71,10 +72,12 @@ public abstract class Plant implements Bundlable {
 
 		wither();
 		if(ch instanceof LivingPlant){
-            spawnLivingPlant(new LivingPlant().setPlantClass(this), ch);
+            ((LivingPlant) ch).powerlevel++;
+            ch.sprite.emitter().start( Speck.factory( Speck.UP ), 0.2f, 3 );
+            spawnLivingPlant(new LivingPlant().setPlantClass(this, 1), ch);
         } else {
             if(Random.Int(10) >= 7){
-                spawnLivingPlant(new LivingPlant().setPlantClass(this), ch);
+                spawnLivingPlant(new LivingPlant().setPlantClass(this, 1), ch);
             } else {
                 activate( ch );
             }
@@ -132,6 +135,39 @@ public abstract class Plant implements Bundlable {
 		}
 		
 	}
+
+	public Plant.Seed getPlant(Plant plant){
+	    switch (plant.image){
+            case 0:
+                return new Rotberry.Seed();
+            case 1:
+                return new Firebloom.Seed();
+            case 2:
+                return new Swiftthistle.Seed();
+            case 3:
+                return new Sungrass.Seed();
+            case 4:
+                return new Icecap.Seed();
+            case 5:
+                return new Stormvine.Seed();
+            case 6:
+                return new Sorrowmoss.Seed();
+            case 7:
+                return new Dreamfoil.Seed();
+            case 8:
+                return new Earthroot.Seed();
+            case 9:
+                return new Starflower.Seed();
+            case 10:
+                return new Fadeleaf.Seed();
+            case 11:
+                return new Blindweed.Seed();
+            case 12:
+                return new BlandfruitBush.Seed();
+            default:
+                return null;
+        }
+    }
 	
 	private static final String POS	= "pos";
 
@@ -239,6 +275,17 @@ public abstract class Plant implements Bundlable {
 				return null;
 			}
 		}
+
+		public Plant getPlant(int pos){
+            try {
+                Plant plant = plantClass.newInstance();
+                plant.pos = pos;
+                return plant;
+            } catch (Exception e) {
+                LovecraftPixelDungeon.reportException(e);
+                return null;
+            }
+        }
 		
 		@Override
 		public boolean isUpgradable() {

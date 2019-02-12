@@ -26,7 +26,9 @@ package com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.livingplants;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.LovecraftPixelDungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Roots;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.Generator;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Plant;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.CharSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.livingplants.LivingPlantSprite;
@@ -48,19 +50,23 @@ public class LivingPlant extends Mob {
 	}
 
 	public Plant plantClass;
+    public int powerlevel;
 
     private final String PLANTCLASS = "plantclass";
+    private final String POWERLEVEL = "powerlevel";
 
     @Override
     public void storeInBundle(Bundle bundle) {
         super.storeInBundle(bundle);
         bundle.put(PLANTCLASS, plantClass);
+        bundle.put(POWERLEVEL, powerlevel);
     }
 
     @Override
     public void restoreFromBundle(Bundle bundle) {
         super.restoreFromBundle(bundle);
         plantClass = (Plant) bundle.get(PLANTCLASS);
+        powerlevel = bundle.getInt(POWERLEVEL);
     }
 
     @Override
@@ -74,23 +80,36 @@ public class LivingPlant extends Mob {
         return sprite;
     }
 
-    public LivingPlant setPlantClass(Plant plantClass){
+    public LivingPlant setPlantClass(Plant plantClass, int powerlevel){
         this.plantClass = plantClass;
+        this.powerlevel = powerlevel;
         return this;
     }
 
     @Override
     public void die(Object cause) {
-        Plant plant = plantClass;
-        plant.pos = pos;
-        plant.activate(this);
+        if(!this.buffs().contains(Roots.class)){
+            Plant plant = plantClass;
+            plant.pos = pos;
+            plant.activate(this);
+        }
         super.die(cause);
     }
 
     @Override
     public int attackProc(Char enemy, int damage) {
         if(!enemy.flying){
-            if(Random.Boolean()) this.plantClass.activate(enemy);
+            if(powerlevel == 1){
+                if(Random.Boolean()) plantClass.activate(enemy);
+            } else if(powerlevel > 1){
+                Plant.Seed seed;
+                for(int i = powerlevel; i > 0; i--){
+                    if(Random.Boolean()){
+                        seed = (Plant.Seed) Generator.random(Generator.Category.SEED);
+                        seed.getPlant(enemy.pos).activate(enemy);
+                    }
+                }
+            }
         }
         return super.attackProc(enemy, damage);
     }
@@ -152,5 +171,14 @@ public class LivingPlant extends Mob {
         } else {
             return enemy;
         }
+    }
+
+    @Override
+    protected boolean act() {
+        if(this.buffs().contains(Roots.class)){
+            die(this);
+            Dungeon.level.plant(plantClass.getPlant(plantClass), pos );
+        }
+        return super.act();
     }
 }

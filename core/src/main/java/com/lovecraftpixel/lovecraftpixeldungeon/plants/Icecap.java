@@ -66,6 +66,7 @@ public class Icecap extends Plant {
 			image = ItemSpriteSheet.SEED_ICECAP;
 
 			plantClass = Icecap.class;
+			heroDanger = HeroDanger.NEUTRAL;
 		}
 
         @Override

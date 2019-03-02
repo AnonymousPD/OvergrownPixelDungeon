@@ -105,12 +105,46 @@ public class Sungrass extends Plant {
             }
         }
 	}
-	
-	public static class Seed extends Plant.Seed {
+
+    @Override
+    public void activatePosionMobBeneficial(Char attacker, Char defender) {
+        if(defender.properties().contains(Char.Property.UNDEAD)){
+            defender.damage(defender.HP, this);
+        } else if(defender.properties().contains(Char.Property.DEMONIC)){
+            if(defender.buff(Corruption.class) != null || defender.buff(Doom.class) != null){
+                GLog.w( Messages.get(WandOfCorruption.class, "already_corrupted") );
+                return;
+            }
+            if (!defender.isImmune(Corruption.class)){
+                defender.HP = defender.HT;
+                for (Buff buff : defender.buffs()) {
+                    if (buff.type == Buff.buffType.NEGATIVE
+                            && !(buff instanceof SoulMark)) {
+                        buff.detach();
+                    } else if (buff instanceof PinCushion){
+                        buff.detach();
+                    }
+                }
+                Buff.affect(defender, Corruption.class);
+
+                Statistics.enemiesSlain++;
+                Badges.validateMonstersSlain();
+                Statistics.qualifiedForNoKilling = false;
+            } else {
+                Buff.affect(defender, Doom.class);
+            }
+        } else {
+            // 1 extra attack
+            attacker.attack(defender);
+        }
+    }
+
+    public static class Seed extends Plant.Seed {
 		{
 			image = ItemSpriteSheet.SEED_SUNGRASS;
 
 			plantClass = Sungrass.class;
+			heroDanger = HeroDanger.MOBBENEFICIAL;
 
 			bones = true;
 		}

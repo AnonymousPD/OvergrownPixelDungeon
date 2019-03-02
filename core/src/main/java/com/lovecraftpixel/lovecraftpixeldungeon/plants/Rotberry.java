@@ -54,8 +54,14 @@ public class Rotberry extends Plant {
 		
 		Dungeon.level.drop( new Seed(), pos ).sprite.drop();
 	}
-	
-	@Override
+
+    @Override
+    public void activatePosionMobBeneficial(Char attacker, Char defender) {
+	    //1 extra hit
+        attacker.attack(defender);
+    }
+
+    @Override
 	public void wither() {
 		Dungeon.level.uproot( pos );
 		
@@ -71,6 +77,7 @@ public class Rotberry extends Plant {
 			image = ItemSpriteSheet.SEED_ROTBERRY;
 
 			plantClass = Rotberry.class;
+			heroDanger = HeroDanger.MOBBENEFICIAL;
 		}
 
         @Override

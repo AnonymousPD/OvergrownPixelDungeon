@@ -1039,6 +1039,10 @@ public class Hero extends Char {
 
 		super.damage( dmg, src );
 	}
+
+    public ArrayList<Mob> visibleMobs() {
+	    return visibleEnemies;
+    }
 	
 	public void checkVisibleMobs() {
 		ArrayList<Mob> visible = new ArrayList<>();

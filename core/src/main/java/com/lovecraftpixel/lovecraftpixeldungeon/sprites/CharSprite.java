@@ -36,6 +36,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.Splash;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.TorchHalo;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.FlameParticle;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.LightParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.ShadowParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.SnowParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
@@ -83,7 +84,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected float shadowOffset    = 0.25f;
 
 	public enum State {
-		BURNING, LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, HEALING, SHIELDED, GOLD
+		BURNING, LEVITATING, INVISIBLE, PARALYSED, FROZEN, ILLUMINATED, CHILLED, DARKENED, MARKED, HEALING, SHIELDED, GOLD, GLOWING
 	}
 	
 	protected Animation idle;
@@ -98,6 +99,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	protected Tweener motion;
 	
 	protected Emitter burning;
+    protected Emitter glowing;
 	protected Emitter chilled;
 	protected Emitter marked;
 	protected Emitter levitation;
@@ -327,6 +329,11 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 					Sample.INSTANCE.play( Assets.SND_BURNING );
 				}
 				break;
+            case GLOWING:
+                glowing = emitter();
+                glowing.pour( LightParticle.FACTORY, 0.5f );
+                GameScene.effect( light = new TorchHalo( this ) );
+                break;
 			case LEVITATING:
 				levitation = emitter();
 				levitation.pour( Speck.factory( Speck.JET ), 0.02f );
@@ -384,6 +391,15 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 					burning = null;
 				}
 				break;
+            case GLOWING:
+                if (glowing != null) {
+                    glowing.on = false;
+                    glowing = null;
+                }
+                if (light != null) {
+                    light.putOut();
+                }
+                break;
 			case LEVITATING:
 				if (levitation != null) {
 					levitation.on = false;
@@ -468,6 +484,9 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 		if (burning != null) {
 			burning.visible = visible;
 		}
+        if (glowing != null) {
+            glowing.visible = visible;
+        }
 		if (levitation != null) {
 			levitation.visible = visible;
 		}

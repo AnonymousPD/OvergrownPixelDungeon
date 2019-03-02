@@ -28,6 +28,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.FlavourBuff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Haste;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Slow;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.SwiftthistlePoisonParticle;
@@ -56,12 +57,18 @@ public class Swiftthistle extends Plant {
             Buff.prolong( ch, Haste.class, Haste.DURATION);
         }
 	}
-	
-	public static class Seed extends Plant.Seed {
+
+    @Override
+    public void activatePosionMobBeneficial(Char attacker, Char defender) {
+        Buff.prolong( defender, Slow.class, Slow.DURATION );
+    }
+
+    public static class Seed extends Plant.Seed {
 		{
 			image = ItemSpriteSheet.SEED_SWIFTTHISTLE;
 			
 			plantClass = Swiftthistle.class;
+			heroDanger = HeroDanger.MOBBENEFICIAL;
 		}
 
         @Override

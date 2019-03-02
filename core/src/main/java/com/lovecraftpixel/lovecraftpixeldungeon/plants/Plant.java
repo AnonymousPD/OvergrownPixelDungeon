@@ -39,6 +39,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.effects.Pushing;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.LeafParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.wands.WandOfRegrowth;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Level;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Terrain;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.features.Door;
@@ -70,13 +71,15 @@ public abstract class Plant implements Bundlable {
 			((Hero) ch).interrupt();
 		}
 
-		wither();
+		if(!(this instanceof Snowhedge)){
+            wither();
+        }
 		if(ch instanceof LivingPlant){
             ((LivingPlant) ch).powerlevel++;
             ch.sprite.emitter().start( Speck.factory( Speck.UP ), 0.2f, 3 );
             spawnLivingPlant(new LivingPlant().setPlantClass(this, 1), ch);
         } else {
-            if(Random.Int(10) >= 7){
+            if(Random.Int(10) >= 7 && !(this instanceof Snowhedge)){
                 spawnLivingPlant(new LivingPlant().setPlantClass(this, 1), ch);
             } else {
                 activate( ch );
@@ -126,6 +129,14 @@ public abstract class Plant implements Bundlable {
     }
 	
 	public abstract void activate( Char ch );
+
+    public void activatePosionDangerous( Char attacker, Char defender ){
+
+    }
+
+    public void activatePosionMobBeneficial(Char attacker, Char defender ){
+
+    }
 	
 	public void wither() {
 		Dungeon.level.uproot( pos );
@@ -133,9 +144,14 @@ public abstract class Plant implements Bundlable {
 		if (Dungeon.level.heroFOV[pos]) {
 			CellEmitter.get( pos ).burst( LeafParticle.GENERAL, 6 );
 		}
+
+        if (Random.Int(5) == 0){
+            Dungeon.level.drop(new Seed(), pos).sprite.drop();
+        }
 		
 	}
 
+	//TODO: Update with new plants
 	public Plant.Seed getPlant(Plant plant){
 	    switch (plant.image){
             case 0:
@@ -164,6 +180,58 @@ public abstract class Plant implements Bundlable {
                 return new Blindweed.Seed();
             case 12:
                 return new BlandfruitBush.Seed();
+            case 13:
+                return new WandOfRegrowth.Dewcatcher.Seed();
+            case 14:
+                return new WandOfRegrowth.Seedpod.Seed();
+            case 15:
+                return new Apricobush.Seed();
+            case 16:
+                return new Firefoxglove.Seed();
+            case 17:
+                return new Butterlion.Seed();
+            case 18:
+                return new Musclemoss.Seed();
+            case 19:
+                return new Snowhedge.Seed();
+            case 20:
+                return new Sunbloom.Seed();
+            case 21:
+                return new Steamweed.Seed();
+            case 22:
+                return new Tomatobush.Seed();
+            case 23:
+                return new Chandaliertail.Seed();
+            case 24:
+                return new Nightshadeonion.Seed();
+            case 25:
+                return new Blackholeflower.Seed();
+            case 26:
+                return new Frostcorn.Seed();
+            case 27:
+                return new Willowcane.Seed();
+            case 28:
+                return new Parasiteshrub.Seed();
+            case 29:
+                return new Crimsonpepper.Seed();
+            case 30:
+                return new Witherfennel.Seed();
+            case 31:
+                return new Chillisnapper.Seed();
+            case 32:
+                return new Waterweed.Seed();
+            case 33:
+                return new Grasslilly.Seed();
+            case 34:
+                return new Peanutpetal.Seed();
+            case 35:
+                return new Kiwivetch.Seed();
+            case 36:
+                return new Rose.Seed();
+            case 37:
+                return new Venusflytrap.Seed();
+            case 38:
+                return new Suncarnivore.Seed();
             default:
                 return null;
         }
@@ -186,6 +254,18 @@ public abstract class Plant implements Bundlable {
 	}
 	
 	public static class Seed extends Item {
+
+        public enum HeroDanger{
+            DANGEROUS(1),
+            NEUTRAL(2),
+            MOBBENEFICIAL(3);
+
+            HeroDanger(int i) {
+
+            }
+        }
+
+        public HeroDanger heroDanger;
 
 		public static final String AC_PLANT	= "PLANT";
 		
@@ -212,7 +292,17 @@ public abstract class Plant implements Bundlable {
             try {
                 Plant plant = plantClass.newInstance();
                 plant.pos = defender.pos;
-                plant.activate(defender);
+                switch (heroDanger){
+                    case DANGEROUS:
+                        plant.activatePosionDangerous(attacker, defender);
+                        break;
+                    case NEUTRAL:
+                        plant.activate(defender);
+                        break;
+                    case MOBBENEFICIAL:
+                        plant.activatePosionMobBeneficial(attacker, defender);
+                        break;
+                }
             } catch (Exception e) {
                 LovecraftPixelDungeon.reportException(e);
             }

@@ -31,6 +31,8 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Blob;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Regrowth;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.MagicMissile;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.DewcatcherPoisonParticle;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.SeedPodPoisonParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Dewdrop;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Generator;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.MagesStaff;
@@ -43,6 +45,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.plants.Sungrass;
 import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Callback;
 import com.watabou.utils.ColorMath;
@@ -321,13 +324,29 @@ public class WandOfRegrowth extends Wand {
 				candidates.remove(c);
 			}
 
+            if (Random.Int(5) == 0){
+                Dungeon.level.drop(new Seed(), pos).sprite.drop();
+            }
+
 		}
 
 		//seed is never dropped, only care about plant class
 		public static class Seed extends Plant.Seed {
 			{
+                image = ItemSpriteSheet.SEED_DEWCATCHER;
+
 				plantClass = Dewcatcher.class;
 			}
+
+            @Override
+            public Emitter.Factory getPixelParticle() {
+                return DewcatcherPoisonParticle.FACTORY;
+            }
+
+            @Override
+            public int price() {
+                return 30 * quantity;
+            }
 		}
 	}
 
@@ -357,13 +376,29 @@ public class WandOfRegrowth extends Wand {
 				candidates.remove(c);
 			}
 
+            if (Random.Int(5) == 0){
+                Dungeon.level.drop(new Seed(), pos).sprite.drop();
+            }
+
 		}
 
 		//seed is never dropped, only care about plant class
 		public static class Seed extends Plant.Seed {
 			{
+                image = ItemSpriteSheet.SEED_SEEDPOD;
+
 				plantClass = Seedpod.class;
 			}
+
+            @Override
+            public Emitter.Factory getPixelParticle() {
+                return SeedPodPoisonParticle.FACTORY;
+            }
+
+            @Override
+            public int price() {
+                return 30 * quantity;
+            }
 		}
 
 	}

@@ -47,6 +47,7 @@ public class BlandfruitBush extends Plant {
 			image = ItemSpriteSheet.SEED_FADELEAF;
 
 			plantClass = BlandfruitBush.class;
+			heroDanger = HeroDanger.NEUTRAL;
 		}
 
         @Override

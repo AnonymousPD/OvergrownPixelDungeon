@@ -78,6 +78,7 @@ public class Dreamfoil extends Plant {
 			image = ItemSpriteSheet.SEED_DREAMFOIL;
 
 			plantClass = Dreamfoil.class;
+			heroDanger = HeroDanger.NEUTRAL;
 		}
 
         @Override

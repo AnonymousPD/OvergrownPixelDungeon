@@ -62,6 +62,7 @@ public class Sorrowmoss extends Plant {
 			image = ItemSpriteSheet.SEED_SORROWMOSS;
 
 			plantClass = Sorrowmoss.class;
+			heroDanger = HeroDanger.NEUTRAL;
 		}
 
         @Override

@@ -38,6 +38,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Chill;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Corrosion;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Corruption;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Cripple;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Dehydrated;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Doom;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.EarthImbue;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.FireImbue;
@@ -56,6 +57,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Speed;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Stamina;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Terror;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Vertigo;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Wither;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.BrokenSeal;
@@ -268,6 +270,8 @@ public abstract class Char extends Actor {
 		float defRoll = Random.Float( defender.defenseSkill( attacker ) );
 		if (attacker.buff(Bless.class) != null) acuRoll *= 1.20f;
 		if (defender.buff(Bless.class) != null) defRoll *= 1.20f;
+        if (attacker.buff(Dehydrated.class) != null) acuRoll /= 2f;
+        if (attacker.buff(Dehydrated.class) != null) defRoll /= 2f;
 		return (magic ? acuRoll * 2 : acuRoll) >= defRoll;
 	}
 	
@@ -292,16 +296,24 @@ public abstract class Char extends Actor {
 	}
 	
 	public int attackProc( Char enemy, int damage ) {
+        if ( buff( Wither.class ) != null ){
+            return damage/2;
+        }
 		return damage;
 	}
 	
 	public int defenseProc( Char enemy, int damage ) {
+        if ( buff( Wither.class ) != null ){
+            return damage/2;
+        }
 		return damage;
 	}
 	
 	public float speed() {
 		float speed = baseSpeed;
 		if ( buff( Cripple.class ) != null ) speed /= 2f;
+        if ( buff( Wither.class ) != null ) speed /= 2.5f;
+        if ( buff( Dehydrated.class ) != null ) speed /= 3f;
 		if ( buff( Stamina.class ) != null) speed *= 1.5f;
 		if ( buff( Adrenaline.class ) != null) speed *= 2f;
 		if ( buff( Haste.class ) != null) speed *= 3f;

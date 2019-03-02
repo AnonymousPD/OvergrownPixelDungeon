@@ -23,7 +23,6 @@
 
 package com.lovecraftpixel.lovecraftpixeldungeon.plants;
 
-import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Bless;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
@@ -33,7 +32,6 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.StarflowerPoisonParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.noosa.particles.Emitter;
-import com.watabou.utils.Random;
 
 public class Starflower extends Plant {
 
@@ -50,18 +48,21 @@ public class Starflower extends Plant {
 				Buff.prolong(ch, Recharging.class, Bless.DURATION);
 			}
 		}
-
-		if (Random.Int(5) == 0){
-			Dungeon.level.drop(new Seed(), pos).sprite.drop();
-		}
 	}
 
-	public static class Seed extends Plant.Seed{
+    @Override
+    public void activatePosionMobBeneficial(Char attacker, Char defender) {
+	    //1 extra hit
+        attacker.attack(defender);
+    }
+
+    public static class Seed extends Plant.Seed{
 
 		{
 			image = ItemSpriteSheet.SEED_STARFLOWER;
 
 			plantClass = Starflower.class;
+			heroDanger = HeroDanger.MOBBENEFICIAL;
 		}
 
         @Override

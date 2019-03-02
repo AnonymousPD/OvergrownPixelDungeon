@@ -97,7 +97,7 @@ public class Fadeleaf extends Plant {
 		}
 
 		if(ch instanceof Mob && ch.properties().contains(Char.Property.IMMOVABLE)){
-		    GLog.n(Messages.get(this, "baka"));
+		    ((Mob) ch).yell(Messages.get(this, "baka"));
         }
 		
 		if (Dungeon.level.heroFOV[pos]) {
@@ -110,6 +110,7 @@ public class Fadeleaf extends Plant {
 			image = ItemSpriteSheet.SEED_FADELEAF;
 
 			plantClass = Fadeleaf.class;
+			heroDanger = HeroDanger.NEUTRAL;
 		}
 
         @Override

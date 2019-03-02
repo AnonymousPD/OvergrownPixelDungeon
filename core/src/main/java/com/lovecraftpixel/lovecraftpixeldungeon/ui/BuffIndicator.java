@@ -93,6 +93,10 @@ public class BuffIndicator extends Component {
 	public static final int WELL_FED    = 43;
 	public static final int HEALING     = 44;
     public static final int MIDAS       = 45;
+    public static final int GLOWING     = 46;
+    public static final int DEHYDRATED  = 47;
+    public static final int INFESTED    = 48;
+    public static final int WITHER      = 49;
 
 	public static final int SIZE	= 7;
 	

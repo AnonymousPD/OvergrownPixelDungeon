@@ -63,6 +63,7 @@ public class Firebloom extends Plant {
 			image = ItemSpriteSheet.SEED_FIREBLOOM;
 
 			plantClass = Firebloom.class;
+			heroDanger = HeroDanger.NEUTRAL;
 		}
 
         @Override

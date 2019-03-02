@@ -158,19 +158,43 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.missiles.ThrowingSp
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.missiles.Tomahawk;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.missiles.Trident;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.missiles.darts.Dart;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Apricobush;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Blackholeflower;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Blindweed;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Butterlion;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Chandaliertail;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Chillisnapper;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Crimsonpepper;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Dreamfoil;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Earthroot;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Fadeleaf;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Firebloom;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Firefoxglove;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Frostcorn;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Grasslilly;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Icecap;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Kiwivetch;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Musclemoss;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Nightshadeonion;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Parasiteshrub;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Peanutpetal;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Plant;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Rose;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Rotberry;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Snowhedge;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Sorrowmoss;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Starflower;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Steamweed;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Stormvine;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Sunbloom;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Suncarnivore;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Sungrass;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Swiftthistle;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Tomatobush;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Venusflytrap;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Waterweed;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Willowcane;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Witherfennel;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.GameMath;
 import com.watabou.utils.Random;
@@ -267,8 +291,32 @@ public class Generator {
 					Stormvine.Seed.class,
 					Sungrass.Seed.class,
 					Swiftthistle.Seed.class,
-					Starflower.Seed.class};
-			SEED.probs = new float[]{ 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 1 };
+					Starflower.Seed.class,
+                    Apricobush.Seed.class,
+                    Blackholeflower.Seed.class,
+                    Butterlion.Seed.class,
+                    Chandaliertail.Seed.class,
+                    Chillisnapper.Seed.class,
+                    Crimsonpepper.Seed.class,
+                    Firefoxglove.Seed.class,
+                    Frostcorn.Seed.class,
+                    Musclemoss.Seed.class,
+                    Nightshadeonion.Seed.class,
+                    Parasiteshrub.Seed.class,
+                    Snowhedge.Seed.class,
+                    Steamweed.Seed.class,
+                    Sunbloom.Seed.class,
+                    Tomatobush.Seed.class,
+                    Waterweed.Seed.class,
+                    Willowcane.Seed.class,
+                    Witherfennel.Seed.class,
+                    Grasslilly.Seed.class,
+                    Kiwivetch.Seed.class,
+                    Peanutpetal.Seed.class,
+                    Rose.Seed.class,
+                    Suncarnivore.Seed.class,
+                    Venusflytrap.Seed.class};
+			SEED.probs = new float[]{ 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 };
 			
 			SCROLL.classes = new Class<?>[]{
 					ScrollOfUpgrade.class, //3 drop every chapter, see Dungeon.souNeeded()

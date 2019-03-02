@@ -72,6 +72,7 @@ public class Blindweed extends Plant {
 			image = ItemSpriteSheet.SEED_BLINDWEED;
 
 			plantClass = Blindweed.class;
+			heroDanger = HeroDanger.NEUTRAL;
 		}
 
         @Override

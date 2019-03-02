@@ -74,6 +74,7 @@ public class Earthroot extends Plant {
 			image = ItemSpriteSheet.SEED_EARTHROOT;
 
 			plantClass = Earthroot.class;
+			heroDanger = HeroDanger.NEUTRAL;
 
 			bones = true;
 		}

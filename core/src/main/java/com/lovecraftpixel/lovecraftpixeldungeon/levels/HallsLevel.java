@@ -81,6 +81,7 @@ public class HallsLevel extends RegularLevel {
 		return new HallsPainter()
 				.setWater(feeling == Feeling.WATER ? 0.70f : 0.15f, 6)
 				.setGrass(feeling == Feeling.GRASS ? 0.65f : 0.10f, 3)
+                .setPlants(feeling == Feeling.GRASS ? 20 : 10)
 				.setTraps(nTraps(), trapClasses(), trapChances());
 	}
 	

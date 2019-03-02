@@ -293,6 +293,21 @@ public abstract class Room extends Rect implements Graph.Node, Bundlable {
 		}
 		return points;
 	}
+
+    public boolean canPlacePlants(Point p){
+        return inside(p);
+    }
+
+    public final ArrayList<Point> plantsPlaceablePoints(){
+        ArrayList<Point> points = new ArrayList<>();
+        for (int i = left; i <= right; i++) {
+            for (int j = top; j <= bottom; j++) {
+                Point p = new Point(i, j);
+                if (canPlacePlants(p)) points.add(p);
+            }
+        }
+        return points;
+    }
 	
 	//whether or not a painter can place a trap at a specific point
 	public boolean canPlaceTrap(Point p){

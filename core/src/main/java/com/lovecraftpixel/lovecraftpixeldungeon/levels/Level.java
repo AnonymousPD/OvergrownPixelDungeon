@@ -705,7 +705,7 @@ public abstract class Level implements Bundlable {
 		return heap;
 	}
 	
-	public Plant plant( Plant.Seed seed, int pos ) {
+	public Plant plant(Plant.Seed seed, int pos) {
 		
 		if (Dungeon.isChallenged(Challenges.NO_HERBALISM)){
 			return null;
@@ -713,7 +713,7 @@ public abstract class Level implements Bundlable {
 
 		Plant plant = plants.get( pos );
 		if (plant != null) {
-			plant.wither();
+		    plant.wither();
 		}
 
 		if (map[pos] == Terrain.HIGH_GRASS ||

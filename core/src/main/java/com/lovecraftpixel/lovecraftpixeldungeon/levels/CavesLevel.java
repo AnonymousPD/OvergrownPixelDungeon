@@ -83,6 +83,7 @@ public class CavesLevel extends RegularLevel {
 		return new CavesPainter()
 				.setWater(feeling == Feeling.WATER ? 0.85f : 0.30f, 6)
 				.setGrass(feeling == Feeling.GRASS ? 0.65f : 0.15f, 3)
+                .setPlants(feeling == Feeling.GRASS ? 23 : 13)
 				.setTraps(nTraps(), trapClasses(), trapChances());
 	}
 	

@@ -275,8 +275,12 @@ public abstract class Plant implements Bundlable {
 			stackable = true;
 			defaultAction = AC_THROW;
 		}
-		
-		protected Class<? extends Plant> plantClass;
+
+        protected Class<? extends Plant> plantClass;
+
+        public Class<? extends Plant> getPlantClass() {
+            return this.plantClass;
+        }
 		
 		@Override
 		public ArrayList<String> actions( Hero hero ) {
@@ -321,7 +325,7 @@ public abstract class Plant implements Bundlable {
 					|| Dungeon.isChallenged(Challenges.NO_HERBALISM)) {
 				super.onThrow( cell );
 			} else {
-				Dungeon.level.plant( this, cell );
+				Dungeon.level.plant( this, cell);
 				if (Dungeon.hero.subClass == HeroSubClass.WARDEN) {
 					for (int i : PathFinder.NEIGHBOURS8) {
 						int c = Dungeon.level.map[cell + i];

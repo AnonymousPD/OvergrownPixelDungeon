@@ -177,7 +177,7 @@ public class LivingPlant extends Mob {
     protected boolean act() {
         if(this.buffs().contains(Roots.class)){
             die(this);
-            Dungeon.level.plant(plantClass.getPlant(plantClass), pos );
+            Dungeon.level.plant(plantClass.getPlant(plantClass), pos);
         }
         return super.act();
     }

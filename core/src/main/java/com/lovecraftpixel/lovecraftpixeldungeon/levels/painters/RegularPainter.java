@@ -25,12 +25,14 @@ package com.lovecraftpixel.lovecraftpixeldungeon.levels.painters;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.LovecraftPixelDungeon;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.Generator;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Level;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Patch;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Terrain;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.rooms.Room;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.rooms.standard.EmptyRoom;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.traps.Trap;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Plant;
 import com.watabou.utils.Graph;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Point;
@@ -58,6 +60,13 @@ public abstract class RegularPainter extends Painter {
 		grassSmoothness = smoothness;
 		return this;
 	}
+
+    private int plantsFill = 0;
+
+    public RegularPainter setPlants(int fill){
+        plantsFill = fill;
+        return this;
+    }
 	
 	private int nTraps = 0;
 	private Class<? extends Trap>[] trapClasses;
@@ -123,8 +132,12 @@ public abstract class RegularPainter extends Painter {
 		}
 		
 		if (grassFill > 0f){
-			paintGrass( level, rooms );
-		}
+            paintGrass( level, rooms );
+        }
+
+        if (plantsFill > 0){
+            paintPlants( level, rooms );
+        }
 		
 		if (nTraps > 0){
 			paintTraps( level, rooms );
@@ -290,45 +303,83 @@ public abstract class RegularPainter extends Painter {
 	}
 	
 	protected void paintGrass( Level l, ArrayList<Room> rooms ) {
-		boolean[] grass = Patch.generate( l.width(), l.height(), grassFill, grassSmoothness, true );
-		
-		ArrayList<Integer> grassCells = new ArrayList<>();
-		
-		if (!rooms.isEmpty()){
-			for (Room r : rooms){
-				for (Point p : r.grassPlaceablePoints()){
-					int i = l.pointToCell(p);
-					if (grass[i] && l.map[i] == Terrain.EMPTY){
-						grassCells.add(i);
-					}
-				}
-			}
-		} else {
-			for (int i = 0; i < l.length(); i ++) {
-				if (grass[i] && l.map[i] == Terrain.EMPTY){
-					grassCells.add(i);
-				}
-			}
-		}
-		
-		//Adds chaos to grass height distribution. Ratio of high grass depends on fill and smoothing
-		//Full range is 8.3% to 75%, but most commonly (20% fill with 3 smoothing) is around 60%
-		//low smoothing, or very low fill, will begin to push the ratio down, normally to 50-30%
-		for (int i : grassCells) {
-			if (l.heaps.get(i) != null || l.findMob(i) != null) {
-				l.map[i] = Terrain.GRASS;
-				continue;
-			}
-			
-			int count = 1;
-			for (int n : PathFinder.NEIGHBOURS8) {
-				if (grass[i + n]) {
-					count++;
-				}
-			}
-			l.map[i] = (Random.Float() < count / 12f) ? Terrain.HIGH_GRASS : Terrain.GRASS;
-		}
-	}
+        boolean[] grass = Patch.generate( l.width(), l.height(), grassFill, grassSmoothness, true );
+
+        ArrayList<Integer> grassCells = new ArrayList<>();
+
+        if (!rooms.isEmpty()){
+            for (Room r : rooms){
+                for (Point p : r.grassPlaceablePoints()){
+                    int i = l.pointToCell(p);
+                    if (grass[i] && l.map[i] == Terrain.EMPTY){
+                        grassCells.add(i);
+                    }
+                }
+            }
+        } else {
+            for (int i = 0; i < l.length(); i ++) {
+                if (grass[i] && l.map[i] == Terrain.EMPTY){
+                    grassCells.add(i);
+                }
+            }
+        }
+
+        //Adds chaos to grass height distribution. Ratio of high grass depends on fill and smoothing
+        //Full range is 8.3% to 75%, but most commonly (20% fill with 3 smoothing) is around 60%
+        //low smoothing, or very low fill, will begin to push the ratio down, normally to 50-30%
+        for (int i : grassCells) {
+            if (l.heaps.get(i) != null || l.findMob(i) != null) {
+                l.map[i] = Terrain.GRASS;
+                continue;
+            }
+
+            int count = 1;
+            for (int n : PathFinder.NEIGHBOURS8) {
+                if (grass[i + n]) {
+                    count++;
+                }
+            }
+            l.map[i] = (Random.Float() < count / 12f) ? Terrain.HIGH_GRASS : Terrain.GRASS;
+        }
+    }
+
+    protected void paintPlants( Level l, ArrayList<Room> rooms ) {
+
+        ArrayList<Integer> plantCells = new ArrayList<>();
+
+        if (!rooms.isEmpty()){
+            for (Room r : rooms){
+                for (Point p : r.plantsPlaceablePoints()){
+                    int i = l.pointToCell(p);
+                    if (l.map[i] == Terrain.GRASS){
+                        plantCells.add(i);
+                    }
+                }
+            }
+        } else {
+            for (int i = 0; i < l.length(); i ++) {
+                if (l.map[i] == Terrain.GRASS){
+                    plantCells.add(i);
+                }
+            }
+        }
+
+        for (int i : plantCells) {
+            if (l.heaps.get(i) == null || l.findMob(i) == null) {
+                try {
+                    Plant plant = ((Plant.Seed) Generator.random(Generator.Category.SEED)).getPlantClass().newInstance();
+                    plant.pos = i;
+                    l.plants.put(plant.pos, plant);
+                    plantsFill--;
+                    if(plantsFill <= 0){
+                        break;
+                    }
+                } catch (Exception e) {
+                    LovecraftPixelDungeon.reportException(e);
+                }
+            }
+        }
+    }
 	
 	protected void paintTraps( Level l, ArrayList<Room> rooms ) {
 		ArrayList<Integer> validCells = new ArrayList<>();

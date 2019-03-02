@@ -41,7 +41,7 @@ public class Apricobush extends Plant {
 	    if(ch instanceof Hero){
             (ch.buff( Hunger.class )).satisfy( Hunger.HUNGRY/2f );
         } else {
-	        ch.HP = ch.HT++;
+            if(ch.isAlive()) ch.HP = ch.HT++;
         }
 	}
 

@@ -146,7 +146,7 @@ public abstract class Plant implements Bundlable {
 		}
 
         if (Random.Int(5) == 0){
-            Dungeon.level.drop(new Seed(), pos).sprite.drop();
+            Dungeon.level.drop(getPlant(this), pos).sprite.drop();
         }
 		
 	}

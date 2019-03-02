@@ -41,12 +41,12 @@ import com.watabou.utils.DeviceCompat;
 
 public class AboutScene extends PixelScene {
 
-	private static final String TTL_SHPX = "Lovecraft Pixel Dungeon";
+	private static final String TTL_SHPX = "Overgrown Pixel Dungeon";
 
 	private static final String TXT_SHPX =
 			"Code: Anon\n" +
-                    //TODO: Credit all awesome people that heped me
-	        "Graphics: Xavier";
+                    //TODO: Credit all awesome people that helped me
+	        "Graphics: Various";
 
 	private static final String LNK_SHPX = "/r/PixelDungeonMods.com";
 

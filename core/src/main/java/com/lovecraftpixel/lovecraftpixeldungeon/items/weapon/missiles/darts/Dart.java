@@ -26,9 +26,12 @@ package com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.missiles.darts;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.MagicImmune;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Crossbow;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.missiles.MissileWeapon;
+import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
+import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
 
 public class Dart extends MissileWeapon {
 
@@ -86,6 +89,14 @@ public class Dart extends MissileWeapon {
 	public int proc(Char attacker, Char defender, int damage) {
 		if (bow != null && bow.enchantment != null && attacker.buff(MagicImmune.class) == null){
 			damage = bow.enchantment.proc(bow, attacker, defender, damage);
+			if(bow.seed != null && bow.poison_turns > 0){
+			    bow.seed.onProc(attacker, defender, 0);
+			    bow.poison_turns--;
+                if(bow.poison_turns <= 0){
+                    bow.seed = null;
+                    GLog.i(Messages.get(Weapon.class, "wears_off", this.name()));
+                }
+            }
 		}
 		return super.proc(attacker, defender, damage);
 	}

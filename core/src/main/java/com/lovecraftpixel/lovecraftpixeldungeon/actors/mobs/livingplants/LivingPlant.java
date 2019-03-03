@@ -47,6 +47,8 @@ public class LivingPlant extends Mob {
 		defenseSkill = 2;
 		
 		maxLvl = 5;
+
+		EXP = 0;
 	}
 
 	public Plant plantClass;

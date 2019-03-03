@@ -36,8 +36,10 @@ import com.lovecraftpixel.lovecraftpixeldungeon.plants.Earthroot;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Plant;
 import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
+import com.lovecraftpixel.lovecraftpixeldungeon.ui.OptionSlider;
 import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
 import com.lovecraftpixel.lovecraftpixeldungeon.windows.WndBag;
+import com.lovecraftpixel.lovecraftpixeldungeon.windows.WndSlider;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
@@ -59,10 +61,15 @@ public class SandalsOfNature extends Artifact {
 
 	public static final String AC_FEED = "FEED";
 	public static final String AC_ROOT = "ROOT";
+    public static final String AC_LIVINGPLANTS = "LIVINGPLANTS";
 
 	protected WndBag.Mode mode = WndBag.Mode.SEED;
 
 	public ArrayList<Class> seeds = new ArrayList<>();
+
+    //scales with 10
+    //so 3 = 30%
+    public int livingplantPercent = 3;
 
 	@Override
 	public ArrayList<String> actions( Hero hero ) {
@@ -71,6 +78,9 @@ public class SandalsOfNature extends Artifact {
 			actions.add(AC_FEED);
 		if (isEquipped( hero ) && charge > 0)
 			actions.add(AC_ROOT);
+        if(!cursed && isEquipped(hero)){
+            actions.add(AC_LIVINGPLANTS);
+        }
 		return actions;
 	}
 
@@ -78,7 +88,22 @@ public class SandalsOfNature extends Artifact {
 	public void execute( Hero hero, String action ) {
 		super.execute(hero, action);
 
-		if (action.equals(AC_FEED)){
+        if (action.equals(AC_LIVINGPLANTS)){
+            GameScene.show( new WndSlider(Messages.get(this, "lp_title"),
+                    Messages.get(this, "lp_msg"),
+                    Messages.get(this, "lp_slider_title"),
+                    0+"%",
+                    100+"%",
+                    0,
+                    10,
+                    3){
+                @Override
+                protected void onSliderMoved(int selectedValue, OptionSlider slider) {
+                    super.onSliderMoved(selectedValue, slider);
+                    livingplantPercent = selectedValue;
+                }
+            });
+        } else if (action.equals(AC_FEED)){
 
 			GameScene.selectItem(itemSelector, mode, Messages.get(this, "prompt"));
 
@@ -142,16 +167,19 @@ public class SandalsOfNature extends Artifact {
 
 
 	private static final String SEEDS = "seeds";
+    private static final String LIVINGPLANTPERCENT = "livingplantpercent";
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
 		super.storeInBundle(bundle);
 		bundle.put(SEEDS, seeds.toArray(new Class[seeds.size()]));
+        bundle.put( LIVINGPLANTPERCENT , livingplantPercent );
 	}
 
 	@Override
 	public void restoreFromBundle( Bundle bundle ) {
 		super.restoreFromBundle(bundle);
+        livingplantPercent = bundle.getInt(LIVINGPLANTPERCENT);
 		if (level() > 0) name = Messages.get(this, "name_" + level());
 		if (bundle.contains(SEEDS))
 			Collections.addAll(seeds , bundle.getClassArray(SEEDS));

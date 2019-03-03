@@ -39,6 +39,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.effects.Pushing;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.LeafParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.SandalsOfNature;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.wands.WandOfRegrowth;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Level;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Terrain;
@@ -78,7 +79,15 @@ public abstract class Plant implements Bundlable {
             ch.sprite.emitter().start( Speck.factory( Speck.UP ), 0.2f, 3 );
             spawnLivingPlant(new LivingPlant().setPlantClass(this, 1), ch);
         } else {
-            if(Random.Int(10) >= 7){
+            int chances = 30;
+		    if(ch instanceof Hero){
+		        if(((Hero) ch).belongings.misc1 instanceof SandalsOfNature){
+		            chances = ((SandalsOfNature) ((Hero) ch).belongings.misc1).livingplantPercent*10;
+                } else if(((Hero) ch).belongings.misc2 instanceof SandalsOfNature){
+                    chances = ((SandalsOfNature) ((Hero) ch).belongings.misc2).livingplantPercent*10;
+                }
+            }
+            if(Random.Int(100) <= chances){
                 spawnLivingPlant(new LivingPlant().setPlantClass(this, 1), ch);
             } else {
                 if(ch != null){

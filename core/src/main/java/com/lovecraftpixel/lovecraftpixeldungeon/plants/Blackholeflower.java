@@ -40,7 +40,6 @@ import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
 import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
 import com.watabou.noosa.Game;
 import com.watabou.noosa.particles.Emitter;
-import com.watabou.utils.Random;
 
 public class Blackholeflower extends Plant {
 
@@ -63,7 +62,7 @@ public class Blackholeflower extends Plant {
             if (buff != null) buff.detach();
 
             InterlevelScene.mode = InterlevelScene.Mode.RETURN;
-            InterlevelScene.returnDepth = Random.Int(-1, 1);
+            InterlevelScene.returnDepth = Dungeon.depth-1;
             InterlevelScene.returnPos = -1;
             Game.switchScene( InterlevelScene.class );
         }
@@ -72,7 +71,7 @@ public class Blackholeflower extends Plant {
             int quantity;
             if(!ch.properties().contains(Char.Property.MINIBOSS) && !ch.properties().contains(Char.Property.BOSS)){
                 quantity = 3;
-                Chasm.mobFall((Mob) ch);
+                if(ch.isAlive()) Chasm.mobFall((Mob) ch);
             } else {
                quantity = 1;
             }

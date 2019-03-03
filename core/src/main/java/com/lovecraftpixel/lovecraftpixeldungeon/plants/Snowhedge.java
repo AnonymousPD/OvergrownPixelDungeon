@@ -40,8 +40,7 @@ public class Snowhedge extends Plant {
 	public void activate( Char ch ) {
 
 	    if(Random.Boolean()){
-	        wither();
-            spawnLivingPlant(new LivingPlant().setPlantClass(this, 1), ch);
+            spawnLivingPlant(new LivingPlant().setPlantClass(this, 0), ch);
         } else {
 	        ch.damage(ch.damageRoll(), ch);
         }

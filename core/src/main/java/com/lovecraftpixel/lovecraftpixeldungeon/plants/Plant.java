@@ -71,18 +71,21 @@ public abstract class Plant implements Bundlable {
 			((Hero) ch).interrupt();
 		}
 
-		if(!(this instanceof Snowhedge)){
-            wither();
-        }
+		wither();
+
 		if(ch instanceof LivingPlant){
             ((LivingPlant) ch).powerlevel++;
             ch.sprite.emitter().start( Speck.factory( Speck.UP ), 0.2f, 3 );
             spawnLivingPlant(new LivingPlant().setPlantClass(this, 1), ch);
         } else {
-            if(Random.Int(10) >= 7 && !(this instanceof Snowhedge)){
+            if(Random.Int(10) >= 7){
                 spawnLivingPlant(new LivingPlant().setPlantClass(this, 1), ch);
             } else {
-                activate( ch );
+                if(ch != null){
+                    activate( ch );
+                } else {
+                    spawnLivingPlant(new LivingPlant().setPlantClass(this, 2), ch);
+                }
             }
         }
 	}

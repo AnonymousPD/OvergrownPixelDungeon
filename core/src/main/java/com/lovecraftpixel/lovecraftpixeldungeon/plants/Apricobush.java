@@ -27,7 +27,9 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Hunger;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.ApricobushPoisonParticle;
+import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
+import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
 import com.watabou.noosa.particles.Emitter;
 
 public class Apricobush extends Plant {
@@ -40,6 +42,7 @@ public class Apricobush extends Plant {
 	public void activate( Char ch ) {
 	    if(ch instanceof Hero){
             (ch.buff( Hunger.class )).satisfy( Hunger.HUNGRY/2f );
+            GLog.p(Messages.get(this, "hunger"));
         } else {
             if(ch.isAlive()) ch.HP = ch.HT++;
         }

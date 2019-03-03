@@ -25,7 +25,6 @@ package com.lovecraftpixel.lovecraftpixeldungeon.plants;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.Assets;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.Actor;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Blob;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Fire;
@@ -42,7 +41,6 @@ import com.watabou.utils.Callback;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Firefoxglove extends Plant {
@@ -60,20 +58,32 @@ public class Firefoxglove extends Plant {
 	@Override
 	public void activate( Char ch ) {
 
-	    int pos = this.pos;
+	    int pos;
 
 	    if(ch instanceof Hero){
 	        if(!Dungeon.hero.visibleMobs().isEmpty()){
                 pos = Random.element(Dungeon.hero.visibleMobs()).pos;
+                ((Hero) ch).interrupt();
+                shoot(ch, pos);
+            } else {
+	            Plant p = new Firebloom();
+	            p.pos = ch.pos;
+	            p.activate(ch);
             }
         }
-
         if(ch instanceof Mob){
             if(Dungeon.hero != null){
                 pos = Dungeon.hero.pos;
+                shoot(ch, pos);
+            } else {
+                Plant p = new Firebloom();
+                p.pos = ch.pos;
+                p.activate(ch);
             }
         }
+	}
 
+	public void shoot(Char ch, int pos){
         final Ballistica shot = new Ballistica( ch.pos, pos, Ballistica.PROJECTILE);
         fx(shot, new Callback() {
             @Override
@@ -81,10 +91,10 @@ public class Firefoxglove extends Plant {
                 onZap(shot);
             }
         }, ch);
-	}
+    }
 
     @Override
-    public void activatePosionDangerous(Char attacker, Char defender) {
+    public void activatePosionDangerous(final Char attacker, Char defender) {
         final Ballistica shot = new Ballistica( attacker.pos, defender.pos, Ballistica.PROJECTILE);
         fx(shot, new Callback() {
             @Override
@@ -168,7 +178,6 @@ public class Firefoxglove extends Plant {
 
     protected void onZap( Ballistica bolt ) {
 
-        ArrayList<Char> affectedChars = new ArrayList<>();
         for( int cell : affectedCells){
 
             //ignore caster cell
@@ -180,11 +189,6 @@ public class Firefoxglove extends Plant {
             if (!Dungeon.level.adjacent(bolt.sourcePos, cell)
                     || Dungeon.level.flamable[cell]){
                 GameScene.add( Blob.seed( cell, 1+2, Fire.class ) );
-            }
-
-            Char ch = Actor.findChar( cell );
-            if (ch != null) {
-                affectedChars.add(ch);
             }
         }
     }

@@ -93,8 +93,8 @@ public class Archs extends Component {
 			shift = -shift;
 		}
 
-		arcsBg.offset( 0, shift );
-		arcsFg.offset( 0, shift * 2 );
+		arcsBg.offset( shift, shift );
+		arcsFg.offset( -shift*2, -shift * 2 );
 
 		offsB = arcsBg.offsetY();
 		offsF = arcsFg.offsetY();

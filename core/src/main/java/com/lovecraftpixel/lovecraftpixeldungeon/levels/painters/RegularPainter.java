@@ -364,16 +364,14 @@ public abstract class RegularPainter extends Painter {
             }
         }
 
-        for (int i : plantCells) {
-            if (l.heaps.get(i) == null || l.findMob(i) == null) {
+        for(int i = plantsFill; i > 0; i--){
+            int p = Random.element(plantCells);
+            if (l.heaps.get(p) == null || l.findMob(p) == null) {
                 try {
                     Plant plant = ((Plant.Seed) Generator.random(Generator.Category.SEED)).getPlantClass().newInstance();
-                    plant.pos = i;
+                    plant.pos = p;
                     l.plants.put(plant.pos, plant);
-                    plantsFill--;
-                    if(plantsFill <= 0){
-                        break;
-                    }
+                    plantCells.remove(p);
                 } catch (Exception e) {
                     LovecraftPixelDungeon.reportException(e);
                 }

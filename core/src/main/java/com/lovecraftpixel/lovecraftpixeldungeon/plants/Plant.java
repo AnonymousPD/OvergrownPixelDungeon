@@ -66,8 +66,6 @@ public abstract class Plant implements Bundlable {
 	public int image;
 	public int pos;
 
-	public boolean canBePlanted = true;
-
 	public void trigger(){
 
 		Char ch = Actor.findChar(pos);
@@ -175,15 +173,10 @@ public abstract class Plant implements Bundlable {
             ringBuff += 2;
         }
         if (Random.Int(14-ringBuff) <= 0){
-            Dungeon.level.drop(setNotPlantable(getPlant(this)), pos).sprite.drop();
+            Dungeon.level.drop(getPlant(this), pos).sprite.drop();
         }
 		
 	}
-
-	public Plant.Seed setNotPlantable(Plant.Seed seed){
-        seed.canBePlanted = false;
-        return seed;
-    }
 
 	//TODO: Update with new plants
 	public Plant.Seed getPlant(Plant plant){
@@ -452,11 +445,7 @@ public abstract class Plant implements Bundlable {
 
 		@Override
 		public String desc() {
-            if(canBePlanted){
-                return Messages.get(plantClass, "desc");
-            } else {
-                return Messages.get(plantClass, "desc")+Messages.get(Plant.class, "cantbeplanted");
-            }
+			return Messages.get(plantClass, "desc");
 		}
 
 		@Override

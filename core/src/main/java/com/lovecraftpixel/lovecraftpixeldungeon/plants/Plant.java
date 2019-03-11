@@ -40,6 +40,8 @@ import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.LeafParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.SandalsOfNature;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.RingOfElements;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.RingOfPoison;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.wands.WandOfRegrowth;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Level;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Terrain;
@@ -63,6 +65,8 @@ public abstract class Plant implements Bundlable {
 	
 	public int image;
 	public int pos;
+
+	public boolean canBePlanted = true;
 
 	public void trigger(){
 
@@ -157,11 +161,29 @@ public abstract class Plant implements Bundlable {
 			CellEmitter.get( pos ).burst( LeafParticle.GENERAL, 6 );
 		}
 
-        if (Random.Int(5) == 0){
-            Dungeon.level.drop(getPlant(this), pos).sprite.drop();
+		int ringBuff = 0;
+		if(Dungeon.hero.belongings.misc1 instanceof RingOfPoison){
+		    ringBuff += 2;
+        }
+        if(Dungeon.hero.belongings.misc2 instanceof RingOfPoison){
+            ringBuff += 2;
+        }
+        if(Dungeon.hero.belongings.misc1 instanceof RingOfElements){
+            ringBuff += 2;
+        }
+        if(Dungeon.hero.belongings.misc2 instanceof RingOfElements){
+            ringBuff += 2;
+        }
+        if (Random.Int(14-ringBuff) <= 0){
+            Dungeon.level.drop(setNotPlantable(getPlant(this)), pos).sprite.drop();
         }
 		
 	}
+
+	public Plant.Seed setNotPlantable(Plant.Seed seed){
+        seed.canBePlanted = false;
+        return seed;
+    }
 
 	//TODO: Update with new plants
 	public Plant.Seed getPlant(Plant plant){
@@ -267,6 +289,8 @@ public abstract class Plant implements Bundlable {
 	
 	public static class Seed extends Item {
 
+        public boolean canBePlanted = true;
+
         public enum HeroDanger{
             DANGEROUS(1),
             NEUTRAL(2),
@@ -293,11 +317,27 @@ public abstract class Plant implements Bundlable {
         public Class<? extends Plant> getPlantClass() {
             return this.plantClass;
         }
-		
-		@Override
+
+        private static final String CANBEPLANTED = "can_be_planted";
+
+        @Override
+        public void storeInBundle(Bundle bundle) {
+            canBePlanted = bundle.getBoolean( CANBEPLANTED );
+            super.storeInBundle(bundle);
+        }
+
+        @Override
+        public void restoreFromBundle(Bundle bundle) {
+            bundle.put( CANBEPLANTED, canBePlanted );
+            super.restoreFromBundle(bundle);
+        }
+
+        @Override
 		public ArrayList<String> actions( Hero hero ) {
 			ArrayList<String> actions = super.actions( hero );
-			actions.add( AC_PLANT );
+			if(canBePlanted){
+                actions.add( AC_PLANT );
+            }
 			return actions;
 		}
 
@@ -336,7 +376,7 @@ public abstract class Plant implements Bundlable {
 					|| Dungeon.level.traps.get(cell) != null
 					|| Dungeon.isChallenged(Challenges.NO_HERBALISM)) {
 				super.onThrow( cell );
-			} else {
+			} else if(canBePlanted){
 				Dungeon.level.plant( this, cell);
 				if (Dungeon.hero.subClass == HeroSubClass.WARDEN) {
 					for (int i : PathFinder.NEIGHBOURS8) {
@@ -349,7 +389,9 @@ public abstract class Plant implements Bundlable {
 						}
 					}
 				}
-			}
+			} else {
+                super.onThrow( cell );
+            }
 		}
 		
 		@Override
@@ -410,7 +452,11 @@ public abstract class Plant implements Bundlable {
 
 		@Override
 		public String desc() {
-			return Messages.get(plantClass, "desc");
+            if(canBePlanted){
+                return Messages.get(plantClass, "desc");
+            } else {
+                return Messages.get(plantClass, "desc")+Messages.get(Plant.class, "cantbeplanted");
+            }
 		}
 
 		@Override

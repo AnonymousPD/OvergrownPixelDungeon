@@ -23,8 +23,11 @@
 
 package com.lovecraftpixel.lovecraftpixeldungeon.plants;
 
+import com.lovecraftpixel.lovecraftpixeldungeon.LovecraftPixelDungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.livingplants.LivingPlant;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.BlackDeath;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Disease;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Ebola;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.SnowhedgePoisonParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.noosa.particles.Emitter;
@@ -38,18 +41,19 @@ public class Snowhedge extends Plant {
 
 	@Override
 	public void activate( Char ch ) {
-
-	    if(Random.Boolean()){
-            spawnLivingPlant(new LivingPlant().setPlantClass(this, 0), ch);
-        } else {
-	        ch.damage(ch.damageRoll(), ch);
+        try {
+            Disease d = (Disease) Random.element(diseases).newInstance();
+            d.infect(ch);
+        } catch (Exception e){
+            LovecraftPixelDungeon.reportException(e);
         }
 	}
 
-    @Override
-    public void activatePosionDangerous(Char attacker, Char defender) {
-        defender.damage(defender.damageRoll(), defender);
-    }
+	//TODO: update with new diseases
+    private static final Class<?>[] diseases = {
+            BlackDeath.class,
+            Ebola.class,
+    };
 
     public static class Seed extends Plant.Seed{
 
@@ -57,7 +61,7 @@ public class Snowhedge extends Plant {
 			image = ItemSpriteSheet.SEED_SNOWHEDGE;
 
 			plantClass = Snowhedge.class;
-			heroDanger = HeroDanger.DANGEROUS;
+			heroDanger = HeroDanger.NEUTRAL;
 		}
 
         @Override

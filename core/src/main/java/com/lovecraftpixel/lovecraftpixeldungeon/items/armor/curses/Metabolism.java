@@ -32,6 +32,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.sprites.CharSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite.Glowing;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.BuffIndicator;
+import com.lovecraftpixel.lovecraftpixeldungeon.ui.DiseaseIndicator;
 import com.watabou.utils.Random;
 
 public class Metabolism extends Glyph {
@@ -54,6 +55,7 @@ public class Metabolism extends Glyph {
 					
 					hunger.reduceHunger( healing * -10 );
 					BuffIndicator.refreshHero();
+                    DiseaseIndicator.refreshHero();
 					
 					defender.HP += healing;
 					defender.sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );

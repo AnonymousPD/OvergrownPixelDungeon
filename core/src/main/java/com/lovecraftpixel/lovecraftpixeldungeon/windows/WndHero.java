@@ -27,12 +27,14 @@ import com.lovecraftpixel.lovecraftpixeldungeon.Assets;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.Statistics;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Disease;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
 import com.lovecraftpixel.lovecraftpixeldungeon.scenes.PixelScene;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.HeroSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.BuffIndicator;
+import com.lovecraftpixel.lovecraftpixeldungeon.ui.DiseaseIndicator;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.ScrollPane;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.Window;
 import com.watabou.gltextures.SmartTexture;
@@ -53,9 +55,12 @@ public class WndHero extends WndTabbed {
 	
 	private StatsTab stats;
 	private BuffsTab buffs;
+    private DiseaseTab diseases;
 	
-	private SmartTexture icons;
-	private TextureFilm film;
+	private SmartTexture iconsb;
+	private TextureFilm filmb;
+    private SmartTexture iconsd;
+    private TextureFilm filmd;
 	
 	public WndHero() {
 		
@@ -63,8 +68,10 @@ public class WndHero extends WndTabbed {
 		
 		resize( WIDTH, HEIGHT );
 		
-		icons = TextureCache.get( Assets.BUFFS_LARGE );
-		film = new TextureFilm( icons, 16, 16 );
+		iconsb = TextureCache.get( Assets.BUFFS_LARGE );
+		filmb = new TextureFilm(iconsb, 16, 16 );
+        iconsd = TextureCache.get( Assets.DISEASES_LARGE );
+        filmd = new TextureFilm(iconsd, 16, 16 );
 		
 		stats = new StatsTab();
 		add( stats );
@@ -73,6 +80,11 @@ public class WndHero extends WndTabbed {
 		add( buffs );
 		buffs.setRect(0, 0, WIDTH, HEIGHT);
 		buffs.setupList();
+
+        diseases = new DiseaseTab();
+        add( diseases );
+        diseases.setRect(0, 0, WIDTH, HEIGHT);
+        diseases.setupList();
 		
 		add( new LabeledTab( Messages.get(this, "stats") ) {
 			protected void select( boolean value ) {
@@ -86,6 +98,12 @@ public class WndHero extends WndTabbed {
 				buffs.visible = buffs.active = selected;
 			};
 		} );
+        add( new LabeledTab( Messages.get(this, "diseases") ) {
+            protected void select( boolean value ) {
+                super.select( value );
+                diseases.visible = diseases.active = selected;
+            };
+        } );
 
 		layoutTabs();
 		
@@ -207,8 +225,8 @@ public class WndHero extends WndTabbed {
 				this.buff = buff;
 				int index = buff.icon();
 
-				icon = new Image( icons );
-				icon.frame( film.get( index ) );
+				icon = new Image(iconsb);
+				icon.frame( filmb.get( index ) );
 				buff.tintIcon(icon);
 				icon.y = this.y;
 				add( icon );
@@ -238,4 +256,92 @@ public class WndHero extends WndTabbed {
 			}
 		}
 	}
+
+    private class DiseaseTab extends Component {
+
+        private static final int GAP = 2;
+
+        private float pos;
+        private ScrollPane diseaseList;
+        private ArrayList<DiseaseSlot> slots = new ArrayList<>();
+
+        public DiseaseTab() {
+            diseaseList = new ScrollPane( new Component() ){
+                @Override
+                public void onClick( float x, float y ) {
+                    int size = slots.size();
+                    for (int i=0; i < size; i++) {
+                        if (slots.get( i ).onClick( x, y )) {
+                            break;
+                        }
+                    }
+                }
+            };
+            add(diseaseList);
+        }
+
+        @Override
+        protected void layout() {
+            super.layout();
+            diseaseList.setRect(0, 0, width, height);
+        }
+
+        private void setupList() {
+            Component content = diseaseList.content();
+            for (Disease disease : Dungeon.hero.diseases()) {
+                if (disease.icon() != DiseaseIndicator.NONE) {
+                    DiseaseSlot slot = new DiseaseSlot(disease);
+                    slot.setRect(0, pos, WIDTH, slot.icon.height());
+                    content.add(slot);
+                    slots.add(slot);
+                    pos += GAP + slot.height();
+                }
+            }
+            content.setSize(diseaseList.width(), pos);
+            diseaseList.setSize(diseaseList.width(), diseaseList.height());
+        }
+
+        private class DiseaseSlot extends Component {
+
+            private Disease disease;
+
+            Image icon;
+            RenderedText txt;
+
+            public DiseaseSlot(Disease disease ){
+                super();
+                this.disease = disease;
+                int index = disease.icon();
+
+                icon = new Image(iconsd);
+                icon.frame( filmd.get( index ) );
+                disease.tintIcon(icon);
+                icon.y = this.y;
+                add( icon );
+
+                txt = PixelScene.renderText( disease.toString(), 8 );
+                txt.x = icon.width + GAP;
+                txt.y = this.y + (int)(icon.height - txt.baseLine()) / 2;
+                add( txt );
+
+            }
+
+            @Override
+            protected void layout() {
+                super.layout();
+                icon.y = this.y;
+                txt.x = icon.width + GAP;
+                txt.y = pos + (int)(icon.height - txt.baseLine()) / 2;
+            }
+
+            protected boolean onClick ( float x, float y ) {
+                if (inside( x, y )) {
+                    GameScene.show(new WndInfoDisease(disease));
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        }
+    }
 }

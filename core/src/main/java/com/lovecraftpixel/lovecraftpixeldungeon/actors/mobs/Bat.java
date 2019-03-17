@@ -25,6 +25,7 @@ package com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Ebola;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.PotionOfHealing;
@@ -47,6 +48,8 @@ public class Bat extends Mob {
 		
 		loot = new PotionOfHealing();
 		lootChance = 0.1667f; //by default, see rollToDropLoot()
+
+        properties.add(Property.DISEASEIMMUNE);
 	}
 	
 	@Override
@@ -73,6 +76,10 @@ public class Bat extends Mob {
 			HP += reg;
 			sprite.emitter().burst( Speck.factory( Speck.HEALING ), 1 );
 		}
+
+		if(Random.Int(enemy.HP) <= 1){
+		    new Ebola().infect(enemy);
+        }
 		
 		return damage;
 	}

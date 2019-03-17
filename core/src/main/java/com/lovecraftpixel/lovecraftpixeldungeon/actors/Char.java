@@ -58,6 +58,8 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Stamina;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Terror;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Vertigo;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Wither;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.BlackDeath;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Disease;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.BrokenSeal;
@@ -108,7 +110,7 @@ public abstract class Char extends Actor {
 	public boolean rooted		= false;
 	public boolean flying		= false;
 	public int invisible		= 0;
-	
+
 	//these are relative to the hero
 	public enum Alignment{
 		ENEMY,
@@ -122,6 +124,8 @@ public abstract class Char extends Actor {
 	public boolean[] fieldOfView = null;
 	
 	private HashSet<Buff> buffs = new HashSet<>();
+
+    private HashSet<Disease> dieases = new HashSet<>();
 	
 	@Override
 	protected boolean act() {
@@ -228,6 +232,10 @@ public abstract class Char extends Actor {
 
 			enemy.damage( effectiveDamage, this );
 
+			if(!diseases().isEmpty() && Random.Int(enemy.HP) <= 1){
+			    Random.element(diseases()).infect(enemy);
+            }
+
 			if (buff(FireImbue.class) != null)
 				buff(FireImbue.class).proc(enemy);
 			if (buff(EarthImbue.class) != null)
@@ -272,6 +280,8 @@ public abstract class Char extends Actor {
 		if (defender.buff(Bless.class) != null) defRoll *= 1.20f;
         if (attacker.buff(Dehydrated.class) != null) acuRoll /= 2f;
         if (attacker.buff(Dehydrated.class) != null) defRoll /= 2f;
+        if (attacker.diseases(BlackDeath.class) != null) acuRoll /= 4f;
+        if (attacker.diseases(BlackDeath.class) != null) defRoll /= 4f;
 		return (magic ? acuRoll * 2 : acuRoll) >= defRoll;
 	}
 	
@@ -317,6 +327,7 @@ public abstract class Char extends Actor {
 		if ( buff( Stamina.class ) != null) speed *= 1.5f;
 		if ( buff( Adrenaline.class ) != null) speed *= 2f;
 		if ( buff( Haste.class ) != null) speed *= 3f;
+        if ( diseases( BlackDeath.class ) != null ) speed /= 4f;
 		return speed;
 	}
 	
@@ -412,6 +423,9 @@ public abstract class Char extends Actor {
 	protected void spend( float time ) {
 		
 		float timeScale = 1f;
+        if (diseases( BlackDeath.class ) != null) {
+            timeScale *= 0.25f;
+        }
 		if (buff( Slow.class ) != null) {
 			timeScale *= 0.5f;
 			//slowed and chilled do not stack
@@ -450,6 +464,31 @@ public abstract class Char extends Actor {
 		return null;
 	}
 
+    public synchronized HashSet<Disease> diseases() {
+        return new HashSet<>(dieases);
+    }
+
+    @SuppressWarnings("unchecked")
+    public synchronized <T extends Disease> HashSet<T> diseases(Class<T> c ) {
+        HashSet<T> filtered = new HashSet<>();
+        for (Disease b : dieases) {
+            if (c.isInstance( b )) {
+                filtered.add( (T)b );
+            }
+        }
+        return filtered;
+    }
+
+    @SuppressWarnings("unchecked")
+    public synchronized  <T extends Disease> T disease( Class<T> c ) {
+        for (Disease b : dieases) {
+            if (c.isInstance( b )) {
+                return (T)b;
+            }
+        }
+        return null;
+    }
+
 	public synchronized boolean isCharmedBy( Char ch ) {
 		int chID = ch.id();
 		for (Buff b : buffs) {
@@ -479,6 +518,16 @@ public abstract class Char extends Actor {
 			}
 
 	}
+
+    public synchronized void add( Disease disease ) {
+
+        dieases.add(disease);
+        Actor.add(disease);
+
+        if (sprite != null && disease.announced)
+            sprite.showStatus(CharSprite.NEGATIVE, disease.toString());
+
+    }
 	
 	public synchronized void remove( Buff buff ) {
 		
@@ -486,24 +535,43 @@ public abstract class Char extends Actor {
 		Actor.remove( buff );
 
 	}
-	
+
+    public synchronized void remove( Disease disease ) {
+
+        dieases.remove( disease );
+        Actor.remove( disease );
+
+    }
+
 	public synchronized void remove( Class<? extends Buff> buffClass ) {
 		for (Buff buff : buffs( buffClass )) {
 			remove( buff );
 		}
 	}
+
+    public synchronized void remove( Class<? extends Disease> diseaseClass, boolean javaNeedsToUpdateTheirTypeErasureHandling ) {
+        for (Disease disease : diseases( diseaseClass )) {
+            remove( disease );
+        }
+    }
 	
 	@Override
 	protected synchronized void onRemove() {
 		for (Buff buff : buffs.toArray(new Buff[buffs.size()])) {
 			buff.detach();
 		}
+        for (Disease disease : dieases.toArray(new Disease[dieases.size()])) {
+            disease.detach();
+        }
 	}
 	
 	public synchronized void updateSpriteState() {
 		for (Buff buff:buffs) {
 			buff.fx( true );
 		}
+        for (Disease disease:dieases) {
+            disease.fx( true );
+        }
 	}
 	
 	public float stealth() {
@@ -572,6 +640,9 @@ public abstract class Char extends Actor {
 		for (Buff b : buffs()){
 			resists.addAll(b.resistances());
 		}
+        for (Disease d : diseases()){
+            resists.addAll(d.resistances());
+        }
 		
 		float result = 1f;
 		for (Class c : resists){
@@ -592,6 +663,9 @@ public abstract class Char extends Actor {
 		for (Buff b : buffs()){
 			immunes.addAll(b.immunities());
 		}
+        for (Disease d : diseases()){
+            immunes.addAll(d.immunities());
+        }
 		
 		for (Class c : immunes){
 			if (c.isAssignableFrom(effect)){
@@ -615,7 +689,9 @@ public abstract class Char extends Actor {
 		UNDEAD,
 		DEMONIC,
 		INORGANIC ( new HashSet<Class>(),
-				new HashSet<Class>( Arrays.asList(Bleeding.class, ToxicGas.class, Poison.class) )),
+				new HashSet<Class>( Arrays.asList(Bleeding.class, ToxicGas.class, Poison.class, Disease.class) )),
+        DISEASEIMMUNE( new HashSet<Class>(),
+                new HashSet<Class>( Arrays.asList(Disease.class) )),
 		BLOB_IMMUNE ( new HashSet<Class>(),
 				new HashSet<Class>( Arrays.asList(Blob.class) )),
 		FIERY ( new HashSet<Class>( Arrays.asList(WandOfFireblast.class)),

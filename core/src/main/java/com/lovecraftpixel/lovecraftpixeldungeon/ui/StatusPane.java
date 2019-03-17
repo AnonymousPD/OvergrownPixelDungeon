@@ -69,6 +69,7 @@ public class StatusPane extends Component {
 
 	private DangerIndicator danger;
 	private BuffIndicator buffs;
+    private DiseaseIndicator diseases;
 	private Compass compass;
 
 	private JournalButton btnJournal;
@@ -81,7 +82,7 @@ public class StatusPane extends Component {
 	@Override
 	protected void createChildren() {
 
-		bg = new NinePatch( Assets.STATUS, 0, 0, 128, 36, 85, 0, 45, 0 );
+		bg = new NinePatch( Assets.STATUS, 0, 0, 128, 45, 85, 0, 45, 0 );
 		add( bg );
 
 		add( new TouchArea( 0, 1, 31, 31 ) {
@@ -138,6 +139,9 @@ public class StatusPane extends Component {
 		buffs = new BuffIndicator( Dungeon.hero );
 		add( buffs );
 
+        diseases = new DiseaseIndicator( Dungeon.hero );
+        add( diseases );
+
 		add( pickedUp = new Toolbar.PickedUpItem());
 		
 		version = new BitmapText( "v" + Game.version, PixelScene.pixelFont);
@@ -172,6 +176,8 @@ public class StatusPane extends Component {
 		danger.setPos( width - danger.width(), 20 );
 
 		buffs.setPos( 31, 9 );
+
+        diseases.setPos( 31, 18 );
 
 		btnJournal.setPos( width - 42, 1 );
 
@@ -223,7 +229,7 @@ public class StatusPane extends Component {
 			level.text( Integer.toString( lastLvl ) );
 			level.measure();
 			level.x = 27.5f - level.width() / 2f;
-			level.y = 28.0f - level.baseLine() / 2f;
+			level.y = 35.0f - level.baseLine() / 2f;
 			PixelScene.align(level);
 		}
 

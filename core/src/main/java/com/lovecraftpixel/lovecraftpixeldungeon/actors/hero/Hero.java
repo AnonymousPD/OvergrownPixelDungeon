@@ -53,6 +53,8 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Regeneration;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.SnipersMark;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Vertigo;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Weakness;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Disease;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.FlavourDisease;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.npcs.NPC;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.CellEmitter;
@@ -114,6 +116,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.sprites.CharSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.HeroSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.AttackIndicator;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.BuffIndicator;
+import com.lovecraftpixel.lovecraftpixeldungeon.ui.DiseaseIndicator;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.QuickSlotButton;
 import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
 import com.lovecraftpixel.lovecraftpixeldungeon.utils.TxtFileReader;
@@ -133,7 +136,7 @@ import java.util.Collections;
 
 public class Hero extends Char {
 
-	{
+    {
 		actPriority = HERO_PRIO;
 		
 		alignment = Alignment.ALLY;
@@ -175,6 +178,8 @@ public class Hero extends Char {
 	
 	private ArrayList<Mob> visibleEnemies;
 
+	public ArrayList<Class> researchedDiseases;
+
 	//This list is maintained so that some logic checks can be skipped
 	// for enemies we know we aren't seeing normally, resultign in better performance
 	public ArrayList<Mob> mindVisionEnemies = new ArrayList<>();
@@ -189,6 +194,7 @@ public class Hero extends Char {
 		belongings = new Belongings( this );
 		
 		visibleEnemies = new ArrayList<Mob>();
+		researchedDiseases = new ArrayList<Class>();
 	}
 	
 	public void updateHT( boolean boostHP ){
@@ -223,6 +229,7 @@ public class Hero extends Char {
 	private static final String LEVEL		= "lvl";
 	private static final String EXPERIENCE	= "exp";
 	private static final String HTBOOST     = "htboost";
+    private static final String CURES       = "diseaseCures";
 	
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -241,6 +248,7 @@ public class Hero extends Char {
 		bundle.put( EXPERIENCE, exp );
 		
 		bundle.put( HTBOOST, HTBoost );
+        bundle.put( CURES, researchedDiseases.toArray(new Class[researchedDiseases.size()]) );
 
 		belongings.storeInBundle( bundle );
 	}
@@ -261,6 +269,8 @@ public class Hero extends Char {
 		exp = bundle.getInt( EXPERIENCE );
 		
 		HTBoost = bundle.getInt(HTBOOST);
+        researchedDiseases.clear();
+        Collections.addAll(researchedDiseases, bundle.getClassArray(CURES));
 		
 		belongings.restoreFromBundle( bundle );
 	}
@@ -497,6 +507,9 @@ public class Hero extends Char {
 		if (buff(FlavourBuff.class) != null) {
 			BuffIndicator.refreshHero();
 		}
+        if (disease(FlavourDisease.class) != null) {
+            DiseaseIndicator.refreshHero();
+        }
 		
 		if (paralysed > 0) {
 			
@@ -1337,6 +1350,22 @@ public class Hero extends Char {
 		
 		BuffIndicator.refreshHero();
 	}
+
+    @Override
+    public void add( Disease disease ) {
+
+        super.add( disease );
+
+        if (sprite != null) {
+            String msg = disease.heroMessage();
+            if (msg != null){
+                GLog.w(msg);
+            }
+
+        }
+
+        DiseaseIndicator.refreshHero();
+    }
 	
 	@Override
 	public void remove( Buff buff ) {
@@ -1344,6 +1373,13 @@ public class Hero extends Char {
 
 		BuffIndicator.refreshHero();
 	}
+
+    @Override
+    public void remove( Disease disease ) {
+        super.remove( disease );
+
+        DiseaseIndicator.refreshHero();
+    }
 	
 	@Override
 	public float stealth() {
@@ -1587,7 +1623,12 @@ public class Hero extends Char {
                         GLog.h(TxtFileReader.getRandomBookTitle());
                     }
                 } else {
-                    GLog.i(Messages.get(Hero.class, "nothing_to_read"));
+                    if(Random.Int(30) <= 5 && !diseases().isEmpty()){
+                        GLog.p(Messages.get(Disease.class, "discoveredCure"));
+                        researchedDiseases.add(Random.element(diseases()).getClass());
+                    } else {
+                        GLog.i(Messages.get(Hero.class, "nothing_to_read"));
+                    }
                 }
             } else {
                 GLog.i(Messages.get(Hero.class, "already_read"));

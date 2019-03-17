@@ -102,17 +102,19 @@ public class Bestiary {
 						Brute.class, Brute.class, Brute.class, Brute.class, Brute.class,
 						Spinner.class));
 			case 13:
-				//1x bat, 3x brute, 1x shaman, 1x spinner
+				//1x bat, 3x brute, 1x shaman, 1x spinner 1x flameboi
 				return new ArrayList<>(Arrays.asList(
 						Bat.class,
 						Brute.class, Brute.class, Brute.class,
+                        FlameB01.class,
 						Shaman.class,
 						Spinner.class));
 			case 14:
-				//1x bat, 3x brute, 1x shaman, 4x spinner
+				//1x bat, 3x brute, 1x shaman, 4x spinner 2x flamebois
 				return new ArrayList<>(Arrays.asList(
 						Bat.class,
 						Brute.class, Brute.class, Brute.class,
+                        FlameB01.class, FlameB01.class,
 						Shaman.class,
 						Spinner.class, Spinner.class, Spinner.class, Spinner.class));
 				

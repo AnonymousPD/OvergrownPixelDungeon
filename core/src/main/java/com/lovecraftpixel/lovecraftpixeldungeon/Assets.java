@@ -100,6 +100,7 @@ public class Assets {
 	public static final String ROT_HEART= "mobs/rot_heart.png";
 	public static final String GUARD    = "mobs/guard.png";
     public static final String PLANTS	= "mobs/livingplants.png";
+    public static final String FLAMEB01	= "mobs/dwarven_flameboi.png";
 
 	public static final String ITEMS	        = "gui/items.png";
 	public static final String TERRAIN_FEATURES	= "terrain/terrain_features.png";
@@ -128,6 +129,8 @@ public class Assets {
 	
 	public static final String BUFFS_SMALL	= "gui/buffs.png";
 	public static final String BUFFS_LARGE	= "gui/large_buffs.png";
+    public static final String DISEASES_SMALL	= "gui/diseases.png";
+    public static final String DISEASES_LARGE	= "gui/large_diseases.png";
 	public static final String SPELL_ICONS	= "gui/spell_icons.png";
 	public static final String CONS_ICONS   = "gui/consumable_icons.png";
 	

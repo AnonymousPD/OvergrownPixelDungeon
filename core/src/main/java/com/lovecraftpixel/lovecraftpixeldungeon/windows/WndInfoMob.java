@@ -28,6 +28,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.scenes.PixelScene;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.CharSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.BuffIndicator;
+import com.lovecraftpixel.lovecraftpixeldungeon.ui.DiseaseIndicator;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.HealthBar;
 import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.ui.Component;
@@ -48,6 +49,7 @@ public class WndInfoMob extends WndTitledMessage {
 		private RenderedText name;
 		private HealthBar health;
 		private BuffIndicator buffs;
+        private DiseaseIndicator diseases;
 		
 		public MobTitle( Mob mob ) {
 			
@@ -64,6 +66,9 @@ public class WndInfoMob extends WndTitledMessage {
 
 			buffs = new BuffIndicator( mob );
 			add( buffs );
+
+            diseases = new DiseaseIndicator( mob );
+            add( diseases );
 		}
 		
 		@Override
@@ -82,6 +87,10 @@ public class WndInfoMob extends WndTitledMessage {
 			buffs.setPos(
 				name.x + name.width() + GAP-1,
 				name.y + name.baseLine() - BuffIndicator.SIZE-2 );
+
+            diseases.setPos(
+                    name.x + name.width() + GAP-1,
+                    name.y + name.baseLine() + buffs.height() - BuffIndicator.SIZE-2 );
 
 			height = health.bottom();
 		}

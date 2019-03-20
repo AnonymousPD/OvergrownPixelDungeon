@@ -60,7 +60,7 @@ public class DiseaseIndicator extends Component {
     public static final int HERPES	    = 10;
     public static final int RABIES	    = 11;
     public static final int SLOW_FEVER	= 12;
-    public static final int NECROSIS	= 13;
+    public static final int NARCOLEPSY = 13;
     public static final int LEPROSY	    = 14;
     public static final int LIGMA	    = 15;
 

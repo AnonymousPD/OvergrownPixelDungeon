@@ -28,7 +28,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.plants.Blindweed;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Sungrass;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.DiseaseIndicator;
 
-public class Necrosis extends FlavourDisease {
+public class Narcolepsy extends FlavourDisease {
 
     {
         DURATION = 1000f;
@@ -38,7 +38,7 @@ public class Necrosis extends FlavourDisease {
 
     @Override
 	public int icon() {
-		return DiseaseIndicator.NECROSIS;
+		return DiseaseIndicator.NARCOLEPSY;
 	}
 
     @Override

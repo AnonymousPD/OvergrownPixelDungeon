@@ -144,6 +144,32 @@ public class Potion extends Item {
 			put("charcoal",ItemSpriteSheet.POTION_CHARCOAL);
 			put("silver",ItemSpriteSheet.POTION_SILVER);
 			put("ivory",ItemSpriteSheet.POTION_IVORY);
+            put("yellow",ItemSpriteSheet.POTION_YELLOW);
+            put("white",ItemSpriteSheet.POTION_WHITE);
+            put("brown",ItemSpriteSheet.POTION_BROWN);
+            put("brightblue",ItemSpriteSheet.POTION_BRIGHTBLUE);
+            put("rainbow",ItemSpriteSheet.POTION_RAINBOW);
+            put("brightorange",ItemSpriteSheet.POTION_BRIGHTORANGE);
+            put("brightblue",ItemSpriteSheet.POTION_DARKBLUE);
+            put("black",ItemSpriteSheet.POTION_BLACK);
+            put("blue",ItemSpriteSheet.POTION_BLUE);
+            put("flatblue",ItemSpriteSheet.POTION_FLATBLUE);
+            put("parasitic",ItemSpriteSheet.POTION_PARASITIC);
+            put("diarrhoea",ItemSpriteSheet.POTION_DIARRHOEA);
+            put("punch",ItemSpriteSheet.POTION_PUNCH);
+            put("beige",ItemSpriteSheet.POTION_BEIGE);
+            put("bloodypoop",ItemSpriteSheet.POTION_BLOODY_POOP);
+            put("waterblue",ItemSpriteSheet.POTION_WATERBLUE);
+            put("brightgreen",ItemSpriteSheet.POTION_BRIGHT_GREEN);
+            put("indigopurple",ItemSpriteSheet.POTION_INDIGO_PURPLE);
+            put("limegreen",ItemSpriteSheet.POTION_LIMEGREEN);
+            put("rose",ItemSpriteSheet.POTION_ROSE);
+            put("brightpurple",ItemSpriteSheet.POTION_BRIGHT_PURPLE);
+            put("darkrose",ItemSpriteSheet.POTION_DARK_ROSE);
+            put("honey",ItemSpriteSheet.POTION_HONEY);
+            put("bloody",ItemSpriteSheet.POTION_BLOODY);
+            put("orange",ItemSpriteSheet.POTION_ORANGE);
+            put("violett",ItemSpriteSheet.POTION_VIOLETT);
 		}
 	};
 	

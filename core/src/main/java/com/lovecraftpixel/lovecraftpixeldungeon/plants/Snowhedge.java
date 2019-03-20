@@ -36,7 +36,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Influenza;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Leprosy;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Ligma;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Malaria;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Necrosis;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Narcolepsy;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Polio;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Rabies;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.SlowFever;
@@ -75,7 +75,7 @@ public class Snowhedge extends Plant {
             Leprosy.class,
             Ligma.class,
             Malaria.class,
-            Necrosis.class,
+            Narcolepsy.class,
             Polio.class,
             Rabies.class,
             SlowFever.class,

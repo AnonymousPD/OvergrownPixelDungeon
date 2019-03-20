@@ -67,7 +67,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Herpes;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Influenza;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Ligma;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Malaria;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Necrosis;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Narcolepsy;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Polio;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Rabies;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.SlowFever;
@@ -146,19 +146,19 @@ public abstract class Char extends Actor {
 			fieldOfView = new boolean[Dungeon.level.length()];
 		}
 		Dungeon.level.updateFieldOfView( this, fieldOfView );
-		if(diseases(Necrosis.class) != null){
+		if(disease(Narcolepsy.class) != null){
 		    Buff.affect(this, MagicalSleep.class);
         }
-        if(diseases(Cordyceps.class) != null && Random.Int(20) >= 1 && buff(Vertigo.class) == null){
+        if(disease(Cordyceps.class) != null && Random.Int(20) >= 1 && buff(Vertigo.class) == null){
             Buff.append(this, Vertigo.class, Vertigo.DURATION/4);
         }
-        if(diseases(Rabies.class) != null && Random.Int(20) >= 1 && buff(Vertigo.class) == null){
+        if(disease(Rabies.class) != null && Random.Int(20) >= 1 && buff(Vertigo.class) == null){
             Buff.append(this, Vertigo.class, Vertigo.DURATION/2);
         }
-        if(diseases(Cholera.class) != null && Random.Int(20) >= 1 && buff(Paralysis.class) == null){
+        if(disease(Cholera.class) != null && Random.Int(20) >= 1 && buff(Paralysis.class) == null){
             Buff.append(this, Paralysis.class, Paralysis.DURATION/4);
         }
-        if(diseases(Polio.class) != null && Random.Int(20) >= 1 && buff(Paralysis.class) == null){
+        if(disease(Polio.class) != null && Random.Int(20) >= 1 && buff(Paralysis.class) == null){
             Buff.append(this, Paralysis.class, Paralysis.DURATION/2);
         }
 		return false;
@@ -308,12 +308,12 @@ public abstract class Char extends Actor {
 		if (defender.buff(Bless.class) != null) defRoll *= 1.20f;
         if (attacker.buff(Dehydrated.class) != null) acuRoll /= 2f;
         if (attacker.buff(Dehydrated.class) != null) defRoll /= 2f;
-        if (attacker.diseases(BlackDeath.class) != null) acuRoll /= 4f;
-        if (attacker.diseases(BlackDeath.class) != null) defRoll /= 4f;
-        if (attacker.diseases(SlowFever.class) != null) acuRoll /= 2f;
-        if (attacker.diseases(SlowFever.class) != null) defRoll /= 2f;
-        if (attacker.diseases(SpanishFlu.class) != null) acuRoll /= 2f;
-        if (attacker.diseases(SpanishFlu.class) != null) defRoll /= 2f;
+        if (attacker.disease(BlackDeath.class) != null) acuRoll /= 4f;
+        if (attacker.disease(BlackDeath.class) != null) defRoll /= 4f;
+        if (attacker.disease(SlowFever.class) != null) acuRoll /= 2f;
+        if (attacker.disease(SlowFever.class) != null) defRoll /= 2f;
+        if (attacker.disease(SpanishFlu.class) != null) acuRoll /= 2f;
+        if (attacker.disease(SpanishFlu.class) != null) defRoll /= 2f;
 		return (magic ? acuRoll * 2 : acuRoll) >= defRoll;
 	}
 	
@@ -348,7 +348,7 @@ public abstract class Char extends Actor {
         if ( buff( Wither.class ) != null ){
             damage /= 2;
         }
-        if ( diseases( Aids.class ) != null ){
+        if ( disease( Aids.class ) != null ){
             damage /= 2;
         }
 		return damage;
@@ -362,12 +362,12 @@ public abstract class Char extends Actor {
 		if ( buff( Stamina.class ) != null) speed *= 1.5f;
 		if ( buff( Adrenaline.class ) != null) speed *= 2f;
 		if ( buff( Haste.class ) != null) speed *= 3f;
-        if ( diseases( BlackDeath.class ) != null ) speed /= 4f;
-        if ( diseases( Herpes.class ) != null ) speed /= 1.1f;
-        if ( diseases( Influenza.class ) != null ) speed /= 1.5f;
-        if ( diseases( Ligma.class ) != null ) speed /= 2f;
-        if ( diseases( Malaria.class ) != null ) speed /= 3f;
-        if ( diseases( SmallPox.class ) != null ) speed /= 1.5f;
+        if ( disease( BlackDeath.class ) != null ) speed /= 4f;
+        if ( disease( Herpes.class ) != null ) speed /= 1.1f;
+        if ( disease( Influenza.class ) != null ) speed /= 1.5f;
+        if ( disease( Ligma.class ) != null ) speed /= 2f;
+        if ( disease( Malaria.class ) != null ) speed /= 3f;
+        if ( disease( SmallPox.class ) != null ) speed /= 1.5f;
 		return speed;
 	}
 	
@@ -463,7 +463,7 @@ public abstract class Char extends Actor {
 	protected void spend( float time ) {
 		
 		float timeScale = 1f;
-        if (diseases( BlackDeath.class ) != null) {
+        if (disease( BlackDeath.class ) != null) {
             timeScale *= 0.25f;
         }
 		if (buff( Slow.class ) != null) {

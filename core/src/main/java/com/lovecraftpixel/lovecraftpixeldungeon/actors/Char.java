@@ -58,8 +58,21 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Stamina;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Terror;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Vertigo;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Wither;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Aids;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.BlackDeath;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Cholera;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Cordyceps;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Disease;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Herpes;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Influenza;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Ligma;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Malaria;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Necrosis;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Polio;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Rabies;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.SlowFever;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.SmallPox;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.SpanishFlu;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.BrokenSeal;
@@ -133,6 +146,21 @@ public abstract class Char extends Actor {
 			fieldOfView = new boolean[Dungeon.level.length()];
 		}
 		Dungeon.level.updateFieldOfView( this, fieldOfView );
+		if(diseases(Necrosis.class) != null){
+		    Buff.affect(this, MagicalSleep.class);
+        }
+        if(diseases(Cordyceps.class) != null && Random.Int(20) >= 1 && buff(Vertigo.class) == null){
+            Buff.append(this, Vertigo.class, Vertigo.DURATION/4);
+        }
+        if(diseases(Rabies.class) != null && Random.Int(20) >= 1 && buff(Vertigo.class) == null){
+            Buff.append(this, Vertigo.class, Vertigo.DURATION/2);
+        }
+        if(diseases(Cholera.class) != null && Random.Int(20) >= 1 && buff(Paralysis.class) == null){
+            Buff.append(this, Paralysis.class, Paralysis.DURATION/4);
+        }
+        if(diseases(Polio.class) != null && Random.Int(20) >= 1 && buff(Paralysis.class) == null){
+            Buff.append(this, Paralysis.class, Paralysis.DURATION/2);
+        }
 		return false;
 	}
 	
@@ -282,6 +310,10 @@ public abstract class Char extends Actor {
         if (attacker.buff(Dehydrated.class) != null) defRoll /= 2f;
         if (attacker.diseases(BlackDeath.class) != null) acuRoll /= 4f;
         if (attacker.diseases(BlackDeath.class) != null) defRoll /= 4f;
+        if (attacker.diseases(SlowFever.class) != null) acuRoll /= 2f;
+        if (attacker.diseases(SlowFever.class) != null) defRoll /= 2f;
+        if (attacker.diseases(SpanishFlu.class) != null) acuRoll /= 2f;
+        if (attacker.diseases(SpanishFlu.class) != null) defRoll /= 2f;
 		return (magic ? acuRoll * 2 : acuRoll) >= defRoll;
 	}
 	
@@ -314,7 +346,10 @@ public abstract class Char extends Actor {
 	
 	public int defenseProc( Char enemy, int damage ) {
         if ( buff( Wither.class ) != null ){
-            return damage/2;
+            damage /= 2;
+        }
+        if ( diseases( Aids.class ) != null ){
+            damage /= 2;
         }
 		return damage;
 	}
@@ -328,6 +363,11 @@ public abstract class Char extends Actor {
 		if ( buff( Adrenaline.class ) != null) speed *= 2f;
 		if ( buff( Haste.class ) != null) speed *= 3f;
         if ( diseases( BlackDeath.class ) != null ) speed /= 4f;
+        if ( diseases( Herpes.class ) != null ) speed /= 1.1f;
+        if ( diseases( Influenza.class ) != null ) speed /= 1.5f;
+        if ( diseases( Ligma.class ) != null ) speed /= 2f;
+        if ( diseases( Malaria.class ) != null ) speed /= 3f;
+        if ( diseases( SmallPox.class ) != null ) speed /= 1.5f;
 		return speed;
 	}
 	

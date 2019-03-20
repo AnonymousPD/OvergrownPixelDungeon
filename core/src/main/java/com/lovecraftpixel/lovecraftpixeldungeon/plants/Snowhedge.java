@@ -25,9 +25,23 @@ package com.lovecraftpixel.lovecraftpixeldungeon.plants;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.LovecraftPixelDungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Aids;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.BlackDeath;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Cholera;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Cordyceps;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Disease;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Ebola;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Herpes;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Influenza;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Leprosy;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Ligma;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Malaria;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Necrosis;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Polio;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Rabies;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.SlowFever;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.SmallPox;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.SpanishFlu;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.SnowhedgePoisonParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.noosa.particles.Emitter;
@@ -53,6 +67,20 @@ public class Snowhedge extends Plant {
     private static final Class<?>[] diseases = {
             BlackDeath.class,
             Ebola.class,
+            Aids.class,
+            Cholera.class,
+            Cordyceps.class,
+            Herpes.class,
+            Influenza.class,
+            Leprosy.class,
+            Ligma.class,
+            Malaria.class,
+            Necrosis.class,
+            Polio.class,
+            Rabies.class,
+            SlowFever.class,
+            SmallPox.class,
+            SpanishFlu.class
     };
 
     public static class Seed extends Plant.Seed{

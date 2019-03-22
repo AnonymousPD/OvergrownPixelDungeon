@@ -57,6 +57,10 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.PotionOfParalyticG
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.PotionOfPurity;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.PotionOfStrength;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.PotionOfToxicGas;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfDisease;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfFood;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfLight;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfPlants;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.RingOfAccuracy;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.RingOfElements;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.RingOfEnergy;
@@ -256,6 +260,10 @@ public enum Catalog {
 		POTIONS.seen.put( PotionOfInvisibility.class,       false);
 		POTIONS.seen.put( PotionOfExperience.class,         false);
 		POTIONS.seen.put( PotionOfHaste.class,              false);
+        POTIONS.seen.put( PotionOfDisease.class,            false);
+        POTIONS.seen.put( PotionOfFood.class,               false);
+        POTIONS.seen.put( PotionOfLight.class,              false);
+        POTIONS.seen.put( PotionOfPlants.class,             false);
 	
 		SCROLLS.seen.put( ScrollOfIdentify.class,           false);
 		SCROLLS.seen.put( ScrollOfUpgrade.class,            false);

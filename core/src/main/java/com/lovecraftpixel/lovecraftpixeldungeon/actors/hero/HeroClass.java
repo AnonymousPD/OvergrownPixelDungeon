@@ -31,7 +31,6 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.BrokenSeal;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.ClothArmor;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.CloakOfShadows;
-import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.SandalsOfNature;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.bags.PotionBandolier;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.bags.ScrollHolder;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.bags.VelvetPouch;
@@ -111,9 +110,6 @@ public enum HeroClass {
 		}
 		
 		new ScrollOfIdentify().identify();
-
-		new SandalsOfNature().identify().collect();
-
 	}
 
 	public Badges.Badge masteryBadge() {

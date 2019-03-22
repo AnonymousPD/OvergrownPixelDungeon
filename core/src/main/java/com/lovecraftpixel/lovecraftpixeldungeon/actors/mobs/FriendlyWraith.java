@@ -26,8 +26,10 @@ package com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Actor;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.LightParticle;
+import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.WraithSprite;
+import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
 import com.watabou.noosa.tweeners.AlphaTweener;
 import com.watabou.utils.PathFinder;
 
@@ -75,6 +77,10 @@ public class FriendlyWraith extends Wraith {
 			
 			return w;
 		} else {
+		    if(!(Actor.findChar(pos) == null)){
+                GLog.p(Messages.get(FriendlyWraith.class, "heal"));
+		        Actor.findChar(pos).HP = Actor.findChar(pos).HT;
+            }
 			return null;
 		}
 	}

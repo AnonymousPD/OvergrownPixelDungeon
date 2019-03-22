@@ -26,6 +26,7 @@ package com.lovecraftpixel.lovecraftpixeldungeon.plants;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Slow;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.WillowcanePoisonParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.noosa.particles.Emitter;
@@ -38,8 +39,13 @@ public class Willowcane extends Plant {
 
 	@Override
 	public void activate( Char ch ) {
-
-        Buff.prolong( ch, Slow.class, Slow.DURATION );
+        if(ch instanceof Mob){
+            if(!ch.properties().contains(Char.Property.INORGANIC)){
+                Buff.prolong( ch, Slow.class, Slow.DURATION );
+            }
+        } else {
+            Buff.prolong( ch, Slow.class, Slow.DURATION );
+        }
 	}
 
 	public static class Seed extends Plant.Seed{

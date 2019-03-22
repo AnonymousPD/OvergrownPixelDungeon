@@ -46,6 +46,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Frost;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.FrostImbue;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Haste;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Hunger;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Infested;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.MagicalSleep;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Ooze;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Paralysis;
@@ -731,7 +732,7 @@ public abstract class Char extends Actor {
 		UNDEAD,
 		DEMONIC,
 		INORGANIC ( new HashSet<Class>(),
-				new HashSet<Class>( Arrays.asList(Bleeding.class, ToxicGas.class, Poison.class, Disease.class) )),
+				new HashSet<Class>( Arrays.asList(Bleeding.class, ToxicGas.class, Poison.class, Disease.class, Wither.class, Infested.class) )),
         DISEASEIMMUNE( new HashSet<Class>(),
                 new HashSet<Class>( Arrays.asList(Disease.class) )),
 		BLOB_IMMUNE ( new HashSet<Class>(),

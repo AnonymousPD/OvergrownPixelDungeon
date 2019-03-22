@@ -55,19 +55,28 @@ public class Waterweed extends Plant {
                     || terr == Terrain.EMPTY_DECO) {
                 Level.set(cell, Terrain.WATER);
                 GameScene.updateMap(cell);
+                if(piras >= 0){
+                    piras--;
+                    Piranha piranha = new Piranha();
+                    piranha.pos = cell;
+
+                    GameScene.add( piranha );
+                    Actor.addDelayed( new Pushing( piranha, pos, piranha.pos ), -1 );
+                    piranha.aggro(ch);
+                }
             } else if (terr == Terrain.SECRET_TRAP || terr == Terrain.TRAP || terr == Terrain.INACTIVE_TRAP) {
                 Level.set(cell, Terrain.WATER);
                 Dungeon.level.traps.remove(cell);
                 GameScene.updateMap(cell);
-            }
-            if(piras >= 0){
-                piras--;
-                Piranha piranha = new Piranha();
-                piranha.pos = cell;
+                if(piras >= 0){
+                    piras--;
+                    Piranha piranha = new Piranha();
+                    piranha.pos = cell;
 
-                GameScene.add( piranha );
-                Actor.addDelayed( new Pushing( piranha, pos, piranha.pos ), -1 );
-                piranha.aggro(ch);
+                    GameScene.add( piranha );
+                    Actor.addDelayed( new Pushing( piranha, pos, piranha.pos ), -1 );
+                    piranha.aggro(ch);
+                }
             }
 
         }

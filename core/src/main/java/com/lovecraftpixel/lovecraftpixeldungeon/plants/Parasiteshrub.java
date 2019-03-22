@@ -39,7 +39,6 @@ public class Parasiteshrub extends Plant {
 
 	@Override
 	public void activate( Char ch ) {
-
         Buff.affect( ch, Infested.class ).set(Random.Int(5, 7) );
 	}
 

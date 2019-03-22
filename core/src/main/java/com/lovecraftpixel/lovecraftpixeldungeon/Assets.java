@@ -92,6 +92,7 @@ public class Assets {
 	public static final String LARVA	= "mobs/larva.png";
 	public static final String GHOST	= "mobs/ghost.png";
 	public static final String MAKER	= "mobs/wandmaker.png";
+    public static final String GARDNER	= "mobs/gardner.png";
 	public static final String TROLL	= "mobs/blacksmith.png";
 	public static final String IMP		= "mobs/demon.png";
 	public static final String RATKING	= "mobs/ratking.png";
@@ -193,4 +194,7 @@ public class Assets {
 
     public static final String BOOKTITLES	= "booknames/booktitles.txt";
     public static final String ITEMNAMES	= "booknames/itemnames.txt";
+
+    public static final String BLACKTILE    = "chess/blacktilechess.png";
+    public static final String WHITETILE    = "chess/whitetilechess.png";
 }

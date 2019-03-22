@@ -81,7 +81,7 @@ public class Suncarnivore extends Plant {
             CellEmitter.get( pos ).start( ShaftParticle.FACTORY, 0.2f, 3 );
         }
 
-        if(ch instanceof Mob){
+        if(ch instanceof Mob && !ch.properties().contains(Char.Property.INORGANIC)){
             if(ch.properties().contains(Char.Property.UNDEAD)){
                 ch.damage(ch.HP, this);
             }

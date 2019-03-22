@@ -23,9 +23,11 @@
 
 package com.lovecraftpixel.lovecraftpixeldungeon.levels.painters;
 
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.npcs.Gardner;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Level;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Terrain;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.rooms.Room;
+import com.lovecraftpixel.lovecraftpixeldungeon.levels.rooms.standard.ExitRoom;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -34,6 +36,13 @@ public class SewerPainter extends RegularPainter {
 	
 	@Override
 	protected void decorate(Level level, ArrayList<Room> rooms) {
+
+        for (Room r : rooms) {
+            if (r instanceof ExitRoom) {
+                Gardner.spawnGardner(level, r);
+                break;
+            }
+        }
 		
 		int[] map = level.map;
 		int w = level.width();

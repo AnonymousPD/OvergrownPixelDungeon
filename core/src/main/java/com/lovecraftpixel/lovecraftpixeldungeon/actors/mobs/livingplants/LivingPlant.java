@@ -137,7 +137,7 @@ public class LivingPlant extends Mob {
 
     @Override
     public String description() {
-        return super.description() + plantClass.desc();
+        return super.description() +"\n\n"+plantClass.desc();
     }
 
     @Override

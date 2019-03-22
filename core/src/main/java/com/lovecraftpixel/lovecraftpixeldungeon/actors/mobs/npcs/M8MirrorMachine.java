@@ -21,24 +21,39 @@
  * along with this program. If not, see <http://www.gnu.org/licenses>
  */
 
-package com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee;
+package com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.npcs;
 
-import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Disease;
+import com.lovecraftpixel.lovecraftpixeldungeon.sprites.M8MirrorMachineSprite;
 
-public class KnifeOnAStick extends MeleeWeapon {
+public class M8MirrorMachine extends NPC {
 
 	{
-		image = ItemSpriteSheet.KNIFE_ON_A_STICK;
-
-		tier = 2;
-		DLY = 0.9f; //1.12x speed
-		RCH = 3;    //extra reach
+		spriteClass = M8MirrorMachineSprite.class;
 	}
 
 	@Override
-	public int max(int lvl) {
-		return  Math.round(2.7f*(tier+1)) +    //19 base, up from 15
-				lvl*(tier+1);                  //+3 per level, up from +3
+	protected boolean act() {
+        throwItem();
+        return super.act();
 	}
 
+	@Override
+	public void damage( int dmg, Object src ) {
+	}
+
+	@Override
+	public void add( Buff buff ) {
+	}
+
+    @Override
+    public synchronized void add(Disease disease) {
+    }
+
+    @Override
+	public boolean interact() {
+		//TODO: Do this
+		return false;
+	}
 }

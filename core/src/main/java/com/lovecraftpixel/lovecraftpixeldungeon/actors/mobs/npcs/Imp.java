@@ -26,6 +26,7 @@ package com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.npcs;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Disease;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Golem;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Monk;
@@ -82,8 +83,12 @@ public class Imp extends NPC {
 	@Override
 	public void add( Buff buff ) {
 	}
-	
-	@Override
+
+    @Override
+    public void add(Disease disease) {
+    }
+
+    @Override
 	public boolean reset() {
 		return true;
 	}

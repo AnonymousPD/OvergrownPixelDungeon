@@ -30,6 +30,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Paralysis;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Roots;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Disease;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.FetidRat;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.GnollTrickster;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.GreatCrab;
@@ -102,8 +103,12 @@ public class Ghost extends NPC {
 	@Override
 	public void add( Buff buff ) {
 	}
-	
-	@Override
+
+    @Override
+    public void add(Disease disease) {
+    }
+
+    @Override
 	public boolean reset() {
 		return true;
 	}

@@ -282,8 +282,6 @@ public abstract class Plant implements Bundlable {
 	
 	public static class Seed extends Item {
 
-        public boolean canBePlanted = true;
-
         public enum HeroDanger{
             DANGEROUS(1),
             NEUTRAL(2),
@@ -315,22 +313,18 @@ public abstract class Plant implements Bundlable {
 
         @Override
         public void storeInBundle(Bundle bundle) {
-            canBePlanted = bundle.getBoolean( CANBEPLANTED );
             super.storeInBundle(bundle);
         }
 
         @Override
         public void restoreFromBundle(Bundle bundle) {
-            bundle.put( CANBEPLANTED, canBePlanted );
             super.restoreFromBundle(bundle);
         }
 
         @Override
 		public ArrayList<String> actions( Hero hero ) {
 			ArrayList<String> actions = super.actions( hero );
-			if(canBePlanted){
-                actions.add( AC_PLANT );
-            }
+			actions.add( AC_PLANT );
 			return actions;
 		}
 
@@ -369,7 +363,7 @@ public abstract class Plant implements Bundlable {
 					|| Dungeon.level.traps.get(cell) != null
 					|| Dungeon.isChallenged(Challenges.NO_HERBALISM)) {
 				super.onThrow( cell );
-			} else if(canBePlanted){
+			} else {
 				Dungeon.level.plant( this, cell);
 				if (Dungeon.hero.subClass == HeroSubClass.WARDEN) {
 					for (int i : PathFinder.NEIGHBOURS8) {
@@ -382,9 +376,7 @@ public abstract class Plant implements Bundlable {
 						}
 					}
 				}
-			} else {
-                super.onThrow( cell );
-            }
+			}
 		}
 		
 		@Override

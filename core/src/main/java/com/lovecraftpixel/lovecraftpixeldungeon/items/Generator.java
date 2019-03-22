@@ -41,7 +41,6 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.EtherealChains;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.HornOfPlenty;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.LloydsBeacon;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.MasterThievesArmband;
-import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.SandalsOfNature;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.TalismanOfForesight;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.TimekeepersHourglass;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.UnstableSpellbook;
@@ -494,7 +493,7 @@ public class Generator {
 					CloakOfShadows.class,
 					HornOfPlenty.class,
 					MasterThievesArmband.class,
-					SandalsOfNature.class,
+					//SandalsOfNature.class,
 					TalismanOfForesight.class,
 					TimekeepersHourglass.class,
 					UnstableSpellbook.class,

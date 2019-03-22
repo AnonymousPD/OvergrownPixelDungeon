@@ -28,6 +28,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.Generator;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Gold;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.Artifact;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.SandalsOfNature;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.FileUtils;
@@ -146,6 +147,9 @@ public class Bones {
 
 				//Enforces artifact uniqueness
 				if (item instanceof Artifact){
+				    if(item instanceof SandalsOfNature){
+                        return new Gold(item.price());
+                    }
 					if (Generator.removeArtifact(((Artifact)item).getClass())) {
 						try {
 							//generates a new artifact of the same type, always +0

@@ -28,6 +28,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.Badges;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Disease;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.BrokenSeal;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.EquipableItem;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
@@ -238,6 +239,10 @@ public class Blacksmith extends NPC {
 	@Override
 	public void add( Buff buff ) {
 	}
+
+    @Override
+    public void add( Disease disease ) {
+    }
 	
 	@Override
 	public boolean reset() {

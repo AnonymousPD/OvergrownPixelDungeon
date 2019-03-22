@@ -150,7 +150,7 @@ public class Potion extends Item {
             put("brightblue",ItemSpriteSheet.POTION_BRIGHTBLUE);
             put("rainbow",ItemSpriteSheet.POTION_RAINBOW);
             put("brightorange",ItemSpriteSheet.POTION_BRIGHTORANGE);
-            put("brightblue",ItemSpriteSheet.POTION_DARKBLUE);
+            put("darkblue",ItemSpriteSheet.POTION_DARKBLUE);
             put("black",ItemSpriteSheet.POTION_BLACK);
             put("blue",ItemSpriteSheet.POTION_BLUE);
             put("flatblue",ItemSpriteSheet.POTION_FLATBLUE);

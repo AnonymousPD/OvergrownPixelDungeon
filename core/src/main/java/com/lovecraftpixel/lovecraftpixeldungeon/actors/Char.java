@@ -63,6 +63,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.BlackDeath;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Cholera;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Cordyceps;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Disease;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Ebola;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Herpes;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Influenza;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Ligma;
@@ -368,6 +369,7 @@ public abstract class Char extends Actor {
         if ( disease( Ligma.class ) != null ) speed /= 2f;
         if ( disease( Malaria.class ) != null ) speed /= 3f;
         if ( disease( SmallPox.class ) != null ) speed /= 1.5f;
+        if ( disease( Ebola.class ) != null ) speed /= 1.5f;
 		return speed;
 	}
 	

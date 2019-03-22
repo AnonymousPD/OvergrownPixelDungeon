@@ -107,6 +107,10 @@ abstract public class Weapon extends KindOfWeapon {
 			return dly * delayFactor;
 		}
 	}
+
+    {
+        defaultAction = AC_POSION;
+    }
 	
 	public Augment augment = Augment.NONE;
 
@@ -194,7 +198,7 @@ abstract public class Weapon extends KindOfWeapon {
         return super.doUnequip(hero, collect, single);
     }
 
-    private void setPoisonTurns(int turns, boolean wasPoisonedByPlayer){
+    public void setPoisonTurns(int turns, boolean wasPoisonedByPlayer){
         if(wasPoisonedByPlayer){
             float rop = RingOfPoison.poisonMultiplier(curUser);
             this.poison_turns = (int) ((turns+this.level())*rop);

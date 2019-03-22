@@ -42,6 +42,10 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.ItemStatusHandler;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Recipe;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.bags.Bag;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfDisease;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfFood;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfLight;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfPlants;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.elixirs.ElixirOfHoneyedHealing;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.PotionOfCleansing;
@@ -127,7 +131,11 @@ public class Potion extends Item {
 			PotionOfPurity.class,
 			PotionOfInvisibility.class,
 			PotionOfHaste.class,
-			PotionOfFrost.class
+			PotionOfFrost.class,
+            PotionOfFood.class,
+            PotionOfDisease.class,
+            PotionOfLight.class,
+            PotionOfPlants.class,
 	};
 
 	private static final HashMap<String, Integer> colors = new HashMap<String, Integer>() {
@@ -508,18 +516,18 @@ public class Potion extends Item {
             types.put(Blackholeflower.Seed.class,   PotionOfHealing.class);
             types.put(Butterlion.Seed.class,        PotionOfHealing.class);
             types.put(Chandaliertail.Seed.class,    PotionOfHealing.class);
-            types.put(Chillisnapper.Seed.class,     PotionOfHealing.class);
+            types.put(Chillisnapper.Seed.class,     PotionOfLight.class);
             types.put(Crimsonpepper.Seed.class,     PotionOfHealing.class);
             types.put(Firefoxglove.Seed.class,      PotionOfHealing.class);
             types.put(Frostcorn.Seed.class,         PotionOfHealing.class);
-            types.put(Grasslilly.Seed.class,        PotionOfHealing.class);
+            types.put(Grasslilly.Seed.class,        PotionOfPlants.class);
             types.put(Kiwivetch.Seed.class,         PotionOfHealing.class);
             types.put(Musclemoss.Seed.class,        PotionOfHealing.class);
             types.put(Nightshadeonion.Seed.class,   PotionOfHealing.class);
             types.put(Parasiteshrub.Seed.class,     PotionOfHealing.class);
-            types.put(Peanutpetal.Seed.class,       PotionOfHealing.class);
+            types.put(Peanutpetal.Seed.class,       PotionOfFood.class);
             types.put(Rose.Seed.class,              PotionOfHealing.class);
-            types.put(Snowhedge.Seed.class,         PotionOfHealing.class);
+            types.put(Snowhedge.Seed.class,         PotionOfDisease.class);
             types.put(Steamweed.Seed.class,         PotionOfHealing.class);
             types.put(Sunbloom.Seed.class,          PotionOfHealing.class);
             types.put(Suncarnivore.Seed.class,      PotionOfHealing.class);

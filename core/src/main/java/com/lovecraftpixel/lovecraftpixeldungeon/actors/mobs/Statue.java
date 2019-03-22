@@ -32,6 +32,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Grim;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.journal.Notes;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Plant;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.StatueSprite;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
@@ -57,6 +58,10 @@ public class Statue extends Mob {
 		} while (weapon.cursed);
 		
 		weapon.enchant( Enchantment.random() );
+		if(Random.Boolean() == Random.Boolean()){
+		    weapon.seed = (Plant.Seed) Generator.random(Generator.Category.SEED).quantity(1);
+            weapon.setPoisonTurns(5, false);
+        }
 		
 		HP = HT = 15 + Dungeon.depth * 5;
 		defenseSkill = 4 + Dungeon.depth;

@@ -27,6 +27,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.npcs.NPC;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.CharSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.BuffIndicator;
@@ -64,7 +65,9 @@ public class Glowing extends Buff {
 
 		    if(target instanceof Hero){
                 for(Mob mob : Dungeon.level.mobs){
-                    mob.aggro(target);
+                    if(!mob.alignment.equals(Char.Alignment.ALLY) && !(mob instanceof NPC)){
+                        mob.aggro(target);
+                    }
                 }
             }
 

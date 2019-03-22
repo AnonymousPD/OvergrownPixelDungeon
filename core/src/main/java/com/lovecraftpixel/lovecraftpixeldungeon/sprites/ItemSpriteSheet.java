@@ -728,22 +728,22 @@ public class ItemSpriteSheet {
     }
 
     private static final int EXOTIC_POTIONS_ROW2 =                        xy(1, 33);  //16 slots
-    public static final int EXOTIC_YELLOW           = EXOTIC_POTIONS+0;
-    public static final int EXOTIC_WHITE            = EXOTIC_POTIONS+1;
-    public static final int EXOTIC_BROWN            = EXOTIC_POTIONS+2;
-    public static final int EXOTIC_BRIGHTBLUE       = EXOTIC_POTIONS+3;
-    public static final int EXOTIC_RAINBOW          = EXOTIC_POTIONS+4;
-    public static final int EXOTIC_BRIGHTORANGE     = EXOTIC_POTIONS+5;
-    public static final int EXOTIC_DARKBLUE         = EXOTIC_POTIONS+6;
-    public static final int EXOTIC_BLACK            = EXOTIC_POTIONS+7;
-    public static final int EXOTIC_BLUE             = EXOTIC_POTIONS+8;
-    public static final int EXOTIC_FLATBLUE         = EXOTIC_POTIONS+9;
-    public static final int EXOTIC_PARASITIC        = EXOTIC_POTIONS+10;
-    public static final int EXOTIC_DIARRHOEA        = EXOTIC_POTIONS+11;
-    public static final int EXOTIC_PUNCH            = EXOTIC_POTIONS+12;
-    public static final int EXOTIC_BEIGE            = EXOTIC_POTIONS+13;
-    public static final int EXOTIC_BLOODY_POOP      = EXOTIC_POTIONS+14;
-    public static final int EXOTIC_WATERBLUE        = EXOTIC_POTIONS+15;
+    public static final int EXOTIC_YELLOW           = EXOTIC_POTIONS_ROW2+0;
+    public static final int EXOTIC_WHITE            = EXOTIC_POTIONS_ROW2+1;
+    public static final int EXOTIC_BROWN            = EXOTIC_POTIONS_ROW2+2;
+    public static final int EXOTIC_BRIGHTBLUE       = EXOTIC_POTIONS_ROW2+3;
+    public static final int EXOTIC_RAINBOW          = EXOTIC_POTIONS_ROW2+4;
+    public static final int EXOTIC_BRIGHTORANGE     = EXOTIC_POTIONS_ROW2+5;
+    public static final int EXOTIC_DARKBLUE         = EXOTIC_POTIONS_ROW2+6;
+    public static final int EXOTIC_BLACK            = EXOTIC_POTIONS_ROW2+7;
+    public static final int EXOTIC_BLUE             = EXOTIC_POTIONS_ROW2+8;
+    public static final int EXOTIC_FLATBLUE         = EXOTIC_POTIONS_ROW2+9;
+    public static final int EXOTIC_PARASITIC        = EXOTIC_POTIONS_ROW2+10;
+    public static final int EXOTIC_DIARRHOEA        = EXOTIC_POTIONS_ROW2+11;
+    public static final int EXOTIC_PUNCH            = EXOTIC_POTIONS_ROW2+12;
+    public static final int EXOTIC_BEIGE            = EXOTIC_POTIONS_ROW2+13;
+    public static final int EXOTIC_BLOODY_POOP      = EXOTIC_POTIONS_ROW2+14;
+    public static final int EXOTIC_WATERBLUE        = EXOTIC_POTIONS_ROW2+15;
     static {
         for (int i = EXOTIC_POTIONS_ROW2; i < EXOTIC_POTIONS_ROW2 +16; i++)
             assignItemRect(i, 12, 13);
@@ -772,24 +772,24 @@ public class ItemSpriteSheet {
     }
 
     private static final int POTIONS_ROW3 =                               xy(1, 35);  //16 slots
-    public static final int POTION_BRIGHT_GREEN     = POTIONS_ROW2 +0;
-    public static final int POTION_INDIGO_PURPLE    = POTIONS_ROW2 +1;
-    public static final int POTION_LIMEGREEN        = POTIONS_ROW2 +2;
-    public static final int POTION_ROSE             = POTIONS_ROW2 +3;
-    public static final int POTION_BRIGHT_PURPLE    = POTIONS_ROW2 +4;
-    public static final int POTION_DARK_ROSE        = POTIONS_ROW2 +5;
+    public static final int POTION_BRIGHT_GREEN     = POTIONS_ROW3 +0;
+    public static final int POTION_INDIGO_PURPLE    = POTIONS_ROW3 +1;
+    public static final int POTION_LIMEGREEN        = POTIONS_ROW3 +2;
+    public static final int POTION_ROSE             = POTIONS_ROW3 +3;
+    public static final int POTION_BRIGHT_PURPLE    = POTIONS_ROW3 +4;
+    public static final int POTION_DARK_ROSE        = POTIONS_ROW3 +5;
     static {
         for (int i = POTIONS_ROW3; i < POTIONS_ROW3 +16; i++)
             assignItemRect(i, 12, 14);
     }
 
     private static final int EXOTIC_POTIONS_ROW3 =                       xy(1, 36);  //16 slots
-    public static final int EXOTIC_BRIGHT_GREEN         = EXOTIC_POTIONS+0;
-    public static final int EXOTIC_INDIGO_PURPLE        = EXOTIC_POTIONS+1;
-    public static final int EXOTIC_LIMEGREEN            = EXOTIC_POTIONS+2;
-    public static final int EXOTIC_ROSE                 = EXOTIC_POTIONS+3;
-    public static final int EXOTIC_BRIGHT_PURPLE        = EXOTIC_POTIONS+4;
-    public static final int EXOTIC_DARK_ROSE            = EXOTIC_POTIONS+5;
+    public static final int EXOTIC_BRIGHT_GREEN         = EXOTIC_POTIONS_ROW3+0;
+    public static final int EXOTIC_INDIGO_PURPLE        = EXOTIC_POTIONS_ROW3+1;
+    public static final int EXOTIC_LIMEGREEN            = EXOTIC_POTIONS_ROW3+2;
+    public static final int EXOTIC_ROSE                 = EXOTIC_POTIONS_ROW3+3;
+    public static final int EXOTIC_BRIGHT_PURPLE        = EXOTIC_POTIONS_ROW3+4;
+    public static final int EXOTIC_DARK_ROSE            = EXOTIC_POTIONS_ROW3+5;
     static {
         for (int i = EXOTIC_POTIONS_ROW3; i < EXOTIC_POTIONS_ROW3 +16; i++)
             assignItemRect(i, 12, 13);

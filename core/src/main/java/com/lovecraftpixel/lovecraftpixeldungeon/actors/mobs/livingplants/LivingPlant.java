@@ -45,11 +45,15 @@ public class LivingPlant extends Mob {
 		
 		HP = HT = 8;
 		defenseSkill = 2;
-		
-		maxLvl = 5;
 
 		EXP = 0;
 	}
+
+	public LivingPlant(){
+	    super();
+        HP = HT = 8 + Dungeon.depth * 2;
+        defenseSkill = 2 + Dungeon.depth * 2;
+    }
 
 	public Plant plantClass;
     public int powerlevel;
@@ -180,6 +184,11 @@ public class LivingPlant extends Mob {
         if(this.buffs().contains(Roots.class)){
             die(this);
             Dungeon.level.plant(plantClass.getPlant(plantClass), pos);
+        }
+        if(Dungeon.level.water[pos] && !flying){
+            if(Random.Int(powerlevel) <= 1 && Random.Boolean()){
+                powerlevel++;
+            }
         }
         return super.act();
     }

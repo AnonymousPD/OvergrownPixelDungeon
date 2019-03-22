@@ -25,8 +25,10 @@ package com.lovecraftpixel.lovecraftpixeldungeon.plants;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.PeanutpetalPoisonParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.food.SmallRation;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfFood;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.noosa.particles.Emitter;
 
@@ -39,7 +41,11 @@ public class Peanutpetal extends Plant {
 	@Override
 	public void activate( Char ch ) {
 
-        Dungeon.level.drop(new SmallRation(), ch.pos);
+	    if(ch instanceof Hero){
+            new PotionOfFood().satisfy((Hero) ch);
+        } else {
+            Dungeon.level.drop(new SmallRation(), ch.pos);
+        }
 
 	}
 

@@ -64,7 +64,7 @@ public class Snowhedge extends Plant {
 	}
 
 	//TODO: update with new diseases
-    private static final Class<?>[] diseases = {
+    public static final Class<?>[] diseases = {
             BlackDeath.class,
             Ebola.class,
             Aids.class,

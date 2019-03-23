@@ -41,6 +41,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.levels.builders.LoopBuilder;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.painters.Painter;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.rooms.Room;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.rooms.secret.SecretRoom;
+import com.lovecraftpixel.lovecraftpixeldungeon.levels.rooms.special.HiddenMachineRoom;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.rooms.special.PitRoom;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.rooms.special.ShopRoom;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.rooms.special.SpecialRoom;
@@ -110,6 +111,9 @@ public abstract class RegularLevel extends Level {
 		
 		if (Dungeon.shopOnLevel())
 			initRooms.add(new ShopRoom());
+
+        if (Dungeon.hiddenMachineOnLevel())
+            initRooms.add(new HiddenMachineRoom());
 		
 		int specials = specialRooms();
 		SpecialRoom.initForFloor();

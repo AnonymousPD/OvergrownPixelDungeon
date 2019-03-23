@@ -51,6 +51,10 @@ public class LineBuilder extends RegularBuilder {
 		if (shop != null){
 			placeRoom(rooms, entrance, shop, direction + 180f);
 		}
+
+        if (hiddenmachine != null){
+            placeRoom(rooms, entrance, hiddenmachine, direction + 180f);
+        }
 		
 		int roomsOnPath = (int)(multiConnections.size()*pathLength) + Random.chances(pathLenJitterChances);
 		roomsOnPath = Math.min(roomsOnPath, multiConnections.size());

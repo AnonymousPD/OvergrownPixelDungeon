@@ -353,6 +353,10 @@ public class Dungeon {
 	public static boolean shopOnLevel() {
 		return depth == 6 || depth == 11 || depth == 16;
 	}
+
+    public static boolean hiddenMachineOnLevel() {
+        return depth == 18;
+    }
 	
 	public static boolean bossLevel() {
 		return bossLevel( depth );

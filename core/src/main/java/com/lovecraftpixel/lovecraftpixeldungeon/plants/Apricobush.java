@@ -43,8 +43,12 @@ public class Apricobush extends Plant {
 	    if(ch instanceof Hero){
             (ch.buff( Hunger.class )).satisfy( Hunger.HUNGRY/2f );
             GLog.p(Messages.get(this, "hunger"));
-        } else {
-            if(ch.isAlive()) ch.HP = ch.HT++;
+        }
+        if(ch.isAlive()){
+            ch.HP *= 3;
+            if(ch.HP >= ch.HT){
+                ch.HP = ch.HT;
+            }
         }
 	}
 

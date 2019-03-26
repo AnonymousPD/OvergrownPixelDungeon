@@ -152,16 +152,16 @@ public abstract class Char extends Actor {
 		    Buff.affect(this, MagicalSleep.class);
         }
         if(disease(Cordyceps.class) != null && Random.Int(20) >= 1 && buff(Vertigo.class) == null){
-            Buff.append(this, Vertigo.class, Vertigo.DURATION/4);
+            Buff.affect(this, Vertigo.class, Vertigo.DURATION/4);
         }
         if(disease(Rabies.class) != null && Random.Int(20) >= 1 && buff(Vertigo.class) == null){
-            Buff.append(this, Vertigo.class, Vertigo.DURATION/2);
+            Buff.affect(this, Vertigo.class, Vertigo.DURATION/2);
         }
         if(disease(Cholera.class) != null && Random.Int(20) >= 1 && buff(Paralysis.class) == null){
-            Buff.append(this, Paralysis.class, Paralysis.DURATION/4);
+            Buff.affect(this, Paralysis.class, Paralysis.DURATION/4);
         }
         if(disease(Polio.class) != null && Random.Int(20) >= 1 && buff(Paralysis.class) == null){
-            Buff.append(this, Paralysis.class, Paralysis.DURATION/2);
+            Buff.affect(this, Paralysis.class, Paralysis.DURATION/2);
         }
 		return false;
 	}

@@ -228,7 +228,14 @@ public class Generator {
 		FOOD	( 0,    Food.class ),
 		
 		POTION	( 20,   Potion.class ),
-		SEED	( 0,    Plant.Seed.class ), //dropped by grass
+		SEED	( 0,    Plant.Seed.class ),
+        BASESEED	( 0,    Plant.Seed.class ),
+        SEEDWATER	( 0,    Plant.Seed.class ),
+        SEEDSEWER	( 0,    Plant.Seed.class ),
+        SEEDPRISON	( 0,    Plant.Seed.class ),
+        SEEDCAVES	( 0,    Plant.Seed.class ),
+        SEEDCITY	( 0,    Plant.Seed.class ),
+        SEEDHELL	( 0,    Plant.Seed.class ),
 		
 		SCROLL	( 20,   Scroll.class ),
 		STONE   ( 2,    Runestone.class),
@@ -316,6 +323,189 @@ public class Generator {
                     Suncarnivore.Seed.class,
                     Venusflytrap.Seed.class};
 			SEED.probs = new float[]{ 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+
+            BASESEED.classes = new Class<?>[]{
+                    Rotberry.Seed.class, //quest item
+                    Blindweed.Seed.class,
+                    Dreamfoil.Seed.class,
+                    Earthroot.Seed.class,
+                    Fadeleaf.Seed.class,
+                    Firebloom.Seed.class,
+                    Icecap.Seed.class,
+                    Sorrowmoss.Seed.class,
+                    Stormvine.Seed.class,
+                    Sungrass.Seed.class,
+                    Swiftthistle.Seed.class,
+                    Starflower.Seed.class};
+            BASESEED.probs = new float[]{ 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 1 };
+
+            SEEDWATER.classes = new Class<?>[]{
+                    Steamweed.Seed.class,
+                    Waterweed.Seed.class,
+                    };
+            SEEDWATER.probs = new float[]{ 10, 10 };
+
+            SEEDSEWER.classes = new Class<?>[]{
+                    Rotberry.Seed.class, //quest item
+                    Blindweed.Seed.class,
+                    Dreamfoil.Seed.class,
+                    Earthroot.Seed.class,
+                    Fadeleaf.Seed.class,
+                    Firebloom.Seed.class,
+                    Icecap.Seed.class,
+                    Sorrowmoss.Seed.class,
+                    Stormvine.Seed.class,
+                    Sungrass.Seed.class,
+                    Swiftthistle.Seed.class,
+                    Starflower.Seed.class,
+                    Frostcorn.Seed.class,
+                    Musclemoss.Seed.class,
+                    Sunbloom.Seed.class,
+                    Tomatobush.Seed.class,
+                    Willowcane.Seed.class,
+                    Grasslilly.Seed.class,
+                    Kiwivetch.Seed.class,
+                    Peanutpetal.Seed.class,
+                    Rose.Seed.class};
+            SEEDSEWER.probs = new float[]{ 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+
+            SEEDPRISON.classes = new Class<?>[]{
+                    Rotberry.Seed.class, //quest item
+                    Blindweed.Seed.class,
+                    Dreamfoil.Seed.class,
+                    Earthroot.Seed.class,
+                    Fadeleaf.Seed.class,
+                    Firebloom.Seed.class,
+                    Icecap.Seed.class,
+                    Sorrowmoss.Seed.class,
+                    Stormvine.Seed.class,
+                    Sungrass.Seed.class,
+                    Swiftthistle.Seed.class,
+                    Starflower.Seed.class,
+                    Blackholeflower.Seed.class,
+                    Butterlion.Seed.class,
+                    Chandaliertail.Seed.class,
+                    Chillisnapper.Seed.class,
+                    Crimsonpepper.Seed.class,
+                    Firefoxglove.Seed.class,
+                    Frostcorn.Seed.class,
+                    Musclemoss.Seed.class,
+                    Nightshadeonion.Seed.class,
+                    Parasiteshrub.Seed.class,
+                    Snowhedge.Seed.class,
+                    Sunbloom.Seed.class,
+                    Tomatobush.Seed.class,
+                    Willowcane.Seed.class,
+                    Grasslilly.Seed.class,
+                    Kiwivetch.Seed.class,
+                    Peanutpetal.Seed.class,
+                    Rose.Seed.class,
+                    Venusflytrap.Seed.class};
+            SEEDPRISON.probs = new float[]{ 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+
+            SEEDCAVES.classes = new Class<?>[]{
+                    Rotberry.Seed.class, //quest item
+                    Blindweed.Seed.class,
+                    Dreamfoil.Seed.class,
+                    Earthroot.Seed.class,
+                    Fadeleaf.Seed.class,
+                    Firebloom.Seed.class,
+                    Icecap.Seed.class,
+                    Sorrowmoss.Seed.class,
+                    Stormvine.Seed.class,
+                    Sungrass.Seed.class,
+                    Swiftthistle.Seed.class,
+                    Starflower.Seed.class,
+                    Blackholeflower.Seed.class,
+                    Butterlion.Seed.class,
+                    Chandaliertail.Seed.class,
+                    Chillisnapper.Seed.class,
+                    Crimsonpepper.Seed.class,
+                    Firefoxglove.Seed.class,
+                    Frostcorn.Seed.class,
+                    Musclemoss.Seed.class,
+                    Nightshadeonion.Seed.class,
+                    Parasiteshrub.Seed.class,
+                    Snowhedge.Seed.class,
+                    Tomatobush.Seed.class,
+                    Willowcane.Seed.class,
+                    Witherfennel.Seed.class,
+                    Grasslilly.Seed.class,
+                    Kiwivetch.Seed.class,
+                    Peanutpetal.Seed.class,
+                    Rose.Seed.class,
+                    Venusflytrap.Seed.class};
+            SEEDCAVES.probs = new float[]{ 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+
+            SEEDCITY.classes = new Class<?>[]{
+                    Rotberry.Seed.class, //quest item
+                    Blindweed.Seed.class,
+                    Dreamfoil.Seed.class,
+                    Earthroot.Seed.class,
+                    Fadeleaf.Seed.class,
+                    Firebloom.Seed.class,
+                    Icecap.Seed.class,
+                    Sorrowmoss.Seed.class,
+                    Stormvine.Seed.class,
+                    Sungrass.Seed.class,
+                    Swiftthistle.Seed.class,
+                    Starflower.Seed.class,
+                    Blackholeflower.Seed.class,
+                    Butterlion.Seed.class,
+                    Chandaliertail.Seed.class,
+                    Chillisnapper.Seed.class,
+                    Crimsonpepper.Seed.class,
+                    Firefoxglove.Seed.class,
+                    Frostcorn.Seed.class,
+                    Musclemoss.Seed.class,
+                    Nightshadeonion.Seed.class,
+                    Parasiteshrub.Seed.class,
+                    Snowhedge.Seed.class,
+                    Sunbloom.Seed.class,
+                    Tomatobush.Seed.class,
+                    Willowcane.Seed.class,
+                    Witherfennel.Seed.class,
+                    Grasslilly.Seed.class,
+                    Kiwivetch.Seed.class,
+                    Peanutpetal.Seed.class,
+                    Rose.Seed.class,
+                    Suncarnivore.Seed.class,
+                    Venusflytrap.Seed.class};
+            SEEDCITY.probs = new float[]{ 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 };
+
+            SEEDHELL.classes = new Class<?>[]{
+                    Rotberry.Seed.class, //quest item
+                    Blindweed.Seed.class,
+                    Dreamfoil.Seed.class,
+                    Earthroot.Seed.class,
+                    Fadeleaf.Seed.class,
+                    Firebloom.Seed.class,
+                    Icecap.Seed.class,
+                    Sorrowmoss.Seed.class,
+                    Stormvine.Seed.class,
+                    Sungrass.Seed.class,
+                    Swiftthistle.Seed.class,
+                    Starflower.Seed.class,
+                    Apricobush.Seed.class,
+                    Blackholeflower.Seed.class,
+                    Butterlion.Seed.class,
+                    Chandaliertail.Seed.class,
+                    Chillisnapper.Seed.class,
+                    Crimsonpepper.Seed.class,
+                    Firefoxglove.Seed.class,
+                    Frostcorn.Seed.class,
+                    Musclemoss.Seed.class,
+                    Nightshadeonion.Seed.class,
+                    Parasiteshrub.Seed.class,
+                    Sunbloom.Seed.class,
+                    Tomatobush.Seed.class,
+                    Willowcane.Seed.class,
+                    Witherfennel.Seed.class,
+                    Peanutpetal.Seed.class,
+                    Rose.Seed.class,                                                                                                    //
+                    Suncarnivore.Seed.class,                                                                                               //
+                    Venusflytrap.Seed.class};                                                                                                  //
+            SEEDHELL.probs = new float[]{ 0, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2 };
 			
 			SCROLL.classes = new Class<?>[]{
 					ScrollOfUpgrade.class, //3 drop every chapter, see Dungeon.souNeeded()

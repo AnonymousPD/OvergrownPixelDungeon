@@ -45,7 +45,7 @@ public class Butterlion extends Plant {
         CellEmitter.get( ch.pos ).start( Speck.factory( Speck.ROCK ), 0.07f, 10 );
         Camera.main.shake( 3, 0.7f );
         Sample.INSTANCE.play( Assets.SND_ROCKS );
-        ch.damage(ch.damageRoll(), ch);
+        ch.damage(ch.damageRoll(), this);
 
 	}
 

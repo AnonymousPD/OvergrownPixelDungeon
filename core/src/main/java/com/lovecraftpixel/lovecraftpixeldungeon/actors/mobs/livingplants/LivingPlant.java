@@ -29,6 +29,8 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Roots;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Generator;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.RingOfElements;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.RingOfPoison;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Plant;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.CharSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.livingplants.LivingPlantSprite;
@@ -89,15 +91,33 @@ public class LivingPlant extends Mob {
     public LivingPlant setPlantClass(Plant plantClass, int powerlevel){
         this.plantClass = plantClass;
         this.powerlevel = powerlevel;
+        this.name += (" "+plantClass.plantName);
         return this;
     }
 
     @Override
     public void die(Object cause) {
+        int ringBuff = 0;
+        if(Dungeon.hero.belongings.misc1 instanceof RingOfPoison){
+            ringBuff += 2;
+        }
+        if(Dungeon.hero.belongings.misc2 instanceof RingOfPoison){
+            ringBuff += 2;
+        }
+        if(Dungeon.hero.belongings.misc1 instanceof RingOfElements){
+            ringBuff += 2;
+        }
+        if(Dungeon.hero.belongings.misc2 instanceof RingOfElements){
+            ringBuff += 2;
+        }
         if(!this.buffs().contains(Roots.class)){
             Plant plant = plantClass;
             plant.pos = pos;
             plant.activate(this);
+        } else {
+            if (Random.Int(14-ringBuff) <= 0){
+                Dungeon.level.drop(plantClass.getPlant(plantClass), pos).sprite.drop();
+            }
         }
         super.die(cause);
     }

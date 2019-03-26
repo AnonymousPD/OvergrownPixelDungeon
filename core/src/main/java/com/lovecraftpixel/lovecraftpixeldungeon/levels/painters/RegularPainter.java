@@ -352,14 +352,28 @@ public abstract class RegularPainter extends Painter {
                 for (Point p : r.plantsPlaceablePoints()){
                     int i = l.pointToCell(p);
                     if (l.map[i] == Terrain.GRASS){
-                        plantCells.add(i);
+                        //Water plants should only be 50% as common as grass plants
+                        if(l.map[i] == Terrain.WATER && Dungeon.depth < 21){
+                            if(Random.Int(10) == 1){
+                                plantCells.add(i);
+                            }
+                        } else {
+                            plantCells.add(i);
+                        }
                     }
                 }
             }
         } else {
             for (int i = 0; i < l.length(); i ++) {
                 if (l.map[i] == Terrain.GRASS){
-                    plantCells.add(i);
+                    //Water plants should only be 50% as common as grass plants
+                    if(l.map[i] == Terrain.WATER && Dungeon.depth < 21){
+                        if(Random.Int(8) == 1){
+                            plantCells.add(i);
+                        }
+                    } else {
+                        plantCells.add(i);
+                    }
                 }
             }
         }
@@ -370,8 +384,52 @@ public abstract class RegularPainter extends Painter {
                     if(!plantCells.isEmpty()){
                         int p = Random.element(plantCells);
                         if (l.heaps.get(p) == null || l.findMob(p) == null) {
+                            Plant plant;
+                            if(l.map[p] == Terrain.WATER){
+                                plant = ((Plant.Seed) Generator.random(Generator.Category.SEEDWATER)).getPlantClass().newInstance();
+                            } else {
+                                switch (Dungeon.depth){
+                                    case 1:
+                                    case 2:
+                                    case 3:
+                                    case 4:
+                                    case 5:
+                                        plant = ((Plant.Seed) Generator.random(Generator.Category.SEEDSEWER)).getPlantClass().newInstance();
+                                        break;
+                                    case 6:
+                                    case 7:
+                                    case 8:
+                                    case 9:
+                                    case 10:
+                                        plant = ((Plant.Seed) Generator.random(Generator.Category.SEEDPRISON)).getPlantClass().newInstance();
+                                        break;
+                                    case 11:
+                                    case 12:
+                                    case 13:
+                                    case 14:
+                                    case 15:
+                                        plant = ((Plant.Seed) Generator.random(Generator.Category.SEEDCAVES)).getPlantClass().newInstance();
+                                        break;
+                                    case 16:
+                                    case 17:
+                                    case 18:
+                                    case 19:
+                                    case 20:
+                                        plant = ((Plant.Seed) Generator.random(Generator.Category.SEEDCITY)).getPlantClass().newInstance();
+                                        break;
+                                    case 21:
+                                    case 22:
+                                    case 23:
+                                    case 24:
+                                    case 25:
+                                        plant = ((Plant.Seed) Generator.random(Generator.Category.SEEDHELL)).getPlantClass().newInstance();
+                                        break;
+                                        default:
+                                            plant = ((Plant.Seed) Generator.random(Generator.Category.SEED)).getPlantClass().newInstance();
+                                            break;
+                                }
+                            }
                             try {
-                                Plant plant = ((Plant.Seed) Generator.random(Generator.Category.SEED)).getPlantClass().newInstance();
                                 plant.pos = p;
                                 l.plants.put(plant.pos, plant);
                                 plantCells.remove((Object)p);

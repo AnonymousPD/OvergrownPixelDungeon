@@ -69,6 +69,7 @@ public class CharSprite extends MovieClip implements Tweener.Listener, MovieClip
 	public static final int WARNING		= 0xFF8800;
 	public static final int NEUTRAL		= 0xFFFF00;
     public static final int SPECIAL		= 0x9D00A7;
+    public static final int WATERDAMAGE	= 0x00C5FF;
 	
 	private static final float MOVE_INTERVAL	= 0.1f;
 	private static final float FLASH_INTERVAL	= 0.05f;

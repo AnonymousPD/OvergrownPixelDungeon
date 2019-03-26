@@ -31,7 +31,6 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.Armor.Glyph;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.wands.WandOfBlastWave;
 import com.lovecraftpixel.lovecraftpixeldungeon.mechanics.Ballistica;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite.Glowing;
-import com.watabou.utils.Random;
 
 public class Featherweight extends Glyph {
 
@@ -40,14 +39,10 @@ public class Featherweight extends Glyph {
 	@Override
 	public int proc( Armor armor, Char attacker, Char defender, int damage) {
 
-		if (Random.Int( 6 ) == 0) {
-
-		    int oppositeAttacker = defender.pos + (defender.pos - attacker.pos);
-		    Ballistica trajectory = new Ballistica(defender.pos, oppositeAttacker, Ballistica.MAGIC_BOLT);
-		    WandOfBlastWave.throwChar(defender, trajectory, 2);
-            Buff.append(defender, Vertigo.class, Vertigo.DURATION/2);
-
-		}
+        int oppositeAttacker = defender.pos + (defender.pos - attacker.pos);
+        Ballistica trajectory = new Ballistica(defender.pos, oppositeAttacker, Ballistica.MAGIC_BOLT);
+        WandOfBlastWave.throwChar(defender, trajectory, 2);
+        Buff.append(defender, Vertigo.class, Vertigo.DURATION/2);
 		
 		return damage;
 	}

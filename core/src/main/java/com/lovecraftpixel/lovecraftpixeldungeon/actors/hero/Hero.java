@@ -26,6 +26,7 @@ package com.lovecraftpixel.lovecraftpixeldungeon.actors.hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.Assets;
 import com.lovecraftpixel.lovecraftpixeldungeon.Badges;
 import com.lovecraftpixel.lovecraftpixeldungeon.Bones;
+import com.lovecraftpixel.lovecraftpixeldungeon.Challenges;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.GamesInProgress;
 import com.lovecraftpixel.lovecraftpixeldungeon.LovecraftPixelDungeon;
@@ -1528,6 +1529,13 @@ public class Hero extends Char {
 				Sample.INSTANCE.play( Assets.SND_STEP );
 			}
 		}
+
+        //Aquaphobia challenge
+        if (Dungeon.isChallenged(Challenges.AQUAPHOBIA)
+                && Dungeon.level.water[pos]){
+            damage(Dungeon.depth%5, this);
+            this.sprite.showStatus( CharSprite.WATERDAMAGE, Messages.get(Char.class, "aquaphobia") );
+        }
 	}
 	
 	@Override

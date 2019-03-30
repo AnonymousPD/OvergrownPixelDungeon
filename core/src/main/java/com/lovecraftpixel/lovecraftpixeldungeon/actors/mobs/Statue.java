@@ -25,10 +25,13 @@ package com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Generator;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon.Enchantment;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Grim;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Precise;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Unstable;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.journal.Notes;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
@@ -96,6 +99,16 @@ public class Statue extends Mob {
 	
 	@Override
 	public int attackSkill( Char target ) {
+        if (weapon.hasEnchant(Precise.class, this)
+                || (weapon.hasEnchant(Unstable.class, this) && Random.Int(11) == 0)){
+            if (Precise.rollToGuaranteeHit(weapon)){
+                target.sprite.emitter().start( Speck.factory(Speck.LIGHT), 0.05f, 5 );
+                return Integer.MAX_VALUE;
+            }
+            if (weapon.hasEnchant(Unstable.class, this)){
+                Unstable.justRolledPrecise = true;
+            }
+        }
 		return (int)((9 + Dungeon.depth) * weapon.accuracyFactor(this));
 	}
 	

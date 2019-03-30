@@ -36,6 +36,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.bags.MagicalHolster;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.RingOfSharpshooting;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Projecting;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Swift;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.missiles.darts.TippedDart;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
@@ -190,6 +191,12 @@ abstract public class MissileWeapon extends Weapon {
 	
 	@Override
 	public float castDelay(Char user, int dst) {
+        if (Actor.findChar( dst ) != null
+                && user.buff(Swift.SwiftAttack.class) != null
+                && user.buff(Swift.SwiftAttack.class).boostsRanged()) {
+            user.buff(Swift.SwiftAttack.class).detach();
+            return 0;
+        }
 		return speedFactor( user );
 	}
 	

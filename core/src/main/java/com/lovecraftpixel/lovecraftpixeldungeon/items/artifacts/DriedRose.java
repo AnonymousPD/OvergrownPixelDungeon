@@ -45,6 +45,8 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.Armor;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.AntiMagic;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.ScrollOfRetribution;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.exotic.ScrollOfPsionicBlast;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Precise;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Unstable;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.missiles.Boomerang;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Level;
@@ -494,6 +496,17 @@ public class DriedRose extends Artifact {
 
 		@Override
 		public int attackSkill(Char target) {
+            if (rose != null && rose.weapon != null
+                    && (rose.weapon.hasEnchant(Precise.class, this)
+                    || rose.weapon.hasEnchant(Unstable.class, this) && Random.Int(11) == 0)){
+                if (Precise.rollToGuaranteeHit(rose.weapon)){
+                    target.sprite.emitter().start( Speck.factory(Speck.LIGHT), 0.05f, 5 );
+                    return Integer.MAX_VALUE;
+                }
+                if (rose.weapon.hasEnchant(Unstable.class, this)){
+                    Unstable.justRolledPrecise = true;
+                }
+            }
 			//same accuracy as the hero.
 			int acc = Dungeon.hero.lvl + 9;
 			

@@ -31,7 +31,7 @@ import com.watabou.utils.Random;
 
 public class Unstable extends Weapon.Enchantment {
 
-	private static ItemSprite.Glowing WHITE = new ItemSprite.Glowing( 0xFFFFFF );
+    private static ItemSprite.Glowing GREY = new ItemSprite.Glowing( 0x999999 );
 
 	private static Class<?extends Weapon.Enchantment>[] randomEnchants = new Class[]{
 			Blazing.class,
@@ -45,11 +45,25 @@ public class Unstable extends Weapon.Enchantment {
 			Stunning.class,
 			Vampiric.class,
 			Venomous.class,
-			Vorpal.class
+			Vorpal.class,
+            Blooming.class,
+            Explosion.class,
+            Midas.class,
+            Whirlwind.class,
+            Flashing.class,
+            Precise.class,
 	};
+
+    public static boolean justRolledPrecise;
 
 	@Override
 	public int proc( Weapon weapon, Char attacker, Char defender, int damage ) {
+
+        if (justRolledPrecise){
+            justRolledPrecise = false;
+            return damage;
+        }
+
 		try {
 			return Random.oneOf(randomEnchants).newInstance().proc( weapon, attacker, defender, damage );
 		} catch (Exception e) {
@@ -60,6 +74,6 @@ public class Unstable extends Weapon.Enchantment {
 
 	@Override
 	public ItemSprite.Glowing glowing() {
-		return WHITE;
+		return GREY;
 	}
 }

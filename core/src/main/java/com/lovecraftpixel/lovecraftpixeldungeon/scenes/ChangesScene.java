@@ -48,9 +48,12 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSt
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSunlight;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfTeleportation;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfTime;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Blooming;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Explosion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Flashing;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Midas;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Precise;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Swift;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Whirlwind;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Club;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Katana;
@@ -355,6 +358,15 @@ public class ChangesScene extends PixelScene {
 
         changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.SWORD, new Whirlwind().glowing()), new Whirlwind().name("weapon"),
                 new Whirlwind().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.SWORD, new Blooming().glowing()), new Blooming().name("weapon"),
+                new Blooming().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.SWORD, new Precise().glowing()), new Precise().name("weapon"),
+                new Precise().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.SWORD, new Swift().glowing()), new Swift().name("weapon"),
+                new Swift().desc()));
 		
 		/**changes = new ChangeInfo("v0.7.1c & v0.7.1d", false, null);
 		changes.hardlight( Window.TITLE_COLOR );

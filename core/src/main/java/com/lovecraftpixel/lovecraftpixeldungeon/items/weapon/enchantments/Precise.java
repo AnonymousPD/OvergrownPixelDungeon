@@ -24,39 +24,35 @@
 package com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Blindness;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Cripple;
-import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
-import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
+import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
 
-public class Dazzling extends Weapon.Enchantment {
+public class Precise extends Weapon.Enchantment {
 
-	private static ItemSprite.Glowing GREEN_YELLOW = new ItemSprite.Glowing( 0xD6FF00 );
+    private static Glowing WHITE = new Glowing( 0xFFFFFF );
 
+    @Override
+    public int proc( Weapon weapon, Char attacker, Char defender, int damage) {
+        return damage;
+    }
+
+    //called from attackSkill in Hero, Statue, and GhostHero
+    public static boolean rollToGuaranteeHit( Weapon weapon ){
+        // lvl 0 - 13%
+        // lvl 1 - 22%
+        // lvl 2 - 30%
+        int level = Math.max( 0, weapon.level() );
+
+        if (Random.Int( level + 8 ) >= 7) {
+            return true;
+        }
+
+        return false;
+    }
+	
 	@Override
-	public int proc(Weapon weapon, Char attacker, Char defender, int damage) {
-		// lvl 0 - 20%
-		// lvl 1 - 33%
-		// lvl 2 - 43%
-		int level = Math.max( 0, weapon.level() );
-
-		if (Random.Int( level + 5 ) >= 4) {
-
-			Buff.prolong( defender, Blindness.class, Random.Float( 1f, 1f + level ) );
-			Buff.prolong( defender, Cripple.class, Random.Float( 1f, 1f + level/2f ) );
-			defender.sprite.emitter().burst(Speck.factory(Speck.LIGHT), 6 );
-
-		}
-
-		return damage;
+	public Glowing glowing() {
+		return WHITE;
 	}
-
-	@Override
-	public ItemSprite.Glowing glowing() {
-		return GREEN_YELLOW;
-	}
-
 }

@@ -39,9 +39,11 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.curses.Elastic;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.curses.Exhausting;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.curses.Fragile;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.curses.Friendly;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.curses.Polarized;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.curses.Sacrificial;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.curses.Wayward;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Blazing;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Blooming;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Chilling;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Dazzling;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Eldritch;
@@ -50,9 +52,11 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Flashi
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Grim;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Lucky;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Midas;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Precise;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Projecting;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Shocking;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Stunning;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Swift;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Unstable;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Vampiric;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Venomous;
@@ -410,14 +414,14 @@ abstract public class Weapon extends KindOfWeapon {
 	public static abstract class Enchantment implements Bundlable {
 		
 		private static final Class<?>[] common = new Class<?>[]{
-				Blazing.class, Venomous.class, Vorpal.class, Shocking.class};
+				Blazing.class, Venomous.class, Vorpal.class, Shocking.class, Blooming.class};
 		
 		private static final Class<?>[] uncommon = new Class<?>[]{
-				Chilling.class, Eldritch.class, Lucky.class,
+				Chilling.class, Eldritch.class, Lucky.class, Precise.class,
 				Projecting.class, Unstable.class, Dazzling.class, Flashing.class, Midas.class};
 		
 		private static final Class<?>[] rare = new Class<?>[]{
-				Grim.class, Stunning.class, Vampiric.class, Explosion.class, Whirlwind.class};
+				Grim.class, Stunning.class, Vampiric.class, Explosion.class, Whirlwind.class, Swift.class};
 		
 		private static final float[] typeChances = new float[]{
 				50, //12.5% each
@@ -427,7 +431,7 @@ abstract public class Weapon extends KindOfWeapon {
 		
 		private static final Class<?>[] curses = new Class<?>[]{
 				Annoying.class, Displacing.class, Exhausting.class, Fragile.class,
-				Sacrificial.class, Wayward.class, Elastic.class, Friendly.class
+				Sacrificial.class, Wayward.class, Elastic.class, Friendly.class, Polarized.class
 		};
 		
 			

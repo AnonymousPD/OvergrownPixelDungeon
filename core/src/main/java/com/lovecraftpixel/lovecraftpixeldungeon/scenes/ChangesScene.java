@@ -371,6 +371,12 @@ public class ChangesScene extends PixelScene {
 
         changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.SWORD, new Absorbing().glowing()), new Absorbing().name("weapon"),
                 new Absorbing().desc()));
+
+
+
+        changes = new ChangeInfo("Enchantments", false, null);
+        changes.hardlight( Window.SHPX_COLOR );
+        infos.add(changes);
 		
 		/**changes = new ChangeInfo("v0.7.1c & v0.7.1d", false, null);
 		changes.hardlight( Window.TITLE_COLOR );

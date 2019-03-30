@@ -42,6 +42,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.curses.Friendly;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.curses.Polarized;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.curses.Sacrificial;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.curses.Wayward;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Absorbing;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Blazing;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Blooming;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Chilling;
@@ -414,7 +415,7 @@ abstract public class Weapon extends KindOfWeapon {
 	public static abstract class Enchantment implements Bundlable {
 		
 		private static final Class<?>[] common = new Class<?>[]{
-				Blazing.class, Venomous.class, Vorpal.class, Shocking.class, Blooming.class};
+				Blazing.class, Venomous.class, Vorpal.class, Shocking.class, Blooming.class, Absorbing.class};
 		
 		private static final Class<?>[] uncommon = new Class<?>[]{
 				Chilling.class, Eldritch.class, Lucky.class, Precise.class,

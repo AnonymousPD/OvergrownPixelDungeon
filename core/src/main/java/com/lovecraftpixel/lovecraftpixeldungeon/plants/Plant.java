@@ -179,7 +179,7 @@ public abstract class Plant implements Bundlable {
 	}
 
 	//TODO: Update with new plants
-	public Plant.Seed getPlant(Plant plant){
+	public static Plant.Seed getPlant(Plant plant){
 	    switch (plant.image){
             case 0:
                 return new Rotberry.Seed();

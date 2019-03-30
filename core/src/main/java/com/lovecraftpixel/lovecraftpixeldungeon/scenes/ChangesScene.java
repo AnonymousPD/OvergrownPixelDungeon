@@ -48,6 +48,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSt
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSunlight;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfTeleportation;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfTime;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Absorbing;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Blooming;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Explosion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Flashing;
@@ -367,6 +368,9 @@ public class ChangesScene extends PixelScene {
 
         changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.SWORD, new Swift().glowing()), new Swift().name("weapon"),
                 new Swift().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.SWORD, new Absorbing().glowing()), new Absorbing().name("weapon"),
+                new Absorbing().desc()));
 		
 		/**changes = new ChangeInfo("v0.7.1c & v0.7.1d", false, null);
 		changes.hardlight( Window.TITLE_COLOR );

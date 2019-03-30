@@ -25,30 +25,17 @@ package com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.Assets;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Healing;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Hunger;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
-import com.lovecraftpixel.lovecraftpixeldungeon.items.food.SmallRation;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Blob;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Freezing;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.Potion;
-import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
-import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
+import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.PathFinder;
 
-public class PotionOfFood extends Potion {
+public class PotionOfIce extends Potion {
 
 	{
-		initials = 12;
-
-		bones = true;
-	}
-	
-	@Override
-	public void apply( Hero hero ) {
-		setKnown();
-        Buff.affect( hero, Healing.class ).setHeal((int)(0.1f*hero.HT + 1), 0.1f, 0);
-        satisfy(hero);
-        GLog.p(Messages.get(this, "fed"));
+		initials = 23;
 	}
 
     @Override
@@ -61,14 +48,23 @@ public class PotionOfFood extends Potion {
             Sample.INSTANCE.play( Assets.SND_SHATTER );
         }
 
-        Dungeon.level.drop(new SmallRation(), cell).sprite.drop(cell);
+        for (int offset : PathFinder.NEIGHBOURS9){
+            if (!Dungeon.level.solid[cell+offset]) {
+
+                GameScene.add(Blob.seed(cell + offset, 10, Freezing.class));
+                for (int extra : PathFinder.NEIGHBOURS9){
+                    if (!Dungeon.level.solid[cell+offset+extra]) {
+
+                        GameScene.add(Blob.seed(cell + offset + extra, 10, Freezing.class));
+
+                    }
+                }
+
+            }
+        }
     }
 
-    public void satisfy(Hero hero ){
-        (hero.buff( Hunger.class )).satisfy( Hunger.HUNGRY );
-    }
-	
-	@Override
+    @Override
 	public int price() {
 		return isKnown() ? 50 * quantity : super.price();
 	}

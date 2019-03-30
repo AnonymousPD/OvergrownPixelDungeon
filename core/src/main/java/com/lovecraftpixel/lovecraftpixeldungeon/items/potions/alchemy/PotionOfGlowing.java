@@ -36,9 +36,8 @@ public class PotionOfGlowing extends Potion {
 
     @Override
     public void apply(Hero hero) {
-
+        setKnown();
         Buff.affect(hero, Glowing.class).reignite(hero);
-
     }
 
     @Override

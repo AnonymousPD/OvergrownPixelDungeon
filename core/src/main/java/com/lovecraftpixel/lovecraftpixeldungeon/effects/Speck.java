@@ -70,6 +70,8 @@ public class Speck extends Image {
 	public static final int STORM       = 117;
 	public static final int INFERNO     = 118;
 	public static final int BLIZZARD    = 119;
+    public static final int SPORES      = 120;
+    public static final int MIASMA      = 121;
 	
 	private static final int SIZE = 7;
 	
@@ -342,6 +344,24 @@ public class Speck extends Image {
 			angle = Random.Float( 360 );
 			lifespan = Random.Float( 1f, 3f );
 			break;
+
+            case SPORES:
+                hardlight( 0xA3FF00 );
+                speed.y = +32;
+                acc.y = +32;
+                angularSpeed = -30;
+                angle = Random.Float( 360 );
+                lifespan = Random.Float( 1f, 3f );
+                break;
+
+            case MIASMA:
+                hardlight( 0xEE29DC );
+                speed.y = +32;
+                acc.y = +32;
+                angularSpeed = -30;
+                angle = Random.Float( 360 );
+                lifespan = Random.Float( 1f, 3f );
+                break;
 			
 		case SMOKE:
 			hardlight( 0x000000 );
@@ -471,6 +491,8 @@ public class Speck extends Image {
 				hardlight( ColorMath.interpolate( 0xAAAAAA, 0xFF8800 , p ));
 			case STENCH:
 			case SMOKE:
+                case SPORES:
+                case MIASMA:
 				am = (float)Math.sqrt( (p < 0.5f ? p : 1 - p) );
 				scale.set( 1 + p );
 				break;

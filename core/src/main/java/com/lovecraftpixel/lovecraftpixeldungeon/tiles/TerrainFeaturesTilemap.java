@@ -53,6 +53,12 @@ public class TerrainFeaturesTilemap extends DungeonTilemap {
 		instance = this;
 	}
 
+    public TerrainFeaturesTilemap() {
+        super(Assets.TERRAIN_FEATURES);
+
+        instance = this;
+    }
+
 	protected int getTileVisual(int pos, int tile, boolean flat){
 		if (traps.get(pos) != null){
 			Trap trap = traps.get(pos);
@@ -90,6 +96,16 @@ public class TerrainFeaturesTilemap extends DungeonTilemap {
 		img.frame(uv);
 		return img;
 	}
+
+	public static Image getPlantSprite(int image){
+	    TerrainFeaturesTilemap terrainFeaturesTilemap = new TerrainFeaturesTilemap();
+        RectF uv = terrainFeaturesTilemap.instance.tileset.get( image + 7*16 );
+        if (uv == null) return null;
+
+        Image img = new Image( terrainFeaturesTilemap.instance.texture );
+        img.frame(uv);
+	    return img;
+    }
 
 	public void growPlant( final int pos ){
 		final Image plant = tile( pos, map[pos] );

@@ -42,17 +42,29 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.ItemStatusHandler;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Recipe;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.bags.Bag;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfDarkness;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfDisease;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfEruption;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfExplosion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfFirestorm;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfFood;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfGlowing;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfHealth;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfHeat;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfIce;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfLight;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfMuscle;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfPlants;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfPower;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfRain;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfRegrowth;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSecretion;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSpirit;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSpores;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSteam;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSunlight;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfTeleportation;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfTime;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.elixirs.ElixirOfHoneyedHealing;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.PotionOfCleansing;
@@ -200,6 +212,15 @@ public class Potion extends Item {
 		mustThrowPots.add(PotionOfSnapFreeze.class);
 		mustThrowPots.add(PotionOfShroudingFog.class);
 		mustThrowPots.add(PotionOfStormClouds.class);
+
+		//alchemy
+        mustThrowPots.add(PotionOfDarkness.class);
+        mustThrowPots.add(PotionOfEruption.class);
+        mustThrowPots.add(PotionOfSteam.class);
+        mustThrowPots.add(PotionOfSpores.class);
+        mustThrowPots.add(PotionOfRegrowth.class);
+        mustThrowPots.add(PotionOfRain.class);
+        mustThrowPots.add(PotionOfIce.class);
 		
 		//also all brews, hardcoded
 	}
@@ -214,6 +235,16 @@ public class Potion extends Item {
 		
 		//elixirs
 		canThrowPots.add(ElixirOfHoneyedHealing.class);
+
+		//alchemy
+        canThrowPots.add(PotionOfExplosion.class);
+        canThrowPots.add(PotionOfFirestorm.class);
+        canThrowPots.add(PotionOfSunlight.class);
+        canThrowPots.add(PotionOfSpirit.class);
+        canThrowPots.add(PotionOfPlants.class);
+        canThrowPots.add(PotionOfFood.class);
+        canThrowPots.add(PotionOfHeat.class);
+        canThrowPots.add(PotionOfDisease.class);
 	}
 	
 	protected static ItemStatusHandler<Potion> handler;
@@ -518,31 +549,30 @@ public class Potion extends Item {
 			types.put(Stormvine.Seed.class,         PotionOfLevitation.class);
 			types.put(Sungrass.Seed.class,          PotionOfHealing.class);
 			types.put(Swiftthistle.Seed.class,      PotionOfHaste.class);
-			//TODO: Add the new potions
-            types.put(Apricobush.Seed.class,        PotionOfHealth.class);
+			types.put(Apricobush.Seed.class,        PotionOfHealth.class);
             types.put(Blackholeflower.Seed.class,   PotionOfTeleportation.class);
             types.put(Butterlion.Seed.class,        PotionOfEruption.class);
             types.put(Chandaliertail.Seed.class,    PotionOfGlowing.class);
             types.put(Chillisnapper.Seed.class,     PotionOfLight.class);
-            types.put(Crimsonpepper.Seed.class,     PotionOfHealing.class);
+            types.put(Crimsonpepper.Seed.class,     PotionOfHeat.class);
             types.put(Firefoxglove.Seed.class,      PotionOfFirestorm.class);
-            types.put(Frostcorn.Seed.class,         PotionOfHealing.class);
+            types.put(Frostcorn.Seed.class,         PotionOfIce.class);
             types.put(Grasslilly.Seed.class,        PotionOfPlants.class);
             types.put(Kiwivetch.Seed.class,         PotionOfRegrowth.class);
             types.put(Musclemoss.Seed.class,        PotionOfMuscle.class);
-            types.put(Nightshadeonion.Seed.class,   PotionOfHealing.class);
-            types.put(Parasiteshrub.Seed.class,     PotionOfHealing.class);
+            types.put(Nightshadeonion.Seed.class,   PotionOfDarkness.class);
+            types.put(Parasiteshrub.Seed.class,     PotionOfSpores.class);
             types.put(Peanutpetal.Seed.class,       PotionOfFood.class);
-            types.put(Rose.Seed.class,              PotionOfHealing.class);
+            types.put(Rose.Seed.class,              PotionOfSpirit.class);
             types.put(Snowhedge.Seed.class,         PotionOfDisease.class);
-            types.put(Steamweed.Seed.class,         PotionOfHealing.class);
-            types.put(Sunbloom.Seed.class,          PotionOfHealing.class);
-            types.put(Suncarnivore.Seed.class,      PotionOfHealing.class);
-            types.put(Tomatobush.Seed.class,        PotionOfHealing.class);
-            types.put(Venusflytrap.Seed.class,      PotionOfHealing.class);
-            types.put(Waterweed.Seed.class,         PotionOfHealing.class);
-            types.put(Willowcane.Seed.class,        PotionOfHealing.class);
-            types.put(Witherfennel.Seed.class,      PotionOfHealing.class);
+            types.put(Steamweed.Seed.class,         PotionOfSteam.class);
+            types.put(Sunbloom.Seed.class,          PotionOfSunlight.class);
+            types.put(Suncarnivore.Seed.class,      PotionOfSunlight.class);
+            types.put(Tomatobush.Seed.class,        PotionOfExplosion.class);
+            types.put(Venusflytrap.Seed.class,      PotionOfSecretion.class);
+            types.put(Waterweed.Seed.class,         PotionOfRain.class);
+            types.put(Willowcane.Seed.class,        PotionOfTime.class);
+            types.put(Witherfennel.Seed.class,      PotionOfPower.class);
 		}
 		
 		@Override

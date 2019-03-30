@@ -26,8 +26,66 @@ package com.lovecraftpixel.lovecraftpixeldungeon.scenes;
 import com.lovecraftpixel.lovecraftpixeldungeon.Chrome;
 import com.lovecraftpixel.lovecraftpixeldungeon.LovecraftPixelDungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfDarkness;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfDisease;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfEruption;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfExplosion;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfFirestorm;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfFood;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfGlowing;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfHealth;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfIce;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfLight;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfMuscle;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfPlants;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfPower;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfRain;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfRegrowth;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSecretion;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSpirit;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSpores;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSteam;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSunlight;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfTeleportation;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfTime;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Explosion;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Flashing;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Midas;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Whirlwind;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Club;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Katana;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.KnifeGlove;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.KnifeOnAStick;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Rapier;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Scythe;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Apricobush;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Blackholeflower;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Butterlion;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Chandaliertail;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Chillisnapper;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Crimsonpepper;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Firefoxglove;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Frostcorn;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Grasslilly;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Kiwivetch;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Musclemoss;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Nightshadeonion;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Parasiteshrub;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Peanutpetal;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Rose;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Snowhedge;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Steamweed;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Sunbloom;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Suncarnivore;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Tomatobush;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Venusflytrap;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Waterweed;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Willowcane;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Witherfennel;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
+import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
+import com.lovecraftpixel.lovecraftpixeldungeon.tiles.TerrainFeaturesTilemap;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.Archs;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.ExitButton;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.RenderedTextMultiline;
@@ -96,9 +154,207 @@ public class ChangesScene extends PixelScene {
 		//**********************
 		//       v0.0.1
 		//**********************
-		ChangeInfo changes = new ChangeInfo("v0.0.1", true, "");
+		ChangeInfo changes = new ChangeInfo("v0.0.1", true, "This is the initial update. I took a break from my other mods until a few friends and fellow Pixel Dungeon enthusiasts finally tracked me down and brought me back to finish my vision of a interesting and crazy Pixel Dungeon. Thanks dudes.");
 		changes.hardlight( Window.TITLE_COLOR );
 		infos.add(changes);
+
+        changes = new ChangeInfo("Weapons", false, null);
+        changes.hardlight( Window.SHPX_COLOR );
+        infos.add(changes);
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.CLUB, null), new Club().trueName(),
+                "_-_ Tier 3\n"+
+                        "_-_ Has a 50% chance of crippling your enemy"));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.KATANA, null), new Katana().trueName(),
+                "_-_ Tier 4\n"+
+                        "_-_ Is 25% faster than normal weapons\n\n"+
+                        "_-_ Deals extra damage on surprised enemies"));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.KNIFE_GLOVE, null), new KnifeGlove().trueName(),
+                "_-_ Tier 1\n"+
+                        "_-_ Can make your enemies bleed"));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.KNIFE_ON_A_STICK, null), new KnifeOnAStick().trueName(),
+                "_-_ Tier 2\n"+
+                        "_-_ Is 12% faster than normal weapons\n\n"+
+                        "_-_ Has 2 tiles more reach than normal weapons"));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.RAPIER, null), new Rapier().trueName(),
+                "_-_ Tier 3\n"+
+                        "_-_ Is 300% faster than normal weapons"));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.SCYTHE, null), new Scythe().trueName(),
+                "_-_ Tier 3\n"+
+                        "_-_ Has 2 tiles more reach than normal weapons"));
+
+        changes = new ChangeInfo("Plants", false, null);
+        changes.hardlight( Window.SHPX_COLOR );
+        infos.add(changes);
+
+        changes.addButton( new ChangeButton(new Image(TerrainFeaturesTilemap.getPlantSprite(new Apricobush().image)), new Apricobush().plantName,
+                new Apricobush().desc()));
+
+        changes.addButton( new ChangeButton(new Image(TerrainFeaturesTilemap.getPlantSprite(new Blackholeflower().image)), new Blackholeflower().plantName,
+                new Blackholeflower().desc()));
+
+        changes.addButton( new ChangeButton(new Image(TerrainFeaturesTilemap.getPlantSprite(new Butterlion().image)), new Butterlion().plantName,
+                new Butterlion().desc()));
+
+        changes.addButton( new ChangeButton(new Image(TerrainFeaturesTilemap.getPlantSprite(new Chandaliertail().image)), new Chandaliertail().plantName,
+                new Chandaliertail().desc()));
+
+        changes.addButton( new ChangeButton(new Image(TerrainFeaturesTilemap.getPlantSprite(new Chillisnapper().image)), new Chillisnapper().plantName,
+                new Chillisnapper().desc()));
+
+        changes.addButton( new ChangeButton(new Image(TerrainFeaturesTilemap.getPlantSprite(new Crimsonpepper().image)), new Crimsonpepper().plantName,
+                new Crimsonpepper().desc()));
+
+        changes.addButton( new ChangeButton(new Image(TerrainFeaturesTilemap.getPlantSprite(new Firefoxglove().image)), new Firefoxglove().plantName,
+                new Firefoxglove().desc()));
+
+        changes.addButton( new ChangeButton(new Image(TerrainFeaturesTilemap.getPlantSprite(new Frostcorn().image)), new Frostcorn().plantName,
+                new Frostcorn().desc()));
+
+        changes.addButton( new ChangeButton(new Image(TerrainFeaturesTilemap.getPlantSprite(new Grasslilly().image)), new Grasslilly().plantName,
+                new Grasslilly().desc()));
+
+        changes.addButton( new ChangeButton(new Image(TerrainFeaturesTilemap.getPlantSprite(new Kiwivetch().image)), new Kiwivetch().plantName,
+                new Kiwivetch().desc()));
+
+        changes.addButton( new ChangeButton(new Image(TerrainFeaturesTilemap.getPlantSprite(new Musclemoss().image)), new Musclemoss().plantName,
+                new Musclemoss().desc()));
+
+        changes.addButton( new ChangeButton(new Image(TerrainFeaturesTilemap.getPlantSprite(new Nightshadeonion().image)), new Nightshadeonion().plantName,
+                new Nightshadeonion().desc()));
+
+        changes.addButton( new ChangeButton(new Image(TerrainFeaturesTilemap.getPlantSprite(new Parasiteshrub().image)), new Parasiteshrub().plantName,
+                new Parasiteshrub().desc()));
+
+        changes.addButton( new ChangeButton(new Image(TerrainFeaturesTilemap.getPlantSprite(new Peanutpetal().image)), new Peanutpetal().plantName,
+                new Peanutpetal().desc()));
+
+        changes.addButton( new ChangeButton(new Image(TerrainFeaturesTilemap.getPlantSprite(new Rose().image)), new Rose().plantName,
+                new Rose().desc()));
+
+        changes.addButton( new ChangeButton(new Image(TerrainFeaturesTilemap.getPlantSprite(new Snowhedge().image)), new Snowhedge().plantName,
+                new Snowhedge().desc()));
+
+        changes.addButton( new ChangeButton(new Image(TerrainFeaturesTilemap.getPlantSprite(new Steamweed().image)), new Steamweed().plantName,
+                new Steamweed().desc()));
+
+        changes.addButton( new ChangeButton(new Image(TerrainFeaturesTilemap.getPlantSprite(new Sunbloom().image)), new Sunbloom().plantName,
+                new Sunbloom().desc()));
+
+        changes.addButton( new ChangeButton(new Image(TerrainFeaturesTilemap.getPlantSprite(new Suncarnivore().image)), new Suncarnivore().plantName,
+                new Suncarnivore().desc()));
+
+        changes.addButton( new ChangeButton(new Image(TerrainFeaturesTilemap.getPlantSprite(new Tomatobush().image)), new Tomatobush().plantName,
+                new Tomatobush().desc()));
+
+        changes.addButton( new ChangeButton(new Image(TerrainFeaturesTilemap.getPlantSprite(new Tomatobush().image)), new Tomatobush().plantName,
+                new Tomatobush().desc()));
+
+        changes.addButton( new ChangeButton(new Image(TerrainFeaturesTilemap.getPlantSprite(new Venusflytrap().image)), new Venusflytrap().plantName,
+                new Venusflytrap().desc()));
+
+        changes.addButton( new ChangeButton(new Image(TerrainFeaturesTilemap.getPlantSprite(new Waterweed().image)), new Waterweed().plantName,
+                new Waterweed().desc()));
+
+        changes.addButton( new ChangeButton(new Image(TerrainFeaturesTilemap.getPlantSprite(new Willowcane().image)), new Willowcane().plantName,
+                new Willowcane().desc()));
+
+        changes.addButton( new ChangeButton(new Image(TerrainFeaturesTilemap.getPlantSprite(new Witherfennel().image)), new Witherfennel().plantName,
+                new Witherfennel().desc()));
+
+        changes = new ChangeInfo("Alchemy Potions", false, "These potions cant be naturally found in the Dungeon and can only be obtained by using seeds to brew them with alchemy.");
+        changes.hardlight( Window.SHPX_COLOR );
+        infos.add(changes);
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_BLOODY, null), new PotionOfDarkness().trueName(),
+                new PotionOfDarkness().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_BLOODY_POOP, null), new PotionOfDisease().trueName(),
+                new PotionOfDisease().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_BEIGE, null), new PotionOfEruption().trueName(),
+                new PotionOfEruption().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_BLACK, null), new PotionOfExplosion().trueName(),
+                new PotionOfExplosion().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_BLUE, null), new PotionOfFirestorm().trueName(),
+                new PotionOfFirestorm().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_BRIGHT_GREEN, null), new PotionOfFood().trueName(),
+                new PotionOfFood().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_BRIGHT_PURPLE, null), new PotionOfGlowing().trueName(),
+                new PotionOfGlowing().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_BRIGHTORANGE, null), new PotionOfHealth().trueName(),
+                new PotionOfHealth().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_BRIGHTBLUE, null), new PotionOfIce().trueName(),
+                new PotionOfIce().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_DIARRHOEA, null), new PotionOfLight().trueName(),
+                new PotionOfLight().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_DARK_ROSE, null), new PotionOfMuscle().trueName(),
+                new PotionOfMuscle().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_LIMEGREEN, null), new PotionOfPlants().trueName(),
+                new PotionOfPlants().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_LIMEGREEN, null), new PotionOfPlants().trueName(),
+                new PotionOfPlants().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_RAINBOW, null), new PotionOfPower().trueName(),
+                new PotionOfPower().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_YELLOW, null), new PotionOfRain().trueName(),
+                new PotionOfRain().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_PARASITIC, null), new PotionOfRegrowth().trueName(),
+                new PotionOfRegrowth().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_HONEY, null), new PotionOfSecretion().trueName(),
+                new PotionOfSecretion().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_WHITE, null), new PotionOfSpirit().trueName(),
+                new PotionOfSpirit().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_DARKBLUE, null), new PotionOfSpores().trueName(),
+                new PotionOfSpores().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_BROWN, null), new PotionOfSteam().trueName(),
+                new PotionOfSteam().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_PUNCH, null), new PotionOfSunlight().trueName(),
+                new PotionOfSunlight().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_WATERBLUE, null), new PotionOfTeleportation().trueName(),
+                new PotionOfTeleportation().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_VIOLETT, null), new PotionOfTime().trueName(),
+                new PotionOfTime().desc()));
+
+        changes = new ChangeInfo("Enchantments", false, null);
+        changes.hardlight( Window.SHPX_COLOR );
+        infos.add(changes);
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.SWORD, new Explosion().glowing()), new Explosion().name("weapon"),
+                new Explosion().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.SWORD, new Flashing().glowing()), new Flashing().name("weapon"),
+                new Flashing().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.SWORD, new Midas().glowing()), new Midas().name("weapon"),
+                new Midas().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.SWORD, new Whirlwind().glowing()), new Whirlwind().name("weapon"),
+                new Whirlwind().desc()));
 		
 		/**changes = new ChangeInfo("v0.7.1c & v0.7.1d", false, null);
 		changes.hardlight( Window.TITLE_COLOR );

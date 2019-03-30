@@ -38,10 +38,10 @@ public class PotionOfHealth extends Potion {
 
     @Override
     public void apply(Hero hero) {
+	    setKnown();
         (hero.buff( Hunger.class )).satisfy( Hunger.HUNGRY/2f );
         GLog.p(Messages.get(Apricobush.class, "hunger"));
         hero.HP = hero.HT++;
-        super.apply(hero);
     }
 
     @Override

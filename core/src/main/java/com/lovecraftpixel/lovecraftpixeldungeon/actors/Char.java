@@ -27,6 +27,9 @@ import com.lovecraftpixel.lovecraftpixeldungeon.Assets;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Blob;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Electricity;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Miasma;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Spores;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Sunlight;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.ToxicGas;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Adrenaline;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Bleeding;
@@ -732,9 +735,11 @@ public abstract class Char extends Actor {
 		UNDEAD,
 		DEMONIC,
 		INORGANIC ( new HashSet<Class>(),
-				new HashSet<Class>( Arrays.asList(Bleeding.class, ToxicGas.class, Poison.class, Disease.class, Wither.class, Infested.class) )),
+				new HashSet<Class>( Arrays.asList(Bleeding.class, ToxicGas.class, Poison.class, Disease.class, Wither.class, Infested.class, Wither.class, Sunlight.class, Spores.class, Miasma.class) )),
         DISEASEIMMUNE( new HashSet<Class>(),
                 new HashSet<Class>( Arrays.asList(Disease.class) )),
+        PLANT( new HashSet<Class>(),
+                new HashSet<Class>( Arrays.asList(Disease.class, Miasma.class, Spores.class, Infested.class) )),
 		BLOB_IMMUNE ( new HashSet<Class>(),
 				new HashSet<Class>( Arrays.asList(Blob.class) )),
 		FIERY ( new HashSet<Class>( Arrays.asList(WandOfFireblast.class)),

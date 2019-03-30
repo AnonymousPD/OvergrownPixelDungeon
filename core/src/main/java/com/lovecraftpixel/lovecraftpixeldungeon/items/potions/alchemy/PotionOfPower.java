@@ -21,8 +21,9 @@
  * along with this program. If not, see <http://www.gnu.org/licenses>
  */
 
-package com.lovecraftpixel.lovecraftpixeldungeon.items.potions;
+package com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy;
 
+import com.lovecraftpixel.lovecraftpixeldungeon.Badges;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Bleeding;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
@@ -50,31 +51,39 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.SlowFever;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.SmallPox;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.SpanishFlu;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.Potion;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.PotionOfHealing;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.PotionOfStrength;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
+import com.lovecraftpixel.lovecraftpixeldungeon.sprites.CharSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
 
-public class PotionOfHealing extends Potion {
+public class PotionOfPower extends Potion {
 
 	{
-		initials = 3;
+		initials = 33;
+	}
 
-		bones = true;
-	}
-	
-	@Override
-	public void apply( Hero hero ) {
-		setKnown();
-		//starts out healing 30 hp, equalizes with hero health total at level 11
-		Buff.affect( hero, Healing.class ).setHeal((int)(0.8f*hero.HT + 14), 0.25f, 0);
-		cure( hero );
-		GLog.p( Messages.get(this, "heal") );
-	}
-	
-	public static void cure( Char ch ) {
-		Buff.detach( ch, Poison.class );
-		Buff.detach( ch, Cripple.class );
-		Buff.detach( ch, Weakness.class );
-		Buff.detach( ch, Bleeding.class );
+    @Override
+    public void apply(Hero hero) {
+        setKnown();
+
+        hero.STR++;
+        hero.sprite.showStatus( CharSprite.POSITIVE, Messages.get(PotionOfStrength.class, "msg_1") );
+        GLog.p( Messages.get(PotionOfStrength.class, "msg_2") );
+
+        Badges.validateStrengthAttained();
+
+        Buff.affect( hero, Healing.class ).setHeal((int)(0.8f*hero.HT + 14), 0.25f, 0);
+        cure( hero );
+        GLog.p( Messages.get(PotionOfHealing.class, "heal") );
+    }
+
+    public static void cure( Char ch ) {
+        Buff.detach( ch, Poison.class );
+        Buff.detach( ch, Cripple.class );
+        Buff.detach( ch, Weakness.class );
+        Buff.detach( ch, Bleeding.class );
         Buff.detach( ch, Infested.class );
         Buff.detach( ch, Midas.class );
         Disease.detach(ch, Aids.class);
@@ -93,10 +102,10 @@ public class PotionOfHealing extends Potion {
         Disease.detach(ch, SlowFever.class);
         Disease.detach(ch, SmallPox.class);
         Disease.detach(ch, SpanishFlu.class);
-	}
+    }
 
-	@Override
+    @Override
 	public int price() {
-		return isKnown() ? 30 * quantity : super.price();
+		return isKnown() ? 50 * quantity : super.price();
 	}
 }

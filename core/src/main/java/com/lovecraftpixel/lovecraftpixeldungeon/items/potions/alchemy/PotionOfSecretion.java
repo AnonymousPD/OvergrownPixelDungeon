@@ -23,52 +23,28 @@
 
 package com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy;
 
-import com.lovecraftpixel.lovecraftpixeldungeon.Assets;
-import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Healing;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Hunger;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Vertigo;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
-import com.lovecraftpixel.lovecraftpixeldungeon.items.food.SmallRation;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.Potion;
-import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
-import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
-import com.watabou.noosa.audio.Sample;
 
-public class PotionOfFood extends Potion {
+public class PotionOfSecretion extends Potion {
 
 	{
-		initials = 12;
+		initials = 30;
+	}
 
-		bones = true;
-	}
-	
-	@Override
-	public void apply( Hero hero ) {
-		setKnown();
-        Buff.affect( hero, Healing.class ).setHeal((int)(0.1f*hero.HT + 1), 0.1f, 0);
-        satisfy(hero);
-        GLog.p(Messages.get(this, "fed"));
-	}
+
 
     @Override
-    public void shatter(int cell) {
-
-        if (Dungeon.level.heroFOV[cell]) {
-            setKnown();
-
-            splash( cell );
-            Sample.INSTANCE.play( Assets.SND_SHATTER );
-        }
-
-        Dungeon.level.drop(new SmallRation(), cell).sprite.drop(cell);
+    public void apply(Hero hero) {
+	    setKnown();
+        Buff.append(hero, Vertigo.class, Vertigo.DURATION);
+        Buff.affect( hero, Healing.class ).setHeal((int)((0.8f*hero.HT + 14)*2), 0.25f, 0);
     }
 
-    public void satisfy(Hero hero ){
-        (hero.buff( Hunger.class )).satisfy( Hunger.HUNGRY );
-    }
-	
-	@Override
+    @Override
 	public int price() {
 		return isKnown() ? 50 * quantity : super.price();
 	}

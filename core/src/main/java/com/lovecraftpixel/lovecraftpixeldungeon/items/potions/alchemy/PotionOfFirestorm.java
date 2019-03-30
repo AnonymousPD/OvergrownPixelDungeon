@@ -23,9 +23,17 @@
 
 package com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy;
 
+import com.lovecraftpixel.lovecraftpixeldungeon.Assets;
+import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Blob;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Inferno;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.Potion;
+import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Firefoxglove;
+import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
+import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
+import com.watabou.noosa.audio.Sample;
 
 public class PotionOfFirestorm extends Potion {
 
@@ -35,9 +43,22 @@ public class PotionOfFirestorm extends Potion {
 
     @Override
     public void apply(Hero hero) {
-
+        setKnown();
         new Firefoxglove().activate(hero);
+        GLog.p(Messages.get(this, "firestorm"));
 
+    }
+
+    @Override
+    public void shatter(int cell) {
+        if (Dungeon.level.heroFOV[cell]) {
+            setKnown();
+
+            splash( cell );
+            Sample.INSTANCE.play( Assets.SND_SHATTER );
+        }
+
+        GameScene.add( Blob.seed( cell, 100, Inferno.class ) );
     }
 
     @Override

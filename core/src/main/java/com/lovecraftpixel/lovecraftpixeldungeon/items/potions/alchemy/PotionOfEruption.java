@@ -26,6 +26,7 @@ package com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy;
 import com.lovecraftpixel.lovecraftpixeldungeon.Assets;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Actor;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.CellEmitter;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
@@ -42,10 +43,20 @@ public class PotionOfEruption extends Potion {
 
     @Override
     public void shatter(int cell) {
+
+        if (Dungeon.level.heroFOV[cell]) {
+            setKnown();
+
+            splash( cell );
+            Sample.INSTANCE.play( Assets.SND_SHATTER );
+        }
+
 	    for(int p : PathFinder.NEIGHBOURS9){
             Actor actor = Actor.findChar(cell+p);
             if(actor instanceof Mob){
                 ((Mob) actor).damage(((Mob) actor).damageRoll(), this);
+            } else {
+                ((Char) actor).damage(((Char) actor).damageRoll(), this);
             }
             if (Dungeon.level.heroFOV[cell+p]) {
                 CellEmitter.get( cell+p ).start( Speck.factory( Speck.ROCK ), 0.07f, 10 );
@@ -53,7 +64,6 @@ public class PotionOfEruption extends Potion {
                 Sample.INSTANCE.play( Assets.SND_ROCKS );
             }
         }
-        super.shatter(cell);
     }
 
     @Override

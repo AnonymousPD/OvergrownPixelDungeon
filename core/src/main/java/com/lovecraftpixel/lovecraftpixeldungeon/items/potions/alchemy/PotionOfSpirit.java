@@ -25,34 +25,22 @@ package com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.Assets;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Healing;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Hunger;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
-import com.lovecraftpixel.lovecraftpixeldungeon.items.food.SmallRation;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.FriendlyWraith;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.Potion;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.PathFinder;
 
-public class PotionOfFood extends Potion {
+public class PotionOfSpirit extends Potion {
 
 	{
-		initials = 12;
-
-		bones = true;
-	}
-	
-	@Override
-	public void apply( Hero hero ) {
-		setKnown();
-        Buff.affect( hero, Healing.class ).setHeal((int)(0.1f*hero.HT + 1), 0.1f, 0);
-        satisfy(hero);
-        GLog.p(Messages.get(this, "fed"));
+		initials = 27;
 	}
 
     @Override
-    public void shatter(int cell) {
+    public void shatter( int cell ) {
 
         if (Dungeon.level.heroFOV[cell]) {
             setKnown();
@@ -61,14 +49,20 @@ public class PotionOfFood extends Potion {
             Sample.INSTANCE.play( Assets.SND_SHATTER );
         }
 
-        Dungeon.level.drop(new SmallRation(), cell).sprite.drop(cell);
+        FriendlyWraith.spawnAt(cell);
+        GLog.p(Messages.get(this, "outofthebottle"));
     }
 
-    public void satisfy(Hero hero ){
-        (hero.buff( Hunger.class )).satisfy( Hunger.HUNGRY );
+    @Override
+    public void apply(Hero hero) {
+        for(int cell : PathFinder.NEIGHBOURS8){
+            FriendlyWraith.spawnAt(hero.pos+cell);
+            break;
+        }
+        GLog.p(Messages.get(this, "outofthebottle"));
     }
-	
-	@Override
+
+    @Override
 	public int price() {
 		return isKnown() ? 50 * quantity : super.price();
 	}

@@ -43,12 +43,15 @@ import java.util.HashSet;
 public class LivingPlant extends Mob {
 
 	{
+
 		spriteClass = LivingPlantSpriteDefault.class;
 		
 		HP = HT = 8;
 		defenseSkill = 2;
 
 		EXP = 0;
+
+        properties.add(Property.PLANT);
 	}
 
 	public LivingPlant(){
@@ -157,7 +160,7 @@ public class LivingPlant extends Mob {
 
     @Override
     public String description() {
-        return super.description() +"\n\n"+plantClass.desc();
+        return super.description() +"\n"+plantClass.desc();
     }
 
     @Override

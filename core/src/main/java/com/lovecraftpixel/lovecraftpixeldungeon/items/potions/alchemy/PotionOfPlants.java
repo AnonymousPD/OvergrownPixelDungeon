@@ -27,6 +27,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.Assets;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Blob;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Regrowth;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Generator;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.Potion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.wands.WandOfRegrowth;
@@ -55,6 +56,7 @@ public class PotionOfPlants extends Potion {
 
     @Override
     public void shatter(int cell) {
+
         affectedCells = new HashSet<>();
         visualCells = new HashSet<>();
         if (Dungeon.level.heroFOV[cell]) {
@@ -73,6 +75,21 @@ public class PotionOfPlants extends Potion {
 
         grow();
 
+    }
+
+    @Override
+    public void apply(Hero hero) {
+        affectedCells = new HashSet<>();
+        visualCells = new HashSet<>();
+
+        if (Dungeon.level.passable[hero.pos]) {
+            affectedCells.add(hero.pos);
+            spreadRegrowth(hero.pos);
+        } else {
+            visualCells.add(hero.pos);
+        }
+
+        grow();
     }
 
     private void grow() {

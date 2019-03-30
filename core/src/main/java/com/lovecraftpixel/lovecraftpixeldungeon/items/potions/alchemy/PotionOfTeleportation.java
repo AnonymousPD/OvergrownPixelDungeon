@@ -35,6 +35,7 @@ public class PotionOfTeleportation extends Potion {
 
     @Override
     public void apply(Hero hero) {
+	    setKnown();
         ScrollOfTeleportation.teleportHero(hero);
         super.apply(hero);
     }

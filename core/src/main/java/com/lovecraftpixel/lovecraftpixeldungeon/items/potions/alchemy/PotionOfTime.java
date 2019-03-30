@@ -21,33 +21,27 @@
  * along with this program. If not, see <http://www.gnu.org/licenses>
  */
 
-package com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee;
+package com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy;
 
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Cripple;
-import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
-import com.watabou.utils.Random;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.Potion;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Swiftthistle;
 
-public class Club extends MeleeWeapon {
+public class PotionOfTime extends Potion {
 
 	{
-		image = ItemSpriteSheet.CLUB;
-
-		tier = 3;
-	}
-
-	@Override
-	public int max(int lvl) {
-		return  4*(tier+1) +    //16 base, down from 20
-				lvl*(tier+1);   //scaling unchanged
+		initials = 32;
 	}
 
     @Override
-    public int proc(Char attacker, Char defender, int damage) {
-        if (Random.Boolean()) {
-            Buff.prolong( defender, Cripple.class, Cripple.DURATION );
-        }
-        return super.proc(attacker, defender, damage);
+    public void apply(Hero hero) {
+	    setKnown();
+        Buff.affect(hero, Swiftthistle.TimeBubble.class).reset();
     }
+
+    @Override
+	public int price() {
+		return isKnown() ? 50 * quantity : super.price();
+	}
 }

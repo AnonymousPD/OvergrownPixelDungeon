@@ -111,7 +111,7 @@ public class Infested extends Buff implements Hero.Doom {
 			    int dmg = (int)(left / 3) + 1;
                 target.damage( dmg, this );
                 CellEmitter.center(target.pos).burst( InfestedParticle.SPLASH, dmg );
-                if(Random.Boolean()){
+                if(Random.Boolean() && !target.buffs().contains(Ooze.class)){
                     Buff.affect( target, Ooze.class ).set( 5f );
                 }
             }

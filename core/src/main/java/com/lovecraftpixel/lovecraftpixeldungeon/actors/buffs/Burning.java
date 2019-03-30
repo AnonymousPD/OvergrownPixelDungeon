@@ -85,6 +85,9 @@ public class Burning extends Buff implements Hero.Doom {
 		if (target.isAlive()) {
 			
 			int damage = Random.NormalIntRange( 1, 3 + target.HT/40 );
+			if(target.properties().contains(Char.Property.PLANT)){
+			    damage *= 2;
+            }
 			Buff.detach( target, Chill.class);
 
 			//FIXME doesn't work with the sad ghost

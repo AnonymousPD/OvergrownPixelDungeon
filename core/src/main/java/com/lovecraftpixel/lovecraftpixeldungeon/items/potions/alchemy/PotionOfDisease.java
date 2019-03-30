@@ -23,11 +23,19 @@
 
 package com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy;
 
+import com.lovecraftpixel.lovecraftpixeldungeon.Assets;
+import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.LovecraftPixelDungeon;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Blob;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Miasma;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Disease;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.Potion;
+import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Snowhedge;
+import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
+import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 
 public class PotionOfDisease extends Potion {
@@ -42,12 +50,26 @@ public class PotionOfDisease extends Potion {
         try {
             Disease d = (Disease) Random.element(Snowhedge.diseases).newInstance();
             d.infect(hero);
+            GLog.n(Messages.get(this, "infected"));
         } catch (Exception e){
             LovecraftPixelDungeon.reportException(e);
         }
 	}
-	
-	@Override
+
+    @Override
+    public void shatter(int cell) {
+
+	    if (Dungeon.level.heroFOV[cell]) {
+            setKnown();
+
+            splash( cell );
+            Sample.INSTANCE.play( Assets.SND_SHATTER );
+        }
+
+        GameScene.add( Blob.seed( cell, 1000, Miasma.class ) );
+    }
+
+    @Override
 	public int price() {
 		return isKnown() ? 50 * quantity : super.price();
 	}

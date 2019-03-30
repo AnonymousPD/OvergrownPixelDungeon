@@ -24,6 +24,7 @@
 package com.lovecraftpixel.lovecraftpixeldungeon.items.spells;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.Challenges;
+import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.LovecraftPixelDungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Generator;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
@@ -82,7 +83,9 @@ public class Recycle extends InventorySpell {
 		
 		item.detach(curUser.belongings.backpack);
 		GLog.p(Messages.get(this, "recycled", result.name()));
-		result.collect();
+        if (!result.collect()){
+            Dungeon.level.drop(result, curUser.pos).sprite.drop();
+        }
 		//TODO visuals
 	}
 	

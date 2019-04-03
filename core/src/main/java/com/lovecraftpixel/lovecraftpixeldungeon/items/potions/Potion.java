@@ -549,6 +549,7 @@ public class Potion extends Item {
 			types.put(Stormvine.Seed.class,         PotionOfLevitation.class);
 			types.put(Sungrass.Seed.class,          PotionOfHealing.class);
 			types.put(Swiftthistle.Seed.class,      PotionOfHaste.class);
+
 			types.put(Apricobush.Seed.class,        PotionOfHealth.class);
             types.put(Blackholeflower.Seed.class,   PotionOfTeleportation.class);
             types.put(Butterlion.Seed.class,        PotionOfEruption.class);

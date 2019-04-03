@@ -28,7 +28,6 @@ import com.lovecraftpixel.lovecraftpixeldungeon.LovecraftPixelDungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Roots;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
-import com.lovecraftpixel.lovecraftpixeldungeon.items.Generator;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.RingOfElements;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.RingOfPoison;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Plant;
@@ -61,23 +60,19 @@ public class LivingPlant extends Mob {
     }
 
 	public Plant plantClass;
-    public int powerlevel;
 
     private final String PLANTCLASS = "plantclass";
-    private final String POWERLEVEL = "powerlevel";
 
     @Override
     public void storeInBundle(Bundle bundle) {
         super.storeInBundle(bundle);
         bundle.put(PLANTCLASS, plantClass);
-        bundle.put(POWERLEVEL, powerlevel);
     }
 
     @Override
     public void restoreFromBundle(Bundle bundle) {
         super.restoreFromBundle(bundle);
         plantClass = (Plant) bundle.get(PLANTCLASS);
-        powerlevel = bundle.getInt(POWERLEVEL);
     }
 
     @Override
@@ -91,9 +86,8 @@ public class LivingPlant extends Mob {
         return sprite;
     }
 
-    public LivingPlant setPlantClass(Plant plantClass, int powerlevel){
+    public LivingPlant setPlantClass(Plant plantClass){
         this.plantClass = plantClass;
-        this.powerlevel = powerlevel;
         this.name += (" "+plantClass.plantName);
         return this;
     }
@@ -128,17 +122,7 @@ public class LivingPlant extends Mob {
     @Override
     public int attackProc(Char enemy, int damage) {
         if(!enemy.flying){
-            if(powerlevel == 1){
-                if(Random.Boolean()) plantClass.activate(enemy);
-            } else if(powerlevel > 1){
-                Plant.Seed seed;
-                for(int i = powerlevel; i > 0; i--){
-                    if(Random.Boolean()){
-                        seed = (Plant.Seed) Generator.random(Generator.Category.SEED);
-                        seed.getPlant(enemy.pos).activate(enemy);
-                    }
-                }
-            }
+            if(Random.Boolean()) plantClass.activate(enemy);
         }
         return super.attackProc(enemy, damage);
     }
@@ -207,11 +191,6 @@ public class LivingPlant extends Mob {
         if(this.buffs().contains(Roots.class)){
             die(this);
             Dungeon.level.plant(plantClass.getPlant(plantClass), pos);
-        }
-        if(Dungeon.level.water[pos] && !flying){
-            if(Random.Int(powerlevel) <= 1 && Random.Boolean()){
-                powerlevel++;
-            }
         }
         return super.act();
     }

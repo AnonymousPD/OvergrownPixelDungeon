@@ -85,7 +85,7 @@ public class DungeonTileSheet {
 			Terrain.BARRICADE, Terrain.HIGH_GRASS, Terrain.FURROWED_GRASS, Terrain.SECRET_TRAP,
 			Terrain.TRAP, Terrain.INACTIVE_TRAP, Terrain.EMPTY_DECO,
 			Terrain.SIGN, Terrain.WELL, Terrain.STATUE, Terrain.ALCHEMY,
-			Terrain.DOOR, Terrain.OPEN_DOOR, Terrain.LOCKED_DOOR
+			Terrain.DOOR, Terrain.OPEN_DOOR, Terrain.LOCKED_DOOR, Terrain.PLANT
 	));
 
 	//+1 for ground above, +2 for ground right, +4 for ground below, +8 for ground left.
@@ -136,6 +136,7 @@ public class DungeonTileSheet {
 		chasmStitcheable.put( Terrain.BOOKSHELF,    CHASM_FLOOR );
 		chasmStitcheable.put( Terrain.BARRICADE,    CHASM_FLOOR );
 		chasmStitcheable.put( Terrain.PEDESTAL,     CHASM_FLOOR );
+        chasmStitcheable.put( Terrain.PLANT,        CHASM_FLOOR );
 
 		//special floor
 		chasmStitcheable.put( Terrain.EMPTY_SP,     CHASM_FLOOR_SP );
@@ -348,6 +349,7 @@ public class DungeonTileSheet {
 	static {
 		directVisuals.put(Terrain.EMPTY,            FLOOR);
 		directVisuals.put(Terrain.GRASS,            GRASS);
+        directVisuals.put(Terrain.PLANT,            GRASS);
 		directVisuals.put(Terrain.EMPTY_WELL,       EMPTY_WELL);
 		directVisuals.put(Terrain.ENTRANCE,         ENTRANCE);
 		directVisuals.put(Terrain.EXIT,             EXIT);

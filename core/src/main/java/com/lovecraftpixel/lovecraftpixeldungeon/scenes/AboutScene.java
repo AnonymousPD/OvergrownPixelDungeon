@@ -66,7 +66,7 @@ public class AboutScene extends PixelScene {
 		final float colTop = (Camera.main.height / 2) - (LPDSettings.landscape() ? 30 : 90);
 		final float wataOffset = LPDSettings.landscape() ? colWidth : 0;
 
-		Image shpx = Icons.WATA.get();
+		Image shpx = Icons.ANON.get();
 		shpx.x = (colWidth - shpx.width()) / 2;
 		shpx.y = colTop;
 		align(shpx);

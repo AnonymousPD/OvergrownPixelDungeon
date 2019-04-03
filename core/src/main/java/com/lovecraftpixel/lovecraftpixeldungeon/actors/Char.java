@@ -50,6 +50,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.FrostImbue;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Haste;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Hunger;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Infested;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.MagicalShield;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.MagicalSleep;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Ooze;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Paralysis;
@@ -72,6 +73,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Herpes;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Influenza;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Ligma;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Malaria;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Midease;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Narcolepsy;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Polio;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Rabies;
@@ -81,6 +83,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.SpanishFlu;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.BrokenSeal;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.Gold;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Brimstone;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Potential;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.RingOfElements;
@@ -154,17 +157,20 @@ public abstract class Char extends Actor {
 		if(disease(Narcolepsy.class) != null){
 		    Buff.affect(this, MagicalSleep.class);
         }
-        if(disease(Cordyceps.class) != null && Random.Int(20) >= 1 && buff(Vertigo.class) == null){
+        if(disease(Cordyceps.class) != null && Random.Int(20) <= 5 && buff(Vertigo.class) == null){
             Buff.affect(this, Vertigo.class, Vertigo.DURATION/4);
         }
-        if(disease(Rabies.class) != null && Random.Int(20) >= 1 && buff(Vertigo.class) == null){
+        if(disease(Rabies.class) != null && Random.Int(20) <= 5 && buff(Vertigo.class) == null){
             Buff.affect(this, Vertigo.class, Vertigo.DURATION/2);
         }
-        if(disease(Cholera.class) != null && Random.Int(20) >= 1 && buff(Paralysis.class) == null){
+        if(disease(Cholera.class) != null && Random.Int(20) <= 5 && buff(Paralysis.class) == null){
             Buff.affect(this, Paralysis.class, Paralysis.DURATION/4);
         }
-        if(disease(Polio.class) != null && Random.Int(20) >= 1 && buff(Paralysis.class) == null){
+        if(disease(Polio.class) != null && Random.Int(20) <= 5 && buff(Paralysis.class) == null){
             Buff.affect(this, Paralysis.class, Paralysis.DURATION/2);
+        }
+        if(disease(Midease.class) != null && Random.Int(20) <= 5){
+            Dungeon.level.drop(new Gold(Random.Int(HP, HT)), pos).sprite.drop(pos);
         }
 		return false;
 	}
@@ -345,6 +351,9 @@ public abstract class Char extends Actor {
 	public int attackProc( Char enemy, int damage ) {
         if ( buff( Wither.class ) != null ){
             return damage/2;
+        }
+        if(enemy.buff(MagicalShield.class) != null){
+            return 0;
         }
 		return damage;
 	}

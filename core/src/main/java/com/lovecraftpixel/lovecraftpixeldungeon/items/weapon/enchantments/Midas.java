@@ -25,13 +25,15 @@ package com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Disease;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Midease;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
 
 public class Midas extends Weapon.Enchantment {
 
-	private static Glowing GOLD = new Glowing( 0xD4E100 );
+	private static Glowing GOLD = new Glowing( 0xFFDB00 );
 	
 	@Override
 	public int proc( Weapon weapon, Char attacker, Char defender, int damage ) {
@@ -43,6 +45,7 @@ public class Midas extends Weapon.Enchantment {
 		if (Random.Int( level + 10 ) >= 9) {
 
 			Buff.affect( defender, com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Midas.class);
+			Disease.affect( defender, Midease.class );
 
 		}
 

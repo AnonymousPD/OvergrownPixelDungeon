@@ -354,9 +354,9 @@ public abstract class RegularPainter extends Painter {
                     if (l.map[i] == Terrain.GRASS){
                         //Water plants should only be 50% as common as grass plants
                         if(l.map[i] == Terrain.WATER && Dungeon.depth < 21){
-                            if(Random.Int(10) == 1){
+                            //if(Random.Int(10) == 1){
                                 plantCells.add(i);
-                            }
+                            //}
                         } else {
                             plantCells.add(i);
                         }
@@ -432,6 +432,11 @@ public abstract class RegularPainter extends Painter {
                             try {
                                 plant.pos = p;
                                 l.plants.put(plant.pos, plant);
+                                if(l.map[p] == Terrain.WATER){
+                                    set(l, plant.pos, Terrain.WATERPLANT);
+                                } else {
+                                    set(l, plant.pos, Terrain.PLANT);
+                                }
                                 plantCells.remove((Object)p);
                             } catch (Exception e) {
                                 LovecraftPixelDungeon.reportException(e);

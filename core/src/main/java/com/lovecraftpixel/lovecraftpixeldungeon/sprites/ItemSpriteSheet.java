@@ -628,6 +628,12 @@ public class ItemSpriteSheet {
 	public static final int RECLAIM_TRAP    = SPELLS+7;
 	public static final int ALCHEMIZE       = SPELLS+8;
 	public static final int RECYCLE         = SPELLS+9;
+    public static final int ENCHANT_INFUSE  = SPELLS+10;
+    public static final int CRIMSON_EPITHET = SPELLS+11;
+    public static final int FORCEFIELD      = SPELLS+12;
+    public static final int HOLYBLAST       = SPELLS+13;
+    public static final int DOOMCALL        = SPELLS+14;
+    public static final int SEASONCHANGE    = SPELLS+15;
 	static{
 		assignItemRect(PHASE_SHIFT,     12, 11);
 		assignItemRect(AQUA_BLAST,      11, 11);
@@ -639,6 +645,12 @@ public class ItemSpriteSheet {
 		assignItemRect(RECLAIM_TRAP,    11, 11);
 		assignItemRect(ALCHEMIZE,       10, 15);
 		assignItemRect(RECYCLE,         10, 15);
+        assignItemRect(ENCHANT_INFUSE,  12, 11);
+        assignItemRect(CRIMSON_EPITHET, 11, 11);
+        assignItemRect(FORCEFIELD,      10, 15);
+        assignItemRect(HOLYBLAST,       12, 11);
+        assignItemRect(DOOMCALL,         8, 16);
+        assignItemRect(SEASONCHANGE,    11, 11);
 	}
 	
 	private static final int FOOD       =                                   xy(1, 28);  //16 slots

@@ -21,36 +21,44 @@
  * along with this program. If not, see <http://www.gnu.org/licenses>
  */
 
-package com.lovecraftpixel.lovecraftpixeldungeon.levels.traps;
+package com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs;
 
-import com.lovecraftpixel.lovecraftpixeldungeon.Assets;
-import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
-import com.lovecraftpixel.lovecraftpixeldungeon.effects.CellEmitter;
-import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
-import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
-import com.watabou.noosa.audio.Sample;
+import com.lovecraftpixel.lovecraftpixeldungeon.sprites.CharSprite;
+import com.lovecraftpixel.lovecraftpixeldungeon.ui.BuffIndicator;
 
-public class AlarmTrap extends Trap {
+public class MagicalShield extends FlavourBuff {
+
+	public static final float DURATION	= 50f;
 
 	{
-		color = RED;
-		shape = DOTS;
+		type = buffType.POSITIVE;
+		announced = true;
+	}
+
+    @Override
+    public void fx(boolean on) {
+        if (on) target.sprite.add(CharSprite.State.SHIELDED);
+        else target.sprite.remove(CharSprite.State.SHIELDED);
+    }
+	
+	@Override
+	public int icon() {
+		return BuffIndicator.FORECEFIELD;
+	}
+	
+	@Override
+	public String toString() {
+		return Messages.get(this, "name");
 	}
 
 	@Override
-	public void activate() {
+	public String heroMessage() {
+		return Messages.get(this, "heromsg");
+	}
 
-		for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
-				mob.beckon( pos );
-		}
-
-		if (Dungeon.level.heroFOV[pos]) {
-			GLog.w( Messages.get(this, "alarm") );
-			CellEmitter.center( pos ).start( Speck.factory( Speck.SCREAM ), 0.3f, 3 );
-		}
-
-		Sample.INSTANCE.play( Assets.SND_ALERT );
+	@Override
+	public String desc() {
+		return Messages.get(this, "desc", dispTurns());
 	}
 }

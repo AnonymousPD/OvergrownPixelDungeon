@@ -45,7 +45,7 @@ public class DungeonTerrainTilemap extends DungeonTilemap {
 		int visual = DungeonTileSheet.directVisuals.get(tile, -1);
 		if (visual != -1) return DungeonTileSheet.getVisualWithAlts(visual, pos);
 
-		if (tile == Terrain.WATER) {
+		if (tile == Terrain.WATER || tile == Terrain.WATERPLANT) {
 			return DungeonTileSheet.stitchWaterTile(
 					map[pos + PathFinder.CIRCLE4[0]],
 					map[pos + PathFinder.CIRCLE4[1]],

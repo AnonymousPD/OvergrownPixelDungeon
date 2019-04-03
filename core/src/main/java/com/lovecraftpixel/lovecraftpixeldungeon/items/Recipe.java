@@ -51,13 +51,19 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.exotic.ExoticScrol
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.Alchemize;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.AquaBlast;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.BeaconOfReturning;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.CrimsonEpithet;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.CurseInfusion;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.DoomCall;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.EnchantmentInfusion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.FeatherFall;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.Forcefield;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.HolyBlast;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.MagicalInfusion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.MagicalPorter;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.PhaseShift;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.ReclaimTrap;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.Recycle;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.SeasonChange;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.wands.Wand;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.missiles.darts.Dart;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.missiles.darts.TippedDart;
@@ -207,7 +213,13 @@ public abstract class Recipe {
 		new PhaseShift.Recipe(),
 		new ReclaimTrap.Recipe(),
 		new Recycle.Recipe(),
-		new StewedMeat.twoMeat()
+		new StewedMeat.twoMeat(),
+            new EnchantmentInfusion.Recipe(),
+            new CrimsonEpithet.Recipe(),
+            new Forcefield.Recipe(),
+            new HolyBlast.Recipe(),
+            new DoomCall.Recipe(),
+            new SeasonChange.Recipe(),
 	};
 	
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{

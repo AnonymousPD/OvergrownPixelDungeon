@@ -77,9 +77,8 @@ public abstract class Plant implements Bundlable {
 		wither();
 
 		if(ch instanceof LivingPlant){
-            ((LivingPlant) ch).powerlevel++;
             ch.sprite.emitter().start( Speck.factory( Speck.UP ), 0.2f, 3 );
-            spawnLivingPlant(new LivingPlant().setPlantClass(this, 1), ch);
+            spawnLivingPlant(new LivingPlant().setPlantClass(this), ch);
         } else {
             int chances = 30;
 		    if(ch instanceof Hero){
@@ -90,12 +89,12 @@ public abstract class Plant implements Bundlable {
                 }
             }
             if(Random.Int(100) <= chances){
-                spawnLivingPlant(new LivingPlant().setPlantClass(this, 1), ch);
+                spawnLivingPlant(new LivingPlant().setPlantClass(this), ch);
             } else {
                 if(ch != null){
                     activate( ch );
                 } else {
-                    spawnLivingPlant(new LivingPlant().setPlantClass(this, 2), ch);
+                    spawnLivingPlant(new LivingPlant().setPlantClass(this), ch);
                 }
             }
         }

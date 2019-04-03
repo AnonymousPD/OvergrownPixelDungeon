@@ -26,6 +26,9 @@ package com.lovecraftpixel.lovecraftpixeldungeon.scenes;
 import com.lovecraftpixel.lovecraftpixeldungeon.Chrome;
 import com.lovecraftpixel.lovecraftpixeldungeon.LovecraftPixelDungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Chaotic;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Cloning;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Deflection;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfDarkness;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfDisease;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfEruption;
@@ -48,6 +51,9 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSt
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSunlight;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfTeleportation;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfTime;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.CrimsonEpithet;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.EnchantmentInfusion;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.Forcefield;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Absorbing;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Blooming;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Explosion;
@@ -371,6 +377,41 @@ public class ChangesScene extends PixelScene {
 
         changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.SWORD, new Absorbing().glowing()), new Absorbing().name("weapon"),
                 new Absorbing().desc()));
+
+        changes = new ChangeInfo("Glyphs", false, null);
+        changes.hardlight( Window.SHPX_COLOR );
+        infos.add(changes);
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.ARMOR_MAIL, new Chaotic().glowing()), new Chaotic().name("armor"),
+                new Chaotic().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.ARMOR_MAIL, new Cloning().glowing()), new Cloning().name("armor"),
+                new Cloning().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.ARMOR_MAIL, new Cloning().glowing()), new Cloning().name("armor"),
+                new Cloning().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.ARMOR_MAIL, new Deflection().glowing()), new Deflection().name("armor"),
+                new Deflection().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.ARMOR_MAIL, new Explosion().glowing()), new Explosion().name("armor"),
+                new Explosion().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.ARMOR_MAIL, new Explosion().glowing()), new Explosion().name("armor"),
+                new Explosion().desc()));
+
+        changes = new ChangeInfo("Spells", false, null);
+        changes.hardlight( Window.SHPX_COLOR );
+        infos.add(changes);
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.ENCHANT_INFUSE, null), new EnchantmentInfusion().name(),
+                new EnchantmentInfusion().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.FORCEFIELD, null), new Forcefield().name(),
+                new Forcefield().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.CRIMSON_EPITHET, null), new CrimsonEpithet().name(),
+                new CrimsonEpithet().desc()));
 
 
 

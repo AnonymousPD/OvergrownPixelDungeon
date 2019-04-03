@@ -735,6 +735,11 @@ public abstract class Level implements Bundlable {
 	
 	public void uproot( int pos ) {
 		plants.remove(pos);
+		if(map[pos] == Terrain.WATERPLANT){
+		    set(pos, Terrain.WATER);
+        } else {
+            set(pos, Terrain.GRASS);
+        }
 		GameScene.updateMap( pos );
 	}
 
@@ -776,6 +781,15 @@ public abstract class Level implements Bundlable {
 	public void press( int cell, Char ch){
 		press( cell, ch, ch == Dungeon.hero);
 	}
+
+	public boolean anyPlantAt(int cell){
+	    for(Plant plant : plants.values()){
+	        if(plant.pos == cell){
+	            return true;
+            }
+        }
+	    return false;
+    }
 	
 	//a 'soft' press ignores hidden traps
 	//a 'hard' press triggers all things
@@ -814,6 +828,20 @@ public abstract class Level implements Bundlable {
 		case Terrain.WELL:
 			WellWater.affectCell( cell );
 			break;
+
+            case Terrain.WATERPLANT:
+                if(!anyPlantAt(cell)){
+                    set(cell, Terrain.WATER);
+                    GameScene.updateMap(cell);
+                }
+                break;
+
+            case Terrain.PLANT:
+                if(!anyPlantAt(cell)){
+                    set(cell, Terrain.GRASS);
+                    GameScene.updateMap(cell);
+                }
+                break;
 			
 		case Terrain.DOOR:
 			Door.enter( cell );

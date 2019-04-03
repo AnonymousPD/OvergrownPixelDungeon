@@ -57,13 +57,19 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.exotic.ExoticScrol
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.Alchemize;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.AquaBlast;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.BeaconOfReturning;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.CrimsonEpithet;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.CurseInfusion;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.DoomCall;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.EnchantmentInfusion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.FeatherFall;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.Forcefield;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.HolyBlast;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.MagicalInfusion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.MagicalPorter;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.PhaseShift;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.ReclaimTrap;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.Recycle;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.SeasonChange;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.stones.Runestone;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.missiles.darts.Dart;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.missiles.darts.TippedDart;
@@ -371,18 +377,26 @@ public class QuickRecipe extends Component {
 			case 9:
 				result.add(new QuickRecipe(new MagicalPorter.Recipe()));
 				result.add(new QuickRecipe(new PhaseShift.Recipe()));
+                result.add(new QuickRecipe(new EnchantmentInfusion.Recipe()));
+                result.add(new QuickRecipe(new HolyBlast.Recipe()));
+                result.add(null);
+                result.add(null);
 				result.add(new QuickRecipe(new BeaconOfReturning.Recipe()));
+                result.add(new QuickRecipe(new DoomCall.Recipe()));
 				result.add(null);
 				result.add(null);
 				result.add(new QuickRecipe(new AquaBlast.Recipe()));
 				result.add(new QuickRecipe(new FeatherFall.Recipe()));
 				result.add(new QuickRecipe(new ReclaimTrap.Recipe()));
+                result.add(new QuickRecipe(new CrimsonEpithet.Recipe()));
+                result.add(new QuickRecipe(new SeasonChange.Recipe()));
 				result.add(null);
 				result.add(null);
 				result.add(new QuickRecipe(new MagicalInfusion.Recipe()));
 				result.add(new QuickRecipe(new CurseInfusion.Recipe()));
 				result.add(new QuickRecipe(new Alchemize.Recipe()));
 				result.add(new QuickRecipe(new Recycle.Recipe()));
+                result.add(new QuickRecipe(new Forcefield.Recipe()));
 				return result;
 		}
 	}

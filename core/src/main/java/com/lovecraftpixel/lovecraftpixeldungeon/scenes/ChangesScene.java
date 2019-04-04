@@ -52,8 +52,11 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSu
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfTeleportation;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfTime;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.CrimsonEpithet;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.DoomCall;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.EnchantmentInfusion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.Forcefield;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.HolyBlast;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.SeasonChange;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Absorbing;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Blooming;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Explosion;
@@ -317,7 +320,7 @@ public class ChangesScene extends PixelScene {
         changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_LIMEGREEN, null), new PotionOfPlants().trueName(),
                 new PotionOfPlants().desc()));
 
-        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_LIMEGREEN, null), new PotionOfPlants().trueName(),
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_SILVER, null), new PotionOfPlants().trueName(),
                 new PotionOfPlants().desc()));
 
         changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_RAINBOW, null), new PotionOfPower().trueName(),
@@ -412,6 +415,15 @@ public class ChangesScene extends PixelScene {
 
         changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.CRIMSON_EPITHET, null), new CrimsonEpithet().name(),
                 new CrimsonEpithet().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.DOOMCALL, null), new DoomCall().name(),
+                new DoomCall().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.SEASONCHANGE, null), new SeasonChange().name(),
+                new SeasonChange().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.HOLYBLAST, null), new HolyBlast().name(),
+                new HolyBlast().desc()));
 
 
 

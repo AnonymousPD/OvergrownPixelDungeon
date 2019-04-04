@@ -113,6 +113,7 @@ public abstract class Plant implements Bundlable {
             livingPlant.pos = ((Integer) Random.element(arrayList)).intValue();
             GameScene.add(livingPlant);
             Actor.addDelayed(new Pushing(livingPlant, pos, livingPlant.pos), 0.0f);
+            livingPlant.move(livingPlant.pos);
             if (Dungeon.level.map[livingPlant.pos] == 5) {
                 Door.enter(livingPlant.pos);
             }

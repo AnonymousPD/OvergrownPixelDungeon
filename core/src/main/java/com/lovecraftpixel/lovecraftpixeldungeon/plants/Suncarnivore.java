@@ -74,11 +74,8 @@ public class Suncarnivore extends Plant {
 
         if (Dungeon.level.heroFOV[pos]) {
             CellEmitter.bottom( pos ).start( EarthParticle.FACTORY, 0.05f, 8 );
-            Camera.main.shake( 1, 0.4f );
-        }
-
-        if (Dungeon.level.heroFOV[pos]) {
             CellEmitter.get( pos ).start( ShaftParticle.FACTORY, 0.2f, 3 );
+            Camera.main.shake( 1, 0.4f );
         }
 
         if(ch instanceof Mob && !ch.properties().contains(Char.Property.INORGANIC)){
@@ -115,6 +112,16 @@ public class Suncarnivore extends Plant {
             }
         }
 	}
+
+    @Override
+    public void activate() {
+        if (Dungeon.level.heroFOV[pos]) {
+            CellEmitter.bottom( pos ).start( EarthParticle.FACTORY, 0.05f, 8 );
+            CellEmitter.get( pos ).start( ShaftParticle.FACTORY, 0.2f, 3 );
+            Camera.main.shake( 1, 0.4f );
+        }
+        Plant.spawnLasher(pos);
+    }
 
     @Override
     public void activatePosionMobBeneficial(Char attacker, Char defender) {
@@ -158,7 +165,7 @@ public class Suncarnivore extends Plant {
 		    image = ItemSpriteSheet.SEED_SUNCARNIVORE;
 
 			plantClass = Suncarnivore.class;
-			heroDanger = HeroDanger.MOBBENEFICIAL;
+			heroDanger = HeroDanger.BENEFICIAL;
 		}
 
         @Override

@@ -21,40 +21,20 @@
  * along with this program. If not, see <http://www.gnu.org/licenses>
  */
 
-package com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.npcs;
+package com.lovecraftpixel.lovecraftpixeldungeon.items.food;
 
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Disease;
-import com.lovecraftpixel.lovecraftpixeldungeon.sprites.M8MirrorMachineSprite;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Hunger;
+import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
 
-public class M8MirrorMachine extends NPC {
+public class Peanut extends Food {
 
 	{
-		spriteClass = M8MirrorMachineSprite.class;
-        properties.add(Property.INORGANIC);
+		image = ItemSpriteSheet.PEANUT;
+		energy = Hunger.HUNGRY/2f;
 	}
-
+	
 	@Override
-	protected boolean act() {
-        throwItem();
-        return super.act();
-	}
-
-	@Override
-	public void damage( int dmg, Object src ) {
-	}
-
-	@Override
-	public void add( Buff buff ) {
-	}
-
-    @Override
-    public synchronized void add(Disease disease) {
-    }
-
-    @Override
-	public boolean interact() {
-		//TODO: Do this
-		return false;
+	public int price() {
+		return 10 * quantity;
 	}
 }

@@ -82,7 +82,18 @@ public class Waterweed extends Plant {
         }
 	}
 
-	public static class Seed extends Plant.Seed{
+    @Override
+    public void activate() {
+        Level.set(pos, Terrain.WATER);
+        GameScene.updateMap(pos);
+        Piranha piranha = new Piranha();
+        piranha.pos = pos;
+
+        GameScene.add( piranha );
+        Actor.addDelayed( new Pushing( piranha, pos, piranha.pos ), -1 );
+    }
+
+    public static class Seed extends Plant.Seed{
 
 		{
 			image = ItemSpriteSheet.SEED_WATERWEED;

@@ -48,6 +48,11 @@ public class Tomatobush extends Plant {
 	    explode(ch.pos, null);
 	}
 
+    @Override
+    public void activate() {
+        explode(pos, null);
+    }
+
     public boolean explodesDestructively(){
         return true;
     }

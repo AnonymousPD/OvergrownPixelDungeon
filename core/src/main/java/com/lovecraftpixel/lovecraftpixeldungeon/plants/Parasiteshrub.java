@@ -39,8 +39,18 @@ public class Parasiteshrub extends Plant {
 
 	@Override
 	public void activate( Char ch ) {
+
+	    if(ch.properties().contains(Char.Property.INORGANIC)){
+            return;
+        }
+
         Buff.affect( ch, Infested.class ).set(Random.Int(5, 7) );
 	}
+
+    @Override
+    public void activate() {
+        Plant.spawnLasher(pos);
+    }
 
 	public static class Seed extends Plant.Seed{
 

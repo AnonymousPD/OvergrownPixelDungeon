@@ -28,10 +28,20 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Terror;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Gold;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Apricobush;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Fadeleaf;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Musclemoss;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Nightshadeonion;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Starflower;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Sungrass;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Swiftthistle;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.BruteSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.CharSprite;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.Arrays;
+import java.util.HashSet;
 
 public class Brute extends Mob {
 	
@@ -46,6 +56,12 @@ public class Brute extends Mob {
 		
 		loot = Gold.class;
 		lootChance = 0.5f;
+
+        beneficialPlants = new HashSet<Class>(Arrays.asList(
+                Sungrass.class, Starflower.class, Swiftthistle.class,
+                Musclemoss.class, Nightshadeonion.class, Fadeleaf.class,
+                Apricobush.class
+        ));
 	}
 	
 	private boolean enraged = false;

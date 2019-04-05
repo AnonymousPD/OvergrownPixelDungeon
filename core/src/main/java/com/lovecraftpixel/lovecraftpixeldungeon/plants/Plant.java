@@ -33,11 +33,13 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Haste;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Lasher;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.livingplants.LivingPlant;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.CellEmitter;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.Pushing;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.LeafParticle;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.Generator;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.SandalsOfNature;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.RingOfElements;
@@ -66,6 +68,8 @@ public abstract class Plant implements Bundlable {
 	public int image;
 	public int pos;
 
+	//TODO: Make it so that HP and buff effects of plants do not activate on inorganic mobs!!!!!
+
 	public void trigger(){
 
 		Char ch = Actor.findChar(pos);
@@ -77,37 +81,68 @@ public abstract class Plant implements Bundlable {
 		wither();
 
 		if(ch instanceof LivingPlant){
+		    //livingplants will trigger other living plants. Since livpla's will bot step on other plants on purpose this only happens if they are pushed onto a plant.
             ch.sprite.emitter().start( Speck.factory( Speck.UP ), 0.2f, 3 );
             spawnLivingPlant(new LivingPlant().setPlantClass(this), ch);
         } else {
+		    //30% chance of triggering a living plant
             int chances = 30;
+            //modifiyng chances for the hero triggering livpla's are handled here
 		    if(ch instanceof Hero){
+		        //chances get changed by specific items
 		        if(((Hero) ch).belongings.misc1 instanceof SandalsOfNature){
 		            chances = ((SandalsOfNature) ((Hero) ch).belongings.misc1).livingplantPercent*10;
                 } else if(((Hero) ch).belongings.misc2 instanceof SandalsOfNature){
                     chances = ((SandalsOfNature) ((Hero) ch).belongings.misc2).livingplantPercent*10;
                 }
             }
+            //chances (int) in 100 or in other words 30%
             if(Random.Int(100) <= chances){
+                //spawn the living plant
                 spawnLivingPlant(new LivingPlant().setPlantClass(this), ch);
             } else {
                 if(ch != null){
+                    //if the character exits trigger the plant effect on the character
                     activate( ch );
                 } else {
-                    spawnLivingPlant(new LivingPlant().setPlantClass(this), ch);
+                    //if the character doesn't exist 50% chance to activate a variation effect of the plant that doesn't need a ch
+                    if(Random.Boolean()){
+                        activate();
+                    } else {
+                        spawnLivingPlant(new LivingPlant().setPlantClass(this), null);
+                    }
                 }
             }
         }
 	}
 
+	public static void spawnLasher(int pos){
+	    //try and spawn a lasher. This is only reserved for when you have no idea what an activate() effect should be.
+        if (Actor.findChar(pos) == null && ((Dungeon.level.passable[pos] || Dungeon.level.avoid[pos]) && !Dungeon.level.pit[pos])) {
+            Lasher lasher = new Lasher();
+            lasher.pos = pos;
+            GameScene.add(lasher);
+            Actor.addDelayed(new Pushing(lasher, pos, lasher.pos), 0.0f);
+            lasher.move(lasher.pos);
+        } else {
+            //fuck it! Give the player a seed! They deserve it if they managed to pull this fucking shit off!
+            Dungeon.level.drop(Generator.random(Generator.Category.SEED), pos).sprite.drop(pos);
+        }
+    }
+
     public void spawnLivingPlant(LivingPlant livingPlant, Char activator) {
+
+	    //find the all tiles the living plant can be spawned at
         Collection arrayList = new ArrayList();
         for (int i : PathFinder.NEIGHBOURS8) {
             int ip = pos + i;
+            //this if statement makes it impossible for livingplants to be spawned on (avoid) other plant terrain.
             if (Actor.findChar(ip) == null && ((Dungeon.level.passable[ip] || Dungeon.level.avoid[ip]) && !Dungeon.level.pit[ip])) {
                 arrayList.add(Integer.valueOf(ip));
             }
         }
+
+        //checks if there are any tiles
         if (!arrayList.isEmpty()) {
             livingPlant.state = livingPlant.HUNTING;
             livingPlant.pos = ((Integer) Random.element(arrayList)).intValue();
@@ -134,15 +169,25 @@ public abstract class Plant implements Bundlable {
             }
             GameScene.updateMap(pos);
         } else {
+            //if there aren't any tiles...
             if(activator instanceof LivingPlant){
+                //if the activator was a fellow plant, it gets a speed boost
                 Buff.prolong( activator, Haste.class, Haste.DURATION);
             } else {
-                activate( activator );
+                if(activator != null){
+                    //if the activator is anything else just activate the effect on it
+                    activate( activator );
+                } else {
+                    //this can only happen if there are no tiles and the plant was triggered by an item
+                    activate();
+                }
             }
         }
     }
 	
 	public abstract void activate( Char ch );
+
+    public abstract void activate();
 
     public void activatePosionDangerous( Char attacker, Char defender ){
 
@@ -285,7 +330,7 @@ public abstract class Plant implements Bundlable {
         public enum HeroDanger{
             DANGEROUS(1),
             NEUTRAL(2),
-            MOBBENEFICIAL(3);
+            BENEFICIAL(3);
 
             HeroDanger(int i) {
 
@@ -309,8 +354,6 @@ public abstract class Plant implements Bundlable {
             return this.plantClass;
         }
 
-        private static final String CANBEPLANTED = "can_be_planted";
-
         @Override
         public void storeInBundle(Bundle bundle) {
             super.storeInBundle(bundle);
@@ -332,22 +375,31 @@ public abstract class Plant implements Bundlable {
             //attacker is the weapon wielder
             //damage is used to scale effects
             //defender is the poor victim
-            try {
-                Plant plant = plantClass.newInstance();
-                plant.pos = defender.pos;
-                switch (heroDanger){
-                    case DANGEROUS:
-                        plant.activatePosionDangerous(attacker, defender);
-                        break;
-                    case NEUTRAL:
-                        plant.activate(defender);
-                        break;
-                    case MOBBENEFICIAL:
-                        plant.activatePosionMobBeneficial(attacker, defender);
-                        break;
+
+            //also poison can not effect inorganic, acidic and fiery actors for obvious reasons
+            if(!defender.properties().contains(Char.Property.INORGANIC)
+                    && !defender.properties().contains(Char.Property.ACIDIC)
+                    && !defender.properties().contains(Char.Property.FIERY)){
+                try {
+                    Plant plant = plantClass.newInstance();
+                    plant.pos = defender.pos;
+                    switch (heroDanger){
+                            //this activates if the activation of the plant on the defender pos would also have negative effects on the attacker
+                        case DANGEROUS:
+                            plant.activatePosionDangerous(attacker, defender);
+                            break;
+                            //this happens if the activation of the plant at the defender pos wouldn't harm the attacker
+                        case NEUTRAL:
+                            plant.activate(defender);
+                            break;
+                        case BENEFICIAL:
+                            //this happens if the effect of plant has a positive effect and will activate alternative harming effect for its poison variant
+                            plant.activatePosionMobBeneficial(attacker, defender);
+                            break;
+                    }
+                } catch (Exception e) {
+                    LovecraftPixelDungeon.reportException(e);
                 }
-            } catch (Exception e) {
-                LovecraftPixelDungeon.reportException(e);
             }
 
         }

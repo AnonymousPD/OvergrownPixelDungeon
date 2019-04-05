@@ -40,8 +40,13 @@ public class Kiwivetch extends Plant {
 	@Override
 	public void activate( Char ch ) {
 
-        GameScene.add( Blob.seed( ch.pos, 10, Regrowth.class ) );
+        GameScene.add( Blob.seed( ch.pos, 100, Regrowth.class ) );
 	}
+
+    @Override
+    public void activate() {
+        GameScene.add( Blob.seed( pos, 100, Regrowth.class ) );
+    }
 
 	public static class Seed extends Plant.Seed{
 

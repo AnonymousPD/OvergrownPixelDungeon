@@ -40,6 +40,11 @@ public class Rose extends Plant {
         FriendlyWraith.spawnAt(ch.pos);
 	}
 
+    @Override
+    public void activate() {
+        FriendlyWraith.spawnAt(pos);
+    }
+
 	public static class Seed extends Plant.Seed{
 
 		{

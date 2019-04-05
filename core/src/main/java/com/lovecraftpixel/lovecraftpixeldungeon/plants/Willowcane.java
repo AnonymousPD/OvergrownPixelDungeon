@@ -48,6 +48,11 @@ public class Willowcane extends Plant {
         }
 	}
 
+    @Override
+    public void activate() {
+        Plant.spawnLasher(pos);
+    }
+
 	public static class Seed extends Plant.Seed{
 
 		{

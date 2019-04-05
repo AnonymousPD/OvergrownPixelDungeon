@@ -24,8 +24,18 @@
 package com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Apricobush;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Fadeleaf;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Musclemoss;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Nightshadeonion;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Starflower;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Sungrass;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Swiftthistle;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.RatSprite;
 import com.watabou.utils.Random;
+
+import java.util.Arrays;
+import java.util.HashSet;
 
 public class Rat extends Mob {
 
@@ -36,6 +46,12 @@ public class Rat extends Mob {
 		defenseSkill = 2;
 		
 		maxLvl = 5;
+
+		beneficialPlants = new HashSet<Class>(Arrays.asList(
+                Sungrass.class, Starflower.class, Swiftthistle.class,
+                Musclemoss.class, Nightshadeonion.class, Fadeleaf.class,
+                Apricobush.class
+        ));
 	}
 	
 	@Override

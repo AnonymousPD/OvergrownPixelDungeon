@@ -39,9 +39,19 @@ public class Venusflytrap extends Plant {
 
 	@Override
 	public void activate( Char ch ) {
+
+	    if(ch.properties().contains(Char.Property.INORGANIC)){
+            return;
+        }
+
         Buff.affect( ch, Ooze.class ).set( 20f );
         Buff.append(ch, Vertigo.class, Vertigo.DURATION);
 	}
+
+    @Override
+    public void activate() {
+        Plant.spawnLasher(pos);
+    }
 
 	public static class Seed extends Plant.Seed{
 

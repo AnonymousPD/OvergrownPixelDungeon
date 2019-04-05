@@ -33,8 +33,13 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.food.MysteryMeat;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.RegularLevel;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.rooms.Room;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.rooms.special.PoolRoom;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Steamweed;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Waterweed;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.PiranhaSprite;
 import com.watabou.utils.Random;
+
+import java.util.Arrays;
+import java.util.HashSet;
 
 public class Piranha extends Mob {
 	
@@ -51,6 +56,10 @@ public class Piranha extends Mob {
 		HUNTING = new Hunting();
 		
 		properties.add(Property.BLOB_IMMUNE);
+
+        beneficialPlants = new HashSet<Class>(Arrays.asList(
+                Waterweed.class, Steamweed.class
+        ));
 	}
 	
 	public Piranha() {

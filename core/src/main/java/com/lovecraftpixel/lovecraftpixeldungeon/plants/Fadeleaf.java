@@ -104,6 +104,11 @@ public class Fadeleaf extends Plant {
 			CellEmitter.get( pos ).start( Speck.factory( Speck.LIGHT ), 0.2f, 3 );
 		}
 	}
+
+    @Override
+    public void activate() {
+        Plant.spawnLasher(pos);
+    }
 	
 	public static class Seed extends Plant.Seed {
 		{

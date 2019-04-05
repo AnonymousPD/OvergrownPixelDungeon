@@ -23,6 +23,7 @@
 
 package com.lovecraftpixel.lovecraftpixeldungeon.plants;
 
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.Actor;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.MusclemossPoisonParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.wands.WandOfBlastWave;
@@ -45,6 +46,16 @@ public class Musclemoss extends Plant {
         Ballistica trajectory = new Ballistica(pos, opposite, Ballistica.MAGIC_BOLT);
         WandOfBlastWave.throwChar(ch, trajectory, 100);
 	}
+
+    @Override
+    public void activate() {
+        Plant.spawnLasher(pos);
+        if(Actor.findChar(pos) != null){
+            int opposite = pos + PathFinder.NEIGHBOURS8[Random.Int( 8 )];
+            Ballistica trajectory = new Ballistica(pos, opposite, Ballistica.MAGIC_BOLT);
+            WandOfBlastWave.throwChar(Actor.findChar(pos), trajectory, 100);
+        }
+    }
 
 	public static class Seed extends Plant.Seed{
 

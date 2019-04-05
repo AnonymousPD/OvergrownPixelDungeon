@@ -46,6 +46,11 @@ public class Steamweed extends Plant {
 	}
 
     @Override
+    public void activate() {
+        GameScene.add( Blob.seed( pos, 1000, StormCloud.class ) );
+    }
+
+    @Override
     public void activatePosionDangerous(Char attacker, Char defender) {
         Buff.prolong(defender, Paralysis.class, Paralysis.DURATION);
     }

@@ -72,7 +72,7 @@ public class Firefoxglove extends Plant {
             }
         }
         if(ch instanceof Mob){
-            if(Dungeon.hero != null){
+            if(Dungeon.hero != null && Dungeon.level.heroFOV[ch.pos]){
                 pos = Dungeon.hero.pos;
                 shoot(ch, pos);
             } else {
@@ -82,6 +82,11 @@ public class Firefoxglove extends Plant {
             }
         }
 	}
+
+    @Override
+    public void activate() {
+        new Firebloom().activate();
+    }
 
 	public void shoot(Char ch, int pos){
         final Ballistica shot = new Ballistica( ch.pos, pos, Ballistica.PROJECTILE);

@@ -32,8 +32,18 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.food.MysteryMeat;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.PotionOfHealing;
 import com.lovecraftpixel.lovecraftpixeldungeon.mechanics.Ballistica;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Apricobush;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Fadeleaf;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Musclemoss;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Nightshadeonion;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Starflower;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Sungrass;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Swiftthistle;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ScorpioSprite;
 import com.watabou.utils.Random;
+
+import java.util.Arrays;
+import java.util.HashSet;
 
 public class Scorpio extends Mob {
 	
@@ -51,6 +61,12 @@ public class Scorpio extends Mob {
 		lootChance = 0.2f;
 
 		properties.add(Property.DEMONIC);
+
+        beneficialPlants = new HashSet<Class>(Arrays.asList(
+                Sungrass.class, Starflower.class, Swiftthistle.class,
+                Musclemoss.class, Nightshadeonion.class, Fadeleaf.class,
+                Apricobush.class
+        ));
 	}
 	
 	@Override

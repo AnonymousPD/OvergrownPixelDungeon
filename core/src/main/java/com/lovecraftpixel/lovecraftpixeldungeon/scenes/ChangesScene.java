@@ -320,9 +320,6 @@ public class ChangesScene extends PixelScene {
         changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_LIMEGREEN, null), new PotionOfPlants().trueName(),
                 new PotionOfPlants().desc()));
 
-        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_SILVER, null), new PotionOfPlants().trueName(),
-                new PotionOfPlants().desc()));
-
         changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.POTION_RAINBOW, null), new PotionOfPower().trueName(),
                 new PotionOfPower().desc()));
 
@@ -391,14 +388,8 @@ public class ChangesScene extends PixelScene {
         changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.ARMOR_MAIL, new Cloning().glowing()), new Cloning().name("armor"),
                 new Cloning().desc()));
 
-        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.ARMOR_MAIL, new Cloning().glowing()), new Cloning().name("armor"),
-                new Cloning().desc()));
-
         changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.ARMOR_MAIL, new Deflection().glowing()), new Deflection().name("armor"),
                 new Deflection().desc()));
-
-        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.ARMOR_MAIL, new Explosion().glowing()), new Explosion().name("armor"),
-                new Explosion().desc()));
 
         changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.ARMOR_MAIL, new Explosion().glowing()), new Explosion().name("armor"),
                 new Explosion().desc()));

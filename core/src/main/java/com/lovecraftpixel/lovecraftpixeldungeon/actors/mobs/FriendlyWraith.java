@@ -25,6 +25,7 @@ package com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Actor;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.LightParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
@@ -78,8 +79,14 @@ public class FriendlyWraith extends Wraith {
 			return w;
 		} else {
 		    if(!(Actor.findChar(pos) == null)){
-                GLog.p(Messages.get(FriendlyWraith.class, "heal"));
-		        Actor.findChar(pos).HP = Actor.findChar(pos).HT;
+		        if(Actor.findChar(pos) instanceof Hero){
+		            //heros get healed by the spirit of the friendly wraith
+                    GLog.p(Messages.get(FriendlyWraith.class, "heal"));
+                    Actor.findChar(pos).HP = Actor.findChar(pos).HT;
+                } else if(Actor.findChar(pos) instanceof Mob){
+		            //mobs get hurt by this
+                    Actor.findChar(pos).damage(new FriendlyWraith().damageRoll(), FriendlyWraith.class);
+                }
             }
 			return null;
 		}

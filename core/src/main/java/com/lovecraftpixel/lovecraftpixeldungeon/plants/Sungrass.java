@@ -107,6 +107,14 @@ public class Sungrass extends Plant {
 	}
 
     @Override
+    public void activate() {
+        if (Dungeon.level.heroFOV[pos]) {
+            CellEmitter.get( pos ).start( ShaftParticle.FACTORY, 0.2f, 3 );
+        }
+        Plant.spawnLasher(pos);
+    }
+
+    @Override
     public void activatePosionMobBeneficial(Char attacker, Char defender) {
         if(defender.properties().contains(Char.Property.UNDEAD)){
             defender.damage(defender.HP, this);
@@ -144,7 +152,7 @@ public class Sungrass extends Plant {
 			image = ItemSpriteSheet.SEED_SUNGRASS;
 
 			plantClass = Sungrass.class;
-			heroDanger = HeroDanger.MOBBENEFICIAL;
+			heroDanger = HeroDanger.BENEFICIAL;
 
 			bones = true;
 		}

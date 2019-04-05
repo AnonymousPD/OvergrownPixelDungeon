@@ -38,6 +38,13 @@ import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.ElmoParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.keys.SkeletonKey;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.quest.GooBlob;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Apricobush;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Fadeleaf;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Musclemoss;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Nightshadeonion;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Starflower;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Sungrass;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Swiftthistle;
 import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.CharSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.GooSprite;
@@ -50,6 +57,9 @@ import com.watabou.utils.Bundle;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
+import java.util.Arrays;
+import java.util.HashSet;
+
 public class Goo extends Mob {
 
 	{
@@ -61,6 +71,12 @@ public class Goo extends Mob {
 		properties.add(Property.BOSS);
 		properties.add(Property.DEMONIC);
 		properties.add(Property.ACIDIC);
+
+        beneficialPlants = new HashSet<Class>(Arrays.asList(
+                Sungrass.class, Starflower.class, Swiftthistle.class,
+                Musclemoss.class, Nightshadeonion.class, Fadeleaf.class,
+                Apricobush.class
+        ));
 	}
 
 	private int pumpedUp = 0;

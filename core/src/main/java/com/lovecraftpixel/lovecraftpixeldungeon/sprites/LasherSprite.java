@@ -21,40 +21,32 @@
  * along with this program. If not, see <http://www.gnu.org/licenses>
  */
 
-package com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.npcs;
+package com.lovecraftpixel.lovecraftpixeldungeon.sprites;
 
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Disease;
-import com.lovecraftpixel.lovecraftpixeldungeon.sprites.M8MirrorMachineSprite;
+import com.lovecraftpixel.lovecraftpixeldungeon.Assets;
+import com.watabou.noosa.TextureFilm;
 
-public class M8MirrorMachine extends NPC {
+public class LasherSprite extends MobSprite {
 
-	{
-		spriteClass = M8MirrorMachineSprite.class;
-        properties.add(Property.INORGANIC);
-	}
+	public LasherSprite() {
+		super();
 
-	@Override
-	protected boolean act() {
-        throwItem();
-        return super.act();
-	}
+		texture( Assets.LASHER );
 
-	@Override
-	public void damage( int dmg, Object src ) {
-	}
+		TextureFilm frames = new TextureFilm( texture, 12, 16 );
 
-	@Override
-	public void add( Buff buff ) {
-	}
+		idle = new Animation( 0, true );
+		idle.frames( frames, 0);
 
-    @Override
-    public synchronized void add(Disease disease) {
-    }
+		run = new Animation( 0, true );
+		run.frames( frames, 0);
 
-    @Override
-	public boolean interact() {
-		//TODO: Do this
-		return false;
+		attack = new Animation( 24, false );
+		attack.frames( frames, 0, 1, 2, 2, 1 );
+
+		die = new Animation( 12, false );
+		die.frames( frames, 3, 4, 5, 6 );
+
+		play( idle );
 	}
 }

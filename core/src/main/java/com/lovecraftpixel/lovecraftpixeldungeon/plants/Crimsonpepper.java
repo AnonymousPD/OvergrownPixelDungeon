@@ -39,8 +39,17 @@ public class Crimsonpepper extends Plant {
 	@Override
 	public void activate( Char ch ) {
 
+	    if(ch.properties().contains(Char.Property.INORGANIC)){
+            return;
+        }
+
         Buff.prolong( ch, Dehydrated.class, Dehydrated.DURATION );
 	}
+
+    @Override
+    public void activate() {
+        Plant.spawnLasher(pos);
+    }
 
 	public static class Seed extends Plant.Seed{
 

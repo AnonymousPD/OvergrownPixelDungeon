@@ -49,11 +49,21 @@ public class Rotberry extends Plant {
 			Buff.affect(ch, AdrenalineSurge.class).reset(1, 200f);
 		}
 		if(ch instanceof Mob){
+
+		    if(ch.properties().contains(Char.Property.INORGANIC)){
+                return;
+            }
+
             Buff.prolong(ch, Bless.class, Bless.DURATION);
         }
 		
 		Dungeon.level.drop( new Seed(), pos ).sprite.drop();
 	}
+
+    @Override
+    public void activate() {
+        Dungeon.level.drop( new Seed(), pos ).sprite.drop();
+    }
 
     @Override
     public void activatePosionMobBeneficial(Char attacker, Char defender) {
@@ -77,7 +87,7 @@ public class Rotberry extends Plant {
 			image = ItemSpriteSheet.SEED_ROTBERRY;
 
 			plantClass = Rotberry.class;
-			heroDanger = HeroDanger.MOBBENEFICIAL;
+			heroDanger = HeroDanger.BENEFICIAL;
 		}
 
         @Override

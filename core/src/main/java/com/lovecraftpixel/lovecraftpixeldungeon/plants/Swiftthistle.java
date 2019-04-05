@@ -54,9 +54,19 @@ public class Swiftthistle extends Plant {
 			}
 		}
 		if(ch instanceof Mob){
+
+		    if(ch.properties().contains(Char.Property.INORGANIC)){
+                return;
+            }
+
             Buff.prolong( ch, Haste.class, Haste.DURATION);
         }
 	}
+
+    @Override
+    public void activate() {
+        Plant.spawnLasher(pos);
+    }
 
     @Override
     public void activatePosionMobBeneficial(Char attacker, Char defender) {
@@ -68,7 +78,7 @@ public class Swiftthistle extends Plant {
 			image = ItemSpriteSheet.SEED_SWIFTTHISTLE;
 			
 			plantClass = Swiftthistle.class;
-			heroDanger = HeroDanger.MOBBENEFICIAL;
+			heroDanger = HeroDanger.BENEFICIAL;
 		}
 
         @Override

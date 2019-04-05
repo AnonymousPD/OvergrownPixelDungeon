@@ -40,6 +40,9 @@ public class Apricobush extends Plant {
 
 	@Override
 	public void activate( Char ch ) {
+	    if(ch.properties().contains(Char.Property.INORGANIC)){
+	        return;
+        }
 	    if(ch instanceof Hero){
             (ch.buff( Hunger.class )).satisfy( Hunger.HUNGRY/2f );
             GLog.p(Messages.get(this, "hunger"));
@@ -53,6 +56,11 @@ public class Apricobush extends Plant {
 	}
 
     @Override
+    public void activate() {
+        Plant.spawnLasher(pos);
+    }
+
+    @Override
     public void activatePosionMobBeneficial(Char attacker, Char defender) {
         defender.HT--;
     }
@@ -63,7 +71,7 @@ public class Apricobush extends Plant {
 			image = ItemSpriteSheet.SEED_APRICOBUSH;
 
 			plantClass = Apricobush.class;
-			heroDanger = HeroDanger.MOBBENEFICIAL;
+			heroDanger = HeroDanger.BENEFICIAL;
 		}
 
         @Override

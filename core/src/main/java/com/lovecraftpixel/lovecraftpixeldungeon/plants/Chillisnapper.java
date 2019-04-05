@@ -40,10 +40,19 @@ public class Chillisnapper extends Plant {
 	@Override
 	public void activate( Char ch ) {
 
+        if(ch.properties().contains(Char.Property.INORGANIC)){
+            return;
+        }
+
         Buff.affect(ch, Light.class, Light.DURATION);
         Buff.affect( ch, Burning.class ).reignite( ch );
 
 	}
+
+    @Override
+    public void activate() {
+        Plant.spawnLasher(pos);
+    }
 
 	public static class Seed extends Plant.Seed{
 

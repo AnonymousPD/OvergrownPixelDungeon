@@ -44,8 +44,18 @@ public class Nightshadeonion extends Plant {
 	public void activate( Char ch ) {
 
         GameScene.add( Blob.seed( pos, 1000, SmokeScreen.class ) );
+
+        if(ch.properties().contains(Char.Property.INORGANIC)){
+            return;
+        }
+
         Buff.prolong( ch, Blindness.class, Random.Int( 2, 5 ) );
 	}
+
+    @Override
+    public void activate() {
+        GameScene.add( Blob.seed( pos, 1000, SmokeScreen.class ) );
+    }
 
     @Override
     public void activatePosionDangerous(Char attacker, Char defender) {

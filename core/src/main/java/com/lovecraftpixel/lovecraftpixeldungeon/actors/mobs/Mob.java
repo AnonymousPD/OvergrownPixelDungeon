@@ -41,8 +41,11 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Preparation;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Sleep;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.SoulMark;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Terror;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Vertigo;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Weakness;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.livingplants.LivingPlant;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.npcs.NPC;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.Flare;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.Surprise;
@@ -61,6 +64,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.sprites.CharSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.GameMath;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -73,6 +77,12 @@ public abstract class Mob extends Char {
 		actPriority = MOB_PRIO;
 		
 		alignment = Alignment.ENEMY;
+
+		if(Random.Boolean()){
+		    isStupid = true;
+        }
+
+        beneficialPlants = new HashSet<>();
 	}
 	
 	private static final String	TXT_DIED	= "You hear something died in the distance";
@@ -89,6 +99,10 @@ public abstract class Mob extends Char {
 	public AiState state = SLEEPING;
 	
 	public Class<? extends CharSprite> spriteClass;
+
+    public HashSet<Class> beneficialPlants;
+
+    public static boolean isStupid = false;
 	
 	protected int target = -1;
 	
@@ -106,6 +120,7 @@ public abstract class Mob extends Char {
 	private static final String STATE	= "state";
 	private static final String SEEN	= "seen";
 	private static final String TARGET	= "target";
+    private static final String STUPID	= "stupid";
 	
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -125,6 +140,7 @@ public abstract class Mob extends Char {
 		}
 		bundle.put( SEEN, enemySeen );
 		bundle.put( TARGET, target );
+		bundle.put( STUPID, isStupid );
 	}
 	
 	@Override
@@ -148,6 +164,8 @@ public abstract class Mob extends Char {
 		enemySeen = bundle.getBoolean( SEEN );
 
 		target = bundle.getInt( TARGET );
+
+		isStupid = bundle.getBoolean( STUPID );
 	}
 	
 	public CharSprite sprite() {
@@ -308,8 +326,48 @@ public abstract class Mob extends Char {
 			return true;
 		}
 	}
-	
-	@Override
+
+    @Override
+    public void move(int step) {
+	    //npcs never die! (Maybe, maybe I'll add NPC's that can die) also livingplants do not want to destroy other plants.
+	    if(!(this instanceof NPC) && !(this instanceof LivingPlant)){
+            //inorganic mobs have no need for plants
+            if(!properties.contains(Property.INORGANIC) || !properties.contains(Property.IMMOVABLE)){
+                //checking for boolean and buff because these require the least amount of cp to call each step for every mob
+                if(!flying && buff( Vertigo.class ) == null){
+                    //I do not want to half the HT of almost all mobs every step only check with this variable since math operations still can take place in if() statements
+                    int ht = HT;
+                    //only seek to step on plant if HP is at 50% or less
+                    if(ht / 2 <= HP){
+                        //check for all surrounding tiles
+                        for(int p : PathFinder.NEIGHBOURS8){
+                            if(Dungeon.level.plants.get(pos+p) != null){
+                                if(!isStupid){
+                                    //if the mob is smart it will only look for beneficial plants specified in its .class
+                                    if(beneficialPlants.contains(Dungeon.level.plants.get(pos+p).getClass())){
+                                        pos = pos+p;
+                                        return;
+                                    }
+                                    //this can only happen if a flying mob could somehow loose its flying status, in that case we assume it didn't evolve on the ground and doesn't know what plants are.
+                                    if(beneficialPlants.isEmpty() || beneficialPlants == null){
+                                        pos = pos+p;
+                                        return;
+                                    }
+                                } else {
+                                    //if the mob is stupid it will step into any plant
+                                    pos = pos+p;
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        super.move(step);
+    }
+
+    @Override
 	public void add( Buff buff ) {
 		super.add( buff );
 		if (buff instanceof Amok || buff instanceof Corruption) {
@@ -685,7 +743,17 @@ public abstract class Mob extends Char {
 	}
 	
 	public String description() {
-		return Messages.get(this, "desc");
+	    String desc = Messages.get(this, "desc");
+	    String intelligence = isStupid ? Messages.get(this, "stupid", name) : Messages.get(this, "smart", name);
+        String programming = isStupid ? Messages.get(this, "bad_prog", name) : Messages.get(this, "good_prog", name);
+        //computers also can have been programmed good or bad
+	    if(properties.contains(Property.INORGANIC) && properties.contains(Property.MACHINE)){
+            return desc + "\n\n" + programming;
+        } else if(properties.contains(Property.INORGANIC)){
+	        //inorganics still have the isStupid modifier but it wont be used except maybe for 50/50 internal rgn.
+	        return desc;
+        }
+	    return desc + "\n\n" + intelligence;
 	}
 	
 	public void notice() {

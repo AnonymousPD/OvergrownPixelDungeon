@@ -43,12 +43,22 @@ import com.lovecraftpixel.lovecraftpixeldungeon.levels.Terrain;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.traps.GrippingTrap;
 import com.lovecraftpixel.lovecraftpixeldungeon.mechanics.Ballistica;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Apricobush;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Fadeleaf;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Musclemoss;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Nightshadeonion;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Starflower;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Sungrass;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Swiftthistle;
 import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.TenguSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.BossHealthBar;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
 import com.watabou.utils.Random;
+
+import java.util.Arrays;
+import java.util.HashSet;
 
 public class Tengu extends Mob {
 	
@@ -64,6 +74,12 @@ public class Tengu extends Mob {
 		flying = true; //doesn't literally fly, but he is fleet-of-foot enough to avoid hazards
 
 		properties.add(Property.BOSS);
+
+        beneficialPlants = new HashSet<Class>(Arrays.asList(
+                Sungrass.class, Starflower.class, Swiftthistle.class,
+                Musclemoss.class, Nightshadeonion.class, Fadeleaf.class,
+                Apricobush.class
+        ));
 	}
 	
 	@Override

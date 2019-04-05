@@ -68,6 +68,11 @@ public class Earthroot extends Plant {
 			Camera.main.shake( 1, 0.4f );
 		}
 	}
+
+    @Override
+    public void activate() {
+        Plant.spawnLasher(pos);
+    }
 	
 	public static class Seed extends Plant.Seed {
 		{

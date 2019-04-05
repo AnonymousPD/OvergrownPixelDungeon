@@ -47,15 +47,22 @@ public class Sorrowmoss extends Plant {
 		if (ch instanceof Hero && ((Hero) ch).subClass == HeroSubClass.WARDEN){
 			Buff.affect(ch, ToxicImbue.class).set(15f);
 		}
-		
-		if (ch != null) {
-			Buff.affect( ch, Poison.class ).set( 4 + Dungeon.depth / 2 );
-		}
+
+        if(ch.properties().contains(Char.Property.INORGANIC)){
+            return;
+        }
+
+        Buff.affect( ch, Poison.class ).set( 4 + Dungeon.depth / 2 );
 		
 		if (Dungeon.level.heroFOV[pos]) {
 			CellEmitter.center( pos ).burst( PoisonParticle.SPLASH, 3 );
 		}
 	}
+
+    @Override
+    public void activate() {
+        Plant.spawnLasher(pos);
+    }
 	
 	public static class Seed extends Plant.Seed {
 		{

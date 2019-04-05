@@ -49,6 +49,13 @@ public class Butterlion extends Plant {
 
 	}
 
+    @Override
+    public void activate() {
+        CellEmitter.get( pos ).start( Speck.factory( Speck.ROCK ), 0.07f, 10 );
+        Camera.main.shake( 3, 0.7f );
+        Sample.INSTANCE.play( Assets.SND_ROCKS );
+    }
+
 	public static class Seed extends Plant.Seed{
 
 		{

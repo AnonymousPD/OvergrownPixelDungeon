@@ -41,6 +41,11 @@ public class Witherfennel extends Plant {
         Buff.prolong(ch, Wither.class, Wither.DURATION);
 	}
 
+    @Override
+    public void activate() {
+
+    }
+
 	public static class Seed extends Plant.Seed{
 
 		{

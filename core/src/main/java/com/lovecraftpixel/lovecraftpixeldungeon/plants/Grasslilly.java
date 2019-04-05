@@ -47,6 +47,16 @@ public class Grasslilly extends Plant {
 
 	}
 
+    @Override
+    public void activate() {
+        try {
+            Plant.Seed seed = (Plant.Seed) Generator.random(Generator.Category.SEED);
+            seed.plantClass.newInstance().activate();
+        } catch (Exception e){
+            LovecraftPixelDungeon.reportException(e);
+        }
+    }
+
 	public static class Seed extends Plant.Seed{
 
 		{

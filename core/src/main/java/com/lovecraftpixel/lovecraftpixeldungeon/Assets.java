@@ -99,6 +99,7 @@ public class Assets {
 	public static final String BEE      = "mobs/bee.png";
 	public static final String MIMIC    = "mobs/mimic.png";
 	public static final String ROT_LASH = "mobs/rot_lasher.png";
+    public static final String LASHER   = "mobs/rot_lasher.png";
 	public static final String ROT_HEART= "mobs/rot_heart.png";
 	public static final String GUARD    = "mobs/guard.png";
     public static final String PLANTS	= "mobs/livingplants.png";

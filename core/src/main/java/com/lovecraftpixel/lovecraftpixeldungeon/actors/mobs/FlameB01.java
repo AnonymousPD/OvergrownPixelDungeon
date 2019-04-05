@@ -50,6 +50,7 @@ public class FlameB01 extends Mob {
 	{
 		spriteClass = FlameBoiSprite.class;
         properties.add(Property.INORGANIC);
+        properties.add(Property.MACHINE);
 		
 		HP = HT = 40;
 		defenseSkill = 15;
@@ -88,8 +89,13 @@ public class FlameB01 extends Mob {
             if (visible) {
                 sprite.attack( enemy.pos );
                 spend( TIME_TO_BURN );
-                new Firefoxglove().shoot(this, enemy.pos);
-                gasTankPressure -= Random.Int(1, 10);
+                if(!isStupid){
+                    new Firefoxglove().shoot(this, enemy.pos);
+                    gasTankPressure -= Random.Int(1, 10);
+                } else {
+                    new Firefoxglove().shoot(this, enemy.pos);
+                    gasTankPressure -= Random.Int(10, 20);
+                }
             }
 
             return !visible;

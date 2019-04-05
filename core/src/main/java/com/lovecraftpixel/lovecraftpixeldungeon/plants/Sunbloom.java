@@ -47,14 +47,15 @@ public class Sunbloom extends Plant {
 	@Override
 	public void activate( Char ch ) {
 
-        GameScene.flash( 0xFFFFFF );
+	    if(Dungeon.level.heroFOV[pos]){
+            GameScene.flash( 0xFFFFFF );
+            Sample.INSTANCE.play( Assets.SND_BLAST );
+            Invisibility.dispel();
+        }
 
         //scales from 0x to 1x power, maxing at ~10% HP
         float hpPercent = (ch.HT - ch.HP)/(float)(ch.HT);
         float power = Math.min( 4f, 4.45f*hpPercent);
-
-        Sample.INSTANCE.play( Assets.SND_BLAST );
-        Invisibility.dispel();
 
         for (Mob mob : Dungeon.level.mobs.toArray( new Mob[0] )) {
             if (Dungeon.level.heroFOV[mob.pos]) {
@@ -71,11 +72,25 @@ public class Sunbloom extends Plant {
             Buff.prolong(Dungeon.hero, Blindness.class, Math.round(6 + power));
         }
 
+        if(ch.properties().contains(Char.Property.INORGANIC)){
+            return;
+        }
+
         Buff.prolong(ch, Weakness.class, Weakness.DURATION/2f);
         Buff.prolong(ch, Blindness.class, Math.round(6 + power));
 
         Dungeon.observe();
 	}
+
+    @Override
+    public void activate() {
+        if(Dungeon.level.heroFOV[pos]){
+            GameScene.flash( 0xFFFFFF );
+            Sample.INSTANCE.play( Assets.SND_BLAST );
+            Invisibility.dispel();
+        }
+        Plant.spawnLasher(pos);
+    }
 
     @Override
     public void activatePosionDangerous(Char attacker, Char defender) {

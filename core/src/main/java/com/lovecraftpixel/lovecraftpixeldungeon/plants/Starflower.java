@@ -42,13 +42,19 @@ public class Starflower extends Plant {
 	@Override
 	public void activate( Char ch ) {
 
-		if (ch != null) {
-			Buff.prolong(ch, Bless.class, Bless.DURATION);
-			if (ch instanceof Hero && ((Hero) ch).subClass == HeroSubClass.WARDEN){
-				Buff.prolong(ch, Recharging.class, Bless.DURATION);
-			}
-		}
+        if(ch.properties().contains(Char.Property.INORGANIC)){
+            return;
+        }
+        Buff.prolong(ch, Bless.class, Bless.DURATION);
+        if (ch instanceof Hero && ((Hero) ch).subClass == HeroSubClass.WARDEN){
+            Buff.prolong(ch, Recharging.class, Bless.DURATION);
+        }
 	}
+
+    @Override
+    public void activate() {
+        Plant.spawnLasher(pos);
+    }
 
     @Override
     public void activatePosionMobBeneficial(Char attacker, Char defender) {
@@ -62,7 +68,7 @@ public class Starflower extends Plant {
 			image = ItemSpriteSheet.SEED_STARFLOWER;
 
 			plantClass = Starflower.class;
-			heroDanger = HeroDanger.MOBBENEFICIAL;
+			heroDanger = HeroDanger.BENEFICIAL;
 		}
 
         @Override

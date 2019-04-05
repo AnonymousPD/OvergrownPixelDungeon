@@ -47,6 +47,7 @@ public class PrismaticImage extends NPC {
 	
 	{
 		spriteClass = PrismaticSprite.class;
+        properties.add(Property.INORGANIC);
 		
 		HP = HT = 8;
 		defenseSkill = 1;

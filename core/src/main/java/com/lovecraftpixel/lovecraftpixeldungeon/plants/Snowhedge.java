@@ -55,6 +55,11 @@ public class Snowhedge extends Plant {
 
 	@Override
 	public void activate( Char ch ) {
+
+	    if(ch.properties().contains(Char.Property.INORGANIC)){
+            return;
+        }
+
         try {
             Disease d = (Disease) Random.element(diseases).newInstance();
             d.infect(ch);
@@ -62,6 +67,11 @@ public class Snowhedge extends Plant {
             LovecraftPixelDungeon.reportException(e);
         }
 	}
+
+    @Override
+    public void activate() {
+        Plant.spawnLasher(pos);
+    }
 
 	//TODO: update with new diseases
     public static final Class<?>[] diseases = {

@@ -721,9 +721,14 @@ public abstract class Level implements Bundlable {
 				map[pos] == Terrain.EMPTY ||
 				map[pos] == Terrain.EMBERS ||
 				map[pos] == Terrain.EMPTY_DECO) {
-			set(pos, Terrain.GRASS, this);
+			set(pos, Terrain.PLANT, this);
 			GameScene.updateMap(pos);
 		}
+
+        if (map[pos] == Terrain.WATER) {
+            set(pos, Terrain.WATERPLANT, this);
+            GameScene.updateMap(pos);
+        }
 		
 		plant = seed.couch( pos, this );
 		plants.put( pos, plant );

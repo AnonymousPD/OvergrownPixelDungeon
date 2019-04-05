@@ -53,8 +53,8 @@ public class Rat extends Mob {
                 Apricobush.class
         ));
 	}
-	
-	@Override
+
+    @Override
 	public int damageRoll() {
 		return Random.NormalIntRange( 1, 4 );
 	}

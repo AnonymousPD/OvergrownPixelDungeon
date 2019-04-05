@@ -330,7 +330,12 @@ public class WandOfRegrowth extends Wand {
 
 		}
 
-		//seed is never dropped, only care about plant class
+        @Override
+        public void activate() {
+            activate(null);
+        }
+
+        //seed is never dropped, only care about plant class
 		public static class Seed extends Plant.Seed {
 			{
                 image = ItemSpriteSheet.SEED_DEWCATCHER;
@@ -382,7 +387,12 @@ public class WandOfRegrowth extends Wand {
 
 		}
 
-		//seed is never dropped, only care about plant class
+        @Override
+        public void activate() {
+            activate(null);
+        }
+
+        //seed is never dropped, only care about plant class
 		public static class Seed extends Plant.Seed {
 			{
                 image = ItemSpriteSheet.SEED_SEEDPOD;

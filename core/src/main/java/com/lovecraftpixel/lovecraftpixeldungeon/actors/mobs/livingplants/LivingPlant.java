@@ -28,8 +28,6 @@ import com.lovecraftpixel.lovecraftpixeldungeon.LovecraftPixelDungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Roots;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
-import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.RingOfElements;
-import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.RingOfPoison;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Plant;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.CharSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.livingplants.LivingPlantSprite;
@@ -59,7 +57,7 @@ public class LivingPlant extends Mob {
         defenseSkill = 2 + Dungeon.depth * 2;
     }
 
-	public Plant plantClass;
+    public Plant plantClass;
 
     private final String PLANTCLASS = "plantclass";
 
@@ -94,27 +92,12 @@ public class LivingPlant extends Mob {
 
     @Override
     public void die(Object cause) {
-        int ringBuff = 0;
-        if(Dungeon.hero.belongings.misc1 instanceof RingOfPoison){
-            ringBuff += 2;
-        }
-        if(Dungeon.hero.belongings.misc2 instanceof RingOfPoison){
-            ringBuff += 2;
-        }
-        if(Dungeon.hero.belongings.misc1 instanceof RingOfElements){
-            ringBuff += 2;
-        }
-        if(Dungeon.hero.belongings.misc2 instanceof RingOfElements){
-            ringBuff += 2;
-        }
-        if(!this.buffs().contains(Roots.class)){
+        if(buff(Roots.class) == null){
             Plant plant = plantClass;
             plant.pos = pos;
             plant.activate(this);
         } else {
-            if (Random.Int(14-ringBuff) <= 0){
-                Dungeon.level.drop(plantClass.getPlant(plantClass), pos).sprite.drop();
-            }
+            Dungeon.level.drop(plantClass.getPlant(plantClass), pos).sprite.drop();
         }
         super.die(cause);
     }
@@ -164,10 +147,17 @@ public class LivingPlant extends Mob {
                         && !(alignment == Alignment.ALLY && mob.alignment == Alignment.ALLY)) {
                     enemies.add(mob);
                 }
+
+            }
+
+            if(Dungeon.level.distance(Dungeon.hero.pos, pos) <= 5){
+                enemies.add(Dungeon.hero);
             }
 
             if(enemies.isEmpty()){
-                return Dungeon.hero;
+                destroy();
+                sprite.destroy();
+                Dungeon.level.plant(plantClass.getPlant(plantClass), pos);
             }
 
             Char mob = Random.element(enemies);

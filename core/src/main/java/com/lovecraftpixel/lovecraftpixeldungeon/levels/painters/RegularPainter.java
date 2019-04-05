@@ -32,6 +32,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.levels.Terrain;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.rooms.Room;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.rooms.standard.EmptyRoom;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.traps.Trap;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Firebloom;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Plant;
 import com.watabou.utils.Graph;
 import com.watabou.utils.PathFinder;
@@ -345,8 +346,10 @@ public abstract class RegularPainter extends Painter {
 
     protected void paintPlants( Level l, ArrayList<Room> rooms ) {
 
+	    //a list of all possible plant cells
         ArrayList<Integer> plantCells = new ArrayList<>();
 
+        //this is used when basing the plant generation on rooms
         if (!rooms.isEmpty()){
             for (Room r : rooms){
                 for (Point p : r.plantsPlaceablePoints()){
@@ -356,23 +359,48 @@ public abstract class RegularPainter extends Painter {
                         if(l.map[i] == Terrain.WATER && Dungeon.depth < 21){
                             //if(Random.Int(10) == 1){
                                 plantCells.add(i);
+                                //this snippet of code is supposed to stop plants from spawning next to eachother
+                                for(int n : PathFinder.NEIGHBOURS8){
+                                    if(plantCells.contains(i+n)){
+                                        plantCells.remove((Object)i);
+                                    }
+                                }
                             //}
                         } else {
                             plantCells.add(i);
+                            //this snippet of code is supposed to stop plants from spawning next to eachother
+                            for(int n : PathFinder.NEIGHBOURS8){
+                                if(plantCells.contains(i+n)){
+                                    plantCells.remove((Object)i);
+                                }
+                            }
                         }
                     }
                 }
             }
         } else {
+            //this is used for depths that do not use rooms
             for (int i = 0; i < l.length(); i ++) {
                 if (l.map[i] == Terrain.GRASS){
                     //Water plants should only be 50% as common as grass plants
                     if(l.map[i] == Terrain.WATER && Dungeon.depth < 21){
                         if(Random.Int(8) == 1){
                             plantCells.add(i);
+                            //this snippet of code is supposed to stop plants from spawning next to eachother
+                            for(int n : PathFinder.NEIGHBOURS8){
+                                if(plantCells.contains(i+n)){
+                                    plantCells.remove((Object)i);
+                                }
+                            }
                         }
                     } else {
                         plantCells.add(i);
+                        //this snippet of code is supposed to stop plants from spawning next to eachother
+                        for(int n : PathFinder.NEIGHBOURS8){
+                            if(plantCells.contains(i+n)){
+                                plantCells.remove((Object)i);
+                            }
+                        }
                     }
                 }
             }
@@ -380,74 +408,84 @@ public abstract class RegularPainter extends Painter {
 
         if(!plantCells.isEmpty()){
             for(int i = plantsFill; i > 0; i--){
-                try {
-                    if(!plantCells.isEmpty()){
-                        int p = Random.element(plantCells);
-                        if (l.heaps.get(p) == null || l.findMob(p) == null) {
-                            Plant plant;
-                            if(l.map[p] == Terrain.WATER){
+                if(!plantCells.isEmpty()){
+                    int p = Random.element(plantCells);
+                    if (l.heaps.get(p) == null || l.findMob(p) == null) {
+                        Plant plant = new Firebloom();
+                        if(l.map[p] == Terrain.WATER){
+                            try{
                                 plant = ((Plant.Seed) Generator.random(Generator.Category.SEEDWATER)).getPlantClass().newInstance();
-                            } else {
-                                switch (Dungeon.depth){
-                                    case 1:
-                                    case 2:
-                                    case 3:
-                                    case 4:
-                                    case 5:
-                                        plant = ((Plant.Seed) Generator.random(Generator.Category.SEEDSEWER)).getPlantClass().newInstance();
-                                        break;
-                                    case 6:
-                                    case 7:
-                                    case 8:
-                                    case 9:
-                                    case 10:
-                                        plant = ((Plant.Seed) Generator.random(Generator.Category.SEEDPRISON)).getPlantClass().newInstance();
-                                        break;
-                                    case 11:
-                                    case 12:
-                                    case 13:
-                                    case 14:
-                                    case 15:
-                                        plant = ((Plant.Seed) Generator.random(Generator.Category.SEEDCAVES)).getPlantClass().newInstance();
-                                        break;
-                                    case 16:
-                                    case 17:
-                                    case 18:
-                                    case 19:
-                                    case 20:
-                                        plant = ((Plant.Seed) Generator.random(Generator.Category.SEEDCITY)).getPlantClass().newInstance();
-                                        break;
-                                    case 21:
-                                    case 22:
-                                    case 23:
-                                    case 24:
-                                    case 25:
-                                        plant = ((Plant.Seed) Generator.random(Generator.Category.SEEDHELL)).getPlantClass().newInstance();
-                                        break;
-                                        default:
-                                            plant = ((Plant.Seed) Generator.random(Generator.Category.SEED)).getPlantClass().newInstance();
-                                            break;
-                                }
-                            }
-                            try {
-                                plant.pos = p;
-                                l.plants.put(plant.pos, plant);
-                                if(l.map[p] == Terrain.WATER){
-                                    set(l, plant.pos, Terrain.WATERPLANT);
-                                } else {
-                                    set(l, plant.pos, Terrain.PLANT);
-                                }
-                                plantCells.remove((Object)p);
-                            } catch (Exception e) {
+                            } catch (Exception e){
                                 LovecraftPixelDungeon.reportException(e);
                             }
+                        } else {
+                            plant = getPlantsForDepth(Dungeon.depth);
+                        }
+                        try {
+                            plant.pos = p;
+                            l.plants.put(plant.pos, plant);
+                            if(l.map[p] == Terrain.WATER){
+                                set(l, plant.pos, Terrain.WATERPLANT);
+                            } else {
+                                set(l, plant.pos, Terrain.PLANT);
+                            }
+                            plantCells.remove((Object)p);
+                        } catch (Exception e) {
+                            LovecraftPixelDungeon.reportException(e);
                         }
                     }
-                } catch (Exception e){
-                    LovecraftPixelDungeon.reportException(e);
                 }
             }
         }
+    }
+
+    protected Plant getPlantsForDepth(int depth){
+        Plant plant;
+	    try{
+            switch (depth){
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                case 5:
+                    plant = ((Plant.Seed) Generator.random(Generator.Category.SEEDSEWER)).getPlantClass().newInstance();
+                    break;
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                case 10:
+                    plant = ((Plant.Seed) Generator.random(Generator.Category.SEEDPRISON)).getPlantClass().newInstance();
+                    break;
+                case 11:
+                case 12:
+                case 13:
+                case 14:
+                case 15:
+                    plant = ((Plant.Seed) Generator.random(Generator.Category.SEEDCAVES)).getPlantClass().newInstance();
+                    break;
+                case 16:
+                case 17:
+                case 18:
+                case 19:
+                case 20:
+                    plant = ((Plant.Seed) Generator.random(Generator.Category.SEEDCITY)).getPlantClass().newInstance();
+                    break;
+                case 21:
+                case 22:
+                case 23:
+                case 24:
+                case 25:
+                    plant = ((Plant.Seed) Generator.random(Generator.Category.SEEDHELL)).getPlantClass().newInstance();
+                    break;
+                default:
+                    plant = ((Plant.Seed) Generator.random(Generator.Category.SEED)).getPlantClass().newInstance();
+            }
+            return plant;
+        } catch (Exception e){
+	        LovecraftPixelDungeon.reportException(e);
+        }
+        return new Firebloom();
     }
 	
 	protected void paintTraps( Level l, ArrayList<Room> rooms ) {

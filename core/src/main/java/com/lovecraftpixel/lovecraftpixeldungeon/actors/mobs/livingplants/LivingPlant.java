@@ -27,6 +27,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.LovecraftPixelDungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Roots;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Plant;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.CharSprite;
@@ -92,7 +93,7 @@ public class LivingPlant extends Mob {
     //used to set which effects depending on its source plant the living plant should have
     public LivingPlant setPlantClass(Plant plantClass){
         this.plantClass = plantClass;
-        this.name += (" "+plantClass.plantName);
+        name += (" "+plantClass.plantName);
         return this;
     }
 
@@ -107,8 +108,19 @@ public class LivingPlant extends Mob {
     public void die(Object cause) {
         if(buff(Roots.class) == null){
             Plant plant = plantClass;
-            plant.pos = pos;
-            plant.activate(this);
+            if(cause instanceof Mob){
+                plant.pos = ((Mob) cause).pos;
+                plant.activate((Mob) cause);
+            } else if(cause instanceof Hero){
+                plant.pos = ((Hero) cause).pos;
+                plant.activate((Hero) cause);
+            } else {
+                plant.pos = pos;
+                plant.activate();
+            }
+            if(isStupid && Random.Boolean()){
+                Dungeon.level.drop(plantClass.getPlant(plantClass), pos).sprite.drop();
+            }
         } else {
             Dungeon.level.drop(plantClass.getPlant(plantClass), pos).sprite.drop();
         }
@@ -118,7 +130,13 @@ public class LivingPlant extends Mob {
     @Override
     public int attackProc(Char enemy, int damage) {
         if(!enemy.flying){
-            if(Random.Boolean()) plantClass.activate(enemy);
+            if(Random.Boolean()){
+                Plant plant = plantClass;
+                plant.pos = enemy.pos;
+                if(enemy.HP - damage > 0){
+                    plant.activate(enemy);
+                }
+            }
         }
         return super.attackProc(enemy, damage);
     }

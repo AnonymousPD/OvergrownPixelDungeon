@@ -782,8 +782,8 @@ public abstract class Mob extends Char {
         //computers also can have been programmed good or bad
 	    if(properties.contains(Property.INORGANIC) && properties.contains(Property.MACHINE)){
             return desc + "\n\n" + programming;
-        } else if(properties.contains(Property.INORGANIC)){
-	        //inorganics still have the isStupid modifier but it wont be used except maybe for 50/50 internal rgn.
+        } else if(properties.contains(Property.INORGANIC) || properties.contains(Property.PLANT)){
+	        //inorganics/plants still have the isStupid modifier but it wont be used except maybe for 50/50 internal rgn.
 	        return desc;
         }
 	    return desc + "\n\n" + intelligence;

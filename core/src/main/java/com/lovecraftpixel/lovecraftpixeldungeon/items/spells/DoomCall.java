@@ -61,6 +61,8 @@ public class DoomCall extends Spell {
                 GLog.p(Messages.get(this, "crushed", mob.name));
             }
         }
+        detach( curUser.belongings.backpack );
+        updateQuickslot();
     }
 
 	@Override

@@ -60,7 +60,9 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.Forcefield;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.HolyBlast;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.MagicalInfusion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.MagicalPorter;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.NaturesLullaby;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.PhaseShift;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.PlantSummon;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.ReclaimTrap;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.Recycle;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.SeasonChange;
@@ -220,6 +222,8 @@ public abstract class Recipe {
             new HolyBlast.Recipe(),
             new DoomCall.Recipe(),
             new SeasonChange.Recipe(),
+            new PlantSummon.Recipe(),
+            new NaturesLullaby.Recipe(),
 	};
 	
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{

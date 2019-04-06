@@ -616,7 +616,7 @@ public class ItemSpriteSheet {
 		assignItemRect(BREW_BLIZZARD,   12, 14);
 		assignItemRect(BREW_SHOCKING,   12, 14);
 	}
-	//sprites still pretty WIP
+
 	private static final int SPELLS         =                               xy(1, 27);  //16 slots
 	public static final int PHASE_SHIFT     = SPELLS+0;
 	public static final int AQUA_BLAST      = SPELLS+1;
@@ -652,6 +652,14 @@ public class ItemSpriteSheet {
         assignItemRect(DOOMCALL,         8, 16);
         assignItemRect(SEASONCHANGE,    11, 11);
 	}
+
+    private static final int SPELLS_ROW2     =                               xy(1, 38);  //16 slots
+    public static final int PLANT_SUMMON     = SPELLS_ROW2+0;
+    public static final int NATURES_LULLABY  = SPELLS_ROW2+1;
+    static{
+        assignItemRect(PLANT_SUMMON,     10, 15);
+        assignItemRect(NATURES_LULLABY,  11, 11);
+    }
 	
 	private static final int FOOD       =                                   xy(1, 28);  //16 slots
 	public static final int MEAT        = FOOD+0;

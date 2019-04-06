@@ -25,50 +25,55 @@ package com.lovecraftpixel.lovecraftpixeldungeon.items.spells;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Invisibility;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Weakness;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.livingplants.LivingPlant;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.Flare;
-import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
-import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.ScrollOfRemoveCurse;
-import com.lovecraftpixel.lovecraftpixeldungeon.items.stones.StoneOfDetectCurse;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfRegrowth;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.ScrollOfLullaby;
+import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
+import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
 
-public class HolyBlast extends Spell {
+public class NaturesLullaby extends Spell {
 	
 	{
-		image = ItemSpriteSheet.HOLYBLAST;
+		image = ItemSpriteSheet.NATURES_LULLABY;
 	}
 
     @Override
     protected void onCast(Hero hero) {
-        new Flare( 12, 32 ).show( curUser.sprite, 2f ) ;
-        Weakness.detach( hero, Weakness.class );
+        new Flare(8, 14).color(0x1CB82E,true).show(hero.sprite, 0.5f);
         Invisibility.dispel();
-        for(Item item : Dungeon.hero.belongings){
-            if(ScrollOfRemoveCurse.uncursable(item)){
-                ScrollOfRemoveCurse.uncurse(hero, item);
+        GLog.h(Messages.get(this, "sleep"));
+        for(Mob mob : Dungeon.level.mobs){
+            if(mob instanceof LivingPlant){
+                if(Dungeon.level.heroFOV[mob.pos]){
+                    ((LivingPlant) mob).becomePlant = true;
+                }
             }
         }
         detach( curUser.belongings.backpack );
         updateQuickslot();
+
     }
 
 	@Override
 	public int price() {
 		//prices of ingredients, divided by output quantity
-		return Math.round(quantity * ((30 + 10) / 4f));
+		return Math.round(quantity * ((30 + 50) / 6f));
 	}
 
     public static class Recipe extends com.lovecraftpixel.lovecraftpixeldungeon.items.Recipe.SimpleRecipe {
 		
 		{
-			inputs =  new Class[]{ScrollOfRemoveCurse.class, StoneOfDetectCurse.class};
+			inputs =  new Class[]{ScrollOfLullaby.class, PotionOfRegrowth.class};
 			inQuantity = new int[]{1, 1};
 			
-			cost = 2;
+			cost = 3;
 			
-			output = HolyBlast.class;
-			outQuantity = 4;
+			output = NaturesLullaby.class;
+			outQuantity = 6;
 		}
 		
 	}

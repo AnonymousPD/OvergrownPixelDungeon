@@ -39,6 +39,8 @@ public class Forcefield extends Spell {
 	@Override
 	protected void onCast(Hero hero) {
         Buff.affect( hero, MagicalShield.class, MagicalShield.DURATION);
+        detach( curUser.belongings.backpack );
+        updateQuickslot();
 	}
 	
 	@Override

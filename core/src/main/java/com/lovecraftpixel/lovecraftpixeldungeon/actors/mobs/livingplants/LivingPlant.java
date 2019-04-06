@@ -49,6 +49,8 @@ public class LivingPlant extends Mob {
 		EXP = 0;
 
         properties.add(Property.PLANT);
+
+        becomePlant = false;
 	}
 
 	public LivingPlant(){
@@ -58,6 +60,7 @@ public class LivingPlant extends Mob {
     }
 
     public Plant plantClass;
+    public boolean becomePlant;
 
     private final String PLANTCLASS = "plantclass";
 
@@ -156,7 +159,7 @@ public class LivingPlant extends Mob {
 
             if(enemies.isEmpty()){
                 destroy();
-                sprite.destroy();
+                sprite.remove();
                 Dungeon.level.plant(plantClass.getPlant(plantClass), pos);
             }
 
@@ -178,9 +181,17 @@ public class LivingPlant extends Mob {
 
     @Override
     protected boolean act() {
-        if(this.buffs().contains(Roots.class)){
-            die(this);
+        if(buff(Roots.class) != null){
+            destroy();
+            sprite.remove();
             Dungeon.level.plant(plantClass.getPlant(plantClass), pos);
+            return true;
+        }
+        if(becomePlant){
+            destroy();
+            sprite.remove();
+            Dungeon.level.plant(plantClass.getPlant(plantClass), pos);
+            return true;
         }
         return super.act();
     }

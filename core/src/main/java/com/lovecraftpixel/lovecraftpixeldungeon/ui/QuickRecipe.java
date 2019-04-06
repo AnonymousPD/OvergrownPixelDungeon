@@ -66,7 +66,9 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.Forcefield;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.HolyBlast;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.MagicalInfusion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.MagicalPorter;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.NaturesLullaby;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.PhaseShift;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.PlantSummon;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.ReclaimTrap;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.Recycle;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.SeasonChange;
@@ -390,6 +392,7 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe(new ReclaimTrap.Recipe()));
                 result.add(new QuickRecipe(new CrimsonEpithet.Recipe()));
                 result.add(new QuickRecipe(new SeasonChange.Recipe()));
+                result.add(new QuickRecipe(new NaturesLullaby.Recipe()));
 				result.add(null);
 				result.add(null);
 				result.add(new QuickRecipe(new MagicalInfusion.Recipe()));
@@ -397,6 +400,7 @@ public class QuickRecipe extends Component {
 				result.add(new QuickRecipe(new Alchemize.Recipe()));
 				result.add(new QuickRecipe(new Recycle.Recipe()));
                 result.add(new QuickRecipe(new Forcefield.Recipe()));
+                result.add(new QuickRecipe(new PlantSummon.Recipe()));
 				return result;
 		}
 	}

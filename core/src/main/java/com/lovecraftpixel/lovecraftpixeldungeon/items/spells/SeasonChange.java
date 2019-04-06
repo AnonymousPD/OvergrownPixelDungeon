@@ -47,6 +47,8 @@ public class SeasonChange extends Spell {
             }
             Dungeon.level.drop(Plant.getPlant(plant), plant.pos);
         }
+        detach( curUser.belongings.backpack );
+        updateQuickslot();
     }
 
 	@Override

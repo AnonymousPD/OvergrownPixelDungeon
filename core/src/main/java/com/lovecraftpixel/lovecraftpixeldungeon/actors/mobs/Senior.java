@@ -33,6 +33,8 @@ public class Senior extends Monk {
 
 	{
 		spriteClass = SeniorSprite.class;
+
+        isStupid = setStupid(0.15f);
 	}
 	
 	@Override

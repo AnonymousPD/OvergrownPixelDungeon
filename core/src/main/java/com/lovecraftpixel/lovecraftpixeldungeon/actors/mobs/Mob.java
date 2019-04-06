@@ -179,6 +179,17 @@ public abstract class Mob extends Char {
 		return sprite;
 	}
 
+	//set how stupid a mob is where the percentage shows how likely it is for them to be dumb
+    //default is 50%
+	public boolean setStupid(float percentage){
+	    float c = Random.Float();
+	    if(c <= percentage){
+	        return true;
+        } else {
+	        return false;
+        }
+    }
+
 	@Override
 	protected boolean act() {
 

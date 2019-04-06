@@ -41,6 +41,8 @@ public class Shopkeeper extends NPC {
 		spriteClass = ShopkeeperSprite.class;
 
 		properties.add(Property.IMMOVABLE);
+
+        isStupid = setStupid(0.05f);
 	}
 	
 	@Override

@@ -55,6 +55,8 @@ public class Wandmaker extends NPC {
 		spriteClass = WandmakerSprite.class;
 
 		properties.add(Property.IMMOVABLE);
+
+        isStupid = setStupid(0.55f);
 	}
 	
 	@Override

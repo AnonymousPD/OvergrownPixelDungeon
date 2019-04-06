@@ -60,6 +60,8 @@ public class Piranha extends Mob {
         beneficialPlants = new HashSet<Class>(Arrays.asList(
                 Waterweed.class, Steamweed.class
         ));
+
+        isStupid = setStupid(0.90f);
 	}
 	
 	public Piranha() {

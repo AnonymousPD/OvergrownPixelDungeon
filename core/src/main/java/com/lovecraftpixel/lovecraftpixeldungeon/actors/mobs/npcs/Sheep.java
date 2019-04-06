@@ -36,6 +36,8 @@ public class Sheep extends NPC {
 
 	{
 		spriteClass = SheepSprite.class;
+
+        isStupid = setStupid(0.90f);
 	}
 
 	public float lifespan;

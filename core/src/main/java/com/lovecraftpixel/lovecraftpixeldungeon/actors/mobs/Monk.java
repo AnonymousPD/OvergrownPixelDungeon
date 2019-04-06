@@ -69,6 +69,8 @@ public class Monk extends Mob {
                 Musclemoss.class, Nightshadeonion.class, Fadeleaf.class,
                 Apricobush.class
         ));
+
+        isStupid = setStupid(0.20f);
 	}
 	
 	@Override

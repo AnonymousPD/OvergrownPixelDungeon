@@ -65,6 +65,8 @@ public class Spinner extends Mob {
                 Musclemoss.class, Nightshadeonion.class, Fadeleaf.class,
                 Apricobush.class
         ));
+
+        isStupid = setStupid(0.70f);
 	}
 
 	@Override

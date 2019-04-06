@@ -67,6 +67,8 @@ public class Scorpio extends Mob {
                 Musclemoss.class, Nightshadeonion.class, Fadeleaf.class,
                 Apricobush.class
         ));
+
+        isStupid = setStupid(0.40f);
 	}
 	
 	@Override

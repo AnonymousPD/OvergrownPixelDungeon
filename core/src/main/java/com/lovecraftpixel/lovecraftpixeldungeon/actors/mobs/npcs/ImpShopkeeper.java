@@ -35,6 +35,8 @@ public class ImpShopkeeper extends Shopkeeper {
 
 	{
 		spriteClass = ImpSprite.class;
+
+        isStupid = setStupid(0.05f);
 	}
 	
 	private boolean seenBefore = false;

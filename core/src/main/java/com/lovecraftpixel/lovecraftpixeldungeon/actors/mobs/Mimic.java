@@ -70,6 +70,8 @@ public class Mimic extends Mob {
                 Musclemoss.class, Nightshadeonion.class, Fadeleaf.class,
                 Apricobush.class
         ));
+
+        isStupid = setStupid(0.10f);
 	}
 	
 	public ArrayList<Item> items;

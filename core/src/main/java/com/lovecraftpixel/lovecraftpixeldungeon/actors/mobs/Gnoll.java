@@ -57,6 +57,8 @@ public class Gnoll extends Mob {
                 Musclemoss.class, Nightshadeonion.class, Fadeleaf.class,
                 Apricobush.class
         ));
+
+        isStupid = setStupid(0.35f);
 	}
 	
 	@Override

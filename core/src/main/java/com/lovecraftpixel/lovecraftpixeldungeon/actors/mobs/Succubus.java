@@ -78,6 +78,8 @@ public class Succubus extends Mob {
                 Musclemoss.class, Nightshadeonion.class, Fadeleaf.class,
                 Apricobush.class
         ));
+
+        isStupid = setStupid(0.05f);
 	}
 	
 	@Override

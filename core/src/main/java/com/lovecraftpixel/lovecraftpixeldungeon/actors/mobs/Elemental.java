@@ -50,6 +50,8 @@ public class Elemental extends Mob {
 		lootChance = 0.1f;
 		
 		properties.add(Property.FIERY);
+
+        isStupid = setStupid(0.05f);
 	}
 	
 	@Override

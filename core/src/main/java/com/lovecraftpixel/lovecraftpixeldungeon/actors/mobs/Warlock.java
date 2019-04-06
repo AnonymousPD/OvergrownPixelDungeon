@@ -71,6 +71,8 @@ public class Warlock extends Mob implements Callback {
                 Musclemoss.class, Nightshadeonion.class, Fadeleaf.class,
                 Apricobush.class
         ));
+
+        isStupid = setStupid(0.10f);
 	}
 	
 	@Override

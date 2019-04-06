@@ -77,6 +77,8 @@ public class Yog extends Mob {
 		properties.add(Property.BOSS);
 		properties.add(Property.IMMOVABLE);
 		properties.add(Property.DEMONIC);
+
+        isStupid = setStupid(0.01f);
 	}
 	
 	public Yog() {
@@ -218,6 +220,8 @@ public class Yog extends Mob {
 			properties.add(Property.BOSS);
 			properties.add(Property.DEMONIC);
 			properties.add(Property.ACIDIC);
+
+            isStupid = setStupid(0.90f);
 		}
 		
 		@Override
@@ -290,6 +294,8 @@ public class Yog extends Mob {
 			properties.add(Property.BOSS);
 			properties.add(Property.DEMONIC);
 			properties.add(Property.FIERY);
+
+            isStupid = setStupid(0.90f);
 		}
 		
 		@Override
@@ -384,6 +390,8 @@ public class Yog extends Mob {
 			state = HUNTING;
 
 			properties.add(Property.DEMONIC);
+
+            isStupid = setStupid(0.05f);
 		}
 		
 		@Override

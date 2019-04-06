@@ -52,6 +52,8 @@ public class Rat extends Mob {
                 Musclemoss.class, Nightshadeonion.class, Fadeleaf.class,
                 Apricobush.class
         ));
+
+		isStupid = setStupid(0.75f);
 	}
 
     @Override

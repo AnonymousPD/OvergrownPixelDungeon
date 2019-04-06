@@ -50,6 +50,8 @@ public class Bat extends Mob {
 		lootChance = 0.1667f; //by default, see rollToDropLoot()
 
         properties.add(Property.DISEASEIMMUNE);
+
+        isStupid = setStupid(0.60f);
 	}
 	
 	@Override

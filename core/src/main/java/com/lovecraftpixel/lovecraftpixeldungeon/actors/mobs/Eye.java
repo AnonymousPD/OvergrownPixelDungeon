@@ -62,6 +62,8 @@ public class Eye extends Mob {
 		lootChance = 0.5f;
 
 		properties.add(Property.DEMONIC);
+
+        isStupid = setStupid(0.45f);
 	}
 
 	@Override

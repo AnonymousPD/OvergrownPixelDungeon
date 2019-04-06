@@ -76,6 +76,8 @@ public class Guard extends Mob {
                 Musclemoss.class, Nightshadeonion.class, Fadeleaf.class,
                 Apricobush.class
         ));
+
+        isStupid = setStupid(0.25f);
 	}
 
 	@Override

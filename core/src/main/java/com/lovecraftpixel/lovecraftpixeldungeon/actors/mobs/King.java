@@ -85,6 +85,8 @@ public class King extends Mob {
                 Musclemoss.class, Nightshadeonion.class, Fadeleaf.class,
                 Apricobush.class
         ));
+
+        isStupid = setStupid(0.05f);
 	}
 	
 	private boolean nextPedestal = true;

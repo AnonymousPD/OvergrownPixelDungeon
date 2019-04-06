@@ -43,6 +43,8 @@ public class Gardner extends NPC {
 		properties.add(Property.IMMOVABLE);
 
 		hasCompletedQuest = false;
+
+        isStupid = setStupid(0.85f);
 	}
 
 	public boolean hasCompletedQuest;

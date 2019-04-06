@@ -58,6 +58,8 @@ public class Crab extends Mob {
                 Musclemoss.class, Nightshadeonion.class, Fadeleaf.class,
                 Apricobush.class
         ));
+
+        isStupid = setStupid(0.60f);
 	}
 	
 	@Override

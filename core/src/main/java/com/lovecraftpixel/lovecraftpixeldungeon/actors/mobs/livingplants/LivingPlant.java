@@ -60,6 +60,8 @@ public class LivingPlant extends Mob {
     }
 
     public Plant plantClass;
+
+    //mainly used in conjunction with for-loops changing this value directly will ensure results the next time the plant act()'s
     public boolean becomePlant;
 
     private final String PLANTCLASS = "plantclass";
@@ -87,10 +89,18 @@ public class LivingPlant extends Mob {
         return sprite;
     }
 
+    //used to set which effects depending on its source plant the living plant should have
     public LivingPlant setPlantClass(Plant plantClass){
         this.plantClass = plantClass;
         this.name += (" "+plantClass.plantName);
         return this;
+    }
+
+    //sends livingplants sleeping
+    public void goToSleep(LivingPlant livingPlant){
+        livingPlant.destroy();
+        livingPlant.sprite.remove();
+        Dungeon.level.plant(livingPlant.plantClass.getPlant(livingPlant.plantClass), pos);
     }
 
     @Override
@@ -157,10 +167,9 @@ public class LivingPlant extends Mob {
                 enemies.add(Dungeon.hero);
             }
 
+            //if the hero cannot be found and their are no mobs to have as enemies the plant will go back to sleep
             if(enemies.isEmpty()){
-                destroy();
-                sprite.remove();
-                Dungeon.level.plant(plantClass.getPlant(plantClass), pos);
+                goToSleep(this);
             }
 
             Char mob = Random.element(enemies);
@@ -181,16 +190,13 @@ public class LivingPlant extends Mob {
 
     @Override
     protected boolean act() {
+        //if plants grow roots they become plants again
         if(buff(Roots.class) != null){
-            destroy();
-            sprite.remove();
-            Dungeon.level.plant(plantClass.getPlant(plantClass), pos);
+            goToSleep(this);
             return true;
         }
         if(becomePlant){
-            destroy();
-            sprite.remove();
-            Dungeon.level.plant(plantClass.getPlant(plantClass), pos);
+            goToSleep(this);
             return true;
         }
         return super.act();

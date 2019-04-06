@@ -868,6 +868,16 @@ public abstract class Mob extends Char {
 
 				enemySeen = false;
 
+				//stupid mobs will follow smart ones
+                if (isStupid) {
+                    for (Mob mob : Dungeon.level.mobs) {
+                        //the mob they follow must be smart, no more than 5 tiles away, also wandering as to not gang up on the player, and must be the same mob class
+                        if (!mob.isStupid && Dungeon.level.distance(pos, mob.pos) <= 5 && mob.state == mob.WANDERING && super.getClass() == mob.getClass()) {
+                            target = mob.pos;
+                        }
+                    }
+                }
+
 				int oldPos = pos;
 				if (target != -1 && getCloser( target )) {
 					spend( 1 / speed() );

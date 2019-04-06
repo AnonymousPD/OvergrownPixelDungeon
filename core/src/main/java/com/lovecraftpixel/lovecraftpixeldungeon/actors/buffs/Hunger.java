@@ -32,6 +32,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.BuffIndicator;
 import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.Random;
 
 public class Hunger extends Buff implements Hero.Doom {
 
@@ -79,6 +80,9 @@ public class Hunger extends Buff implements Hero.Doom {
 				if (partialDamage > 1){
 					target.damage( (int)partialDamage, this);
 					partialDamage -= (int)partialDamage;
+                    if(Random.Float() <= 0.10f){
+                        hero.intelligence--;
+                    }
 				}
 				
 			} else {
@@ -90,6 +94,7 @@ public class Hunger extends Buff implements Hero.Doom {
 					GLog.n( Messages.get(this, "onstarving") );
 					hero.resting = false;
 					hero.damage( 1, this );
+					hero.intelligence--;
 					statusUpdated = true;
 
 					hero.interrupt();

@@ -198,6 +198,7 @@ public class AlchemyScene extends PixelScene {
 			protected void onClick() {
 				super.onClick();
 				combine();
+				Dungeon.hero.intelligence++;
 			}
 		};
 		btnCombine.enable(false);

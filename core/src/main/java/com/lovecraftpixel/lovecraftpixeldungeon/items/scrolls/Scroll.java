@@ -26,8 +26,11 @@ package com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.LovecraftPixelDungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Blindness;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Glowing;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.MagicImmune;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Wraith;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.ItemStatusHandler;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Recipe;
@@ -48,12 +51,18 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.stones.StoneOfEnchantment;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.stones.StoneOfFlock;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.stones.StoneOfIntuition;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.stones.StoneOfShock;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.wands.WandOfBlastWave;
 import com.lovecraftpixel.lovecraftpixeldungeon.journal.Catalog;
+import com.lovecraftpixel.lovecraftpixeldungeon.levels.Terrain;
+import com.lovecraftpixel.lovecraftpixeldungeon.mechanics.Ballistica;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
+import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.HeroSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
 import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.PathFinder;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -187,15 +196,54 @@ public abstract class Scroll extends Item {
 					&& !(this instanceof ScrollOfRemoveCurse || this instanceof ScrollOfAntiMagic)){
 				GLog.n( Messages.get(this, "cursed") );
 			} else {
-				curUser = hero;
-				curItem = detach( hero.belongings.backpack );
-				doRead();
+			    if(hero.intelligence <= 0 && !(this instanceof ScrollOfUpgrade)){
+                    curUser = hero;
+                    curItem = detach( hero.belongings.backpack );
+                    GLog.n( Messages.get(this, "miscast") );
+                    doMiscast();
+                    readAnimation();
+                } else if(hero.intelligence <= Random.Int(10, 20) && !(this instanceof ScrollOfUpgrade) && Random.Boolean()){
+                    curUser = hero;
+                    curItem = detach( hero.belongings.backpack );
+                    GLog.n( Messages.get(this, "miscast") );
+                    doMiscast();
+                    readAnimation();
+                } else {
+			        hero.intelligence++;
+                    curUser = hero;
+                    curItem = detach( hero.belongings.backpack );
+                    doRead();
+                }
 			}
 			
 		}
 	}
 	
 	public abstract void doRead();
+
+	//here are all the things that can happen if you miscast anything: spell or scroll
+    public static void doMiscast(){
+        switch (Random.Int(0, 3)){
+            case 0:
+                int opposite;
+                do{
+                    opposite = curUser.pos + PathFinder.NEIGHBOURS8[Random.Int( 8 )];
+                } while (Dungeon.level.map[opposite] == Terrain.WALL || Dungeon.level.map[opposite] == Terrain.WALL_DECO);
+                Ballistica trajectory = new Ballistica(curUser.pos, opposite, Ballistica.MAGIC_BOLT);
+                WandOfBlastWave.throwChar(curUser, trajectory, 100);
+                break;
+            case 1:
+                Buff.affect(curUser, Glowing.class).reignite(curUser);
+                break;
+            case 2:
+                GameScene.flash( Random.Int(0xFDA06E, 0xADFD6E) );
+                Buff.prolong(curUser, Blindness.class, Math.round(10));
+                break;
+            case 3:
+                Wraith.spawnAround(curUser.pos);
+                break;
+        }
+    }
 	
 	//currently only used in scrolls owned by the unstable spellbook
 	public abstract void empoweredRead();

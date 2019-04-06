@@ -177,6 +177,7 @@ public class Hero extends Char {
 	
 	public int lvl = 1;
 	public int exp = 0;
+    public int intelligence;
 	
 	public int HTBoost = 0;
 	
@@ -199,6 +200,8 @@ public class Hero extends Char {
 		
 		visibleEnemies = new ArrayList<Mob>();
 		researchedDiseases = new ArrayList<Class>();
+
+		intelligence = Random.Int(50, 100);
 	}
 	
 	public void updateHT( boolean boostHP ){
@@ -234,6 +237,7 @@ public class Hero extends Char {
 	private static final String EXPERIENCE	= "exp";
 	private static final String HTBOOST     = "htboost";
     private static final String CURES       = "diseaseCures";
+    private static final String INTELLIGENCE= "intelligence";
 	
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -250,6 +254,7 @@ public class Hero extends Char {
 		
 		bundle.put( LEVEL, lvl );
 		bundle.put( EXPERIENCE, exp );
+        bundle.put( INTELLIGENCE, intelligence );
 		
 		bundle.put( HTBOOST, HTBoost );
         bundle.put( CURES, researchedDiseases.toArray(new Class[researchedDiseases.size()]) );
@@ -271,6 +276,7 @@ public class Hero extends Char {
 		
 		lvl = bundle.getInt( LEVEL );
 		exp = bundle.getInt( EXPERIENCE );
+		intelligence = bundle.getInt( INTELLIGENCE );
 		
 		HTBoost = bundle.getInt(HTBOOST);
         researchedDiseases.clear();
@@ -532,6 +538,11 @@ public class Hero extends Char {
 		}
         if (disease(FlavourDisease.class) != null) {
             DiseaseIndicator.refreshHero();
+        }
+
+        //if your health is below 5%: decrease you intelligence
+        if(HP <= (HT/100)*5){
+            intelligence--;
         }
 		
 		if (paralysed > 0) {
@@ -1642,20 +1653,24 @@ public class Hero extends Char {
                                 } catch (Exception e) {
                                     LovecraftPixelDungeon.reportException(e);
                                     GLog.h(TxtFileReader.getRandomBookTitle());
+                                    intelligence++;
                                 }
                             } else {
                                 GLog.h(TxtFileReader.getRandomBookTitle());
+                                intelligence++;
                             }
                         } else {
                             Generator.random(Generator.Category.SCROLL).doDrop(this);
                         }
                     } else {
                         GLog.h(TxtFileReader.getRandomBookTitle());
+                        intelligence++;
                     }
                 } else {
                     if(Random.Int(30) <= 5 && !diseases().isEmpty()){
                         GLog.p(Messages.get(Disease.class, "discoveredCure"));
                         researchedDiseases.add(Random.element(diseases()).getClass());
+                        intelligence++;
                     } else {
                         GLog.i(Messages.get(Hero.class, "nothing_to_read"));
                     }

@@ -23,10 +23,12 @@
 
 package com.lovecraftpixel.lovecraftpixeldungeon.plants;
 
+import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Actor;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.MusclemossPoisonParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.wands.WandOfBlastWave;
+import com.lovecraftpixel.lovecraftpixeldungeon.levels.Terrain;
 import com.lovecraftpixel.lovecraftpixeldungeon.mechanics.Ballistica;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.noosa.particles.Emitter;
@@ -41,8 +43,10 @@ public class Musclemoss extends Plant {
 
 	@Override
 	public void activate( Char ch ) {
-
-        int opposite = pos + PathFinder.NEIGHBOURS8[Random.Int( 8 )];
+        int opposite;
+        do{
+            opposite = pos + PathFinder.NEIGHBOURS8[Random.Int( 8 )];
+        } while (Dungeon.level.map[opposite] == Terrain.WALL || Dungeon.level.map[opposite] == Terrain.WALL_DECO);
         Ballistica trajectory = new Ballistica(pos, opposite, Ballistica.MAGIC_BOLT);
         WandOfBlastWave.throwChar(ch, trajectory, 100);
 	}
@@ -51,7 +55,10 @@ public class Musclemoss extends Plant {
     public void activate() {
         Plant.spawnLasher(pos);
         if(Actor.findChar(pos) != null){
-            int opposite = pos + PathFinder.NEIGHBOURS8[Random.Int( 8 )];
+            int opposite;
+            do{
+                opposite = pos + PathFinder.NEIGHBOURS8[Random.Int( 8 )];
+            } while (Dungeon.level.map[opposite] == Terrain.WALL || Dungeon.level.map[opposite] == Terrain.WALL_DECO);
             Ballistica trajectory = new Ballistica(pos, opposite, Ballistica.MAGIC_BOLT);
             WandOfBlastWave.throwChar(Actor.findChar(pos), trajectory, 100);
         }

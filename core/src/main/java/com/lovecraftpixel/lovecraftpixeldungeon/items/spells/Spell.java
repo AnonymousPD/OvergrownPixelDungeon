@@ -27,8 +27,10 @@ package com.lovecraftpixel.lovecraftpixeldungeon.items.spells;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.MagicImmune;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.Scroll;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -54,6 +56,20 @@ public abstract class Spell extends Item {
 		super.execute( hero, action );
 		
 		if (action.equals( AC_CAST )) {
+
+            if(hero.intelligence <= 0){
+                GLog.n( Messages.get(this, "miscast") );
+                detach( curUser.belongings.backpack );
+                updateQuickslot();
+                return;
+
+            } else if(hero.intelligence <= Random.Int(10, 20) && Random.Boolean()){
+                GLog.n( Messages.get(this, "miscast") );
+                Scroll.doMiscast();
+                detach( curUser.belongings.backpack );
+                updateQuickslot();
+                return;
+            }
 			
 			if (curUser.buff(MagicImmune.class) != null){
 				GLog.w( Messages.get(this, "no_magic") );

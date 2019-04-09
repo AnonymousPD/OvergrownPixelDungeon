@@ -27,6 +27,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Disease;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.diseases.Midease;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
@@ -48,6 +49,12 @@ public class Midas extends Weapon.Enchantment {
 			Disease.affect( defender, Midease.class );
 
 		}
+
+        if(attacker instanceof Hero){
+            if(((Hero) attacker).belongings.armor.glyph != null){
+                comboProc(this, ((Hero) attacker).belongings.armor.glyph, attacker, defender, damage);
+            }
+        }
 
 		return damage;
 	}

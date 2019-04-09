@@ -27,6 +27,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.Assets;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Actor;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.CellEmitter;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.BlastParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.SmokeParticle;
@@ -34,6 +35,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.Heap;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.Armor;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.Armor.Glyph;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.bombs.Bomb;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite.Glowing;
 import com.watabou.noosa.audio.Sample;
@@ -54,6 +56,14 @@ public class Explosion extends Glyph {
 		    explode(attacker.pos, defender);
 
 		}
+
+        if(attacker instanceof Hero){
+            if(((Hero) attacker).belongings.weapon instanceof Weapon){
+                if(((Weapon) ((Hero) attacker).belongings.weapon).enchantment != null){
+                    Weapon.Enchantment.comboProc(((Weapon) ((Hero) attacker).belongings.weapon).enchantment, this, attacker, defender, damage);
+                }
+            }
+        }
 		
 		return damage;
 	}

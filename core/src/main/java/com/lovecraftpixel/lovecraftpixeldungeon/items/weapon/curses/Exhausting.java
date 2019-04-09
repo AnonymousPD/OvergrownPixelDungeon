@@ -27,6 +27,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Weakness;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
 import com.watabou.utils.Random;
@@ -41,6 +42,12 @@ public class Exhausting extends Weapon.Enchantment {
 		if (attacker == Dungeon.hero && Random.Int(15) == 0) {
 			Buff.affect(attacker, Weakness.class, Random.NormalIntRange(5, 20));
 		}
+
+        if(attacker instanceof Hero){
+            if(((Hero) attacker).belongings.armor.glyph != null){
+                comboProc(this, ((Hero) attacker).belongings.armor.glyph, attacker, defender, damage);
+            }
+        }
 
 		return damage;
 	}

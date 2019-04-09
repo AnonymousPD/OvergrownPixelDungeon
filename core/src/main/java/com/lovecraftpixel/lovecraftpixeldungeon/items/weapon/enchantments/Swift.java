@@ -26,6 +26,7 @@ package com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.FlavourBuff;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
@@ -48,6 +49,12 @@ public class Swift extends Weapon.Enchantment {
 
         if (Random.Int( level + 8 ) >= 7) {
             Buff.prolong(attacker, SwiftAttack.class, 2).setSourceType(weapon instanceof MeleeWeapon);
+        }
+
+        if(attacker instanceof Hero){
+            if(((Hero) attacker).belongings.armor.glyph != null){
+                comboProc(this, ((Hero) attacker).belongings.armor.glyph, attacker, defender, damage);
+            }
         }
 
         return damage;

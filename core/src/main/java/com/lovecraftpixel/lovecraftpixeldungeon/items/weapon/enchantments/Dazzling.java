@@ -27,6 +27,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Blindness;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Cripple;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
@@ -50,6 +51,12 @@ public class Dazzling extends Weapon.Enchantment {
 			defender.sprite.emitter().burst(Speck.factory(Speck.LIGHT), 6 );
 
 		}
+
+        if(attacker instanceof Hero){
+            if(((Hero) attacker).belongings.armor.glyph != null){
+                comboProc(this, ((Hero) attacker).belongings.armor.glyph, attacker, defender, damage);
+            }
+        }
 
 		return damage;
 	}

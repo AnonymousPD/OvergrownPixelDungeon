@@ -28,6 +28,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.EnergyParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.Armor;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.Armor.Glyph;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite.Glowing;
 
@@ -46,6 +47,14 @@ public class Potential extends Glyph {
 				defender.sprite.centerEmitter().burst(EnergyParticle.FACTORY, wands * (level + 2));
 			}
 		}
+
+        if(attacker instanceof Hero){
+            if(((Hero) attacker).belongings.weapon instanceof Weapon){
+                if(((Weapon) ((Hero) attacker).belongings.weapon).enchantment != null){
+                    Weapon.Enchantment.comboProc(((Weapon) ((Hero) attacker).belongings.weapon).enchantment, this, attacker, defender, damage);
+                }
+            }
+        }
 		
 		return damage;
 	}

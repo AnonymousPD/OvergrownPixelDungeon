@@ -27,8 +27,10 @@ import com.lovecraftpixel.lovecraftpixeldungeon.Badges;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.Armor;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.Armor.Glyph;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.CharSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
@@ -50,6 +52,13 @@ public class Viscosity extends Glyph {
 		int realDamage = damage - Random.NormalIntRange( armor.DRMin(), armor.DRMax());
 
 		if (realDamage <= 0) {
+            if(attacker instanceof Hero){
+                if(((Hero) attacker).belongings.weapon instanceof Weapon){
+                    if(((Weapon) ((Hero) attacker).belongings.weapon).enchantment != null){
+                        Weapon.Enchantment.comboProc(((Weapon) ((Hero) attacker).belongings.weapon).enchantment, this, attacker, defender, damage);
+                    }
+                }
+            }
 			return 0;
 		}
 
@@ -62,6 +71,14 @@ public class Viscosity extends Glyph {
 		deferred.prolong( amount );
 		
 		defender.sprite.showStatus( CharSprite.WARNING, Messages.get(this, "deferred", amount) );
+
+        if(attacker instanceof Hero){
+            if(((Hero) attacker).belongings.weapon instanceof Weapon){
+                if(((Weapon) ((Hero) attacker).belongings.weapon).enchantment != null){
+                    Weapon.Enchantment.comboProc(((Weapon) ((Hero) attacker).belongings.weapon).enchantment, this, attacker, defender, damage);
+                }
+            }
+        }
 		
 		return damage - amount;
 		

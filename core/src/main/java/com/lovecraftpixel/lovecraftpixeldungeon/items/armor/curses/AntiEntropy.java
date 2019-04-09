@@ -28,11 +28,13 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Burning;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Frost;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.CellEmitter;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.FlameParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.SnowParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.Armor;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.Armor.Glyph;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite.Glowing;
 import com.watabou.utils.Random;
@@ -55,6 +57,14 @@ public class AntiEntropy extends Glyph {
 			defender.sprite.emitter().burst( FlameParticle.FACTORY, 5 );
 
 		}
+
+        if(attacker instanceof Hero){
+            if(((Hero) attacker).belongings.weapon instanceof Weapon){
+                if(((Weapon) ((Hero) attacker).belongings.weapon).enchantment != null){
+                    Weapon.Enchantment.comboProc(((Weapon) ((Hero) attacker).belongings.weapon).enchantment, this, attacker, defender, damage);
+                }
+            }
+        }
 		
 		return damage;
 	}

@@ -43,9 +43,8 @@ public class Peanutpetal extends Plant {
 
 	    if(ch instanceof Hero){
             new PotionOfFood().satisfy((Hero) ch);
-        } else {
-            Dungeon.level.drop(new Peanut(), ch.pos);
         }
+        Dungeon.level.drop(new Peanut(), ch.pos);
 
 	}
 

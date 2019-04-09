@@ -26,11 +26,28 @@ package com.lovecraftpixel.lovecraftpixeldungeon.items.weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.Badges;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.LovecraftPixelDungeon;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.Actor;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Blob;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Fire;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Regrowth;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Bleeding;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.FireImbue;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.MagicImmune;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.Beam;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.ChaosParticle;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.Generator;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.KindOfWeapon;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.Armor;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Affection;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.AntiMagic;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Brimstone;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Chaotic;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Thorns;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.RingOfFuror;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.RingOfPoison;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.curses.Annoying;
@@ -65,15 +82,18 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Vorpal
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Whirlwind;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Firefoxglove;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Plant;
 import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.CharSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
+import com.lovecraftpixel.lovecraftpixeldungeon.tiles.DungeonTilemap;
 import com.lovecraftpixel.lovecraftpixeldungeon.utils.GLog;
 import com.lovecraftpixel.lovecraftpixeldungeon.windows.WndBag;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.Bundlable;
 import com.watabou.utils.Bundle;
+import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 import java.util.ArrayList;
@@ -456,6 +476,74 @@ abstract public class Weapon extends KindOfWeapon {
 		public boolean curse() {
 			return false;
 		}
+
+		public static void comboProc(Enchantment enchantment, Armor.Glyph glyph, Char attacker, Char defender, int damage){
+
+		    //giant explosion
+		    if(enchantment instanceof Explosion && glyph instanceof com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Explosion){
+		        for(int ec : PathFinder.NEIGHBOURS8){
+		            new Explosion().explode(ec, attacker);
+                }
+            }
+
+            //plant explosion
+            if(enchantment instanceof Blooming && glyph instanceof com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Explosion){
+                GameScene.add( Blob.seed( attacker.pos, 100, Regrowth.class ) );
+            }
+
+            //shoot flames at everything
+            if(enchantment instanceof Blazing && glyph instanceof Brimstone){
+                for(Mob mob : Dungeon.level.mobs){
+                    if(Dungeon.level.heroFOV[mob.pos]){
+                        new Firefoxglove().shoot(attacker, mob.pos);
+                    }
+                }
+            }
+
+            //love... is a ring of fire...
+            if(enchantment instanceof Blazing && glyph instanceof Affection){
+                Buff.affect(attacker, FireImbue.class).set(FireImbue.DURATION);
+                for(int fp : PathFinder.CIRCLE8){
+                    GameScene.add(Blob.seed(defender.pos+fp, 1, Fire.class));
+                }
+            }
+
+            //thorns fly
+            if(enchantment instanceof Whirlwind && glyph instanceof Thorns){
+                for(int i : PathFinder.NEIGHBOURS8){
+                    if(Actor.findChar(attacker.pos+i) != null){
+                        if(Actor.findChar(attacker.pos+i) instanceof Mob){
+                            Buff.affect( Actor.findChar(attacker.pos+i), Bleeding.class).set( Math.max( 2, damage));
+                        }
+                    }
+                }
+            }
+
+            //summon forces from beyond the veil of sleep
+            if(enchantment instanceof Unstable && glyph instanceof Chaotic){
+                attacker.sprite.emitter().start(ChaosParticle.FACTORY, 0.9f, 5);
+                for(Mob mob : Dungeon.level.mobs){
+                    if(Dungeon.level.heroFOV[mob.pos]){
+                        attacker.sprite.parent.add(new Beam.DeathRay(attacker.sprite.center(), DungeonTilemap.raisedTileCenterToWorld( defender.pos )));
+                        Plant.Seed seed = (Plant.Seed) Generator.random(Generator.Category.SEED);
+                        try{
+                            seed.getPlantClass().newInstance().activate(defender);
+                        } catch (Exception e){
+                            LovecraftPixelDungeon.reportException(e);
+                        }
+                    }
+                }
+            }
+
+            //demonic entites are really not gonna like this
+            if(enchantment instanceof Eldritch && glyph instanceof AntiMagic){
+                if(defender.properties().contains(Char.Property.DEMONIC)){
+                    defender.damage(Math.round(damage/3), attacker);
+                }
+            }
+
+
+        }
 
 		@Override
 		public void restoreFromBundle( Bundle bundle ) {

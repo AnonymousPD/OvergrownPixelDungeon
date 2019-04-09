@@ -28,6 +28,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Burning;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.ShieldBuff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.Armor;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
 import com.watabou.utils.Bundle;
 
@@ -38,6 +39,15 @@ public class Brimstone extends Armor.Glyph {
 	@Override
 	public int proc(Armor armor, Char attacker, Char defender, int damage) {
 		//no proc effect, see Burning.act
+
+        if(attacker instanceof Hero){
+            if(((Hero) attacker).belongings.weapon instanceof Weapon){
+                if(((Weapon) ((Hero) attacker).belongings.weapon).enchantment != null){
+                    Weapon.Enchantment.comboProc(((Weapon) ((Hero) attacker).belongings.weapon).enchantment, this, attacker, defender, damage);
+                }
+            }
+        }
+
 		return damage;
 	}
 

@@ -25,6 +25,7 @@ package com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Actor;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
@@ -43,20 +44,33 @@ public class Whirlwind extends Weapon.Enchantment {
 		// lvl 2 - 43%
 		int level = Math.max( 0, weapon.level() );
 
+		boolean hitOtherMobs = false;
+
 		if (Random.Int( level + 5 ) >= 4) {
             attacker.sprite.emitter().burst( Speck.factory( Speck.EVOKE ), 3);
 
 			for(int i : PathFinder.NEIGHBOURS8){
                 if(Actor.findChar(attacker.pos+i) != null){
-                    if(Actor.findChar(attacker.pos+i) instanceof Mob){
-                        Actor.findChar(attacker.pos+i).damage(damage, attacker);
+                    if(Actor.findChar(attacker.pos+i) instanceof Mob && Actor.findChar(attacker.pos+i) != defender){
+                        hitOtherMobs = true;
+                        Actor.findChar(attacker.pos+i).damage(damage/2, attacker);
                     }
                 }
             }
 
 		}
 
-		return damage;
+        if(attacker instanceof Hero){
+            if(((Hero) attacker).belongings.armor.glyph != null){
+                comboProc(this, ((Hero) attacker).belongings.armor.glyph, attacker, defender, damage);
+            }
+        }
+
+        if(hitOtherMobs){
+            return damage/2;
+        }
+
+        return damage;
 	}
 
 	@Override

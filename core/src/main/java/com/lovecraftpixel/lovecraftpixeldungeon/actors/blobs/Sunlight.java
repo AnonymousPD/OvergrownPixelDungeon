@@ -59,7 +59,7 @@ public class Sunlight extends Blob {
     @Override
     public void use( BlobEmitter emitter ) {
         super.use( emitter );
-        emitter.start( SunlightParticle.FACTORY, 0.9f, 0 );
+        emitter.start( SunlightParticle.FACTORY, 0.9f, 1 );
     }
 
 	@Override

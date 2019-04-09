@@ -23,23 +23,69 @@
 
 package com.lovecraftpixel.lovecraftpixeldungeon.levels.rooms.special;
 
+import com.lovecraftpixel.lovecraftpixeldungeon.Assets;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Statue;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.CellEmitter;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Gold;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Heap;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.keys.IronKey;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Level;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Terrain;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.painters.Painter;
+import com.lovecraftpixel.lovecraftpixeldungeon.levels.plates.PressurePlate;
+import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
+import com.watabou.noosa.Camera;
+import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Random;
 
 public class TreasuryRoom extends SpecialRoom {
 
-	public void paint( Level level ) {
+	public void paint( final Level level ) {
 		
 		Painter.fill( level, this, Terrain.WALL );
 		Painter.fill( level, this, 1, Terrain.EMPTY );
 		
 		Painter.set( level, center(), Terrain.STATUE );
+
+        PressurePlate plate = new PressurePlate() {
+
+            int statpos;
+            Statue statue = new Statue();
+
+            @Override
+            public void deactivate() {
+                if (statue.state == statue.PASSIVE) {
+                    statue.state = statue.HUNTING;
+                }
+            }
+
+            @Override
+            public void activate() {
+                do {
+                    statpos = level.pointToCell(random());
+                    if(level.map[statpos] == Terrain.PEDESTAL){
+                        return;
+                    }
+                } while (level.map[statpos] != Terrain.STATUE);
+                Painter.set(level, statpos, Terrain.PEDESTAL);
+                statue.pos = statpos;
+                level.mobs.add( statue );
+                GameScene.add( statue );
+                CellEmitter.get( statpos ).start( Speck.factory( Speck.ROCK ), 0.3f, 3 );
+                Camera.main.shake( 1, 0.5f );
+                Sample.INSTANCE.play( Assets.SND_ROCKS );
+                GameScene.updateMap(statpos);
+            }
+        };
+
+        int platepos;
+        do {
+            platepos = level.pointToCell(random());
+        } while (level.map[platepos] != Terrain.EMPTY);
+        level.setPlate(plate, platepos);
+        Painter.set(level, platepos, Terrain.EMPTY);
 		
 		Heap.Type heapType = Random.Int( 2 ) == 0 ? Heap.Type.CHEST : Heap.Type.HEAP;
 		
@@ -48,7 +94,7 @@ public class TreasuryRoom extends SpecialRoom {
 			int pos;
 			do {
 				pos = level.pointToCell(random());
-			} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null);
+			} while (level.map[pos] != Terrain.EMPTY || level.heaps.get( pos ) != null || pos == platepos);
 			level.drop( new Gold().random(), pos ).type = (Random.Int(20) == 0 && heapType == Heap.Type.CHEST ? Heap.Type.MIMIC : heapType);
 		}
 		
@@ -57,12 +103,12 @@ public class TreasuryRoom extends SpecialRoom {
 				int pos;
 				do {
 					pos = level.pointToCell(random());
-				} while (level.map[pos] != Terrain.EMPTY);
+				} while (level.map[pos] != Terrain.EMPTY || pos == platepos);
 				level.drop( new Gold( Random.IntRange( 5, 12 ) ), pos );
 			}
 		}
 		
-		entrance().set( Door.Type.LOCKED );
+		entrance().set( Door.Type.TUNNEL );
 		level.addItemToSpawn( new IronKey( Dungeon.depth ) );
 	}
 }

@@ -24,6 +24,7 @@
 package com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.curses;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
 import com.watabou.utils.Bundle;
@@ -38,6 +39,13 @@ public class Fragile extends Weapon.Enchantment {
 		//degrades from 100% to 25% damage over 150 hits
 		damage *= (1f - hits*0.005f);
 		if (hits < 150) hits++;
+
+        if(attacker instanceof Hero){
+            if(((Hero) attacker).belongings.armor.glyph != null){
+                comboProc(this, ((Hero) attacker).belongings.armor.glyph, attacker, defender, damage);
+            }
+        }
+
 		return damage;
 	}
 

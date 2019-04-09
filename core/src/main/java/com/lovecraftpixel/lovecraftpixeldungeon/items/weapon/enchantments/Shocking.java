@@ -26,6 +26,7 @@ package com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Actor;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.Lightning;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.SparkParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
@@ -58,6 +59,12 @@ public class Shocking extends Weapon.Enchantment {
 			attacker.sprite.parent.addToFront( new Lightning( arcs, null ) );
 			
 		}
+
+        if(attacker instanceof Hero){
+            if(((Hero) attacker).belongings.armor.glyph != null){
+                comboProc(this, ((Hero) attacker).belongings.armor.glyph, attacker, defender, damage);
+            }
+        }
 
 		return damage;
 

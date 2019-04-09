@@ -24,8 +24,10 @@
 package com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.Armor;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.wands.WandOfBlastWave;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.mechanics.Ballistica;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
 import com.watabou.utils.Random;
@@ -44,6 +46,14 @@ public class Repulsion extends Armor.Glyph {
 			Ballistica trajectory = new Ballistica(attacker.pos, oppositeHero, Ballistica.MAGIC_BOLT);
 			WandOfBlastWave.throwChar(attacker, trajectory, 2);
 		}
+
+        if(attacker instanceof Hero){
+            if(((Hero) attacker).belongings.weapon instanceof Weapon){
+                if(((Weapon) ((Hero) attacker).belongings.weapon).enchantment != null){
+                    Weapon.Enchantment.comboProc(((Weapon) ((Hero) attacker).belongings.weapon).enchantment, this, attacker, defender, damage);
+                }
+            }
+        }
 		
 		return damage;
 	}

@@ -26,6 +26,7 @@ package com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Poison;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.CellEmitter;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.PoisonParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
@@ -50,6 +51,12 @@ public class Venomous extends Weapon.Enchantment {
 			CellEmitter.center(defender.pos).burst( PoisonParticle.SPLASH, 5 );
 
 		}
+
+        if(attacker instanceof Hero){
+            if(((Hero) attacker).belongings.armor.glyph != null){
+                comboProc(this, ((Hero) attacker).belongings.armor.glyph, attacker, defender, damage);
+            }
+        }
 
 		return damage;
 	}

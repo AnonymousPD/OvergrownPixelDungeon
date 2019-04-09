@@ -25,6 +25,7 @@ package com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.CellEmitter;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.LeafParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
@@ -64,6 +65,12 @@ public class Blooming extends Weapon.Enchantment {
                 }
             }
 
+        }
+
+        if(attacker instanceof Hero){
+            if(((Hero) attacker).belongings.armor.glyph != null){
+                comboProc(this, ((Hero) attacker).belongings.armor.glyph, attacker, defender, damage);
+            }
         }
 
         return damage;

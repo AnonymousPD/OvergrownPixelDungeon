@@ -25,6 +25,7 @@ package com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite.Glowing;
@@ -51,12 +52,24 @@ public class Lucky extends Weapon.Enchantment {
 			if (buff != null) {
 				buff.detach();
 			}
+
+            if(attacker instanceof Hero){
+                if(((Hero) attacker).belongings.armor.glyph != null){
+                    comboProc(this, ((Hero) attacker).belongings.armor.glyph, attacker, defender, damage);
+                }
+            }
 			
 			return 2*damage;
 		} else {
 			
 			buff = Buff.affect(attacker, Luck.class);
 			buff.zeroChance = zeroChance * (0.5f - (0.01f*level));
+
+            if(attacker instanceof Hero){
+                if(((Hero) attacker).belongings.armor.glyph != null){
+                    comboProc(this, ((Hero) attacker).belongings.armor.glyph, attacker, defender, damage);
+                }
+            }
 			
 			return 0;
 		}

@@ -46,7 +46,7 @@ public class EntranceRoom extends StandardRoom {
 		return Math.max(super.minHeight(), 5);
 	}
 
-	public void paint( Level level ) {
+	public void paint(final Level level ) {
 		
 		Painter.fill( level, this, Terrain.WALL );
 		Painter.fill( level, this, 1, Terrain.EMPTY );

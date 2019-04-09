@@ -118,7 +118,7 @@ public class LivingPlant extends Mob {
                 plant.pos = pos;
                 plant.activate();
             }
-            if(isStupid && Random.Boolean()){
+            if(Random.Float() <= 0.75f){
                 Dungeon.level.drop(plantClass.getPlant(plantClass), pos).sprite.drop();
             }
         } else {
@@ -191,15 +191,18 @@ public class LivingPlant extends Mob {
             }
 
             Char mob = Random.element(enemies);
-            if(Dungeon.level.distance(mob.pos, pos) >= Dungeon.level.distance(Dungeon.hero.pos, pos)){
-                if(alignment != Alignment.ALLY){
-                    return Dungeon.hero;
+            if(mob != null){
+                if(Dungeon.level.distance(mob.pos, pos) >= Dungeon.level.distance(Dungeon.hero.pos, pos)){
+                    if(alignment != Alignment.ALLY){
+                        return Dungeon.hero;
+                    } else {
+                        return mob;
+                    }
                 } else {
                     return mob;
                 }
-            } else {
-                return mob;
             }
+            return Dungeon.hero;
 
         } else {
             return enemy;

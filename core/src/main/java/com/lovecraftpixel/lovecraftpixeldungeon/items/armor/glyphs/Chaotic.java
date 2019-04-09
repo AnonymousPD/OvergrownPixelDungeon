@@ -25,8 +25,10 @@ package com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.LovecraftPixelDungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.Armor;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.Armor.Glyph;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Unstable;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
 
@@ -34,11 +36,25 @@ public class Chaotic extends Glyph {
 
     public int proc(Armor armor, Char attacker, Char defender, int damage) {
         try {
+            if(attacker instanceof Hero){
+                if(((Hero) attacker).belongings.weapon instanceof Weapon){
+                    if(((Weapon) ((Hero) attacker).belongings.weapon).enchantment != null){
+                        Weapon.Enchantment.comboProc(((Weapon) ((Hero) attacker).belongings.weapon).enchantment, this, attacker, defender, damage);
+                    }
+                }
+            }
             return Glyph.random().proc(armor, attacker, defender, damage);
         } catch (Exception e) {
             LovecraftPixelDungeon.reportException(e);
+            if(attacker instanceof Hero){
+                if(((Hero) attacker).belongings.weapon instanceof Weapon){
+                    if(((Weapon) ((Hero) attacker).belongings.weapon).enchantment != null){
+                        Weapon.Enchantment.comboProc(((Weapon) ((Hero) attacker).belongings.weapon).enchantment, this, attacker, defender, damage);
+                    }
+                }
+            }
+            return damage;
         }
-        return damage;
     }
 
     public ItemSprite.Glowing glowing() {

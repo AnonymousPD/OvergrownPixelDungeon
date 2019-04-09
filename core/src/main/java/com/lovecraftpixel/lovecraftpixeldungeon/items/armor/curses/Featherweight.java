@@ -26,9 +26,11 @@ package com.lovecraftpixel.lovecraftpixeldungeon.items.armor.curses;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Vertigo;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.Armor;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.Armor.Glyph;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.wands.WandOfBlastWave;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.mechanics.Ballistica;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite.Glowing;
 
@@ -43,7 +45,15 @@ public class Featherweight extends Glyph {
         Ballistica trajectory = new Ballistica(defender.pos, oppositeAttacker, Ballistica.MAGIC_BOLT);
         WandOfBlastWave.throwChar(defender, trajectory, 2);
         Buff.append(defender, Vertigo.class, Vertigo.DURATION/2);
-		
+
+        if(attacker instanceof Hero){
+            if(((Hero) attacker).belongings.weapon instanceof Weapon){
+                if(((Weapon) ((Hero) attacker).belongings.weapon).enchantment != null){
+                    Weapon.Enchantment.comboProc(((Weapon) ((Hero) attacker).belongings.weapon).enchantment, this, attacker, defender, damage);
+                }
+            }
+        }
+
 		return damage;
 	}
 

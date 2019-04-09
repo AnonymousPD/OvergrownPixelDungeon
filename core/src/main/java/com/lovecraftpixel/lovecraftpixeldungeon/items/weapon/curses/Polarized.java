@@ -24,6 +24,7 @@
 package com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.curses;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
 import com.watabou.utils.Random;
@@ -36,8 +37,22 @@ public class Polarized extends Weapon.Enchantment {
     public int proc(Weapon weapon, Char attacker, Char defender, int damage ) {
 
         if (Random.Int(2) == 0){
+
+            if(attacker instanceof Hero){
+                if(((Hero) attacker).belongings.armor.glyph != null){
+                    comboProc(this, ((Hero) attacker).belongings.armor.glyph, attacker, defender, damage);
+                }
+            }
+
             return Math.round(1.5f*damage);
         } else {
+
+            if(attacker instanceof Hero){
+                if(((Hero) attacker).belongings.armor.glyph != null){
+                    comboProc(this, ((Hero) attacker).belongings.armor.glyph, attacker, defender, damage);
+                }
+            }
+
             return 0;
         }
 

@@ -26,7 +26,9 @@ package com.lovecraftpixel.lovecraftpixeldungeon.items.armor.curses;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Blob;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.ToxicGas;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.Armor;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
 import com.watabou.utils.Random;
@@ -43,6 +45,14 @@ public class Stench extends Armor.Glyph {
 			GameScene.add( Blob.seed( defender.pos, 250, ToxicGas.class ) );
 
 		}
+
+        if(attacker instanceof Hero){
+            if(((Hero) attacker).belongings.weapon instanceof Weapon){
+                if(((Weapon) ((Hero) attacker).belongings.weapon).enchantment != null){
+                    Weapon.Enchantment.comboProc(((Weapon) ((Hero) attacker).belongings.weapon).enchantment, this, attacker, defender, damage);
+                }
+            }
+        }
 
 		return damage;
 	}

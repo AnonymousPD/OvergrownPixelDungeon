@@ -25,6 +25,7 @@ package com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.LovecraftPixelDungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
 import com.watabou.utils.Random;
@@ -61,13 +62,28 @@ public class Unstable extends Weapon.Enchantment {
 
         if (justRolledPrecise){
             justRolledPrecise = false;
+            if(attacker instanceof Hero){
+                if(((Hero) attacker).belongings.armor.glyph != null){
+                    comboProc(this, ((Hero) attacker).belongings.armor.glyph, attacker, defender, damage);
+                }
+            }
             return damage;
         }
 
 		try {
+            if(attacker instanceof Hero){
+                if(((Hero) attacker).belongings.armor.glyph != null){
+                    comboProc(this, ((Hero) attacker).belongings.armor.glyph, attacker, defender, damage);
+                }
+            }
 			return Random.oneOf(randomEnchants).newInstance().proc( weapon, attacker, defender, damage );
 		} catch (Exception e) {
 			LovecraftPixelDungeon.reportException(e);
+            if(attacker instanceof Hero){
+                if(((Hero) attacker).belongings.armor.glyph != null){
+                    comboProc(this, ((Hero) attacker).belongings.armor.glyph, attacker, defender, damage);
+                }
+            }
 			return damage;
 		}
 	}

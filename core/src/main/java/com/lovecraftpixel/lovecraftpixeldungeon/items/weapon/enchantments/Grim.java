@@ -58,6 +58,12 @@ public class Grim extends Weapon.Enchantment {
 			
 		}
 
+        if(attacker instanceof Hero){
+            if(((Hero) attacker).belongings.armor.glyph != null){
+                comboProc(this, ((Hero) attacker).belongings.armor.glyph, attacker, defender, damage);
+            }
+        }
+
 		return damage;
 	}
 	

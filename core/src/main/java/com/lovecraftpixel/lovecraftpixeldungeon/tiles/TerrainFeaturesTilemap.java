@@ -26,6 +26,7 @@ package com.lovecraftpixel.lovecraftpixeldungeon.tiles;
 import com.lovecraftpixel.lovecraftpixeldungeon.Assets;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Terrain;
+import com.lovecraftpixel.lovecraftpixeldungeon.levels.plates.PressurePlate;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.traps.Trap;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Plant;
 import com.watabou.noosa.Image;
@@ -41,12 +42,14 @@ public class TerrainFeaturesTilemap extends DungeonTilemap {
 
 	private SparseArray<Plant> plants;
 	private SparseArray<Trap> traps;
+    private SparseArray<PressurePlate> plates;
 
-	public TerrainFeaturesTilemap(SparseArray<Plant> plants, SparseArray<Trap> traps) {
+	public TerrainFeaturesTilemap(SparseArray<Plant> plants, SparseArray<Trap> traps, SparseArray<PressurePlate> plates) {
 		super(Assets.TERRAIN_FEATURES);
 
 		this.plants = plants;
 		this.traps = traps;
+		this.plates = plates;
 
 		map( Dungeon.level.map, Dungeon.level.width() );
 
@@ -67,6 +70,14 @@ public class TerrainFeaturesTilemap extends DungeonTilemap {
 			else
 				return (trap.active ? trap.color : Trap.BLACK) + (trap.shape * 16);
 		}
+
+        if (plates.get(pos) != null){
+            if(!plates.get(pos).active){
+                return 10*16;
+            } else {
+                return 1+10*16;
+            }
+        }
 
 		if (plants.get(pos) != null){
 			return plants.get(pos).image + 7*16;

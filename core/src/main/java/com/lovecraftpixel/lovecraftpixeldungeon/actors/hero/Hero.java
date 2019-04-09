@@ -109,6 +109,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.journal.Notes;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Level;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Terrain;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.features.Chasm;
+import com.lovecraftpixel.lovecraftpixeldungeon.levels.plates.PressurePlate;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Earthroot;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Swiftthistle;
@@ -531,6 +532,19 @@ public class Hero extends Char {
 				Dungeon.level.updateFieldOfView(this, fieldOfView);
 			}
 		}
+
+		//check if pressureplates can be reset to false and set them to unactivated if so
+        for(PressurePlate plate : Dungeon.level.plates.values()){
+            if(Dungeon.level.plates.get(plate.pos).active){
+                if(Actor.findChar(Dungeon.level.plates.get(plate.pos).pos) == null){
+                    if(Dungeon.level.heaps.get(Dungeon.level.plates.get(plate.pos).pos) == null){
+                        Dungeon.level.plates.get(plate.pos).active = false;
+                        Dungeon.level.plates.get(plate.pos).deactivate();
+                        GameScene.updateMap(Dungeon.level.plates.get(plate.pos).pos);
+                    }
+                }
+            }
+        }
 		
 		checkVisibleMobs();
 		if (buff(FlavourBuff.class) != null) {

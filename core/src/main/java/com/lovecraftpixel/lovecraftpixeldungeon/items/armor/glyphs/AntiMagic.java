@@ -26,11 +26,13 @@ package com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Charm;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Weakness;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Eye;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Shaman;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Warlock;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Yog;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.Armor;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.traps.DisintegrationTrap;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.traps.GrimTrap;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
@@ -58,6 +60,15 @@ public class AntiMagic extends Armor.Glyph {
 	@Override
 	public int proc(Armor armor, Char attacker, Char defender, int damage) {
 		//no proc effect, see Hero.damage
+
+        if(attacker instanceof Hero){
+            if(((Hero) attacker).belongings.weapon instanceof Weapon){
+                if(((Weapon) ((Hero) attacker).belongings.weapon).enchantment != null){
+                    Weapon.Enchantment.comboProc(((Weapon) ((Hero) attacker).belongings.weapon).enchantment, this, attacker, defender, damage);
+                }
+            }
+        }
+
 		return damage;
 	}
 

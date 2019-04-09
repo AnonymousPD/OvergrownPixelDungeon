@@ -51,6 +51,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.Potion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.lovecraftpixel.lovecraftpixeldungeon.journal.Journal;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.RegularLevel;
+import com.lovecraftpixel.lovecraftpixeldungeon.levels.plates.PressurePlate;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.traps.Trap;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Plant;
@@ -91,6 +92,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.windows.WndInfoCell;
 import com.lovecraftpixel.lovecraftpixeldungeon.windows.WndInfoItem;
 import com.lovecraftpixel.lovecraftpixeldungeon.windows.WndInfoMob;
 import com.lovecraftpixel.lovecraftpixeldungeon.windows.WndInfoPlant;
+import com.lovecraftpixel.lovecraftpixeldungeon.windows.WndInfoPlate;
 import com.lovecraftpixel.lovecraftpixeldungeon.windows.WndInfoTrap;
 import com.lovecraftpixel.lovecraftpixeldungeon.windows.WndMessage;
 import com.lovecraftpixel.lovecraftpixeldungeon.windows.WndOptions;
@@ -220,7 +222,7 @@ public class GameScene extends PixelScene {
 		visualGrid = new GridTileMap();
 		terrain.add( visualGrid );
 
-		terrainFeatures = new TerrainFeaturesTilemap(Dungeon.level.plants, Dungeon.level.traps);
+		terrainFeatures = new TerrainFeaturesTilemap(Dungeon.level.plants, Dungeon.level.traps, Dungeon.level.plates);
 		terrain.add(terrainFeatures);
 		
 		levelVisuals = Dungeon.level.addVisuals();
@@ -992,6 +994,12 @@ public class GameScene extends PixelScene {
 			names.add(Messages.titleCase( trap.name ));
 		}
 
+        PressurePlate plate = Dungeon.level.plates.get( cell );
+		if(plate != null){
+		    objects.add(plate);
+		    names.add(Messages.titleCase( plate.name ));
+        }
+
 		if (objects.isEmpty()) {
 			GameScene.show(new WndInfoCell(cell));
 		} else if (objects.size() == 1){
@@ -1024,7 +1032,9 @@ public class GameScene extends PixelScene {
 			GameScene.show( new WndInfoPlant((Plant) o) );
 		} else if ( o instanceof Trap ){
 			GameScene.show( new WndInfoTrap((Trap) o));
-		} else {
+		} else if ( o instanceof PressurePlate ){
+            GameScene.show( new WndInfoPlate((PressurePlate) o));
+        } else {
 			GameScene.show( new WndMessage( Messages.get(GameScene.class, "dont_know") ) ) ;
 		}
 	}

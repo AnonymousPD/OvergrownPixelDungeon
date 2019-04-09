@@ -62,6 +62,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.levels.features.Chasm;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.features.Door;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.features.HighGrass;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.painters.Painter;
+import com.lovecraftpixel.lovecraftpixeldungeon.levels.plates.PressurePlate;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.traps.Trap;
 import com.lovecraftpixel.lovecraftpixeldungeon.mechanics.ShadowCaster;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
@@ -136,6 +137,7 @@ public abstract class Level implements Bundlable {
 	public HashMap<Class<? extends Blob>,Blob> blobs;
 	public SparseArray<Plant> plants;
 	public SparseArray<Trap> traps;
+    public SparseArray<PressurePlate> plates;
 	public HashSet<CustomTiledVisual> customTiles;
 	public HashSet<CustomTiledVisual> customWalls;
 	
@@ -158,6 +160,7 @@ public abstract class Level implements Bundlable {
 	private static final String HEAPS		= "heaps";
 	private static final String PLANTS		= "plants";
 	private static final String TRAPS       = "traps";
+    private static final String PLATES      = "plates";
 	private static final String CUSTOM_TILES= "customTiles";
 	private static final String CUSTOM_WALLS= "customWalls";
 	private static final String MOBS		= "mobs";
@@ -247,6 +250,7 @@ public abstract class Level implements Bundlable {
 			blobs = new HashMap<>();
 			plants = new SparseArray<>();
 			traps = new SparseArray<>();
+            plates = new SparseArray<>();
 			customTiles = new HashSet<>();
 			customWalls = new HashSet<>();
 			
@@ -314,6 +318,7 @@ public abstract class Level implements Bundlable {
 		blobs = new HashMap<>();
 		plants = new SparseArray<>();
 		traps = new SparseArray<>();
+        plates = new SparseArray<>();
 		customTiles = new HashSet<>();
 		customWalls = new HashSet<>();
 		
@@ -350,6 +355,12 @@ public abstract class Level implements Bundlable {
 			Trap trap = (Trap)p;
 			traps.put( trap.pos, trap );
 		}
+
+        collection = bundle.getCollection( PLATES );
+        for (Bundlable p : collection) {
+            PressurePlate plate = (PressurePlate)p;
+            plates.put( plate.pos, plate );
+        }
 
 		collection = bundle.getCollection( CUSTOM_TILES );
 		for (Bundlable p : collection) {
@@ -399,6 +410,7 @@ public abstract class Level implements Bundlable {
 		bundle.put( HEAPS, heaps.values() );
 		bundle.put( PLANTS, plants.values() );
 		bundle.put( TRAPS, traps.values() );
+        bundle.put( PLATES, plates.values() );
 		bundle.put( CUSTOM_TILES, customTiles );
 		bundle.put( CUSTOM_WALLS, customWalls );
 		bundle.put( MOBS, mobs );
@@ -759,6 +771,17 @@ public abstract class Level implements Bundlable {
 		return trap;
 	}
 
+    public PressurePlate setPlate( PressurePlate plate, int pos ){
+        PressurePlate existingPlate = plates.get(pos);
+        if (existingPlate != null){
+            plates.remove( pos );
+        }
+        plate.set( pos, Random.Float(0.01f, 1f) );
+        plates.put( pos, plate );
+        GameScene.updateMap( pos );
+        return plate;
+    }
+
 	public void disarmTrap( int pos ) {
 		set(pos, Terrain.INACTIVE_TRAP);
 		GameScene.updateMap(pos);
@@ -881,6 +904,12 @@ public abstract class Level implements Bundlable {
 		if (plant != null) {
 			plant.trigger();
 		}
+
+        PressurePlate plate = plates.get( cell );
+        if (plate != null) {
+            //2f because each char will trigger these
+            plate.checkAndTrigger(2f);
+        }
 	}
 	
 	public void updateFieldOfView( Char c, boolean[] fieldOfView ) {

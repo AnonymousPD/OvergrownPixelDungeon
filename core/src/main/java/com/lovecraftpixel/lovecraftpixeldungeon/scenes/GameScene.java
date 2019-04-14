@@ -426,7 +426,11 @@ public class GameScene extends PixelScene {
 			} else if (InterlevelScene.mode == InterlevelScene.Mode.RESET) {
 				GLog.h(Messages.get(this, "warp"));
 			} else {
-				GLog.h(Messages.get(this, "return"), Dungeon.depth);
+			    if(Dungeon.depth == 1000){
+                    GLog.h(Messages.get(this, "return_overworld"), Dungeon.depth);
+                } else {
+                    GLog.h(Messages.get(this, "return"), Dungeon.depth);
+                }
 			}
 
 			switch (Dungeon.level.feeling) {

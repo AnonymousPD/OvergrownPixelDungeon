@@ -190,6 +190,9 @@ public class StartScene extends PixelScene {
 				}
 				
 				depth.text(Integer.toString(info.depth));
+				if(info.depth >= 1000 || info.depth <= 0){
+				    depth.text("?");
+                }
 				depth.measure();
 				
 				level.text(Integer.toString(info.level));

@@ -56,6 +56,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.levels.HallsLevel;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.LastLevel;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.LastShopLevel;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Level;
+import com.lovecraftpixel.lovecraftpixeldungeon.levels.OverworldLevel;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.PrisonBossLevel;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.PrisonLevel;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.SewerBossLevel;
@@ -249,21 +250,23 @@ public class Dungeon {
 		return (challenges & mask) != 0;
 	}
 	
-	public static Level newLevel() {
+	public static Level newLevel(boolean specialLevel) {
 		
 		Dungeon.level = null;
 		Actor.clear();
-		
-		depth++;
-		if (depth > Statistics.deepestFloor) {
-			Statistics.deepestFloor = depth;
-			
-			if (Statistics.qualifiedForNoKilling) {
-				Statistics.completedWithNoKilling = true;
-			} else {
-				Statistics.completedWithNoKilling = false;
-			}
-		}
+
+		if(!specialLevel){
+            depth++;
+            if (depth > Statistics.deepestFloor) {
+                Statistics.deepestFloor = depth;
+
+                if (Statistics.qualifiedForNoKilling) {
+                    Statistics.completedWithNoKilling = true;
+                } else {
+                    Statistics.completedWithNoKilling = false;
+                }
+            }
+        }
 		
 		Level level;
 		switch (depth) {
@@ -317,6 +320,9 @@ public class Dungeon {
 		case 26:
 			level = new LastLevel();
 			break;
+            case 1000:
+                level = new OverworldLevel();
+                break;
 		default:
 			level = new DeadEndLevel();
 			Statistics.deepestFloor--;

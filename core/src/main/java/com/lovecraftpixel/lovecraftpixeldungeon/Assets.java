@@ -113,12 +113,16 @@ public class Assets {
 	public static final String TILES_CAVES	= "terrain/tiles_caves.png";
 	public static final String TILES_CITY	= "terrain/tiles_city.png";
 	public static final String TILES_HALLS	= "terrain/tiles_halls.png";
+
+    public static final String TILES_OVERWORLD	= "terrain/tiles_overworld.png";
 	
 	public static final String WATER_SEWERS	= "terrain/water0.png";
 	public static final String WATER_PRISON	= "terrain/water1.png";
 	public static final String WATER_CAVES	= "terrain/water2.png";
 	public static final String WATER_CITY	= "terrain/water3.png";
 	public static final String WATER_HALLS	= "terrain/water4.png";
+
+	public static final String WATER_OVERWORLD	= "terrain/wateroverworld.png";
 	
 	public static final String LOADING_SEWERS	= "gui/loading screens/loading_sewers.png";
 	public static final String LOADING_PRISON	= "gui/loading screens/loading_prison.png";
@@ -126,9 +130,12 @@ public class Assets {
 	public static final String LOADING_CITY	    = "gui/loading screens/loading_city.png";
 	public static final String LOADING_HALLS	= "gui/loading screens/loading_halls.png";
 
+    public static final String LOADING_OVERWORLD	= "gui/loading screens/loading_overworld.png";
+
 	public static final String WEAK_FLOOR   = "custom_tiles/weak_floor.png";
 	public static final String PRISON_QUEST = "custom_tiles/prison_quests.png";
 	public static final String PRISON_EXIT  = "custom_tiles/prison_exit.png";
+    public static final String HOUSE_1        = "custom_tiles/house_1.png";
 	
 	public static final String BUFFS_SMALL	= "gui/buffs.png";
 	public static final String BUFFS_LARGE	= "gui/large_buffs.png";

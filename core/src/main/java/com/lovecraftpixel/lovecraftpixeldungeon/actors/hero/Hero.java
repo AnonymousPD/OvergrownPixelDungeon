@@ -920,14 +920,30 @@ public class Hero extends Char {
 	private boolean actDescend( HeroAction.Descend action ) {
 		int stairs = action.dst;
 		if (pos == stairs && pos == Dungeon.level.exit) {
-			
-			curAction = null;
 
-			Buff buff = buff(TimekeepersHourglass.timeFreeze.class);
-			if (buff != null) buff.detach();
-			
-			InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
-			Game.switchScene( InterlevelScene.class );
+            curAction = null;
+
+		    if(Dungeon.depth == 1000){
+
+                curAction = null;
+
+                Buff buff = buff(TimekeepersHourglass.timeFreeze.class);
+                if (buff != null) buff.detach();
+
+                InterlevelScene.mode = InterlevelScene.Mode.DESCENDSEWERS;
+                Game.switchScene( InterlevelScene.class );
+
+            } else {
+
+                curAction = null;
+
+                Buff buff = buff(TimekeepersHourglass.timeFreeze.class);
+                if (buff != null) buff.detach();
+
+                InterlevelScene.mode = InterlevelScene.Mode.DESCEND;
+                Game.switchScene( InterlevelScene.class );
+
+            }
 
 			return false;
 
@@ -956,6 +972,14 @@ public class Hero extends Char {
 					Dungeon.deleteGame( GamesInProgress.curSlot, true );
 					Game.switchScene( SurfaceScene.class );
 				}
+
+				curAction = null;
+
+                Buff buff = buff(TimekeepersHourglass.timeFreeze.class);
+                if (buff != null) buff.detach();
+
+                /**InterlevelScene.mode = InterlevelScene.Mode.ASCENDOVERWORLD;
+                Game.switchScene( InterlevelScene.class );**/
 				
 			} else {
 				
@@ -1292,7 +1316,7 @@ public class Hero extends Char {
 			
 			curAction = new HeroAction.Unlock( cell );
 			
-		} else if (cell == Dungeon.level.exit && Dungeon.depth < 26) {
+		} else if (cell == Dungeon.level.exit) {
 			
 			curAction = new HeroAction.Descend( cell );
 			

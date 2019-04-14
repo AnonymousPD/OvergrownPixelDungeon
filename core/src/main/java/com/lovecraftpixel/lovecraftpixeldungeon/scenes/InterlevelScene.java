@@ -65,7 +65,7 @@ public class InterlevelScene extends PixelScene {
 	private static float fadeTime;
 	
 	public enum Mode {
-		DESCEND, ASCEND, CONTINUE, RESURRECT, RETURN, FALL, RESET, NONE
+		DESCEND, ASCEND, CONTINUE, RESURRECT, RETURN, FALL, RESET, NONE, ASCENDOVERWORLD, DESCENDSEWERS
 	}
 	public static Mode mode;
 	
@@ -129,6 +129,16 @@ public class InterlevelScene extends PixelScene {
 				loadingDepth = Dungeon.depth-1;
 				scrollSpeed = -5;
 				break;
+            case ASCENDOVERWORLD:
+                fadeTime = FAST_FADE;
+                loadingDepth = 1000;
+                scrollSpeed = -5;
+                break;
+            case DESCENDSEWERS:
+                fadeTime = FAST_FADE;
+                loadingDepth = 1;
+                scrollSpeed = 50;
+                break;
 			case RETURN:
 				loadingDepth = returnDepth;
 				scrollSpeed = returnDepth > Dungeon.depth ? 15 : -15;
@@ -139,6 +149,7 @@ public class InterlevelScene extends PixelScene {
 		else if (loadingDepth <= 15)    loadingAsset = Assets.LOADING_CAVES;
 		else if (loadingDepth <= 21)    loadingAsset = Assets.LOADING_CITY;
 		else if (loadingDepth <= 25)    loadingAsset = Assets.LOADING_HALLS;
+        else if (loadingDepth <= 1000)  loadingAsset = Assets.LOADING_OVERWORLD;
 		else                            loadingAsset = Assets.SHADOW;
 		
 		//speed up transition when debugging
@@ -213,6 +224,12 @@ public class InterlevelScene extends PixelScene {
 							case ASCEND:
 								ascend();
 								break;
+                            case ASCENDOVERWORLD:
+                                goTo(1000, true);
+                                break;
+                            case DESCENDSEWERS:
+                                goTo(1, false);
+                                break;
 							case CONTINUE:
 								restore();
 								break;
@@ -336,7 +353,7 @@ public class InterlevelScene extends PixelScene {
 
 		Level level;
 		if (Dungeon.depth >= Statistics.deepestFloor) {
-			level = Dungeon.newLevel();
+			level = Dungeon.newLevel(false);
 		} else {
 			Dungeon.depth++;
 			level = Dungeon.loadLevel( GamesInProgress.curSlot );
@@ -353,7 +370,7 @@ public class InterlevelScene extends PixelScene {
 
 		Level level;
 		if (Dungeon.depth >= Statistics.deepestFloor) {
-			level = Dungeon.newLevel();
+			level = Dungeon.newLevel(false);
 		} else {
 			Dungeon.depth++;
 			level = Dungeon.loadLevel( GamesInProgress.curSlot );
@@ -370,6 +387,42 @@ public class InterlevelScene extends PixelScene {
 		Level level = Dungeon.loadLevel( GamesInProgress.curSlot );
 		Dungeon.switchLevel( level, level.exit );
 	}
+
+    private void goTo(int depth, boolean exit) throws IOException {
+
+        if (Dungeon.hero == null) {
+            DriedRose.clearHeldGhostHero();
+            Dungeon.init();
+            if (noStory) {
+                Dungeon.chapters.add( WndStory.ID_SEWERS );
+                noStory = false;
+            }
+            GameLog.wipe();
+        } else {
+            DriedRose.holdGhostHero( Dungeon.level );
+            Dungeon.saveAll();
+        }
+
+        Level level;
+        Dungeon.depth = depth;
+        if(depth == 1000 && Statistics.visitedOverworld){
+            level = Dungeon.loadLevel( GamesInProgress.curSlot );
+        } else
+        if(depth == 1){
+            level = Dungeon.loadLevel( GamesInProgress.curSlot );
+        } else {
+            level = Dungeon.newLevel(true);
+        }
+        if(exit){
+            Dungeon.switchLevel( level, level.exit );
+        } else {
+            Dungeon.switchLevel( level, level.entrance );
+        }
+
+        if(depth == 1000){
+            Statistics.visitedOverworld = true;
+        }
+    }
 	
 	private void returnTo() throws IOException {
 		
@@ -404,7 +457,7 @@ public class InterlevelScene extends PixelScene {
 		if (Dungeon.level.locked) {
 			Dungeon.hero.resurrect( Dungeon.depth );
 			Dungeon.depth--;
-			Level level = Dungeon.newLevel();
+			Level level = Dungeon.newLevel(false);
 			Dungeon.switchLevel( level, level.entrance );
 		} else {
 			Dungeon.hero.resurrect( -1 );
@@ -419,7 +472,7 @@ public class InterlevelScene extends PixelScene {
 		SpecialRoom.resetPitRoom(Dungeon.depth+1);
 
 		Dungeon.depth--;
-		Level level = Dungeon.newLevel();
+		Level level = Dungeon.newLevel(false);
 		Dungeon.switchLevel( level, level.entrance );
 	}
 	

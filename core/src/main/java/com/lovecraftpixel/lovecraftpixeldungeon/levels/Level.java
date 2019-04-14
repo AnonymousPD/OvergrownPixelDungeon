@@ -878,8 +878,7 @@ public abstract class Level implements Bundlable {
 
 		if (trap != null) {
 			
-			TimekeepersHourglass.timeFreeze timeFreeze =
-					Dungeon.hero.buff(TimekeepersHourglass.timeFreeze.class);
+			TimekeepersHourglass.timeFreeze timeFreeze = Dungeon.hero.buff(TimekeepersHourglass.timeFreeze.class);
 			
 			if (timeFreeze == null) {
 
@@ -895,7 +894,8 @@ public abstract class Level implements Bundlable {
 
 				discover(cell);
 
-				timeFreeze.setDelayedPress(cell);
+                timeFreeze.setDelayedPress(cell);
+
 
 			}
 		}

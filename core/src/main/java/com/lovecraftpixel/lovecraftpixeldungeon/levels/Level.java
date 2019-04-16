@@ -717,7 +717,7 @@ public abstract class Level implements Bundlable {
 		return heap;
 	}
 	
-	public Plant plant(Plant.Seed seed, int pos) {
+	public Plant plant(Plant.Seed seed, int pos, boolean terrain) {
 		
 		if (Dungeon.isChallenged(Challenges.NO_HERBALISM)){
 			return null;
@@ -728,18 +728,20 @@ public abstract class Level implements Bundlable {
 		    plant.wither();
 		}
 
-		if (map[pos] == Terrain.HIGH_GRASS ||
-				map[pos] == Terrain.FURROWED_GRASS ||
-				map[pos] == Terrain.EMPTY ||
-				map[pos] == Terrain.EMBERS ||
-				map[pos] == Terrain.EMPTY_DECO) {
-			set(pos, Terrain.PLANT, this);
-			GameScene.updateMap(pos);
-		}
+		if(!terrain){
+            if (map[pos] == Terrain.HIGH_GRASS ||
+                    map[pos] == Terrain.FURROWED_GRASS ||
+                    map[pos] == Terrain.EMPTY ||
+                    map[pos] == Terrain.EMBERS ||
+                    map[pos] == Terrain.EMPTY_DECO) {
+                set(pos, Terrain.PLANT, this);
+                GameScene.updateMap(pos);
+            }
 
-        if (map[pos] == Terrain.WATER) {
-            set(pos, Terrain.WATERPLANT, this);
-            GameScene.updateMap(pos);
+            if (map[pos] == Terrain.WATER) {
+                set(pos, Terrain.WATERPLANT, this);
+                GameScene.updateMap(pos);
+            }
         }
 		
 		plant = seed.couch( pos, this );

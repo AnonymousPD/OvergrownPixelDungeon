@@ -27,6 +27,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.LovecraftPixelDungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Healing;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroClass;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.CellEmitter;
@@ -34,6 +35,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.LeafParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Dewdrop;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Generator;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Camouflage;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Fauna;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.artifacts.SandalsOfNature;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Level;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Terrain;
@@ -100,6 +102,10 @@ public class HighGrass {
 				if (hero.belongings.armor != null && hero.belongings.armor.hasGlyph(Camouflage.class, hero)) {
 					Buff.affect(hero, Camouflage.Camo.class).set(3 + hero.belongings.armor.level());
 				}
+
+                if (hero.belongings.armor != null && hero.belongings.armor.hasGlyph(Fauna.class, hero)) {
+                    Buff.affect( hero, Healing.class ).setHeal(1, 1f, 1);
+                }
 			}
 			
 		}

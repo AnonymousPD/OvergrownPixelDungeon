@@ -101,7 +101,7 @@ public class LivingPlant extends Mob {
     public void goToSleep(LivingPlant livingPlant){
         livingPlant.destroy();
         livingPlant.sprite.remove();
-        Dungeon.level.plant(livingPlant.plantClass.getPlant(livingPlant.plantClass), pos);
+        Dungeon.level.plant(livingPlant.plantClass.getPlant(livingPlant.plantClass), pos, false);
     }
 
     @Override

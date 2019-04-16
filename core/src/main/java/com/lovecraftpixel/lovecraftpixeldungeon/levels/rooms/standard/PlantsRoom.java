@@ -68,29 +68,29 @@ public class PlantsRoom extends StandardRoom {
 			if (Math.min(width(), height()) >= 11) {
 				Painter.drawLine(level, new Point(left+2, center.y), new Point(right-2, center.y), Terrain.HIGH_GRASS);
 				Painter.drawLine(level, new Point(center.x, top+2), new Point(center.x, bottom-2), Terrain.HIGH_GRASS);
-				level.plant( randomSeed(), level.pointToCell(new Point(center.x-1, center.y-1)));
-				level.plant( randomSeed(), level.pointToCell(new Point(center.x+1, center.y-1)));
-				level.plant( randomSeed(), level.pointToCell(new Point(center.x-1, center.y+1)));
-				level.plant( randomSeed(), level.pointToCell(new Point(center.x+1, center.y+1)));
+				level.plant( randomSeed(), level.pointToCell(new Point(center.x-1, center.y-1)), true);
+				level.plant( randomSeed(), level.pointToCell(new Point(center.x+1, center.y-1)), true);
+				level.plant( randomSeed(), level.pointToCell(new Point(center.x-1, center.y+1)), true);
+				level.plant( randomSeed(), level.pointToCell(new Point(center.x+1, center.y+1)), true);
 			
 			//place 2 plants otherwise
 			//left/right
 			} else if (width() > height() || (width() == height() && Random.Int(2) == 0)){
 				Painter.drawLine(level, new Point(center.x, top+2), new Point(center.x, bottom-2), Terrain.HIGH_GRASS);
-				level.plant( randomSeed(), level.pointToCell(new Point(center.x-1, center.y)));
-				level.plant( randomSeed(), level.pointToCell(new Point(center.x+1, center.y)));
+				level.plant( randomSeed(), level.pointToCell(new Point(center.x-1, center.y)), true);
+				level.plant( randomSeed(), level.pointToCell(new Point(center.x+1, center.y)), true);
 			
 			//top/bottom
 			} else {
 				Painter.drawLine(level, new Point(left+2, center.y), new Point(right-2, center.y), Terrain.HIGH_GRASS);
-				level.plant( randomSeed(), level.pointToCell(new Point(center.x, center.y-1)));
-				level.plant( randomSeed(), level.pointToCell(new Point(center.x, center.y+1)));
+				level.plant( randomSeed(), level.pointToCell(new Point(center.x, center.y-1)), true);
+				level.plant( randomSeed(), level.pointToCell(new Point(center.x, center.y+1)), true);
 			
 			}
 			
 		//place just one plant for smaller sized rooms
 		} else {
-			level.plant( randomSeed(), level.pointToCell(center));
+			level.plant( randomSeed(), level.pointToCell(center), true);
 		}
 		
 		for (Door door : connected.values()) {

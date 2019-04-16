@@ -536,9 +536,9 @@ abstract public class Weapon extends KindOfWeapon {
             }
 
             //demonic entites are really not gonna like this
-            if(enchantment instanceof Eldritch && glyph instanceof AntiMagic){
-                if(defender.properties().contains(Char.Property.DEMONIC)){
-                    defender.damage(Math.round(damage/3), attacker);
+            if(enchantment instanceof Eldritch && glyph instanceof AntiMagic) {
+                if (defender.properties().contains(Char.Property.DEMONIC)) {
+                    defender.damage(Math.round(damage / 3), attacker);
                 }
             }
 

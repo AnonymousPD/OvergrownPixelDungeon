@@ -91,16 +91,16 @@ public class RegrowthBomb extends Bomb {
 		
 		Integer plantPos = Random.element(plantCandidates);
 		if (plantPos != null){
-			Dungeon.level.plant((Plant.Seed) Generator.random(Generator.Category.SEED), plantPos);
+			Dungeon.level.plant((Plant.Seed) Generator.random(Generator.Category.SEED), plantPos, false);
 			plantCandidates.remove(plantPos);
 		}
 		
 		plantPos = Random.element(plantCandidates);
 		if (plantPos != null){
 			if (Random.Int(2) == 0){
-				Dungeon.level.plant( new WandOfRegrowth.Dewcatcher.Seed(), plantPos);
+				Dungeon.level.plant( new WandOfRegrowth.Dewcatcher.Seed(), plantPos, false);
 			} else {
-				Dungeon.level.plant((Plant.Seed) Generator.random(Generator.Category.SEED), plantPos);
+				Dungeon.level.plant((Plant.Seed) Generator.random(Generator.Category.SEED), plantPos, false);
 			}
 			plantCandidates.remove(plantPos);
 		}

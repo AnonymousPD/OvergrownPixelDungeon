@@ -135,23 +135,23 @@ public class PotionOfPlants extends Potion {
 
         while(cells.hasNext() && Random.Float() <= numPlants){
             Plant.Seed seed = (Plant.Seed) Generator.random(Generator.Category.SEED);
-            floor.plant(seed, cells.next());
+            floor.plant(seed, cells.next(), false);
 
             numPlants --;
         }
 
         while (cells.hasNext() && Random.Float() <= numDews){
-            floor.plant(new WandOfRegrowth.Dewcatcher.Seed(), cells.next());
+            floor.plant(new WandOfRegrowth.Dewcatcher.Seed(), cells.next(), false);
             numDews --;
         }
 
         while (cells.hasNext() && Random.Float() <= numPods){
-            floor.plant(new WandOfRegrowth.Seedpod.Seed(), cells.next());
+            floor.plant(new WandOfRegrowth.Seedpod.Seed(), cells.next(), false);
             numPods --;
         }
 
         while (cells.hasNext() && Random.Float() <= numStars){
-            floor.plant(new Starflower.Seed(), cells.next());
+            floor.plant(new Starflower.Seed(), cells.next(), false);
             numStars --;
         }
 

@@ -54,6 +54,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Cloning;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Deflection;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Entanglement;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Explosion;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Fauna;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Flow;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Obfuscation;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Potential;
@@ -538,7 +539,7 @@ public class Armor extends EquipableItem {
 				Repulsion.class, Camouflage.class, Flow.class, Chaotic.class, Cloning.class};
 		
 		private static final Class<?>[] rare = new Class<?>[]{
-				Affection.class, AntiMagic.class, Thorns.class, Explosion.class, Deflection.class};
+				Affection.class, AntiMagic.class, Thorns.class, Explosion.class, Deflection.class, Fauna.class};
 		
 		private static final float[] typeChances = new float[]{
 				50, //12.5% each

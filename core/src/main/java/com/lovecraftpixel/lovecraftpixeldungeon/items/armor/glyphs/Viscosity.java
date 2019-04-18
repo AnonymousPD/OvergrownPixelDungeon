@@ -52,10 +52,10 @@ public class Viscosity extends Glyph {
 		int realDamage = damage - Random.NormalIntRange( armor.DRMin(), armor.DRMax());
 
 		if (realDamage <= 0) {
-            if(attacker instanceof Hero){
-                if(((Hero) attacker).belongings.weapon instanceof Weapon){
-                    if(((Weapon) ((Hero) attacker).belongings.weapon).enchantment != null){
-                        Weapon.Enchantment.comboProc(((Weapon) ((Hero) attacker).belongings.weapon).enchantment, this, attacker, defender, damage);
+            if(defender instanceof Hero){
+                if(((Hero) defender).belongings.weapon instanceof Weapon){
+                    if(((Weapon) ((Hero) defender).belongings.weapon).enchantment != null){
+                        Weapon.Enchantment.comboProc(((Weapon) ((Hero) defender).belongings.weapon).enchantment, this, defender, attacker, damage);
                     }
                 }
             }
@@ -72,10 +72,10 @@ public class Viscosity extends Glyph {
 		
 		defender.sprite.showStatus( CharSprite.WARNING, Messages.get(this, "deferred", amount) );
 
-        if(attacker instanceof Hero){
-            if(((Hero) attacker).belongings.weapon instanceof Weapon){
-                if(((Weapon) ((Hero) attacker).belongings.weapon).enchantment != null){
-                    Weapon.Enchantment.comboProc(((Weapon) ((Hero) attacker).belongings.weapon).enchantment, this, attacker, defender, damage);
+        if(defender instanceof Hero){
+            if(((Hero) defender).belongings.weapon instanceof Weapon){
+                if(((Weapon) ((Hero) defender).belongings.weapon).enchantment != null){
+                    Weapon.Enchantment.comboProc(((Weapon) ((Hero) defender).belongings.weapon).enchantment, this, defender, attacker, damage);
                 }
             }
         }

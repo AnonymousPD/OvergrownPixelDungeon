@@ -40,7 +40,9 @@ public class Grasslilly extends Plant {
 	public void activate( Char ch ) {
         try {
             Plant.Seed seed = (Plant.Seed) Generator.random(Generator.Category.SEED);
-            seed.plantClass.newInstance().activate(ch);
+            Plant plant = seed.plantClass.newInstance();
+            plant.pos = ch.pos;
+            plant.activate(ch);
         } catch (Exception e){
             LovecraftPixelDungeon.reportException(e);
         }
@@ -51,7 +53,9 @@ public class Grasslilly extends Plant {
     public void activate() {
         try {
             Plant.Seed seed = (Plant.Seed) Generator.random(Generator.Category.SEED);
-            seed.plantClass.newInstance().activate();
+            Plant plant = seed.plantClass.newInstance();
+            plant.pos = pos;
+            plant.activate();
         } catch (Exception e){
             LovecraftPixelDungeon.reportException(e);
         }

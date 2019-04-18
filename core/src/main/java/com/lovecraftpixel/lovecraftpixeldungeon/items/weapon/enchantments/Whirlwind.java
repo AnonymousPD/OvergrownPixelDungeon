@@ -23,14 +23,13 @@
 
 package com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments;
 
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.Actor;
+import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
-import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
 public class Whirlwind extends Weapon.Enchantment {
@@ -49,12 +48,10 @@ public class Whirlwind extends Weapon.Enchantment {
 		if (Random.Int( level + 5 ) >= 4) {
             attacker.sprite.emitter().burst( Speck.factory( Speck.EVOKE ), 3);
 
-			for(int i : PathFinder.NEIGHBOURS8){
-                if(Actor.findChar(attacker.pos+i) != null){
-                    if(Actor.findChar(attacker.pos+i) instanceof Mob && Actor.findChar(attacker.pos+i) != defender){
-                        hitOtherMobs = true;
-                        Actor.findChar(attacker.pos+i).damage(damage/2, attacker);
-                    }
+            for(Mob mob : Dungeon.level.mobs){
+                if(Dungeon.level.distance(attacker.pos, mob.pos) <= weapon.RCH){
+                    hitOtherMobs = true;
+                    mob.damage(Math.round(damage/2), attacker);
                 }
             }
 

@@ -29,13 +29,13 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.Armor;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
 
-public class Obfuscation extends Armor.Glyph {
+public class Evasion extends Armor.Glyph {
 
-	private static ItemSprite.Glowing GREY = new ItemSprite.Glowing( 0x888888 );
+	private static ItemSprite.Glowing YELLOWGREENBROWNISH = new ItemSprite.Glowing( 0xA9D015 );
 
 	@Override
 	public int proc(Armor armor, Char attacker, Char defender, int damage) {
-		//no proc effect, see armor.stealthfactor for effect.
+		//no proc effect, see armor.evasionFactor for effect.
 
         if(defender instanceof Hero){
             if(((Hero) defender).belongings.weapon instanceof Weapon){
@@ -50,7 +50,7 @@ public class Obfuscation extends Armor.Glyph {
 
 	@Override
 	public ItemSprite.Glowing glowing() {
-		return GREY;
+		return YELLOWGREENBROWNISH;
 	}
 
 }

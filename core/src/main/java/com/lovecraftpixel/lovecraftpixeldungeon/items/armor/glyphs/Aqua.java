@@ -23,19 +23,26 @@
 
 package com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs;
 
+import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.Armor;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
 
-public class Obfuscation extends Armor.Glyph {
+public class Aqua extends Armor.Glyph {
 
-	private static ItemSprite.Glowing GREY = new ItemSprite.Glowing( 0x888888 );
+	private static ItemSprite.Glowing BLUE = new ItemSprite.Glowing( 0x17C0D8 );
 
 	@Override
 	public int proc(Armor armor, Char attacker, Char defender, int damage) {
-		//no proc effect, see armor.stealthfactor for effect.
+		//no proc effect, see HighGrass.trample
+
+        if(defender instanceof Hero){
+            if(Dungeon.level.water[defender.pos]){
+                return Math.round(damage / armor.level());
+            }
+        }
 
         if(defender instanceof Hero){
             if(((Hero) defender).belongings.weapon instanceof Weapon){
@@ -50,7 +57,8 @@ public class Obfuscation extends Armor.Glyph {
 
 	@Override
 	public ItemSprite.Glowing glowing() {
-		return GREY;
+		return BLUE;
 	}
 
 }
+

@@ -47,12 +47,14 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.curses.Overgrowth;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.curses.Stench;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Affection;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.AntiMagic;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Aqua;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Brimstone;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Camouflage;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Chaotic;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Cloning;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Deflection;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Entanglement;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Evasion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Explosion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Fauna;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Flow;
@@ -296,6 +298,10 @@ public class Armor extends EquipableItem {
 				evasion += momentum.evasionBonus(Math.max(0, -aEnc));
 			}
 		}
+
+        if (hasGlyph(Evasion.class, owner)){
+            evasion *= 2;
+        }
 		
 		return evasion + augment.evasionFactor(level());
 	}
@@ -539,7 +545,7 @@ public class Armor extends EquipableItem {
 				Repulsion.class, Camouflage.class, Flow.class, Chaotic.class, Cloning.class};
 		
 		private static final Class<?>[] rare = new Class<?>[]{
-				Affection.class, AntiMagic.class, Thorns.class, Explosion.class, Deflection.class, Fauna.class};
+				Affection.class, AntiMagic.class, Thorns.class, Explosion.class, Deflection.class, Fauna.class, Aqua.class, Evasion.class};
 		
 		private static final float[] typeChances = new float[]{
 				50, //12.5% each

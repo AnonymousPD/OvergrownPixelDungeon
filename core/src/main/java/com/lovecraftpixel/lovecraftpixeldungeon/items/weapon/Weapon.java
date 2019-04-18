@@ -26,7 +26,6 @@ package com.lovecraftpixel.lovecraftpixeldungeon.items.weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.Badges;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.LovecraftPixelDungeon;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.Actor;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Blob;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Fire;
@@ -35,9 +34,11 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Bleeding;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.FireImbue;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.MagicImmune;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Speed;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.Beam;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.Lightning;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.ChaosParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Generator;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
@@ -45,8 +46,10 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.KindOfWeapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.Armor;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Affection;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.AntiMagic;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Aqua;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Brimstone;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Chaotic;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Evasion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Thorns;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.RingOfFuror;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.RingOfPoison;
@@ -80,6 +83,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Vampir
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Venomous;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Vorpal;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Whirlwind;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.missiles.MissileWeapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Firefoxglove;
@@ -510,10 +514,13 @@ abstract public class Weapon extends KindOfWeapon {
 
             //thorns fly
             if(enchantment instanceof Whirlwind && glyph instanceof Thorns){
-                for(int i : PathFinder.NEIGHBOURS8){
-                    if(Actor.findChar(attacker.pos+i) != null){
-                        if(Actor.findChar(attacker.pos+i) instanceof Mob){
-                            Buff.affect( Actor.findChar(attacker.pos+i), Bleeding.class).set( Math.max( 2, damage));
+                for(Mob mob : Dungeon.level.mobs){
+                    if(attacker instanceof Hero){
+                        if(((Hero) attacker).belongings.weapon instanceof MeleeWeapon){
+                            Weapon weapon = (Weapon) ((Hero) attacker).belongings.weapon;
+                            if(Dungeon.level.distance(attacker.pos, mob.pos) <= weapon.RCH){
+                                Buff.affect( mob, Bleeding.class).set( Math.max( 2, damage));
+                            }
                         }
                     }
                 }
@@ -542,6 +549,24 @@ abstract public class Weapon extends KindOfWeapon {
                 }
             }
 
+            //water and electricity make for some good shit
+            if(enchantment instanceof Shocking && glyph instanceof Aqua) {
+                ArrayList<Lightning.Arc> arcs = new ArrayList<>();
+                for(Mob mob : Dungeon.level.mobs){
+                    if(Dungeon.level.water[mob.pos] && Dungeon.level.heroFOV[mob.pos]){
+                        arcs.add(new Lightning.Arc(attacker.sprite.center(), mob.sprite.center()));
+                        mob.damage(Math.round(damage/3), attacker);
+                    }
+                }
+                if(!arcs.isEmpty()){
+                    attacker.sprite.parent.addToFront( new Lightning( arcs, null ) );
+                }
+            }
+
+            //super reflexes
+            if(enchantment instanceof Swift && glyph instanceof Evasion) {
+                Buff.prolong( attacker, Speed.class, Speed.DURATION );
+            }
 
         }
 

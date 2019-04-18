@@ -37,10 +37,10 @@ public class Fauna extends Armor.Glyph {
 	public int proc(Armor armor, Char attacker, Char defender, int damage) {
 		//no proc effect, see HighGrass.trample
 
-        if(attacker instanceof Hero){
-            if(((Hero) attacker).belongings.weapon instanceof Weapon){
-                if(((Weapon) ((Hero) attacker).belongings.weapon).enchantment != null){
-                    Weapon.Enchantment.comboProc(((Weapon) ((Hero) attacker).belongings.weapon).enchantment, this, attacker, defender, damage);
+        if(defender instanceof Hero){
+            if(((Hero) defender).belongings.weapon instanceof Weapon){
+                if(((Weapon) ((Hero) defender).belongings.weapon).enchantment != null){
+                    Weapon.Enchantment.comboProc(((Weapon) ((Hero) defender).belongings.weapon).enchantment, this, defender, attacker, damage);
                 }
             }
         }

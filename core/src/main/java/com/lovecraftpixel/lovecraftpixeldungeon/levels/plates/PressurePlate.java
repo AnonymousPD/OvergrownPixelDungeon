@@ -25,6 +25,7 @@ package com.lovecraftpixel.lovecraftpixeldungeon.levels.plates;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.Assets;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
+import com.lovecraftpixel.lovecraftpixeldungeon.levels.Level;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
 import com.watabou.noosa.audio.Sample;
@@ -52,14 +53,14 @@ public abstract class PressurePlate implements Bundlable {
 				Sample.INSTANCE.play(Assets.SND_TRAP);
 			}
 			active = true;
-			activate();
+			activate(Dungeon.level, pos);
 		}
         GameScene.updateMap(pos);
 	}
 
 
-    public abstract void deactivate();
-	public abstract void activate();
+    public abstract void deactivate(Level level, int pos);
+	public abstract void activate(Level level, int pos);
 
 	private static final String POS	= "pos";
 	private static final String ACTIVE = "active";

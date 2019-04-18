@@ -539,7 +539,7 @@ public class Hero extends Char {
                 if(Actor.findChar(Dungeon.level.plates.get(plate.pos).pos) == null){
                     if(Dungeon.level.heaps.get(Dungeon.level.plates.get(plate.pos).pos) == null){
                         Dungeon.level.plates.get(plate.pos).active = false;
-                        Dungeon.level.plates.get(plate.pos).deactivate();
+                        Dungeon.level.plates.get(plate.pos).deactivate(Dungeon.level, plate.pos);
                         GameScene.updateMap(Dungeon.level.plates.get(plate.pos).pos);
                     }
                 }

@@ -33,6 +33,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.PotionOfInvisibili
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Level;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Terrain;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.painters.Painter;
+import com.lovecraftpixel.lovecraftpixeldungeon.levels.plates.PressurePlatePoolRoom;
 import com.watabou.utils.Random;
 
 public class PoolRoom extends SpecialRoom {
@@ -49,7 +50,7 @@ public class PoolRoom extends SpecialRoom {
 		return 6;
 	}
 	
-	public void paint(Level level ) {
+	public void paint(final Level level ) {
 		
 		Painter.fill( level, this, Terrain.WALL );
 		Painter.fill( level, this, 1, Terrain.WATER );
@@ -89,6 +90,12 @@ public class PoolRoom extends SpecialRoom {
 		level.drop( prize( level ), pos ).type =
 			Random.Int( 3 ) == 0 ? Heap.Type.CHEST : Heap.Type.HEAP;
 		Painter.set( level, pos, Terrain.PEDESTAL );
+
+        PressurePlatePoolRoom pressurePlatePoolRoom = new PressurePlatePoolRoom();
+
+        int platepos = level.pointToCell(center());
+        level.setPlate(pressurePlatePoolRoom, platepos);
+        Painter.set(level, platepos, Terrain.PEDESTAL);
 		
 		level.addItemToSpawn( new PotionOfInvisibility() );
 		

@@ -438,13 +438,13 @@ public class ChangesScene extends PixelScene {
         changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.ARMOR_MAIL, new Explosion().glowing()), new Explosion().name("armor"),
                 new Explosion().desc()));
 
-        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.ARMOR_MAIL, new Aqua().glowing()), new Explosion().name("armor"),
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.ARMOR_MAIL, new Aqua().glowing()), new Aqua().name("armor"),
                 new Aqua().desc()));
 
-        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.ARMOR_MAIL, new Fauna().glowing()), new Explosion().name("armor"),
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.ARMOR_MAIL, new Fauna().glowing()), new Fauna().name("armor"),
                 new Fauna().desc()));
 
-        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.ARMOR_MAIL, new Evasion().glowing()), new Explosion().name("armor"),
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.ARMOR_MAIL, new Evasion().glowing()), new Evasion().name("armor"),
                 new Evasion().desc()));
 
         changes = new ChangeInfo("Spells", false, null);

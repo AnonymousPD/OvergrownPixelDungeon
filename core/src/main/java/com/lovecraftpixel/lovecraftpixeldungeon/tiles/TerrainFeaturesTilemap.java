@@ -118,6 +118,21 @@ public class TerrainFeaturesTilemap extends DungeonTilemap {
 	    return img;
     }
 
+    public static Image getPressurePlateSprite(boolean active){
+        TerrainFeaturesTilemap terrainFeaturesTilemap = new TerrainFeaturesTilemap();
+        RectF uv;
+        if(active){
+            uv = terrainFeaturesTilemap.instance.tileset.get( 10*16 );
+        } else {
+           uv = terrainFeaturesTilemap.instance.tileset.get( 1+10*16 );
+        }
+        if (uv == null) return null;
+
+        Image img = new Image( terrainFeaturesTilemap.instance.texture );
+        img.frame(uv);
+        return img;
+    }
+
 	public void growPlant( final int pos ){
 		final Image plant = tile( pos, map[pos] );
 		if (plant == null) return;

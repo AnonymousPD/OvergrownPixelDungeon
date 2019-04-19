@@ -25,10 +25,18 @@ package com.lovecraftpixel.lovecraftpixeldungeon.scenes;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.Chrome;
 import com.lovecraftpixel.lovecraftpixeldungeon.LovecraftPixelDungeon;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.FlameB01;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.FriendlyWraith;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.livingplants.LivingPlant;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.npcs.Gardner;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.Item;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.Armor;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Aqua;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Chaotic;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Cloning;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Deflection;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Evasion;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Fauna;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfDarkness;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfDisease;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfEruption;
@@ -54,9 +62,12 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfTi
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.CrimsonEpithet;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.DoomCall;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.EnchantmentInfusion;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.ForcePush;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.Forcefield;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.HolyBlast;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.SeasonChange;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.SpontaneosCombustion;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Absorbing;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Blooming;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Explosion;
@@ -78,9 +89,11 @@ import com.lovecraftpixel.lovecraftpixeldungeon.plants.Butterlion;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Chandaliertail;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Chillisnapper;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Crimsonpepper;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Firebloom;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Firefoxglove;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Frostcorn;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Grasslilly;
+import com.lovecraftpixel.lovecraftpixeldungeon.plants.Icecap;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Kiwivetch;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Musclemoss;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Nightshadeonion;
@@ -96,11 +109,16 @@ import com.lovecraftpixel.lovecraftpixeldungeon.plants.Venusflytrap;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Waterweed;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Willowcane;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Witherfennel;
+import com.lovecraftpixel.lovecraftpixeldungeon.sprites.FlameBoiSprite;
+import com.lovecraftpixel.lovecraftpixeldungeon.sprites.GardnerSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
+import com.lovecraftpixel.lovecraftpixeldungeon.sprites.WraithSprite;
+import com.lovecraftpixel.lovecraftpixeldungeon.sprites.livingplants.LivingPlantSprite;
 import com.lovecraftpixel.lovecraftpixeldungeon.tiles.TerrainFeaturesTilemap;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.Archs;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.ExitButton;
+import com.lovecraftpixel.lovecraftpixeldungeon.ui.Icons;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.RenderedTextMultiline;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.ScrollPane;
 import com.lovecraftpixel.lovecraftpixeldungeon.ui.Window;
@@ -113,6 +131,7 @@ import com.watabou.noosa.NinePatch;
 import com.watabou.noosa.RenderedText;
 import com.watabou.noosa.TouchArea;
 import com.watabou.noosa.ui.Component;
+import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -171,6 +190,31 @@ public class ChangesScene extends PixelScene {
 		changes.hardlight( Window.TITLE_COLOR );
 		infos.add(changes);
 
+        changes = new ChangeInfo("Miscellaneous", false, null);
+        changes.hardlight( Window.SHPX_COLOR );
+        infos.add(changes);
+
+        changes.addButton( new ChangeButton( Icons.get(Icons.PREFS), "Intelligence",
+                "_-_ The hero has now a secret intelligence stat that can increase & decrease\n"+
+                        "_-_ You can miscast scrolls & spells if you are very stupid\n"+
+                        "_-_ You loose intelligence from hunger and from being low on health\n"+
+                        "_-_ You gain intelligence by successfully casting a spell or scroll\n"+
+                        "_-_ Miscasts can have random funny or severe effects"));
+
+        changes.addButton( new ChangeButton( Icons.get(Icons.PREFS), "Stupid Mobs",
+                "_-_ Some mobs can now be stupid or clever\n"+
+                        "_-_ Stupid mobs will follow smart mobs of the same mob class"));
+
+        changes.addButton( new ChangeButton( new Image(TerrainFeaturesTilemap.getPressurePlateSprite(Random.Boolean())), "Pressure Plate",
+                "_-_ Can be activated by stepping on it it or throwing something on it\n"+
+                        "_-_ Has different effects depending on the room it is located in"));
+
+        changes.addButton( new ChangeButton(new ItemSprite(Random.Int(ItemSpriteSheet.WORN_SHORTSWORD, ItemSpriteSheet.KNIFE_ON_A_STICK), Armor.Glyph.random().glowing()), "Enchantment + Glyph Combos",
+                "_-_ Having specific combinations of glyphs and enchantments on the hero at the same time grants some fitting extra effects"));
+
+        changes.addButton( new ChangeButton(new ItemSprite(Random.Int(ItemSpriteSheet.SEED_ROTBERRY, ItemSpriteSheet.SEED_MUSCLEMOSS), Weapon.Enchantment.random().glowing()), "Poison Weapons",
+                "_-_ You can now poison your weapons with seeds"));
+
         changes = new ChangeInfo("Weapons", false, null);
         changes.hardlight( Window.SHPX_COLOR );
         infos.add(changes);
@@ -201,7 +245,7 @@ public class ChangesScene extends PixelScene {
                 "_-_ Tier 3\n"+
                         "_-_ Has 2 tiles more reach than normal weapons"));
 
-        changes = new ChangeInfo("Plants", false, null);
+        changes = new ChangeInfo("Plants", false, "Plants can now be randomly generated in the dungeon.");
         changes.hardlight( Window.SHPX_COLOR );
         infos.add(changes);
 
@@ -394,6 +438,15 @@ public class ChangesScene extends PixelScene {
         changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.ARMOR_MAIL, new Explosion().glowing()), new Explosion().name("armor"),
                 new Explosion().desc()));
 
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.ARMOR_MAIL, new Aqua().glowing()), new Explosion().name("armor"),
+                new Aqua().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.ARMOR_MAIL, new Fauna().glowing()), new Explosion().name("armor"),
+                new Fauna().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.ARMOR_MAIL, new Evasion().glowing()), new Explosion().name("armor"),
+                new Evasion().desc()));
+
         changes = new ChangeInfo("Spells", false, null);
         changes.hardlight( Window.SHPX_COLOR );
         infos.add(changes);
@@ -416,7 +469,46 @@ public class ChangesScene extends PixelScene {
         changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.HOLYBLAST, null), new HolyBlast().name(),
                 new HolyBlast().desc()));
 
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.FORCE_PUSH, null), new ForcePush().name(),
+                new ForcePush().desc()));
 
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.SPONTANEOUS_COMBUSTION, null), new SpontaneosCombustion().name(),
+                new SpontaneosCombustion().desc()));
+
+        changes = new ChangeInfo("NPC's", false, null);
+        changes.hardlight( Window.SHPX_COLOR );
+        infos.add(changes);
+
+        changes.addButton( new ChangeButton( new GardnerSprite(), new Gardner().name,
+                new Gardner().description()));
+
+        changes = new ChangeInfo("Mobs", false, null);
+        changes.hardlight( Window.SHPX_COLOR );
+        infos.add(changes);
+
+        changes.addButton( new ChangeButton( new FlameBoiSprite(), new FlameB01().name,
+                new FlameB01().description()));
+
+        changes.addButton( new ChangeButton( new WraithSprite(), new FriendlyWraith().name,
+                new FriendlyWraith().description()));
+
+        changes = new ChangeInfo("Living Plants", false, "Living Plants have a chance to spawn from regular plants.");
+        changes.hardlight( Window.SHPX_COLOR );
+        infos.add(changes);
+
+        changes.addButton( new ChangeButton( new LivingPlantSprite(Random.Int(0, 38)), new LivingPlant().setPlantClass(new Icecap()).name,
+                new LivingPlant().setPlantClass(new Firebloom()).description()));
+
+        changes.addButton( new ChangeButton( new LivingPlantSprite(Random.Int(0, 38)), new LivingPlant().setPlantClass(new Grasslilly()).name,
+                new LivingPlant().setPlantClass(new Kiwivetch()).description()));
+
+        changes.addButton( new ChangeButton( new LivingPlantSprite(Random.Int(0, 38)), new LivingPlant().setPlantClass(new Steamweed()).name,
+                new LivingPlant().setPlantClass(new Sunbloom()).description()));
+
+        changes.addButton( new ChangeButton( new LivingPlantSprite(Random.Int(0, 38)), new LivingPlant().setPlantClass(new Chillisnapper()).name,
+                new LivingPlant().setPlantClass(new Musclemoss()).description()));
+
+        /**|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||**/
 
         changes = new ChangeInfo("Enchantments", false, null);
         changes.hardlight( Window.SHPX_COLOR );

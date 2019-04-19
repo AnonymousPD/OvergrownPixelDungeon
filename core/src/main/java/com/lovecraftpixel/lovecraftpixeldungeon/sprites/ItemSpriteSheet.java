@@ -653,12 +653,16 @@ public class ItemSpriteSheet {
         assignItemRect(SEASONCHANGE,    11, 11);
 	}
 
-    private static final int SPELLS_ROW2     =                               xy(1, 38);  //16 slots
-    public static final int PLANT_SUMMON     = SPELLS_ROW2+0;
-    public static final int NATURES_LULLABY  = SPELLS_ROW2+1;
+    private static final int SPELLS_ROW2            =                               xy(1, 38);  //16 slots
+    public static final int PLANT_SUMMON            = SPELLS_ROW2+0;
+    public static final int NATURES_LULLABY         = SPELLS_ROW2+1;
+    public static final int SPONTANEOUS_COMBUSTION  = SPELLS_ROW2+2;
+    public static final int FORCE_PUSH              = SPELLS_ROW2+3;
     static{
-        assignItemRect(PLANT_SUMMON,     10, 15);
-        assignItemRect(NATURES_LULLABY,  11, 11);
+        assignItemRect(PLANT_SUMMON,            10, 15);
+        assignItemRect(NATURES_LULLABY,         11, 11);
+        assignItemRect(SPONTANEOUS_COMBUSTION,   8, 16);
+        assignItemRect(FORCE_PUSH,               8, 16);
     }
 	
 	private static final int FOOD       =                                   xy(1, 28);  //16 slots

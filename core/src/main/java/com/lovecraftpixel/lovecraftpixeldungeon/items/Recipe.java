@@ -56,6 +56,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.CurseInfusion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.DoomCall;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.EnchantmentInfusion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.FeatherFall;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.ForcePush;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.Forcefield;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.HolyBlast;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.MagicalInfusion;
@@ -66,6 +67,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.PlantSummon;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.ReclaimTrap;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.Recycle;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.SeasonChange;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.SpontaneosCombustion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.wands.Wand;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.missiles.darts.Dart;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.missiles.darts.TippedDart;
@@ -224,6 +226,8 @@ public abstract class Recipe {
             new SeasonChange.Recipe(),
             new PlantSummon.Recipe(),
             new NaturesLullaby.Recipe(),
+            new SpontaneosCombustion.Recipe(),
+            new ForcePush.Recipe(),
 	};
 	
 	private static Recipe[] threeIngredientRecipes = new Recipe[]{

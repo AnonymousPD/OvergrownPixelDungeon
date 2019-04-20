@@ -346,7 +346,7 @@ public class PrisonBossLevel extends Level {
 				Dungeon.hero.sprite.place(Dungeon.hero.pos);
 
 				changeMap(MAP_ARENA);
-				clearEntities( (Room) new EmptyRoom().set(0, 0, 10, 4)); //clear all but the area right around the teleport spot
+				clearEntities( (Room) new EmptyRoom().set(0, 0, 10, 4)); //clear all but the area right around the disintegrate spot
 				
 				//if any allies are left over, move them along the same way as the hero
 				for (Mob m : mobs){

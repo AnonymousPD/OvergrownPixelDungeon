@@ -44,9 +44,12 @@ public class Musclemoss extends Plant {
 	@Override
 	public void activate( Char ch ) {
         int opposite;
+        int path;
         do{
-            opposite = pos + PathFinder.NEIGHBOURS8[Random.Int( 8 )];
-        } while (Dungeon.level.map[opposite] == Terrain.WALL || Dungeon.level.map[opposite] == Terrain.WALL_DECO);
+            path = PathFinder.NEIGHBOURS8[Random.Int( 8 )];
+            opposite = pos + path;
+        } while ((Dungeon.level.map[opposite] == Terrain.WALL || Dungeon.level.map[opposite] == Terrain.WALL_DECO)
+                && (Dungeon.level.map[opposite+path] == Terrain.WALL || Dungeon.level.map[opposite+path] == Terrain.WALL_DECO));
         Ballistica trajectory = new Ballistica(pos, opposite, Ballistica.MAGIC_BOLT);
         WandOfBlastWave.throwChar(ch, trajectory, 100);
 	}
@@ -56,9 +59,12 @@ public class Musclemoss extends Plant {
         Plant.spawnLasher(pos);
         if(Actor.findChar(pos) != null){
             int opposite;
+            int path;
             do{
-                opposite = pos + PathFinder.NEIGHBOURS8[Random.Int( 8 )];
-            } while (Dungeon.level.map[opposite] == Terrain.WALL || Dungeon.level.map[opposite] == Terrain.WALL_DECO);
+                path = PathFinder.NEIGHBOURS8[Random.Int( 8 )];
+                opposite = pos + path;
+            } while ((Dungeon.level.map[opposite] == Terrain.WALL || Dungeon.level.map[opposite] == Terrain.WALL_DECO)
+                    && (Dungeon.level.map[opposite+path] == Terrain.WALL || Dungeon.level.map[opposite+path] == Terrain.WALL_DECO));
             Ballistica trajectory = new Ballistica(pos, opposite, Ballistica.MAGIC_BOLT);
             WandOfBlastWave.throwChar(Actor.findChar(pos), trajectory, 100);
         }

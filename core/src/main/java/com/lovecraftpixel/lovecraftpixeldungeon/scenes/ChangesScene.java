@@ -70,11 +70,16 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.spells.SpontaneosCombustio
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Absorbing;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Blooming;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Disintegrating;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Explosion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Flashing;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Hitting;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Midas;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Momentum;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Precise;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Swift;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Teleporting;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.TimeReset;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Whirlwind;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Club;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.Katana;
@@ -421,6 +426,22 @@ public class ChangesScene extends PixelScene {
 
         changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.SWORD, new Absorbing().glowing()), new Absorbing().name("weapon"),
                 new Absorbing().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.SWORD, new Disintegrating().glowing()), new Disintegrating().name("weapon"),
+                new Disintegrating().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.SWORD, new Momentum().glowing()), new Momentum().name("weapon"),
+                new Momentum().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.SWORD, new Teleporting().glowing()), new Teleporting().name("weapon"),
+                new Teleporting().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.SWORD, new TimeReset().glowing()), new TimeReset().name("weapon"),
+                new TimeReset().desc()));
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.SWORD, new Hitting().glowing()), new Hitting().name("weapon"),
+                new Hitting().desc()));
+
 
         changes = new ChangeInfo("Glyphs", false, null);
         changes.hardlight( Window.SHPX_COLOR );
@@ -846,7 +867,7 @@ public class ChangesScene extends PixelScene {
 				"_-_ All other transfusion functionality has been removed"));
 		
 		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.SCROLL_KAUNAN, null), new ScrollOfTeleportation().trueName(),
-				"The scroll of teleportation has been buffed. It now prioritizes sending the user to rooms they have not seen yet, and can teleport to secret rooms."));
+				"The scroll of teleportation has been buffed. It now prioritizes sending the user to rooms they have not seen yet, and can disintegrate to secret rooms."));
 		
 		changes.addButton( new ChangeButton(new ItemSprite(ItemSpriteSheet.SCROLL_ODAL, null), new ScrollOfMirrorImage().trueName(),
 				"Scroll of mirror image has been adjusted to have more interactions with other items, but to also be less powerful at base:\n\n" +

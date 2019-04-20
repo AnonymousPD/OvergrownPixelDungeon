@@ -67,17 +67,23 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Blazin
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Blooming;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Chilling;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Dazzling;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Disintegrating;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Eating;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Eldritch;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Explosion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Flashing;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Grim;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Hitting;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Lucky;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Midas;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Momentum;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Precise;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Projecting;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Shocking;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Stunning;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Swift;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Teleporting;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.TimeReset;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Unstable;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Vampiric;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Venomous;
@@ -85,6 +91,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Vorpal
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Whirlwind;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.melee.MeleeWeapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.missiles.MissileWeapon;
+import com.lovecraftpixel.lovecraftpixeldungeon.mechanics.Ballistica;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Firefoxglove;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Plant;
@@ -108,6 +115,8 @@ abstract public class Weapon extends KindOfWeapon {
 	private static final int HITS_TO_KNOW    = 20;
 
     public static final String AC_POSION		= "POISON";
+    public static final String AC_DISINTEGRATE  = "DISINTEGRATE";
+    public static final String AC_TELEPORT      = "TELEPORT";
 
     protected static final float TIME_TO_POISON	= 1f;
 
@@ -151,12 +160,20 @@ abstract public class Weapon extends KindOfWeapon {
 
     public int torch_level = 0;
     public int poison_turns = 0;
+    public boolean hasTeleport = false;
+    public boolean hasDisintegrate = false;
 
     @Override
     public ArrayList<String> actions(Hero hero ) {
         ArrayList<String> actions = super.actions( hero );
         if(seed == null && isIdentified() && !(this instanceof MissileWeapon) && !(this instanceof SpiritBow)){
             actions.add( AC_POSION );
+        }
+        if(this.hasEnchant(Disintegrating.class, hero) && this.isEquipped(hero) && isIdentified() && hasDisintegrate){
+            actions.add( AC_DISINTEGRATE );
+        }
+        if(this.hasEnchant(Teleporting.class, hero) && this.isEquipped(hero) && isIdentified() && hasTeleport){
+            actions.add( AC_TELEPORT );
         }
         return actions;
     }
@@ -168,6 +185,14 @@ abstract public class Weapon extends KindOfWeapon {
 
         if (action.equals( AC_POSION )) {
             GameScene.selectItem( itemSelector, mode, inventoryTitle );
+        }
+
+        if (action.equals( AC_DISINTEGRATE )) {
+            new Disintegrating().disintegrate(hero, this);
+        }
+
+        if (action.equals( AC_TELEPORT )) {
+            new Teleporting().teleport(hero, this);
         }
     }
 
@@ -279,6 +304,8 @@ abstract public class Weapon extends KindOfWeapon {
     private static final String SEED		    = "seed";
     private static final String TORCH_LEVEL		= "torchlevel";
     private static final String POISON_TURNS	= "poisonturns";
+    private static final String HAS_TELEPORT	= "hasteleport";
+    private static final String HAS_DISINTEGRATE= "hasdisintegrate";
 
 	@Override
 	public void storeInBundle( Bundle bundle ) {
@@ -289,6 +316,8 @@ abstract public class Weapon extends KindOfWeapon {
         bundle.put( SEED, seed );
         bundle.put( TORCH_LEVEL, torch_level );
         bundle.put( POISON_TURNS, poison_turns );
+        bundle.put( HAS_TELEPORT, hasTeleport );
+        bundle.put( HAS_DISINTEGRATE, hasDisintegrate );
 	}
 	
 	@Override
@@ -299,6 +328,8 @@ abstract public class Weapon extends KindOfWeapon {
         seed = (Plant.Seed) bundle.get( SEED );
         torch_level = bundle.getInt(TORCH_LEVEL);
         poison_turns = bundle.getInt(POISON_TURNS);
+        hasTeleport = bundle.getBoolean( HAS_TELEPORT );
+        hasDisintegrate = bundle.getBoolean( HAS_DISINTEGRATE );
 	}
 	
 	@Override
@@ -439,14 +470,15 @@ abstract public class Weapon extends KindOfWeapon {
 	public static abstract class Enchantment implements Bundlable {
 		
 		private static final Class<?>[] common = new Class<?>[]{
-				Blazing.class, Venomous.class, Vorpal.class, Shocking.class, Blooming.class, Absorbing.class};
+				Blazing.class, Venomous.class, Vorpal.class, Shocking.class, Blooming.class, Absorbing.class, Momentum.class, Hitting.class};
 		
 		private static final Class<?>[] uncommon = new Class<?>[]{
 				Chilling.class, Eldritch.class, Lucky.class, Precise.class,
-				Projecting.class, Unstable.class, Dazzling.class, Flashing.class, Midas.class};
+				Projecting.class, Unstable.class, Dazzling.class, Flashing.class, Midas.class, TimeReset.class, Eating.class};
 		
 		private static final Class<?>[] rare = new Class<?>[]{
-				Grim.class, Stunning.class, Vampiric.class, Explosion.class, Whirlwind.class, Swift.class};
+				Grim.class, Stunning.class, Vampiric.class, Explosion.class, Whirlwind.class, Swift.class, Teleporting.class,
+                Disintegrating.class};
 		
 		private static final float[] typeChances = new float[]{
 				50, //12.5% each
@@ -568,6 +600,15 @@ abstract public class Weapon extends KindOfWeapon {
                 Buff.prolong( attacker, Speed.class, Speed.DURATION );
             }
 
+            //Killa Queen
+            if(enchantment instanceof TimeReset && glyph instanceof com.lovecraftpixel.lovecraftpixeldungeon.items.armor.glyphs.Explosion) {
+                for(Mob mob : Dungeon.level.mobs){
+                    if(Dungeon.level.heroFOV[mob.pos]){
+                        new Explosion().explode(mob.pos, attacker);
+                    }
+                }
+            }
+
         }
 
 		@Override
@@ -655,6 +696,7 @@ abstract public class Weapon extends KindOfWeapon {
 				return null;
 			}
 		}
-		
-	}
+
+        public void affectTarget(Ballistica shot, Hero curUser) {}
+    }
 }

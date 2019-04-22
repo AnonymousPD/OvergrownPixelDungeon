@@ -21,37 +21,28 @@
  * along with this program. If not, see <http://www.gnu.org/licenses>
  */
 
-package com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy;
+package com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy;
 
-import com.lovecraftpixel.lovecraftpixeldungeon.Assets;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Blob;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Steam;
-import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.Potion;
-import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
-import com.watabou.noosa.audio.Sample;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Blindness;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.ExoticPotion;
 
-public class PotionOfSteam extends Potion {
-
+public class PotionOfEternalDarkness extends ExoticPotion {
+	
 	{
-		initials = 34;
+		initials = 25;
 	}
 
     @Override
-    public void shatter( int cell ) {
-
-        if (Dungeon.level.heroFOV[cell]) {
-            setKnown();
-
-            splash( cell );
-            Sample.INSTANCE.play( Assets.SND_SHATTER );
+    public void apply(Hero hero) {
+        setKnown();
+        for(Mob mob : Dungeon.level.mobs){
+            if(Dungeon.level.heroFOV[mob.pos]){
+                Buff.affect(mob, Blindness.class);
+            }
         }
-
-        GameScene.add( Blob.seed( cell, 1000, Steam.class ) );
     }
-
-    @Override
-	public int price() {
-		return isKnown() ? 50 * quantity : super.price();
-	}
 }

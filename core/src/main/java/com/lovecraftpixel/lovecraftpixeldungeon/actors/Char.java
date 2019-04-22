@@ -60,6 +60,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.ShieldBuff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Slow;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Speed;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Stamina;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.TeleportImbue;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Terror;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Vertigo;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Wither;
@@ -281,6 +282,8 @@ public abstract class Char extends Actor {
 				buff(EarthImbue.class).proc(enemy);
 			if (buff(FrostImbue.class) != null)
 				buff(FrostImbue.class).proc(enemy);
+            if (buff(TeleportImbue.class) != null)
+                buff(TeleportImbue.class).proc(enemy);
 
 			enemy.sprite.bloodBurstA( sprite.center(), effectiveDamage );
 			enemy.sprite.flash();

@@ -191,7 +191,7 @@ public class ChangesScene extends PixelScene {
 		//**********************
 		//       v0.0.1
 		//**********************
-		ChangeInfo changes = new ChangeInfo("v0.0.1", true, "This is the initial update. I took a break from my other mods until a few friends and fellow Pixel Dungeon enthusiasts finally tracked me down and brought me back to finish my vision of a interesting and crazy Pixel Dungeon. Thanks dudes.");
+		ChangeInfo changes = new ChangeInfo("v0.0.1", true, "This is the initial update. I took a break from my other mods until a few friends and fellow Pixel Dungeon enthusiasts finally tracked me down and brought me back to finish my vision of an interesting and crazy Pixel Dungeon. Thanks dudes.");
 		changes.hardlight( Window.TITLE_COLOR );
 		infos.add(changes);
 

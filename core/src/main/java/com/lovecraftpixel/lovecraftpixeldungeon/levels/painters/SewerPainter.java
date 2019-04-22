@@ -23,6 +23,7 @@
 
 package com.lovecraftpixel.lovecraftpixeldungeon.levels.painters;
 
+import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.npcs.Gardner;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Level;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Terrain;
@@ -39,7 +40,9 @@ public class SewerPainter extends RegularPainter {
 
         for (Room r : rooms) {
             if (r instanceof ExitRoom) {
-                Gardner.spawnGardner(level, r);
+                if(Dungeon.depth == 1){
+                    Gardner.spawnGardner(level, r);
+                }
                 break;
             }
         }

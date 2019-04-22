@@ -21,37 +21,43 @@
  * along with this program. If not, see <http://www.gnu.org/licenses>
  */
 
-package com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy;
+package com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.Assets;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Blob;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Steam;
-import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.Potion;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.UnfilteredSunlight;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Healing;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Light;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
 import com.watabou.noosa.audio.Sample;
 
-public class PotionOfSteam extends Potion {
-
+public class PotionOfUltraviolet extends ExoticPotion {
+	
 	{
-		initials = 34;
+		initials = 28;
 	}
 
     @Override
-    public void shatter( int cell ) {
+    public void apply(Hero hero) {
+        setKnown();
+        Buff.affect(hero, Light.class, Light.DURATION);
+        Buff.affect( hero, Healing.class ).setHeal((int)(0.8f*hero.HT * 4), 0.25f, 0);
+    }
 
-        if (Dungeon.level.heroFOV[cell]) {
+    @Override
+    public void shatter(int cell) {
+
+	    if (Dungeon.level.heroFOV[cell]) {
             setKnown();
 
             splash( cell );
             Sample.INSTANCE.play( Assets.SND_SHATTER );
         }
 
-        GameScene.add( Blob.seed( cell, 1000, Steam.class ) );
+        GameScene.add( Blob.seed( cell, 1000, UnfilteredSunlight.class ) );
     }
-
-    @Override
-	public int price() {
-		return isKnown() ? 50 * quantity : super.price();
-	}
 }

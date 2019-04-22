@@ -27,12 +27,14 @@ import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Actor;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Healing;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Dehydrated;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Levitation;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Vertigo;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.BlobEmitter;
-import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.SunlightParticle;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 
-public class Sunlight extends Blob {
+public class HotSteam extends Blob {
 
 	@Override
 	protected void evolve() {
@@ -41,28 +43,34 @@ public class Sunlight extends Blob {
 		Char ch;
 		int cell;
 
+        Freezing freeze = (Freezing)Dungeon.level.blobs.get( Freezing.class );
+
 		for (int i = area.left; i < area.right; i++){
 			for (int j = area.top; j < area.bottom; j++){
 				cell = i + j*Dungeon.level.width();
 				if (cur[cell] > 0 && (ch = Actor.findChar( cell )) != null) {
+
+				    if (freeze != null && freeze.volume > 0 && freeze.cur[cell] > 0){
+                        freeze.clear(cell);
+                        off[cell] = cur[cell] = 0;
+                        continue;
+                    }
+
 					if (!ch.isImmune(this.getClass()))
-					    if(ch.properties().contains(Char.Property.UNDEAD)){
-					        ch.die(this);
-					    } else {
-					        if(!ch.properties().contains(Char.Property.INORGANIC)){
-					            Buff.affect( ch, Healing.class ).setHeal((int)(0.8f*ch.HT + 14), 0.25f, 0);
-					        }
-					    }
+                        Buff.affect( ch, Levitation.class, Levitation.DURATION/2 );
+                        Buff.affect( ch, Vertigo.class, Levitation.DURATION/2 );
+                        Buff.affect( ch, Dehydrated.class, Dehydrated.DURATION );
 				}
 			}
 		}
 	}
 
-    @Override
-    public void use( BlobEmitter emitter ) {
-        super.use( emitter );
-        emitter.start( SunlightParticle.FACTORY, 0.9f, 1 );
-    }
+	@Override
+	public void use( BlobEmitter emitter ) {
+		super.use( emitter );
+
+		emitter.pour( Speck.factory(Speck.STEAM), 1f );
+	}
 
 	@Override
 	public String tileDesc() {

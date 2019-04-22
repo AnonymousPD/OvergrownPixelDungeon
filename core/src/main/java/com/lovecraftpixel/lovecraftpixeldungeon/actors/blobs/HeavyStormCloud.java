@@ -25,47 +25,59 @@ package com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Actor;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Healing;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Slow;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.BlobEmitter;
-import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.SunlightParticle;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
+import com.lovecraftpixel.lovecraftpixeldungeon.levels.Level;
+import com.lovecraftpixel.lovecraftpixeldungeon.levels.Terrain;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
+import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
 
-public class Sunlight extends Blob {
-
+public class HeavyStormCloud extends Blob {
+	
 	@Override
 	protected void evolve() {
 		super.evolve();
-
-		Char ch;
+		
 		int cell;
-
+		
 		for (int i = area.left; i < area.right; i++){
 			for (int j = area.top; j < area.bottom; j++){
 				cell = i + j*Dungeon.level.width();
-				if (cur[cell] > 0 && (ch = Actor.findChar( cell )) != null) {
-					if (!ch.isImmune(this.getClass()))
-					    if(ch.properties().contains(Char.Property.UNDEAD)){
-					        ch.die(this);
-					    } else {
-					        if(!ch.properties().contains(Char.Property.INORGANIC)){
-					            Buff.affect( ch, Healing.class ).setHeal((int)(0.8f*ch.HT + 14), 0.25f, 0);
-					        }
-					    }
+				if (off[cell] > 0) {
+					int terr = Dungeon.level.map[cell];
+					if (terr == Terrain.EMPTY || terr == Terrain.GRASS ||
+							terr == Terrain.EMBERS || terr == Terrain.EMPTY_SP ||
+							terr == Terrain.HIGH_GRASS || terr == Terrain.FURROWED_GRASS
+							|| terr == Terrain.EMPTY_DECO) {
+						Level.set(cell, Terrain.WATER);
+						GameScene.updateMap(cell);
+                        if(Actor.findChar(cell) != null){
+                            Buff.affect( Actor.findChar(cell), Slow.class, Slow.DURATION );
+                        }
+					} else if (terr == Terrain.SECRET_TRAP || terr == Terrain.TRAP || terr == Terrain.INACTIVE_TRAP) {
+						Level.set(cell, Terrain.WATER);
+						Dungeon.level.traps.remove(cell);
+						GameScene.updateMap(cell);
+                        if(Actor.findChar(cell) != null){
+                            Buff.affect( Actor.findChar(cell), Slow.class, Slow.DURATION );
+                        }
+					}
 				}
 			}
 		}
 	}
-
-    @Override
-    public void use( BlobEmitter emitter ) {
-        super.use( emitter );
-        emitter.start( SunlightParticle.FACTORY, 0.9f, 1 );
-    }
-
+	
+	@Override
+	public void use( BlobEmitter emitter ) {
+		super.use( emitter );
+		emitter.pour( Speck.factory( Speck.STORM ), 0.4f );
+	}
+	
 	@Override
 	public String tileDesc() {
 		return Messages.get(this, "desc");
 	}
+	
 }

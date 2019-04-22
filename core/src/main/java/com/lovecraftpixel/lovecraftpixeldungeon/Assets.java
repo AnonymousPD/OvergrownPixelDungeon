@@ -137,12 +137,12 @@ public class Assets {
 	public static final String PRISON_EXIT  = "custom_tiles/prison_exit.png";
     public static final String HOUSE_1        = "custom_tiles/house_1.png";
 	
-	public static final String BUFFS_SMALL	= "gui/buffs.png";
-	public static final String BUFFS_LARGE	= "gui/large_buffs.png";
+	public static final String BUFFS_SMALL	    = "gui/buffs.png";
+	public static final String BUFFS_LARGE	    = "gui/large_buffs.png";
     public static final String DISEASES_SMALL	= "gui/diseases.png";
     public static final String DISEASES_LARGE	= "gui/large_diseases.png";
-	public static final String SPELL_ICONS	= "gui/spell_icons.png";
-	public static final String CONS_ICONS   = "gui/consumable_icons.png";
+	public static final String SPELL_ICONS	    = "gui/spell_icons.png";
+	public static final String CONS_ICONS       = "gui/consumable_icons.png";
 	
 	public static final String PIXELFONT    = "fonts/pixel_font.png";
 	public static final String FONT1X       = "fonts/font1x.png";

@@ -26,6 +26,9 @@ package com.lovecraftpixel.lovecraftpixeldungeon.plants;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Frost;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.FrostImbue;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.HeroSubClass;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.poisonparticles.FrostcornPoisonParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.sprites.ItemSpriteSheet;
 import com.watabou.noosa.particles.Emitter;
@@ -39,6 +42,10 @@ public class Frostcorn extends Plant {
 
 	@Override
 	public void activate( Char ch ) {
+
+        if (ch instanceof Hero && ((Hero) ch).subClass == HeroSubClass.WARDEN){
+            Buff.affect(ch, FrostImbue.class, 15f);
+        }
 
         Buff.prolong(ch, Frost.class, Frost.duration(ch) * Random.Float(5f, 7.5f));
 

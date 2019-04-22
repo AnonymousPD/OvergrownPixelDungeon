@@ -72,6 +72,7 @@ public class Speck extends Image {
 	public static final int BLIZZARD    = 119;
     public static final int SPORES      = 120;
     public static final int MIASMA      = 121;
+    public static final int TELEPORTING = 122;
 	
 	private static final int SIZE = 7;
 	
@@ -118,6 +119,7 @@ public class Speck extends Image {
 		case PARALYSIS:
 		case STENCH:
 		case CONFUSION:
+            case TELEPORTING:
 		case STORM:
 		case DUST:
 		case SMOKE:
@@ -323,6 +325,13 @@ public class Speck extends Image {
 			angle = Random.Float( 360 );
 			lifespan = Random.Float( 1f, 3f );
 			break;
+
+            case TELEPORTING:
+                hardlight( Random.Int( 0x1000000 ) | 0x000080 );
+                angularSpeed = Random.Float( -90, +90 );
+                angle = Random.Float( 360 );
+                lifespan = Random.Float( 0.5f, 3.5f );
+                break;
 			
 		case STORM:
 			hardlight( 0x8AD8D8 );
@@ -486,6 +495,11 @@ public class Speck extends Image {
 				am = (float)Math.sqrt( (p < 0.5f ? p : 1 - p) * 0.5f );
 				scale.set( 1 + p );
 				break;
+
+                case TELEPORTING:
+                    am = (float)Math.sqrt( (p < 0.5f ? p : 1 - p) * 1f );
+                    scale.set( 1 + p );
+                    break;
 
 			case CORROSION:
 				hardlight( ColorMath.interpolate( 0xAAAAAA, 0xFF8800 , p ));

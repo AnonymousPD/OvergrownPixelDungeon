@@ -322,12 +322,12 @@ public class WndJournal extends WndTabbed {
 					}
 				};
                 pageButtons[i].icon(new ItemSprite(ItemSpriteSheet.SOMETHING + spriteIndexes[i], null));
-				/*if (Document.ALCHEMY_GUIDE.hasPage(i)) {
+				if (Document.ALCHEMY_GUIDE.hasPage(i)) {
 					pageButtons[i].icon(new ItemSprite(ItemSpriteSheet.SOMETHING + spriteIndexes[i], null));
 				} else {
 					pageButtons[i].icon(new ItemSprite(ItemSpriteSheet.SOMETHING, null));
 					pageButtons[i].enable(false);
-				}*/
+				}
 				add( pageButtons[i] );
 			}
 			

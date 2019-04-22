@@ -59,6 +59,7 @@ public class PotionOfPlants extends Potion {
 
         affectedCells = new HashSet<>();
         visualCells = new HashSet<>();
+
         if (Dungeon.level.heroFOV[cell]) {
             setKnown();
 

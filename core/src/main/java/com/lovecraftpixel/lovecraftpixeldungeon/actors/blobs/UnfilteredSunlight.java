@@ -26,13 +26,16 @@ package com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Actor;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Blindness;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Healing;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.hero.Hero;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Mob;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.BlobEmitter;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.SunlightParticle;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
+import com.watabou.utils.Random;
 
-public class Sunlight extends Blob {
+public class UnfilteredSunlight extends Blob {
 
 	@Override
 	protected void evolve() {
@@ -46,13 +49,17 @@ public class Sunlight extends Blob {
 				cell = i + j*Dungeon.level.width();
 				if (cur[cell] > 0 && (ch = Actor.findChar( cell )) != null) {
 					if (!ch.isImmune(this.getClass()))
-					    if(ch.properties().contains(Char.Property.UNDEAD)){
-					        ch.die(this);
-					    } else {
-					        if(!ch.properties().contains(Char.Property.INORGANIC)){
-					            Buff.affect( ch, Healing.class ).setHeal((int)(0.8f*ch.HT + 14), 0.25f, 0);
-					        }
-					    }
+					    if(ch instanceof Mob){
+					        if(ch.alignment != Char.Alignment.ALLY || ch.alignment != Char.Alignment.NEUTRAL){
+                                Buff.prolong( ch, Blindness.class, Random.Int( 2, 5 ) );
+                                if(Random.Boolean()){
+                                    ch.die(this);
+                                }
+                            }
+                        }
+                        if(ch instanceof Hero){
+                            Buff.prolong( ch, Blindness.class, Random.Int( 2, 5 ) );
+                        }
 				}
 			}
 		}

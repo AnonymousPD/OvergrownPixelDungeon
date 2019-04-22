@@ -70,7 +70,7 @@ public class WndGardner extends Window {
                 @Override
                 protected void onClick() {
                     gardner.hasCompletedQuest = true;
-                    Dungeon.level.drop(new SandalsOfNature().identify(), gardner.pos);
+                    Dungeon.level.drop(new SandalsOfNature().identify(), Dungeon.hero.pos);
                     Notes.remove( Notes.Landmark.GARDNER );
                     removeDifferentSeeds();
                 }

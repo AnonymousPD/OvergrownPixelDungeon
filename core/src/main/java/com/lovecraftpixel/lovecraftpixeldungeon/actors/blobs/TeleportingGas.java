@@ -26,13 +26,12 @@ package com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Actor;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Buff;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Healing;
 import com.lovecraftpixel.lovecraftpixeldungeon.effects.BlobEmitter;
-import com.lovecraftpixel.lovecraftpixeldungeon.effects.particles.SunlightParticle;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.ScrollOfTeleportation;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 
-public class Sunlight extends Blob {
+public class TeleportingGas extends Blob {
 
 	@Override
 	protected void evolve() {
@@ -45,24 +44,20 @@ public class Sunlight extends Blob {
 			for (int j = area.top; j < area.bottom; j++){
 				cell = i + j*Dungeon.level.width();
 				if (cur[cell] > 0 && (ch = Actor.findChar( cell )) != null) {
-					if (!ch.isImmune(this.getClass()))
-					    if(ch.properties().contains(Char.Property.UNDEAD)){
-					        ch.die(this);
-					    } else {
-					        if(!ch.properties().contains(Char.Property.INORGANIC)){
-					            Buff.affect( ch, Healing.class ).setHeal((int)(0.8f*ch.HT + 14), 0.25f, 0);
-					        }
-					    }
+					if (!ch.isImmune(this.getClass())) {
+                        ScrollOfTeleportation.appear(ch, Dungeon.level.randomDestination());
+					}
 				}
 			}
 		}
 	}
 
-    @Override
-    public void use( BlobEmitter emitter ) {
-        super.use( emitter );
-        emitter.start( SunlightParticle.FACTORY, 0.9f, 1 );
-    }
+	@Override
+	public void use( BlobEmitter emitter ) {
+		super.use( emitter );
+
+		emitter.pour( Speck.factory( Speck.TELEPORTING, true ), 0.4f );
+	}
 
 	@Override
 	public String tileDesc() {

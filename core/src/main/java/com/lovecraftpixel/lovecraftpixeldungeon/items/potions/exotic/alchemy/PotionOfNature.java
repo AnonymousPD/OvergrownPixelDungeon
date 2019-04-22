@@ -21,25 +21,27 @@
  * along with this program. If not, see <http://www.gnu.org/licenses>
  */
 
-package com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy;
+package com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.Assets;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Blob;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Steam;
-import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.Potion;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.Actor;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.Char;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Lasher;
+import com.lovecraftpixel.lovecraftpixeldungeon.effects.Pushing;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.Generator;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
 import com.watabou.noosa.audio.Sample;
 
-public class PotionOfSteam extends Potion {
-
+public class PotionOfNature extends ExoticPotion {
+	
 	{
-		initials = 34;
+		initials = 16;
 	}
 
     @Override
-    public void shatter( int cell ) {
-
+    public void shatter(int cell) {
         if (Dungeon.level.heroFOV[cell]) {
             setKnown();
 
@@ -47,11 +49,15 @@ public class PotionOfSteam extends Potion {
             Sample.INSTANCE.play( Assets.SND_SHATTER );
         }
 
-        GameScene.add( Blob.seed( cell, 1000, Steam.class ) );
+        if (Actor.findChar(cell) == null && ((Dungeon.level.passable[cell] || Dungeon.level.avoid[cell]) && !Dungeon.level.pit[cell])) {
+            Lasher lasher = new Lasher();
+            lasher.pos = cell;
+            lasher.alignment = Char.Alignment.ALLY;
+            GameScene.add(lasher);
+            Actor.addDelayed(new Pushing(lasher, cell, lasher.pos), 0.0f);
+            lasher.move(lasher.pos);
+        } else {
+            Dungeon.level.drop(Generator.random(Generator.Category.SEED), cell).sprite.drop(cell);
+        }
     }
-
-    @Override
-	public int price() {
-		return isKnown() ? 50 * quantity : super.price();
-	}
 }

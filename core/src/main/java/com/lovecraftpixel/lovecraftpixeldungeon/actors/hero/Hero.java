@@ -49,6 +49,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Hunger;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Invisibility;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.MindVision;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Momentum;
+import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Muscle;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Paralysis;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.Regeneration;
 import com.lovecraftpixel.lovecraftpixeldungeon.actors.buffs.SnipersMark;
@@ -98,6 +99,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.RingOfTenacity;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.Scroll;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.ScrollOfMagicMapping;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.ScrollOfUpgrade;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.wands.WandOfBlastWave;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.SpiritBow;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.Weapon;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.weapon.enchantments.Precise;
@@ -110,6 +112,7 @@ import com.lovecraftpixel.lovecraftpixeldungeon.levels.Level;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Terrain;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.features.Chasm;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.plates.PressurePlate;
+import com.lovecraftpixel.lovecraftpixeldungeon.mechanics.Ballistica;
 import com.lovecraftpixel.lovecraftpixeldungeon.messages.Messages;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Earthroot;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Swiftthistle;
@@ -203,6 +206,7 @@ public class Hero extends Char {
 		researchedDiseases = new ArrayList<Class>();
 
 		intelligence = Random.Int(50, 100);
+
 	}
 	
 	public void updateHT( boolean boostHP ){
@@ -1399,6 +1403,10 @@ public class Hero extends Char {
 	public boolean isStarving() {
 		return buff(Hunger.class) != null && ((Hunger)buff( Hunger.class )).isStarving();
 	}
+
+    public boolean isHungry() {
+        return buff(Hunger.class) != null && ((Hunger)buff( Hunger.class )).isHungry();
+    }
 	
 	@Override
 	public void add( Buff buff ) {
@@ -1624,6 +1632,12 @@ public class Hero extends Char {
 				if (combo != null) combo.miss();
 			}
 		}
+
+		if(buff(Muscle.class) != null){
+            int opposite = pos + PathFinder.NEIGHBOURS8[Random.Int( 8 )];
+            Ballistica trajectory = new Ballistica(pos, opposite, Ballistica.MAGIC_BOLT);
+            WandOfBlastWave.throwChar(enemy, trajectory, 100);
+        }
 		
 		Invisibility.dispel();
 		spend( attackDelay() );

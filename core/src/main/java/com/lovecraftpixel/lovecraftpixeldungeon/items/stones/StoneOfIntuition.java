@@ -39,6 +39,29 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.PotionOfParalyticG
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.PotionOfPurity;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.PotionOfStrength;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.PotionOfToxicGas;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfDarkness;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfDisease;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfEruption;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfExplosion;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfFirestorm;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfFood;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfGlowing;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfHealth;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfHeat;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfIce;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfLight;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfMuscle;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfPlants;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfPower;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfRain;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfRegrowth;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSecretion;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSpirit;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSpores;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSteam;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSunlight;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfTeleportation;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfTime;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.Scroll;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.ScrollOfIdentify;
@@ -87,18 +110,41 @@ public class StoneOfIntuition extends InventoryStone {
 	
 	//in order of their consumable icon
 	public static Class[] potions = new Class[]{
-			PotionOfExperience.class,
-			PotionOfFrost.class,
-			PotionOfHaste.class,
-			PotionOfHealing.class,
-			PotionOfInvisibility.class,
-			PotionOfLevitation.class,
-			PotionOfLiquidFlame.class,
-			PotionOfMindVision.class,
-			PotionOfParalyticGas.class,
-			PotionOfPurity.class,
-			PotionOfStrength.class,
-			PotionOfToxicGas.class
+            PotionOfExperience.class,
+            PotionOfFrost.class,
+            PotionOfHaste.class,
+            PotionOfHealing.class,
+            PotionOfInvisibility.class,
+            PotionOfLevitation.class,
+            PotionOfLiquidFlame.class,
+            PotionOfMindVision.class,
+            PotionOfParalyticGas.class,
+            PotionOfPurity.class,
+            PotionOfStrength.class,
+            PotionOfToxicGas.class,
+            PotionOfDarkness.class,
+            PotionOfDisease.class,
+            PotionOfEruption.class,
+            PotionOfExplosion.class,
+            PotionOfFirestorm.class,
+            PotionOfFood.class,
+            PotionOfGlowing.class,
+            PotionOfHealth.class,
+            PotionOfHeat.class,
+            PotionOfIce.class,
+            PotionOfLight.class,
+            PotionOfMuscle.class,
+            PotionOfPlants.class,
+            PotionOfPower.class,
+            PotionOfRain.class,
+            PotionOfRegrowth.class,
+            PotionOfSecretion.class,
+            PotionOfSpirit.class,
+            PotionOfSpores.class,
+            PotionOfSteam.class,
+            PotionOfSunlight.class,
+            PotionOfTeleportation.class,
+            PotionOfTime.class
 	};
 	
 	public static Class[] scrolls = new Class[]{

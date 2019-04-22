@@ -40,6 +40,52 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.PotionOfParalyticG
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.PotionOfPurity;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.PotionOfStrength;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.PotionOfToxicGas;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfDarkness;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfDisease;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfEruption;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfExplosion;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfFirestorm;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfFood;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfGlowing;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfHealth;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfHeat;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfIce;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfLight;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfMuscle;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfPlants;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfPower;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfRain;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfRegrowth;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSecretion;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSpirit;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSpores;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSteam;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSunlight;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfTeleportation;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfTime;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy.PotionOfBiomass;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy.PotionOfBlizzard;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy.PotionOfCataclysm;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy.PotionOfEarthquake;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy.PotionOfEternalDarkness;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy.PotionOfFasting;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy.PotionOfHellstorm;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy.PotionOfHotSteam;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy.PotionOfInfernalHeat;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy.PotionOfInnerGlow;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy.PotionOfMutation;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy.PotionOfNature;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy.PotionOfNumbness;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy.PotionOfRainStorm;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy.PotionOfRetribution;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy.PotionOfSpace;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy.PotionOfSuperBug;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy.PotionOfSuperHealth;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy.PotionOfSuperPower;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy.PotionOfSuperStrength;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy.PotionOfTimeStop;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy.PotionOfTorment;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy.PotionOfUltraviolet;
 import com.lovecraftpixel.lovecraftpixeldungeon.plants.Plant;
 
 import java.util.ArrayList;
@@ -89,6 +135,75 @@ public class ExoticPotion extends Potion {
 		
 		regToExo.put(PotionOfParalyticGas.class, PotionOfEarthenArmor.class);
 		exoToReg.put(PotionOfEarthenArmor.class, PotionOfParalyticGas.class);
+
+        regToExo.put(PotionOfDarkness.class, PotionOfEternalDarkness.class);
+        exoToReg.put(PotionOfEternalDarkness.class, PotionOfDarkness.class);
+
+        regToExo.put(PotionOfDisease.class, PotionOfSuperBug.class);
+        exoToReg.put(PotionOfSuperBug.class, PotionOfDisease.class);
+
+        regToExo.put(PotionOfEruption.class, PotionOfEarthquake.class);
+        exoToReg.put(PotionOfEarthquake.class, PotionOfEruption.class);
+
+        regToExo.put(PotionOfExplosion.class, PotionOfCataclysm.class);
+        exoToReg.put(PotionOfCataclysm.class, PotionOfExplosion.class);
+
+        regToExo.put(PotionOfFirestorm.class, PotionOfHellstorm.class);
+        exoToReg.put(PotionOfHellstorm.class, PotionOfFirestorm.class);
+
+        regToExo.put(PotionOfFood.class, PotionOfFasting.class);
+        exoToReg.put(PotionOfFasting.class, PotionOfFood.class);
+
+        regToExo.put(PotionOfGlowing.class, PotionOfInnerGlow.class);
+        exoToReg.put(PotionOfInnerGlow.class, PotionOfGlowing.class);
+
+        regToExo.put(PotionOfHealth.class, PotionOfSuperHealth.class);
+        exoToReg.put(PotionOfSuperHealth.class, PotionOfHealth.class);
+
+        regToExo.put(PotionOfHeat.class, PotionOfInfernalHeat.class);
+        exoToReg.put(PotionOfInfernalHeat.class, PotionOfHeat.class);
+
+        regToExo.put(PotionOfIce.class, PotionOfBlizzard.class);
+        exoToReg.put(PotionOfBlizzard.class, PotionOfIce.class);
+
+        regToExo.put(PotionOfLight.class, PotionOfRetribution.class);
+        exoToReg.put(PotionOfRetribution.class, PotionOfLight.class);
+
+        regToExo.put(PotionOfMuscle.class, PotionOfSuperStrength.class);
+        exoToReg.put(PotionOfSuperStrength.class, PotionOfMuscle.class);
+
+        regToExo.put(PotionOfPlants.class, PotionOfBiomass.class);
+        exoToReg.put(PotionOfBiomass.class, PotionOfPlants.class);
+
+		regToExo.put(PotionOfPower.class, PotionOfSuperPower.class);
+        exoToReg.put(PotionOfSuperPower.class, PotionOfPower.class);
+
+        regToExo.put(PotionOfRain.class, PotionOfRainStorm.class);
+        exoToReg.put(PotionOfRainStorm.class, PotionOfRain.class);
+
+        regToExo.put(PotionOfRegrowth.class, PotionOfNature.class);
+        exoToReg.put(PotionOfNature.class, PotionOfRegrowth.class);
+
+        regToExo.put(PotionOfSecretion.class, PotionOfNumbness.class);
+        exoToReg.put(PotionOfNumbness.class, PotionOfSecretion.class);
+
+        regToExo.put(PotionOfSpirit.class, PotionOfTorment.class);
+        exoToReg.put(PotionOfTorment.class, PotionOfSpirit.class);
+
+        regToExo.put(PotionOfSpores.class, PotionOfMutation.class);
+        exoToReg.put(PotionOfMutation.class, PotionOfSpores.class);
+
+        regToExo.put(PotionOfSteam.class, PotionOfHotSteam.class);
+        exoToReg.put(PotionOfHotSteam.class, PotionOfSteam.class);
+
+        regToExo.put(PotionOfSunlight.class, PotionOfUltraviolet.class);
+        exoToReg.put(PotionOfUltraviolet.class, PotionOfSunlight.class);
+
+        regToExo.put(PotionOfTeleportation.class, PotionOfSpace.class);
+        exoToReg.put(PotionOfSpace.class, PotionOfTeleportation.class);
+
+        regToExo.put(PotionOfTime.class, PotionOfTimeStop.class);
+        exoToReg.put(PotionOfTimeStop.class, PotionOfTime.class);
 	}
 	
 	@Override

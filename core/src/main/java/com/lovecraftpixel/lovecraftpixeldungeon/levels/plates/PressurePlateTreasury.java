@@ -32,7 +32,6 @@ import com.lovecraftpixel.lovecraftpixeldungeon.effects.Speck;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Level;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.RegularLevel;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Terrain;
-import com.lovecraftpixel.lovecraftpixeldungeon.levels.painters.Painter;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.rooms.Room;
 import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
 import com.watabou.noosa.Camera;
@@ -73,7 +72,7 @@ public class PressurePlateTreasury extends PressurePlate {
                         return;
                     }
                 } while (level.map[statpos] != Terrain.STATUE);
-                Painter.set(level, statpos, Terrain.PEDESTAL);
+                Level.set(statpos, Terrain.PEDESTAL);
                 Statue statue = new Statue();
                 statue.pos = statpos;
                 level.mobs.add( statue );

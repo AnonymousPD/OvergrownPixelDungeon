@@ -728,7 +728,7 @@ public abstract class Level implements Bundlable {
 		    plant.wither();
 		}
 
-		if(!terrain){
+		if(terrain){
             if (map[pos] == Terrain.HIGH_GRASS ||
                     map[pos] == Terrain.FURROWED_GRASS ||
                     map[pos] == Terrain.EMPTY ||

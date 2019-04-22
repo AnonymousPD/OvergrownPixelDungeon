@@ -61,6 +61,29 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.PotionOfParalyticG
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.PotionOfPurity;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.PotionOfStrength;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.PotionOfToxicGas;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfDarkness;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfDisease;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfEruption;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfExplosion;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfFirestorm;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfFood;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfGlowing;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfHealth;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfHeat;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfIce;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfLight;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfMuscle;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfPlants;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfPower;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfRain;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfRegrowth;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSecretion;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSpirit;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSpores;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSteam;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfSunlight;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfTeleportation;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy.PotionOfTime;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.Ring;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.RingOfAccuracy;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.rings.RingOfElements;
@@ -86,7 +109,6 @@ import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.ScrollOfTeleportat
 import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.ScrollOfTerror;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.ScrollOfTransmutation;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.ScrollOfUpgrade;
-import com.lovecraftpixel.lovecraftpixeldungeon.items.scrolls.special.RoyalDecreeOfTheEmperor;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.stones.Runestone;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.stones.StoneOfAffection;
 import com.lovecraftpixel.lovecraftpixeldungeon.items.stones.StoneOfAggression;
@@ -227,8 +249,9 @@ public class Generator {
 		
 		FOOD	( 0,    Food.class ),
 		
-		POTION	( 20,   Potion.class ),
-		SEED	( 0,    Plant.Seed.class ),
+		POTION	    ( 20,   Potion.class ),
+        ALLPOTIONS	( 20,   Potion.class ),
+		SEED	    ( 0,    Plant.Seed.class ),
         BASESEED	( 0,    Plant.Seed.class ),
         SEEDWATER	( 0,    Plant.Seed.class ),
         SEEDSEWER	( 0,    Plant.Seed.class ),
@@ -284,6 +307,44 @@ public class Generator {
 					PotionOfPurity.class,
 					PotionOfExperience.class};
 			POTION.probs = new float[]{ 0, 6, 4, 3, 3, 3, 2, 2, 2, 2, 2, 1 };
+
+            ALLPOTIONS.classes = new Class<?>[]{
+                    PotionOfExperience.class,
+                    PotionOfFrost.class,
+                    PotionOfHaste.class,
+                    PotionOfHealing.class,
+                    PotionOfInvisibility.class,
+                    PotionOfLevitation.class,
+                    PotionOfLiquidFlame.class,
+                    PotionOfMindVision.class,
+                    PotionOfParalyticGas.class,
+                    PotionOfPurity.class,
+                    PotionOfStrength.class,
+                    PotionOfToxicGas.class,
+                    PotionOfDarkness.class,
+                    PotionOfDisease.class,
+                    PotionOfEruption.class,
+                    PotionOfExplosion.class,
+                    PotionOfFirestorm.class,
+                    PotionOfFood.class,
+                    PotionOfGlowing.class,
+                    PotionOfHealth.class,
+                    PotionOfHeat.class,
+                    PotionOfIce.class,
+                    PotionOfLight.class,
+                    PotionOfMuscle.class,
+                    PotionOfPlants.class,
+                    PotionOfPower.class,
+                    PotionOfRain.class,
+                    PotionOfRegrowth.class,
+                    PotionOfSecretion.class,
+                    PotionOfSpirit.class,
+                    PotionOfSpores.class,
+                    PotionOfSteam.class,
+                    PotionOfSunlight.class,
+                    PotionOfTeleportation.class,
+                    PotionOfTime.class};
+            ALLPOTIONS.probs = new float[]{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
 			
 			SEED.classes = new Class<?>[]{
 					Rotberry.Seed.class, //quest item
@@ -520,9 +581,9 @@ public class Generator {
 					ScrollOfRetribution.class,
 					ScrollOfTerror.class,
 					ScrollOfTransmutation.class,
-                    RoyalDecreeOfTheEmperor.class //doesn't naturally spawn
+                    //RoyalDecreeOfTheEmperor.class //doesn't naturally spawn
 			};
-			SCROLL.probs = new float[]{ 0, 6, 4, 3, 3, 3, 2, 2, 2, 2, 2, 1, 0 };
+			SCROLL.probs = new float[]{ 0, 6, 4, 3, 3, 3, 2, 2, 2, 2, 2, 1, /*0*/ };
 			
 			STONE.classes = new Class<?>[]{
 					StoneOfEnchantment.class,   //1 is guaranteed to drop on floors 6-19

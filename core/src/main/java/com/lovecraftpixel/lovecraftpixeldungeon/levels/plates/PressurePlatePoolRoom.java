@@ -28,7 +28,6 @@ import com.lovecraftpixel.lovecraftpixeldungeon.actors.mobs.Piranha;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Level;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.RegularLevel;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.Terrain;
-import com.lovecraftpixel.lovecraftpixeldungeon.levels.painters.Painter;
 import com.lovecraftpixel.lovecraftpixeldungeon.levels.rooms.Room;
 import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
 import com.watabou.utils.Point;
@@ -59,7 +58,7 @@ public class PressurePlatePoolRoom extends PressurePlate {
                     }
                 }
                 for(Point p : points){
-                    Painter.set(level, level.pointToCell(p), Terrain.WATER);
+                    level.set(level.pointToCell(p), Terrain.WATER);
                     GameScene.updateMap(level.pointToCell(p));
                 }
             }
@@ -89,7 +88,7 @@ public class PressurePlatePoolRoom extends PressurePlate {
                         }
                     }
                     for(Point p : points){
-                        Painter.set(level, level.pointToCell(p), Terrain.WATER);
+                        level.set(level.pointToCell(p), Terrain.WATER);
                         GameScene.updateMap(level.pointToCell(p));
                     }
                     level.plates.remove(pos);
@@ -110,7 +109,7 @@ public class PressurePlatePoolRoom extends PressurePlate {
                                 Actor.findChar(level.pointToCell(p)).die(this);
                             }
                         }
-                        Painter.set(level, level.pointToCell(p), Terrain.EMPTY);
+                        level.set(level.pointToCell(p), Terrain.EMPTY);
                         GameScene.updateMap(level.pointToCell(p));
                     }
                 }

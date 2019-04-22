@@ -291,7 +291,7 @@ public class QuickRecipe extends Component {
 				return result;
 			case 3:
 				r = new ExoticPotion.PotionToExotic();
-				for (Class<?> cls : Generator.Category.POTION.classes){
+				for (Class<?> cls : Generator.Category.ALLPOTIONS.classes){
 					try{
 						Potion pot = (Potion) cls.newInstance();
 						ArrayList<Item> in = new ArrayList<>(Arrays.asList(pot, new Plant.Seed.PlaceHolder().quantity(2)));

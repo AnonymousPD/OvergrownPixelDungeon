@@ -21,37 +21,33 @@
  * along with this program. If not, see <http://www.gnu.org/licenses>
  */
 
-package com.lovecraftpixel.lovecraftpixeldungeon.items.potions.alchemy;
+package com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.alchemy;
 
 import com.lovecraftpixel.lovecraftpixeldungeon.Assets;
 import com.lovecraftpixel.lovecraftpixeldungeon.Dungeon;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Blob;
-import com.lovecraftpixel.lovecraftpixeldungeon.actors.blobs.Steam;
-import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.Potion;
-import com.lovecraftpixel.lovecraftpixeldungeon.scenes.GameScene;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.bombs.Firebomb;
+import com.lovecraftpixel.lovecraftpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.watabou.noosa.audio.Sample;
+import com.watabou.utils.PathFinder;
 
-public class PotionOfSteam extends Potion {
-
+public class PotionOfCataclysm extends ExoticPotion {
+	
 	{
-		initials = 34;
+		initials = 29;
 	}
 
     @Override
-    public void shatter( int cell ) {
+    public void shatter(int cell) {
 
-        if (Dungeon.level.heroFOV[cell]) {
+	    if (Dungeon.level.heroFOV[cell]) {
             setKnown();
 
             splash( cell );
             Sample.INSTANCE.play( Assets.SND_SHATTER );
         }
 
-        GameScene.add( Blob.seed( cell, 1000, Steam.class ) );
+        for(int p : PathFinder.NEIGHBOURS9){
+            new Firebomb().explode(cell+p);
+        }
     }
-
-    @Override
-	public int price() {
-		return isKnown() ? 50 * quantity : super.price();
-	}
 }

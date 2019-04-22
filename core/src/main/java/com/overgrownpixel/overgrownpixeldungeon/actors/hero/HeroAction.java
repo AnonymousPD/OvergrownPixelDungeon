@@ -1,0 +1,100 @@
+/*
+ * Pixel Dungeon
+ * Copyright (C) 2012-2015 Oleg Dolya
+ *
+ * Shattered Pixel Dungeon
+ * Copyright (C) 2014-2019 Evan Debenham
+ *
+ * Overgrown Pixel Dungeon
+ * Copyright (C) 2016-2019 Anon
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This Program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without eben the implied warranty of
+ * GNU General Public License for more details.
+ *
+ * You should have have received a copy of the GNU General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses>
+ */
+
+package com.overgrownpixel.overgrownpixeldungeon.actors.hero;
+
+import com.overgrownpixel.overgrownpixeldungeon.actors.Char;
+import com.overgrownpixel.overgrownpixeldungeon.actors.mobs.npcs.NPC;
+
+public class HeroAction {
+	
+	public int dst;
+	
+	public static class Move extends HeroAction {
+		public Move( int dst ) {
+			this.dst = dst;
+		}
+	}
+	
+	public static class PickUp extends HeroAction {
+		public PickUp( int dst ) {
+			this.dst = dst;
+		}
+	}
+	
+	public static class OpenChest extends HeroAction {
+		public OpenChest( int dst ) {
+			this.dst = dst;
+		}
+	}
+	
+	public static class Buy extends HeroAction {
+		public Buy( int dst ) {
+			this.dst = dst;
+		}
+	}
+	
+	public static class Interact extends HeroAction {
+		public NPC npc;
+		public Interact( NPC npc ) {
+			this.npc = npc;
+		}
+	}
+	
+	public static class Unlock extends HeroAction {
+		public Unlock( int door ) {
+			this.dst = door;
+		}
+	}
+	
+	public static class Descend extends HeroAction {
+		public Descend( int stairs ) {
+			this.dst = stairs;
+		}
+	}
+	
+	public static class Ascend extends HeroAction {
+		public Ascend( int stairs ) {
+			this.dst = stairs;
+		}
+	}
+	
+	public static class Alchemy extends HeroAction {
+		public Alchemy( int pot ) {
+			this.dst = pot;
+		}
+	}
+	
+	public static class Attack extends HeroAction {
+		public Char target;
+		public Attack( Char target ) {
+			this.target = target;
+		}
+	}
+
+    public static class Read extends HeroAction {
+        public Read( int shelf ) {
+            this.dst = shelf;
+        }
+    }
+}

@@ -187,11 +187,37 @@ public class ChangesScene extends PixelScene {
 
 		};
 		add( list );
+
+        //**********************
+        //       v0.0.2
+        //**********************
+        ChangeInfo changes = new ChangeInfo("v0.0.2", true, "This Update contains mainly bug fixes, rebalancing");
+        changes.hardlight( Window.TITLE_COLOR );
+        infos.add(changes);
+
+        changes = new ChangeInfo("Miscellaneous", false, null);
+        changes.hardlight( Window.SHPX_COLOR );
+        infos.add(changes);
+
+        changes.addButton( new ChangeButton( Icons.get(Icons.PREFS), "Bug fixes",
+                "_-_ Most bug fixed I hope."));
+
+        changes.addButton( new ChangeButton( Icons.get(Icons.PREFS), "Rebalancing",
+                "_-_ Living Plants spawns rebalanced\n"+
+                "_-_ Living Plants attacks rebalanced\n"+
+                "_-_ Potions rebalanced"));
+
+        changes = new ChangeInfo("Darts", false, "The new seed darts have been added");
+        changes.hardlight( Window.SHPX_COLOR );
+        infos.add(changes);
+
+        changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.DART_PARASITIC, null), "Dart",
+                "New Darts for all new seeds!"));
 		
 		//**********************
 		//       v0.0.1
 		//**********************
-		ChangeInfo changes = new ChangeInfo("v0.0.1", true, "This is the initial update. I took a break from my other mods until a few friends and fellow Pixel Dungeon enthusiasts finally tracked me down and brought me back to finish my vision of an interesting and crazy Pixel Dungeon. Thanks dudes.");
+        changes = new ChangeInfo("v0.0.1", true, "This is the initial update. I took a break from my other mods until a few friends and fellow Pixel Dungeon enthusiasts finally tracked me down and brought me back to finish my vision of an interesting and crazy Pixel Dungeon. Thanks dudes.");
 		changes.hardlight( Window.TITLE_COLOR );
 		infos.add(changes);
 

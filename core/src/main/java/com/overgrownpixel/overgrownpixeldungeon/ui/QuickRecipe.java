@@ -279,7 +279,7 @@ public class QuickRecipe extends Component {
 				return result;
 			case 2:
 				r = new TippedDart.TipDart();
-				for (Class<?> cls : Generator.Category.BASESEED.classes){
+				for (Class<?> cls : Generator.Category.SEED.classes){
 					try{
 						Plant.Seed seed = (Plant.Seed) cls.newInstance();
 						ArrayList<Item> in = new ArrayList<>(Arrays.asList(seed, new Dart()));

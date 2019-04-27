@@ -335,6 +335,11 @@ public class WandOfRegrowth extends Wand {
             activate(null);
         }
 
+        @Override
+        public void attackProc(Char enemy, int damage) {
+
+        }
+
         //seed is never dropped, only care about plant class
 		public static class Seed extends Plant.Seed {
 			{
@@ -390,6 +395,11 @@ public class WandOfRegrowth extends Wand {
         @Override
         public void activate() {
             activate(null);
+        }
+
+        @Override
+        public void attackProc(Char enemy, int damage) {
+
         }
 
         //seed is never dropped, only care about plant class

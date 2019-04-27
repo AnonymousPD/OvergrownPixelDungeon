@@ -25,6 +25,8 @@ package com.overgrownpixel.overgrownpixeldungeon.plants;
 
 import com.overgrownpixel.overgrownpixeldungeon.Dungeon;
 import com.overgrownpixel.overgrownpixeldungeon.actors.Char;
+import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.Buff;
+import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.PeanutMark;
 import com.overgrownpixel.overgrownpixeldungeon.actors.hero.Hero;
 import com.overgrownpixel.overgrownpixeldungeon.effects.particles.poisonparticles.PeanutpetalPoisonParticle;
 import com.overgrownpixel.overgrownpixeldungeon.items.food.Peanut;
@@ -53,7 +55,12 @@ public class Peanutpetal extends Plant {
         Dungeon.level.drop(new Peanut(), pos);
     }
 
-	public static class Seed extends Plant.Seed{
+    @Override
+    public void attackProc(Char enemy, int damage) {
+        Buff.affect(enemy, PeanutMark.class, PeanutMark.DURATION);
+    }
+
+    public static class Seed extends Plant.Seed{
 
 		{
 			image = ItemSpriteSheet.SEED_PEANUTPETAL;

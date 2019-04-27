@@ -61,6 +61,7 @@ import com.overgrownpixel.overgrownpixeldungeon.levels.PrisonBossLevel;
 import com.overgrownpixel.overgrownpixeldungeon.levels.PrisonLevel;
 import com.overgrownpixel.overgrownpixeldungeon.levels.SewerBossLevel;
 import com.overgrownpixel.overgrownpixeldungeon.levels.SewerLevel;
+import com.overgrownpixel.overgrownpixeldungeon.levels.Terrain;
 import com.overgrownpixel.overgrownpixeldungeon.levels.rooms.secret.SecretRoom;
 import com.overgrownpixel.overgrownpixeldungeon.levels.rooms.special.SpecialRoom;
 import com.overgrownpixel.overgrownpixeldungeon.mechanics.ShadowCaster;
@@ -842,7 +843,11 @@ public class Dungeon {
 
 		setupPassable();
 		if (ch.flying || ch.buff( Amok.class ) != null) {
-			BArray.or( pass, Dungeon.level.avoid, passable );
+		    if(Dungeon.level.map[to] != Terrain.BOOKSHELF){
+                BArray.or( pass, Dungeon.level.avoid, passable );
+            } else {
+                System.arraycopy( pass, 0, passable, 0, Dungeon.level.length() );
+            }
 		} else {
 			System.arraycopy( pass, 0, passable, 0, Dungeon.level.length() );
 		}
@@ -865,7 +870,11 @@ public class Dungeon {
 
 		setupPassable();
 		if (ch.flying || ch.buff( Amok.class ) != null) {
-			BArray.or( pass, Dungeon.level.avoid, passable );
+            if(Dungeon.level.map[to] != Terrain.BOOKSHELF){
+                BArray.or( pass, Dungeon.level.avoid, passable );
+            } else {
+                System.arraycopy( pass, 0, passable, 0, Dungeon.level.length() );
+            }
 		} else {
 			System.arraycopy( pass, 0, passable, 0, Dungeon.level.length() );
 		}

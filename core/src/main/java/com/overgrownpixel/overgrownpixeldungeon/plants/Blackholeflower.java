@@ -84,6 +84,11 @@ public class Blackholeflower extends Plant {
         Plant.spawnLasher(pos);
     }
 
+    @Override
+    public void attackProc(Char enemy, int damage) {
+        activate(enemy);
+    }
+
     public static class Seed extends Plant.Seed{
 
 		{

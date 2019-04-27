@@ -57,6 +57,11 @@ public class Starflower extends Plant {
     }
 
     @Override
+    public void attackProc(Char enemy, int damage) {
+
+    }
+
+    @Override
     public void activatePosionMobBeneficial(Char attacker, Char defender) {
 	    //1 extra hit
         attacker.attack(defender);

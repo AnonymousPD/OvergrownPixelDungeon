@@ -73,6 +73,7 @@ public class FriendlyWraith extends Wraith {
 			
 			w.sprite.alpha( 0 );
 			w.sprite.parent.add( new AlphaTweener( w.sprite, 1, 0.5f ) );
+			w.sprite.color(0xFF90D3);
 			
 			w.sprite.emitter().burst( LightParticle.FACTORY, 5 );
 			

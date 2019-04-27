@@ -52,7 +52,16 @@ public class Parasiteshrub extends Plant {
         Plant.spawnLasher(pos);
     }
 
-	public static class Seed extends Plant.Seed{
+    @Override
+    public void attackProc(Char enemy, int damage) {
+        if(enemy.properties().contains(Char.Property.INORGANIC)){
+            return;
+        }
+
+        Buff.affect( enemy, Infested.class ).set(Random.Int(4, 6) );
+    }
+
+    public static class Seed extends Plant.Seed{
 
 		{
 			image = ItemSpriteSheet.SEED_PARASITESHRUB;

@@ -73,7 +73,14 @@ public class Snowhedge extends Plant {
         Plant.spawnLasher(pos);
     }
 
-	//TODO: update with new diseases
+    @Override
+    public void attackProc(Char enemy, int damage) {
+        if(Random.Boolean()){
+            activate(enemy);
+        }
+    }
+
+    //TODO: update with new diseases
     public static final Class<?>[] diseases = {
             BlackDeath.class,
             Ebola.class,

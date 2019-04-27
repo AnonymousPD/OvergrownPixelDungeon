@@ -115,6 +115,11 @@ public class Sungrass extends Plant {
     }
 
     @Override
+    public void attackProc(Char enemy, int damage) {
+
+    }
+
+    @Override
     public void activatePosionMobBeneficial(Char attacker, Char defender) {
         if(defender.properties().contains(Char.Property.UNDEAD)){
             defender.damage(defender.HP, this);

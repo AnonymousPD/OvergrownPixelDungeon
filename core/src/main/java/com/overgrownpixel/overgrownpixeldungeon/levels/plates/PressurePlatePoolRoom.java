@@ -29,7 +29,9 @@ import com.overgrownpixel.overgrownpixeldungeon.levels.Level;
 import com.overgrownpixel.overgrownpixeldungeon.levels.RegularLevel;
 import com.overgrownpixel.overgrownpixeldungeon.levels.Terrain;
 import com.overgrownpixel.overgrownpixeldungeon.levels.rooms.Room;
+import com.overgrownpixel.overgrownpixeldungeon.messages.Messages;
 import com.overgrownpixel.overgrownpixeldungeon.scenes.GameScene;
+import com.overgrownpixel.overgrownpixeldungeon.utils.GLog;
 import com.watabou.utils.Point;
 
 import java.util.ArrayList;
@@ -93,6 +95,7 @@ public class PressurePlatePoolRoom extends PressurePlate {
                     }
                     level.plates.remove(pos);
                     GameScene.updateMap(pos);
+                    GLog.w(Messages.get(Piranha.class, "fool"));
                 } else {
                     ArrayList<Point> points = new ArrayList<>();
                     for (int i = thisroom.left; i <= thisroom.right; i++) {

@@ -24,6 +24,7 @@
 package com.overgrownpixel.overgrownpixeldungeon.plants;
 
 import com.overgrownpixel.overgrownpixeldungeon.Assets;
+import com.overgrownpixel.overgrownpixeldungeon.Dungeon;
 import com.overgrownpixel.overgrownpixeldungeon.actors.Char;
 import com.overgrownpixel.overgrownpixeldungeon.effects.CellEmitter;
 import com.overgrownpixel.overgrownpixeldungeon.effects.Speck;
@@ -42,21 +43,34 @@ public class Butterlion extends Plant {
 	@Override
 	public void activate( Char ch ) {
 
-        CellEmitter.get( ch.pos ).start( Speck.factory( Speck.ROCK ), 0.07f, 10 );
-        Camera.main.shake( 3, 0.7f );
-        Sample.INSTANCE.play( Assets.SND_ROCKS );
+        if (Dungeon.level.heroFOV[pos]) {
+            CellEmitter.get( ch.pos ).start( Speck.factory( Speck.ROCK ), 0.07f, 10 );
+            Camera.main.shake( 3, 0.7f );
+            Sample.INSTANCE.play( Assets.SND_ROCKS );
+        }
         ch.damage(ch.damageRoll(), this);
 
 	}
 
     @Override
     public void activate() {
-        CellEmitter.get( pos ).start( Speck.factory( Speck.ROCK ), 0.07f, 10 );
-        Camera.main.shake( 3, 0.7f );
-        Sample.INSTANCE.play( Assets.SND_ROCKS );
+        if (Dungeon.level.heroFOV[pos]) {
+            CellEmitter.get( pos ).start( Speck.factory( Speck.ROCK ), 0.07f, 10 );
+            Camera.main.shake( 3, 0.7f );
+            Sample.INSTANCE.play( Assets.SND_ROCKS );
+        }
     }
 
-	public static class Seed extends Plant.Seed{
+    @Override
+    public void attackProc(Char enemy, int damage) {
+        if (Dungeon.level.heroFOV[pos]) {
+            CellEmitter.get( enemy.pos ).start( Speck.factory( Speck.ROCK ), 0.07f, 10 );
+            Camera.main.shake( 3, 0.7f );
+            Sample.INSTANCE.play( Assets.SND_ROCKS );
+        }
+    }
+
+    public static class Seed extends Plant.Seed{
 
 		{
 			image = ItemSpriteSheet.SEED_BUTTERLION;

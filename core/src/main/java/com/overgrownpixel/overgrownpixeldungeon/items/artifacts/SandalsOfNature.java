@@ -78,9 +78,9 @@ public class SandalsOfNature extends Artifact {
 			actions.add(AC_FEED);
 		if (isEquipped( hero ) && charge > 0)
 			actions.add(AC_ROOT);
-        if(!cursed && isEquipped(hero)){
+        /**if(!cursed && isEquipped(hero)){
             actions.add(AC_LIVINGPLANTS);
-        }
+        }**/
 		return actions;
 	}
 

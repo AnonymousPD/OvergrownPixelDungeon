@@ -54,6 +54,7 @@ import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.MagicalShield;
 import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.MagicalSleep;
 import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.Ooze;
 import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.Paralysis;
+import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.PeanutMark;
 import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.Poison;
 import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.Preparation;
 import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.ShieldBuff;
@@ -379,13 +380,14 @@ public abstract class Char extends Actor {
 		if ( buff( Stamina.class ) != null) speed *= 1.5f;
 		if ( buff( Adrenaline.class ) != null) speed *= 2f;
 		if ( buff( Haste.class ) != null) speed *= 3f;
-        if ( disease( BlackDeath.class ) != null ) speed /= 4f;
+        if ( disease( BlackDeath.class ) != null ) speed /= 3.5f;
         if ( disease( Herpes.class ) != null ) speed /= 1.1f;
         if ( disease( Influenza.class ) != null ) speed /= 1.5f;
         if ( disease( Ligma.class ) != null ) speed /= 2f;
         if ( disease( Malaria.class ) != null ) speed /= 3f;
         if ( disease( SmallPox.class ) != null ) speed /= 1.5f;
         if ( disease( Ebola.class ) != null ) speed /= 1.5f;
+        if ( buff( PeanutMark.class ) != null) speed /= 2f;
 		return speed;
 	}
 	
@@ -428,6 +430,10 @@ public abstract class Char extends Actor {
 		if (this.buff(Doom.class) != null){
 			dmg *= 2;
 		}
+
+        if (this.buff(PeanutMark.class) != null){
+            dmg /= 2;
+        }
 		
 		Class<?> srcClass = src.getClass();
 		if (isImmune( srcClass )) {

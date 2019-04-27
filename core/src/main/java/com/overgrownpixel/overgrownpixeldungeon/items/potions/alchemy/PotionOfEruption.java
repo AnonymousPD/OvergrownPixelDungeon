@@ -27,7 +27,6 @@ import com.overgrownpixel.overgrownpixeldungeon.Assets;
 import com.overgrownpixel.overgrownpixeldungeon.Dungeon;
 import com.overgrownpixel.overgrownpixeldungeon.actors.Actor;
 import com.overgrownpixel.overgrownpixeldungeon.actors.Char;
-import com.overgrownpixel.overgrownpixeldungeon.actors.mobs.Mob;
 import com.overgrownpixel.overgrownpixeldungeon.effects.CellEmitter;
 import com.overgrownpixel.overgrownpixeldungeon.effects.Speck;
 import com.overgrownpixel.overgrownpixeldungeon.items.potions.Potion;
@@ -53,9 +52,7 @@ public class PotionOfEruption extends Potion {
 
 	    for(int p : PathFinder.NEIGHBOURS9){
             Actor actor = Actor.findChar(cell+p);
-            if(actor instanceof Mob){
-                ((Mob) actor).damage(((Mob) actor).damageRoll(), this);
-            } else {
+            if(actor != null){
                 ((Char) actor).damage(((Char) actor).damageRoll(), this);
             }
             if (Dungeon.level.heroFOV[cell+p]) {

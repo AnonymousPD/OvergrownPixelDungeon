@@ -54,5 +54,4 @@ public class Adrenaline extends FlavourBuff {
 	public String desc() {
 		return Messages.get(this, "desc", dispTurns());
 	}
-	
 }

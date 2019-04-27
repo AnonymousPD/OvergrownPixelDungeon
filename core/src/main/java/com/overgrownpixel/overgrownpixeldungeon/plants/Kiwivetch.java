@@ -48,7 +48,12 @@ public class Kiwivetch extends Plant {
         GameScene.add( Blob.seed( pos, 100, Regrowth.class ) );
     }
 
-	public static class Seed extends Plant.Seed{
+    @Override
+    public void attackProc(Char enemy, int damage) {
+        GameScene.add( Blob.seed( enemy.pos, 10, Regrowth.class ) );
+    }
+
+    public static class Seed extends Plant.Seed{
 
 		{
 			image = ItemSpriteSheet.SEED_KIWIVETCH;

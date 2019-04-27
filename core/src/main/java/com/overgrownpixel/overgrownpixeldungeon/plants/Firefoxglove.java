@@ -28,6 +28,8 @@ import com.overgrownpixel.overgrownpixeldungeon.Dungeon;
 import com.overgrownpixel.overgrownpixeldungeon.actors.Char;
 import com.overgrownpixel.overgrownpixeldungeon.actors.blobs.Blob;
 import com.overgrownpixel.overgrownpixeldungeon.actors.blobs.Fire;
+import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.Buff;
+import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.Burning;
 import com.overgrownpixel.overgrownpixeldungeon.actors.hero.Hero;
 import com.overgrownpixel.overgrownpixeldungeon.actors.mobs.Mob;
 import com.overgrownpixel.overgrownpixeldungeon.effects.MagicMissile;
@@ -88,7 +90,12 @@ public class Firefoxglove extends Plant {
         new Firebloom().activate();
     }
 
-	public void shoot(Char ch, int pos){
+    @Override
+    public void attackProc(Char enemy, int damage) {
+        Buff.affect(enemy, Burning.class).reignite(enemy);
+    }
+
+    public void shoot(Char ch, int pos){
         final Ballistica shot = new Ballistica( ch.pos, pos, Ballistica.PROJECTILE);
         fx(shot, new Callback() {
             @Override
@@ -154,7 +161,9 @@ public class Firefoxglove extends Plant {
                 ch.sprite,
                 bolt.path.get(dist/2),
                 callback );
-        Sample.INSTANCE.play( Assets.SND_ZAP );
+        if(Dungeon.level.heroFOV[bolt.sourcePos] || Dungeon.level.heroFOV[bolt.collisionPos]){
+            Sample.INSTANCE.play( Assets.SND_ZAP );
+        }
     }
 
     //burn... BURNNNNN!.....

@@ -336,6 +336,10 @@ public class ItemSpriteSheet {
 	public static final int HOLY_DART       = TIPPED_DARTS+9;
 	public static final int DISPLACING_DART = TIPPED_DARTS+10;
 	public static final int BLINDING_DART   = TIPPED_DARTS+11;
+    public static final int SUN_DART        = TIPPED_DARTS+12;
+    public static final int TOMATO_DART     = TIPPED_DARTS+13;
+    public static final int FIREFOX_DART    = TIPPED_DARTS+14;
+    public static final int PUSHING_DART    = TIPPED_DARTS+15;
 	static {
 		for (int i = TIPPED_DARTS; i < TIPPED_DARTS+16; i++)
 			assignItemRect(i, 15, 15);
@@ -775,6 +779,28 @@ public class ItemSpriteSheet {
             assignItemRect(i, 12, 13);
     }
 
+    private static final int DARTS_ROW2 =                               xy(1, 13);  //16 slots
+    public static final int DART_EARTHQUAKE             = DARTS_ROW2 +0;
+    public static final int DART_DISEASE                = DARTS_ROW2 +1;
+    public static final int DART_STORM                  = DARTS_ROW2 +2;
+    public static final int DART_DEW                    = DARTS_ROW2 +3;
+    public static final int DART_SEEDCHAOS              = DARTS_ROW2 +4;
+    public static final int DART_TRACKING               = DARTS_ROW2 +5;
+    public static final int DART_SMOKING                = DARTS_ROW2 +6;
+    public static final int DART_TELEPORTING            = DARTS_ROW2 +7;
+    public static final int DART_FREEZING               = DARTS_ROW2 +8;
+    public static final int DART_SLOWNESS               = DARTS_ROW2 +9;
+    public static final int DART_PARASITIC              = DARTS_ROW2 +10;
+    public static final int DART_SPICY                  = DARTS_ROW2 +11;
+    public static final int DART_HEALTH                 = DARTS_ROW2 +12;
+    public static final int DART_WITHER                 = DARTS_ROW2 +13;
+    public static final int DART_HEAT                   = DARTS_ROW2 +14;
+    public static final int DART_WATER                  = DARTS_ROW2 +15;
+    static {
+        for (int i = DARTS_ROW2; i < DARTS_ROW2 +16; i++)
+            assignItemRect(i, 15, 15);
+    }
+
     private static final int SEEDS_ROW2 =                                xy(1, 34);  //16 slots
     public static final int SEED_BUTTERLION         = SEEDS_ROW2 +0;
     public static final int SEED_SNOWHEDGE          = SEEDS_ROW2 +1;
@@ -821,6 +847,8 @@ public class ItemSpriteSheet {
             assignItemRect(i, 12, 13);
     }
 
+
+
     private static final int SEEDS_ROW3 =                                xy(1, 37);  //16 slots
     public static final int SEED_GRASSLILLY         = SEEDS_ROW3 +0;
     public static final int SEED_PEANUTPETAL        = SEEDS_ROW3 +1;
@@ -831,6 +859,18 @@ public class ItemSpriteSheet {
     static{
         for (int i = SEEDS_ROW3; i < SEEDS_ROW3 +16; i++)
             assignItemRect(i, 10, 10);
+    }
+
+    private static final int DARTS_ROW3 =                               xy(1, 18);  //16 slots
+    public static final int DART_CHAOS                  = DARTS_ROW3 +0;
+    public static final int DART_PEANUTMARK             = DARTS_ROW3 +1;
+    public static final int DART_ROOTING                = DARTS_ROW3 +2;
+    public static final int DART_WRAITH                 = DARTS_ROW3 +3;
+    public static final int DART_CONFUSING              = DARTS_ROW3 +4;
+    public static final int DART_CORRUPTION             = DARTS_ROW3 +5;
+    static {
+        for (int i = DARTS_ROW2; i < DARTS_ROW2 +16; i++)
+            assignItemRect(i, 15, 15);
     }
 	                                                                                    //16 free slots
 

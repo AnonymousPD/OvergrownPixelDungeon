@@ -73,8 +73,14 @@ public class Blindweed extends Plant {
     public void activate() {
         Plant.spawnLasher(pos);
     }
-	
-	public static class Seed extends Plant.Seed {
+
+    @Override
+    public void attackProc(Char enemy, int damage) {
+        int len = Random.Int(5, 10);
+        Buff.prolong(enemy, Blindness.class, len);
+    }
+
+    public static class Seed extends Plant.Seed {
 		{
 			image = ItemSpriteSheet.SEED_BLINDWEED;
 

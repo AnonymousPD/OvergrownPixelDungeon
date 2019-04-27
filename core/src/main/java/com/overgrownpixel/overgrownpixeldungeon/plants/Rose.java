@@ -45,7 +45,12 @@ public class Rose extends Plant {
         FriendlyWraith.spawnAt(pos);
     }
 
-	public static class Seed extends Plant.Seed{
+    @Override
+    public void attackProc(Char enemy, int damage) {
+
+    }
+
+    public static class Seed extends Plant.Seed{
 
 		{
 		    image = ItemSpriteSheet.SEED_ROSE;

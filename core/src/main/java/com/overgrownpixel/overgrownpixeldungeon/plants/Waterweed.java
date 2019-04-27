@@ -93,6 +93,12 @@ public class Waterweed extends Plant {
         Actor.addDelayed( new Pushing( piranha, pos, piranha.pos ), -1 );
     }
 
+    @Override
+    public void attackProc(Char enemy, int damage) {
+        Level.set(pos, Terrain.WATER);
+        GameScene.updateMap(pos);
+    }
+
     public static class Seed extends Plant.Seed{
 
 		{

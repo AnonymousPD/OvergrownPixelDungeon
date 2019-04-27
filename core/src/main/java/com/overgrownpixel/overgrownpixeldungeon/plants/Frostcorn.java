@@ -56,7 +56,12 @@ public class Frostcorn extends Plant {
         Plant.spawnLasher(pos);
     }
 
-	public static class Seed extends Plant.Seed{
+    @Override
+    public void attackProc(Char enemy, int damage) {
+        Buff.prolong(enemy, Frost.class, Frost.duration(enemy) * Random.Float(5f, 7.5f));
+    }
+
+    public static class Seed extends Plant.Seed{
 
 		{
 			image = ItemSpriteSheet.SEED_FROSTCORN;

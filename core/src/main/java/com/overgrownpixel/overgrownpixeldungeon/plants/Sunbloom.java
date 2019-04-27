@@ -93,6 +93,11 @@ public class Sunbloom extends Plant {
     }
 
     @Override
+    public void attackProc(Char enemy, int damage) {
+
+    }
+
+    @Override
     public void activatePosionDangerous(Char attacker, Char defender) {
 	    float hpPercent = (defender.HT - defender.HP)/(float)(defender.HT);
         float power = Math.min( 4f, 4.45f*hpPercent);

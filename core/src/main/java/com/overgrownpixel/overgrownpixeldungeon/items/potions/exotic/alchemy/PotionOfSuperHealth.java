@@ -41,6 +41,6 @@ public class PotionOfSuperHealth extends ExoticPotion {
         setKnown();
         (hero.buff( Hunger.class )).satisfy( Hunger.STARVING );
         GLog.p(Messages.get(Apricobush.class, "hunger"));
-        hero.HP = hero.HT = hero.HT*2;
+        hero.HP = hero.HT *= 0.25f;
     }
 }

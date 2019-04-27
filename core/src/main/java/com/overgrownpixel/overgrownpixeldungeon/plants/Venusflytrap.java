@@ -53,7 +53,17 @@ public class Venusflytrap extends Plant {
         Plant.spawnLasher(pos);
     }
 
-	public static class Seed extends Plant.Seed{
+    @Override
+    public void attackProc(Char enemy, int damage) {
+        if(enemy.properties().contains(Char.Property.INORGANIC)){
+            return;
+        }
+
+        Buff.affect( enemy, Ooze.class ).set( 5f );
+        Buff.append(enemy, Vertigo.class, Vertigo.DURATION/4);
+    }
+
+    public static class Seed extends Plant.Seed{
 
 		{
 			image = ItemSpriteSheet.SEED_VENUSFLYTRAP;

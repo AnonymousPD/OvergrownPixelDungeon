@@ -23,15 +23,10 @@
 
 package com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy;
 
-import com.overgrownpixel.overgrownpixeldungeon.Badges;
 import com.overgrownpixel.overgrownpixeldungeon.actors.hero.Hero;
 import com.overgrownpixel.overgrownpixeldungeon.items.potions.Potion;
-import com.overgrownpixel.overgrownpixeldungeon.items.potions.PotionOfStrength;
 import com.overgrownpixel.overgrownpixeldungeon.items.wands.WandOfBlastWave;
 import com.overgrownpixel.overgrownpixeldungeon.mechanics.Ballistica;
-import com.overgrownpixel.overgrownpixeldungeon.messages.Messages;
-import com.overgrownpixel.overgrownpixeldungeon.sprites.CharSprite;
-import com.overgrownpixel.overgrownpixeldungeon.utils.GLog;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
 
@@ -44,12 +39,6 @@ public class PotionOfMuscle extends Potion {
     @Override
     public void apply( Hero hero ) {
         setKnown();
-
-        hero.STR++;
-        hero.sprite.showStatus( CharSprite.POSITIVE, Messages.get(PotionOfStrength.class, "msg_1") );
-        GLog.p( Messages.get(PotionOfStrength.class, "msg_2") );
-
-        Badges.validateStrengthAttained();
 
         int opposite = hero.pos + PathFinder.NEIGHBOURS8[Random.Int( 8 )];
         Ballistica trajectory = new Ballistica(hero.pos, opposite, Ballistica.MAGIC_BOLT);

@@ -84,7 +84,7 @@ public class Buff extends Actor {
 	
 	@Override
 	public boolean act() {
-		diactivate();
+		detach();
 		return true;
 	}
 	

@@ -27,7 +27,6 @@ import com.overgrownpixel.overgrownpixeldungeon.Dungeon;
 import com.overgrownpixel.overgrownpixeldungeon.OvergrownPixelDungeon;
 import com.overgrownpixel.overgrownpixeldungeon.actors.Char;
 import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.Roots;
-import com.overgrownpixel.overgrownpixeldungeon.actors.hero.Hero;
 import com.overgrownpixel.overgrownpixeldungeon.actors.mobs.Mob;
 import com.overgrownpixel.overgrownpixeldungeon.plants.Plant;
 import com.overgrownpixel.overgrownpixeldungeon.sprites.CharSprite;
@@ -83,7 +82,11 @@ public class LivingPlant extends Mob {
     public CharSprite sprite() {
         CharSprite sprite = null;
         try {
-            sprite = new LivingPlantSprite(plantClass.image);
+            if(plantClass.image == 0){
+                sprite = new LivingPlantSprite(39);
+            } else {
+                sprite = new LivingPlantSprite(plantClass.image);
+            }
         } catch (Exception e) {
             OvergrownPixelDungeon.reportException(e);
         }
@@ -99,25 +102,14 @@ public class LivingPlant extends Mob {
 
     //sends livingplants sleeping
     public void goToSleep(LivingPlant livingPlant){
-        livingPlant.destroy();
-        livingPlant.sprite.remove();
+        //using the inherited method directly as to not trigger its normal die() effects
+        super.die(livingPlant);
         Dungeon.level.plant(livingPlant.plantClass.getPlant(livingPlant.plantClass), pos, false);
     }
 
     @Override
     public void die(Object cause) {
         if(buff(Roots.class) == null){
-            Plant plant = plantClass;
-            if(cause instanceof Mob){
-                plant.pos = ((Mob) cause).pos;
-                plant.activate((Mob) cause);
-            } else if(cause instanceof Hero){
-                plant.pos = ((Hero) cause).pos;
-                plant.activate((Hero) cause);
-            } else {
-                plant.pos = pos;
-                plant.activate();
-            }
             if(Random.Float() <= 0.75f){
                 Dungeon.level.drop(plantClass.getPlant(plantClass), pos).sprite.drop();
             }
@@ -130,12 +122,8 @@ public class LivingPlant extends Mob {
     @Override
     public int attackProc(Char enemy, int damage) {
         if(!enemy.flying){
-            if(Random.Boolean()){
-                Plant plant = plantClass;
-                plant.pos = enemy.pos;
-                if(enemy.HP - damage > 0){
-                    plant.activate(enemy);
-                }
+            if(Random.Float() <= 0.3f){
+                plantClass.attackProc(enemy, damage);
             }
         }
         return super.attackProc(enemy, damage);
@@ -190,16 +178,18 @@ public class LivingPlant extends Mob {
                 goToSleep(this);
             }
 
-            Char mob = Random.element(enemies);
-            if(mob != null){
-                if(Dungeon.level.distance(mob.pos, pos) >= Dungeon.level.distance(Dungeon.hero.pos, pos)){
-                    if(alignment != Alignment.ALLY){
-                        return Dungeon.hero;
+            if(!enemies.isEmpty()){
+                Char mob = Random.element(enemies);
+                if(mob != null){
+                    if(Dungeon.level.distance(mob.pos, pos) >= Dungeon.level.distance(Dungeon.hero.pos, pos)){
+                        if(alignment != Alignment.ALLY){
+                            return Dungeon.hero;
+                        } else {
+                            return mob;
+                        }
                     } else {
                         return mob;
                     }
-                } else {
-                    return mob;
                 }
             }
             return Dungeon.hero;

@@ -102,6 +102,9 @@ public class BuffIndicator extends Component {
     public static final int TELEPORT    = 52;
     public static final int MUSCLE      = 53;
     public static final int FASTING     = 54;
+    public static final int BOOST       = 55;
+    public static final int EXHAUSTION  = 56;
+    public static final int NUT		    = 57;
 
 	public static final int SIZE	= 7;
 	

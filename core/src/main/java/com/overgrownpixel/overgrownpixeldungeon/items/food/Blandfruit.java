@@ -43,6 +43,29 @@ import com.overgrownpixel.overgrownpixeldungeon.items.potions.PotionOfParalyticG
 import com.overgrownpixel.overgrownpixeldungeon.items.potions.PotionOfPurity;
 import com.overgrownpixel.overgrownpixeldungeon.items.potions.PotionOfStrength;
 import com.overgrownpixel.overgrownpixeldungeon.items.potions.PotionOfToxicGas;
+import com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy.PotionOfDarkness;
+import com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy.PotionOfDisease;
+import com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy.PotionOfEruption;
+import com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy.PotionOfExplosion;
+import com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy.PotionOfFirestorm;
+import com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy.PotionOfFood;
+import com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy.PotionOfGlowing;
+import com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy.PotionOfHealth;
+import com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy.PotionOfHeat;
+import com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy.PotionOfIce;
+import com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy.PotionOfLight;
+import com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy.PotionOfMuscle;
+import com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy.PotionOfPlants;
+import com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy.PotionOfPower;
+import com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy.PotionOfRain;
+import com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy.PotionOfRegrowth;
+import com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy.PotionOfSecretion;
+import com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy.PotionOfSpirit;
+import com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy.PotionOfSpores;
+import com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy.PotionOfSteam;
+import com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy.PotionOfSunlight;
+import com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy.PotionOfTeleportation;
+import com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy.PotionOfTime;
 import com.overgrownpixel.overgrownpixeldungeon.levels.Terrain;
 import com.overgrownpixel.overgrownpixeldungeon.messages.Messages;
 import com.overgrownpixel.overgrownpixeldungeon.plants.Plant.Seed;
@@ -180,6 +203,77 @@ public class Blandfruit extends Food {
 			name = Messages.get(this, "swiftfruit");
 			potionGlow = new ItemSprite.Glowing( 0xCCBB00 );
 		}
+
+        else if (potionAttrib instanceof PotionOfDarkness) {
+            name = Messages.get(this, "darkfruit");
+            potionGlow = new ItemSprite.Glowing( 0x23289B );
+        } else if (potionAttrib instanceof PotionOfDisease) {
+            name = Messages.get(this, "illfruit");
+            potionGlow = new ItemSprite.Glowing( 0xFFFFFF );
+        } else if (potionAttrib instanceof PotionOfEruption) {
+            name = Messages.get(this, "earthquakefruit");
+            potionGlow = new ItemSprite.Glowing( 0xFFC633 );
+        } else if (potionAttrib instanceof PotionOfExplosion) {
+            name = Messages.get(this, "explosionfruit");
+            potionGlow = new ItemSprite.Glowing( 0xB31E00 );
+        } else if (potionAttrib instanceof PotionOfFirestorm) {
+            name = Messages.get(this, "firestormfruit");
+            potionGlow = new ItemSprite.Glowing( 0xD4561D );
+        } else if (potionAttrib instanceof PotionOfFood) {
+            name = Messages.get(this, "foodfruit");
+            potionGlow = new ItemSprite.Glowing( 0x6045E5 );
+        } else if (potionAttrib instanceof PotionOfGlowing) {
+            name = Messages.get(this, "glowingfruit");
+            potionGlow = new ItemSprite.Glowing( 0xFF8C00 );
+        } else if (potionAttrib instanceof PotionOfHealth) {
+            name = Messages.get(this, "healthfruit");
+            potionGlow = new ItemSprite.Glowing( 0xDC4287 );
+        } else if (potionAttrib instanceof PotionOfHeat) {
+            name = Messages.get(this, "heatfruit");
+            potionGlow = new ItemSprite.Glowing( 0x850D0D );
+        } else if (potionAttrib instanceof PotionOfIce) {
+            name = Messages.get(this, "frostfruit");
+            potionGlow = new ItemSprite.Glowing( 0x0195AC );
+        } else if (potionAttrib instanceof PotionOfLight) {
+            name = Messages.get(this, "lightfruit");
+            potionGlow = new ItemSprite.Glowing( 0xF62020 );
+        } else if (potionAttrib instanceof PotionOfMuscle) {
+            name = Messages.get(this, "musclefruit");
+            potionGlow = new ItemSprite.Glowing( 0xBA00E0 );
+        } else if (potionAttrib instanceof PotionOfPlants) {
+            name = Messages.get(this, "faunafruit");
+            potionGlow = new ItemSprite.Glowing( 0x22A20B );
+        } else if (potionAttrib instanceof PotionOfPower) {
+            name = Messages.get(this, "powerfruit");
+            potionGlow = new ItemSprite.Glowing( 0xD2791C );
+        } else if (potionAttrib instanceof PotionOfRain) {
+            name = Messages.get(this, "rainfruit");
+            potionGlow = new ItemSprite.Glowing( 0x4369B0 );
+        } else if (potionAttrib instanceof PotionOfRegrowth) {
+            name = Messages.get(this, "regrowthfruit");
+            potionGlow = new ItemSprite.Glowing( 0xAFD015 );
+        } else if (potionAttrib instanceof PotionOfSecretion) {
+            name = Messages.get(this, "secretionfruit");
+            potionGlow = new ItemSprite.Glowing( 0x85277D );
+        } else if (potionAttrib instanceof PotionOfSpirit) {
+            name = Messages.get(this, "spiritfruit");
+            potionGlow = new ItemSprite.Glowing( 0xF15959 );
+        } else if (potionAttrib instanceof PotionOfSpores) {
+            name = Messages.get(this, "sporesfruit");
+            potionGlow = new ItemSprite.Glowing( 0xAC00AE );
+        } else if (potionAttrib instanceof PotionOfSteam) {
+            name = Messages.get(this, "steamfruit");
+            potionGlow = new ItemSprite.Glowing( 0xFFD400 );
+        } else if (potionAttrib instanceof PotionOfSunlight) {
+            name = Messages.get(this, "sunlightfruit");
+            potionGlow = new ItemSprite.Glowing( 0xBFBD00 );
+        } else if (potionAttrib instanceof PotionOfTeleportation) {
+            name = Messages.get(this, "teleportfruit");
+            potionGlow = new ItemSprite.Glowing( 0x303130 );
+        } else if (potionAttrib instanceof PotionOfTime) {
+            name = Messages.get(this, "timefruit");
+            potionGlow = new ItemSprite.Glowing( 0x417BCE );
+        }
 
 		return this;
 	}

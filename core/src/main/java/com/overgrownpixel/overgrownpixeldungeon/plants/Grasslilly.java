@@ -25,6 +25,7 @@ package com.overgrownpixel.overgrownpixeldungeon.plants;
 
 import com.overgrownpixel.overgrownpixeldungeon.OvergrownPixelDungeon;
 import com.overgrownpixel.overgrownpixeldungeon.actors.Char;
+import com.overgrownpixel.overgrownpixeldungeon.actors.mobs.livingplants.LivingPlant;
 import com.overgrownpixel.overgrownpixeldungeon.effects.particles.poisonparticles.GrasslillyPoisonParticle;
 import com.overgrownpixel.overgrownpixeldungeon.items.Generator;
 import com.overgrownpixel.overgrownpixeldungeon.sprites.ItemSpriteSheet;
@@ -44,6 +45,7 @@ public class Grasslilly extends Plant {
             plant.pos = ch.pos;
             plant.activate(ch);
         } catch (Exception e){
+            Plant.spawnLasher(pos);
             OvergrownPixelDungeon.reportException(e);
         }
 
@@ -57,11 +59,24 @@ public class Grasslilly extends Plant {
             plant.pos = pos;
             plant.activate();
         } catch (Exception e){
+            Plant.spawnLasher(pos);
             OvergrownPixelDungeon.reportException(e);
         }
     }
 
-	public static class Seed extends Plant.Seed{
+    @Override
+    public void attackProc(Char enemy, int damage) {
+        try {
+            Plant.Seed seed = (Plant.Seed) Generator.random(Generator.Category.SEED);
+            Plant plant = seed.plantClass.newInstance();
+            LivingPlant livingPlant = new LivingPlant().setPlantClass(plant);
+            livingPlant.attackProc(enemy, damage);
+        } catch (Exception e){
+            OvergrownPixelDungeon.reportException(e);
+        }
+    }
+
+    public static class Seed extends Plant.Seed{
 
 		{
 			image = ItemSpriteSheet.SEED_GRASSLILLY;

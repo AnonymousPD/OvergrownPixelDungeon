@@ -371,6 +371,8 @@ public abstract class Mob extends Char {
                                         if(Actor.findChar(newPos) == null){
                                             triggerPlant(newPos);
                                             return;
+                                        } else {
+                                            super.move(step);
                                         }
                                     }
                                 } else {
@@ -381,7 +383,9 @@ public abstract class Mob extends Char {
                                     if(Actor.findChar(newPos) == null){
                                         triggerPlant(newPos);
                                         return;
-                                    }
+                                    } else {
+                                    super.move(step);
+                                }
                                 }
                             }
                         }

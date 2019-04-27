@@ -54,7 +54,12 @@ public class Chillisnapper extends Plant {
         Plant.spawnLasher(pos);
     }
 
-	public static class Seed extends Plant.Seed{
+    @Override
+    public void attackProc(Char enemy, int damage) {
+        Buff.affect(enemy, Light.class, Light.DURATION);
+    }
+
+    public static class Seed extends Plant.Seed{
 
 		{
 			image = ItemSpriteSheet.SEED_CHILLISNAPPER;

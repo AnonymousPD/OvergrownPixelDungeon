@@ -124,6 +124,11 @@ public class Suncarnivore extends Plant {
     }
 
     @Override
+    public void attackProc(Char enemy, int damage) {
+
+    }
+
+    @Override
     public void activatePosionMobBeneficial(Char attacker, Char defender) {
         if(defender instanceof Mob){
             Buff.prolong( defender, Roots.class, 3 );

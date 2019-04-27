@@ -57,7 +57,19 @@ public class Stormvine extends Plant {
         Plant.spawnLasher(pos);
     }
 
-	public static class Seed extends Plant.Seed {
+    @Override
+    public void attackProc(Char enemy, int damage) {
+        if (enemy instanceof Hero && ((Hero) enemy).subClass == HeroSubClass.WARDEN){
+            Buff.affect(enemy, Levitation.class, 10f);
+        } else {
+            if(enemy.properties().contains(Char.Property.INORGANIC)){
+                return;
+            }
+            Buff.affect(enemy, Vertigo.class, Vertigo.DURATION/2);
+        }
+    }
+
+    public static class Seed extends Plant.Seed {
 		{
 			image = ItemSpriteSheet.SEED_STORMVINE;
 

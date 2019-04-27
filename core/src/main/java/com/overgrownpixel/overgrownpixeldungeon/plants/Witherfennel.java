@@ -46,7 +46,12 @@ public class Witherfennel extends Plant {
 
     }
 
-	public static class Seed extends Plant.Seed{
+    @Override
+    public void attackProc(Char enemy, int damage) {
+        Buff.prolong(enemy, Wither.class, Wither.DURATION);
+    }
+
+    public static class Seed extends Plant.Seed{
 
 		{
 			image = ItemSpriteSheet.SEED_WITHERFENNEL;

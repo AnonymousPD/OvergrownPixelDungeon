@@ -72,6 +72,7 @@ import com.overgrownpixel.overgrownpixeldungeon.items.potions.exotic.PotionOfCor
 import com.overgrownpixel.overgrownpixeldungeon.items.potions.exotic.PotionOfShroudingFog;
 import com.overgrownpixel.overgrownpixeldungeon.items.potions.exotic.PotionOfSnapFreeze;
 import com.overgrownpixel.overgrownpixeldungeon.items.potions.exotic.PotionOfStormClouds;
+import com.overgrownpixel.overgrownpixeldungeon.items.wands.WandOfRegrowth;
 import com.overgrownpixel.overgrownpixeldungeon.journal.Catalog;
 import com.overgrownpixel.overgrownpixeldungeon.levels.Terrain;
 import com.overgrownpixel.overgrownpixeldungeon.messages.Messages;
@@ -593,6 +594,9 @@ public class Potion extends Item {
             types.put(Waterweed.Seed.class,         PotionOfRain.class);
             types.put(Willowcane.Seed.class,        PotionOfTime.class);
             types.put(Witherfennel.Seed.class,      PotionOfPower.class);
+
+            types.put(WandOfRegrowth.Dewcatcher.Seed.class,      PotionOfHealing.class);
+            types.put(WandOfRegrowth.Seedpod.Seed.class,         PotionOfPlants.class);
 		}
 		
 		@Override

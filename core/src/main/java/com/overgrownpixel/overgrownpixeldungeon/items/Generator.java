@@ -178,7 +178,44 @@ import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.ThrowingKn
 import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.ThrowingSpear;
 import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.Tomahawk;
 import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.Trident;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.AdrenalineDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.BlindingDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.ChaosDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.ChillingDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.ConfusingDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.CorruptionDart;
 import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.Dart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.DiseaseDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.DisplacingDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.EarthquakeDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.FirefoxDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.FreezingDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.HealingDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.HealthDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.HeatDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.HolyDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.IncendiaryDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.ParalyticDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.ParasiticDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.PeanutMarkDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.PoisonDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.PushingDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.RootingDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.RotDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.ShockingDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.SleepDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.SlownessDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.SmokingDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.SpicyDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.StormDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.SunDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.TeleportingDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.TippedDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.TomatoDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.TrackingDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.WaterDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.WitherDart;
+import com.overgrownpixel.overgrownpixeldungeon.items.weapon.missiles.darts.WraithDart;
 import com.overgrownpixel.overgrownpixeldungeon.plants.Apricobush;
 import com.overgrownpixel.overgrownpixeldungeon.plants.Blackholeflower;
 import com.overgrownpixel.overgrownpixeldungeon.plants.Blindweed;
@@ -259,6 +296,8 @@ public class Generator {
         SEEDCAVES	( 0,    Plant.Seed.class ),
         SEEDCITY	( 0,    Plant.Seed.class ),
         SEEDHELL	( 0,    Plant.Seed.class ),
+
+        DARTS	    ( 0,    TippedDart.class ),
 		
 		SCROLL	( 20,   Scroll.class ),
 		STONE   ( 2,    Runestone.class),
@@ -292,6 +331,54 @@ public class Generator {
 			GOLD.classes = new Class<?>[]{
 					Gold.class };
 			GOLD.probs = new float[]{ 1 };
+
+            DARTS.classes = new Class<?>[]{
+                    AdrenalineDart.class,
+                    BlindingDart.class,
+                    SleepDart.class,
+                    ParalyticDart.class,
+                    DisplacingDart.class,
+                    IncendiaryDart.class,
+                    ChillingDart.class,
+                    RotDart.class,
+                    PoisonDart.class,
+                    HolyDart.class,
+                    ShockingDart.class,
+                    HealingDart.class,
+                    HealthDart.class,
+                    TeleportingDart.class,
+                    EarthquakeDart.class,
+                    TrackingDart.class,
+                    HeatDart.class,
+                    SpicyDart.class,
+                    FirefoxDart.class,
+                    FreezingDart.class,
+                    ChaosDart.class,
+                    RootingDart.class,
+                    PushingDart.class,
+                    SmokingDart.class,
+                    ParasiticDart.class,
+                    PeanutMarkDart.class,
+                    WraithDart.class,
+                    DiseaseDart.class,
+                    StormDart.class,
+                    SunDart.class,
+                    CorruptionDart.class,
+                    TomatoDart.class,
+                    ConfusingDart.class,
+                    WaterDart.class,
+                    SlownessDart.class,
+                    WitherDart.class
+            };
+            DARTS.probs = new float[]{
+                    1, 1, 1, 1, 1,
+                    1, 1, 1, 1, 1,
+                    1, 1, 1, 1, 1,
+                    1, 1, 1, 1, 1,
+                    1, 1, 1, 1, 1,
+                    1, 1, 1, 1, 1,
+                    1, 1, 1, 1, 1, 1,
+            };
 			
 			POTION.classes = new Class<?>[]{
 					PotionOfStrength.class, //2 drop every chapter, see Dungeon.posNeeded()
@@ -774,11 +861,19 @@ public class Generator {
 	}
 	
 	public static Item random() {
-		Category cat = Random.chances( categoryProbs );
-		if (cat == null){
-			reset();
-			cat = Random.chances( categoryProbs );
-		}
+		Category cat;
+		do {
+            reset();
+            cat = Random.chances( categoryProbs );
+        }while (cat == null || cat == Category.ALLPOTIONS
+                || cat == Category.SEEDCAVES
+                || cat == Category.SEEDCITY
+                || cat == Category.SEEDHELL
+                || cat == Category.SEEDPRISON
+                || cat == Category.SEEDSEWER
+                || cat == Category.SEEDWATER
+                || cat == Category.DARTS
+                || cat == Category.BASESEED);
 		categoryProbs.put( cat, categoryProbs.get( cat ) - 1);
 		return random( cat );
 	}

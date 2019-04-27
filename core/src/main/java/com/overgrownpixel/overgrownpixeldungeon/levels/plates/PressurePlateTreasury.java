@@ -33,7 +33,9 @@ import com.overgrownpixel.overgrownpixeldungeon.levels.Level;
 import com.overgrownpixel.overgrownpixeldungeon.levels.RegularLevel;
 import com.overgrownpixel.overgrownpixeldungeon.levels.Terrain;
 import com.overgrownpixel.overgrownpixeldungeon.levels.rooms.Room;
+import com.overgrownpixel.overgrownpixeldungeon.messages.Messages;
 import com.overgrownpixel.overgrownpixeldungeon.scenes.GameScene;
+import com.overgrownpixel.overgrownpixeldungeon.utils.GLog;
 import com.watabou.noosa.Camera;
 import com.watabou.noosa.audio.Sample;
 import com.watabou.utils.Bundle;
@@ -81,6 +83,7 @@ public class PressurePlateTreasury extends PressurePlate {
                 Camera.main.shake( 1, 0.5f );
                 Sample.INSTANCE.play( Assets.SND_ROCKS );
                 GameScene.updateMap(statpos);
+                GLog.w(Messages.get(Statue.class, "awaken"));
             }
         }
     }

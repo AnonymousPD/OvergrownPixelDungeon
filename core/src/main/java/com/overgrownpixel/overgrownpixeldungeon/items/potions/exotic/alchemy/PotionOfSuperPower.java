@@ -23,7 +23,6 @@
 
 package com.overgrownpixel.overgrownpixeldungeon.items.potions.exotic.alchemy;
 
-import com.overgrownpixel.overgrownpixeldungeon.Badges;
 import com.overgrownpixel.overgrownpixeldungeon.actors.Char;
 import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.Bleeding;
 import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.Buff;
@@ -32,6 +31,7 @@ import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.Healing;
 import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.Infested;
 import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.Midas;
 import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.Poison;
+import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.StrengthBoost;
 import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.Weakness;
 import com.overgrownpixel.overgrownpixeldungeon.actors.diseases.Aids;
 import com.overgrownpixel.overgrownpixeldungeon.actors.diseases.BlackDeath;
@@ -52,10 +52,8 @@ import com.overgrownpixel.overgrownpixeldungeon.actors.diseases.SmallPox;
 import com.overgrownpixel.overgrownpixeldungeon.actors.diseases.SpanishFlu;
 import com.overgrownpixel.overgrownpixeldungeon.actors.hero.Hero;
 import com.overgrownpixel.overgrownpixeldungeon.items.potions.PotionOfHealing;
-import com.overgrownpixel.overgrownpixeldungeon.items.potions.PotionOfStrength;
 import com.overgrownpixel.overgrownpixeldungeon.items.potions.exotic.ExoticPotion;
 import com.overgrownpixel.overgrownpixeldungeon.messages.Messages;
-import com.overgrownpixel.overgrownpixeldungeon.sprites.CharSprite;
 import com.overgrownpixel.overgrownpixeldungeon.utils.GLog;
 
 public class PotionOfSuperPower extends ExoticPotion {
@@ -68,11 +66,7 @@ public class PotionOfSuperPower extends ExoticPotion {
     public void apply(Hero hero) {
         setKnown();
 
-        hero.STR += 2;
-        hero.sprite.showStatus( CharSprite.POSITIVE, Messages.get(PotionOfStrength.class, "msg_1") );
-        GLog.p( Messages.get(PotionOfStrength.class, "msg_2") );
-
-        Badges.validateStrengthAttained();
+        Buff.prolong(hero, StrengthBoost.class, StrengthBoost.DURATION).setStr(2);
 
         Buff.affect( hero, Healing.class ).setHeal((int)(0.8f*hero.HT + 14), 0.25f, 0);
         cure( hero );

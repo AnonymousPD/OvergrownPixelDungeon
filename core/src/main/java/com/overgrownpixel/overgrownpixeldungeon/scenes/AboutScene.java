@@ -48,7 +48,7 @@ public class AboutScene extends PixelScene {
                     //TODO: Credit all awesome people that helped me
 	        "Graphics: Various";
 
-	private static final String LNK_SHPX = "/r/PixelDungeonMods.com";
+	private static final String LNK_SHPX = "Want to talk with other adventurers? Visit: /r/PixelDungeon.com";
 
 	private static final String TTL_WATA = "Shattered Pixel Dungeon";
 
@@ -100,7 +100,7 @@ public class AboutScene extends PixelScene {
 		TouchArea shpxhotArea = new TouchArea( shpxlink.left(), shpxlink.top(), shpxlink.width(), shpxlink.height() ) {
 			@Override
 			protected void onClick( Touch touch ) {
-				DeviceCompat.openURI( "https://www.reddit.com/r/PixelDungeonMods/");
+				DeviceCompat.openURI( "https://www.reddit.com/r/PixelDungeon/");
 			}
 		};
 		add( shpxhotArea );

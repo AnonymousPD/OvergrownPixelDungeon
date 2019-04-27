@@ -70,7 +70,20 @@ public class Musclemoss extends Plant {
         }
     }
 
-	public static class Seed extends Plant.Seed{
+    @Override
+    public void attackProc(Char enemy, int damage) {
+        int opposite;
+        int path;
+        do{
+            path = PathFinder.NEIGHBOURS8[Random.Int( 8 )];
+            opposite = enemy.pos + path;
+        } while ((Dungeon.level.map[opposite] == Terrain.WALL || Dungeon.level.map[opposite] == Terrain.WALL_DECO)
+                && (Dungeon.level.map[opposite+path] == Terrain.WALL || Dungeon.level.map[opposite+path] == Terrain.WALL_DECO));
+        Ballistica trajectory = new Ballistica(enemy.pos, opposite, Ballistica.MAGIC_BOLT);
+        WandOfBlastWave.throwChar(Actor.findChar(pos), trajectory, 100);
+    }
+
+    public static class Seed extends Plant.Seed{
 
 		{
 			image = ItemSpriteSheet.SEED_MUSCLEMOSS;

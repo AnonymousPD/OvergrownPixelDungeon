@@ -29,9 +29,10 @@ import com.overgrownpixel.overgrownpixeldungeon.actors.Char;
 import com.overgrownpixel.overgrownpixeldungeon.effects.CellEmitter;
 import com.overgrownpixel.overgrownpixeldungeon.effects.particles.TomatoExplosionParticle;
 import com.overgrownpixel.overgrownpixeldungeon.effects.particles.poisonparticles.TomatobushPoisonParticle;
-import com.overgrownpixel.overgrownpixeldungeon.items.bombs.Bomb;
+import com.overgrownpixel.overgrownpixeldungeon.messages.Messages;
 import com.overgrownpixel.overgrownpixeldungeon.scenes.GameScene;
 import com.overgrownpixel.overgrownpixeldungeon.sprites.ItemSpriteSheet;
+import com.overgrownpixel.overgrownpixeldungeon.utils.GLog;
 import com.watabou.noosa.particles.Emitter;
 import com.watabou.utils.PathFinder;
 import com.watabou.utils.Random;
@@ -51,6 +52,11 @@ public class Tomatobush extends Plant {
     @Override
     public void activate() {
         explode(pos, null);
+    }
+
+    @Override
+    public void attackProc(Char enemy, int damage) {
+        explode(enemy.pos, null);
     }
 
     public boolean explodesDestructively(){
@@ -87,13 +93,17 @@ public class Tomatobush extends Plant {
                         }
 
                         if (ch == Dungeon.hero && !ch.isAlive())
-                            Dungeon.fail(Bomb.class);
+                            GLog.n(Messages.get(this, "died"));
+                            Dungeon.fail(Tomatobush.class);
                     }
                 }
             }
 
             if (terrainAffected) {
                 Dungeon.observe();
+                if(Dungeon.level.heroFOV[cell]){
+                    GLog.w(Messages.get(this, "explode"));
+                }
             }
         }
     }

@@ -63,8 +63,13 @@ public class Sorrowmoss extends Plant {
     public void activate() {
         Plant.spawnLasher(pos);
     }
-	
-	public static class Seed extends Plant.Seed {
+
+    @Override
+    public void attackProc(Char enemy, int damage) {
+        activate(enemy);
+    }
+
+    public static class Seed extends Plant.Seed {
 		{
 			image = ItemSpriteSheet.SEED_SORROWMOSS;
 

@@ -41,7 +41,6 @@ import com.overgrownpixel.overgrownpixeldungeon.effects.Speck;
 import com.overgrownpixel.overgrownpixeldungeon.effects.particles.LeafParticle;
 import com.overgrownpixel.overgrownpixeldungeon.items.Generator;
 import com.overgrownpixel.overgrownpixeldungeon.items.Item;
-import com.overgrownpixel.overgrownpixeldungeon.items.artifacts.SandalsOfNature;
 import com.overgrownpixel.overgrownpixeldungeon.items.rings.RingOfElements;
 import com.overgrownpixel.overgrownpixeldungeon.items.rings.RingOfPoison;
 import com.overgrownpixel.overgrownpixeldungeon.items.wands.WandOfRegrowth;
@@ -68,8 +67,6 @@ public abstract class Plant implements Bundlable {
 	public int image;
 	public int pos;
 
-	//TODO: Make it so that HP and buff effects of plants do not activate on inorganic mobs!!!!!
-
 	public void trigger(){
 
 		Char ch = Actor.findChar(pos);
@@ -80,39 +77,50 @@ public abstract class Plant implements Bundlable {
 
 		wither();
 
-		if(ch instanceof LivingPlant){
-		    //livingplants will trigger other living plants. Since livpla's will bot step on other plants on purpose this only happens if they are pushed onto a plant.
-            ch.sprite.emitter().start( Speck.factory( Speck.UP ), 0.2f, 3 );
-            spawnLivingPlant(new LivingPlant().setPlantClass(this), ch);
-        } else {
-		    //30% chance of triggering a living plant
-            int chances = 30;
-            //modifiyng chances for the hero triggering livpla's are handled here
-		    if(ch instanceof Hero){
-		        //chances get changed by specific items
-		        if(((Hero) ch).belongings.misc1 instanceof SandalsOfNature){
-		            chances = ((SandalsOfNature) ((Hero) ch).belongings.misc1).livingplantPercent*10;
-                } else if(((Hero) ch).belongings.misc2 instanceof SandalsOfNature){
-                    chances = ((SandalsOfNature) ((Hero) ch).belongings.misc2).livingplantPercent*10;
-                }
-            }
-            //chances (int) in 100 or in other words 30%
-            if(Random.Int(100) <= chances){
-                //spawn the living plant
+		if(!(this instanceof Rotberry)){
+            if(ch instanceof LivingPlant){
+                //livingplants will trigger other living plants. Since livpla's will bot step on other plants on purpose this only happens if they are pushed onto a plant.
+                ch.sprite.emitter().start( Speck.factory( Speck.UP ), 0.2f, 3 );
                 spawnLivingPlant(new LivingPlant().setPlantClass(this), ch);
             } else {
-                if(ch != null){
-                    //if the character exits trigger the plant effect on the character
-                    activate( ch );
+                //30% chance of triggering a living plant
+                float chance = 0.3f;
+                for(int i : PathFinder.NEIGHBOURS8){
+                    if(Dungeon.level.map[pos+i] == Terrain.HIGH_GRASS ||
+                            Dungeon.level.map[pos+i] == Terrain.WALL ||
+                            Dungeon.level.map[pos+i] == Terrain.WALL_DECO){
+                        //8x0.0375 = 0.3f
+                        chance -= 0.0375f;
+                    }
+                    if(Dungeon.level.map[pos+i] == Terrain.WELL ||
+                            Dungeon.level.map[pos+i] == Terrain.WATER ||
+                            Dungeon.level.map[pos+i] == Terrain.ALCHEMY){
+                        chance += 0.0375f;
+                    }
+                }
+                //chances (int) in 100 or in other words 30%
+                if(Random.Float() <= chance){
+                    //spawn the living plant
+                    spawnLivingPlant(new LivingPlant().setPlantClass(this), ch);
                 } else {
-                    //if the character doesn't exist 50% chance to activate a variation effect of the plant that doesn't need a ch
-                    if(Random.Boolean()){
-                        activate();
+                    if(ch != null){
+                        if(ch.properties().contains(Char.Property.INORGANIC)){
+                            spawnLivingPlant(new LivingPlant().setPlantClass(this), ch);
+                        }
+                        //if the character exits trigger the plant effect on the character
+                        activate( ch );
                     } else {
-                        spawnLivingPlant(new LivingPlant().setPlantClass(this), null);
+                        //if the character doesn't exist 50% chance to activate a variation effect of the plant that doesn't need a ch
+                        if(Random.Boolean()){
+                            activate();
+                        } else {
+                            spawnLivingPlant(new LivingPlant().setPlantClass(this), null);
+                        }
                     }
                 }
             }
+        } else {
+		    activate(ch);
         }
 	}
 
@@ -184,6 +192,8 @@ public abstract class Plant implements Bundlable {
             }
         }
     }
+
+    public abstract void attackProc(Char enemy, int damage);
 	
 	public abstract void activate( Char ch );
 

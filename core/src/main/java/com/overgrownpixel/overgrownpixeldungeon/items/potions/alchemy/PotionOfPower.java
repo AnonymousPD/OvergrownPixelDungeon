@@ -23,7 +23,6 @@
 
 package com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy;
 
-import com.overgrownpixel.overgrownpixeldungeon.Badges;
 import com.overgrownpixel.overgrownpixeldungeon.actors.Char;
 import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.Bleeding;
 import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.Buff;
@@ -32,6 +31,7 @@ import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.Healing;
 import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.Infested;
 import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.Midas;
 import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.Poison;
+import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.StrengthBoost;
 import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.Weakness;
 import com.overgrownpixel.overgrownpixeldungeon.actors.diseases.Aids;
 import com.overgrownpixel.overgrownpixeldungeon.actors.diseases.BlackDeath;
@@ -53,10 +53,9 @@ import com.overgrownpixel.overgrownpixeldungeon.actors.diseases.SpanishFlu;
 import com.overgrownpixel.overgrownpixeldungeon.actors.hero.Hero;
 import com.overgrownpixel.overgrownpixeldungeon.items.potions.Potion;
 import com.overgrownpixel.overgrownpixeldungeon.items.potions.PotionOfHealing;
-import com.overgrownpixel.overgrownpixeldungeon.items.potions.PotionOfStrength;
 import com.overgrownpixel.overgrownpixeldungeon.messages.Messages;
-import com.overgrownpixel.overgrownpixeldungeon.sprites.CharSprite;
 import com.overgrownpixel.overgrownpixeldungeon.utils.GLog;
+import com.watabou.utils.Random;
 
 public class PotionOfPower extends Potion {
 
@@ -68,11 +67,7 @@ public class PotionOfPower extends Potion {
     public void apply(Hero hero) {
         setKnown();
 
-        hero.STR++;
-        hero.sprite.showStatus( CharSprite.POSITIVE, Messages.get(PotionOfStrength.class, "msg_1") );
-        GLog.p( Messages.get(PotionOfStrength.class, "msg_2") );
-
-        Badges.validateStrengthAttained();
+        Buff.prolong(hero, StrengthBoost.class, StrengthBoost.DURATION);
 
         Buff.affect( hero, Healing.class ).setHeal((int)(0.8f*hero.HT + 14), 0.25f, 0);
         cure( hero );
@@ -86,22 +81,24 @@ public class PotionOfPower extends Potion {
         Buff.detach( ch, Bleeding.class );
         Buff.detach( ch, Infested.class );
         Buff.detach( ch, Midas.class );
-        Disease.detach(ch, Aids.class);
-        Disease.detach(ch, BlackDeath.class);
-        Disease.detach(ch, Cholera.class);
-        Disease.detach(ch, Cordyceps.class);
-        Disease.detach(ch, Ebola.class);
-        Disease.detach(ch, Herpes.class);
-        Disease.detach(ch, Influenza.class);
-        Disease.detach(ch, Leprosy.class);
-        Disease.detach(ch, Ligma.class);
-        Disease.detach(ch, Malaria.class);
-        Disease.detach(ch, Narcolepsy.class);
-        Disease.detach(ch, Polio.class);
-        Disease.detach(ch, Rabies.class);
-        Disease.detach(ch, SlowFever.class);
-        Disease.detach(ch, SmallPox.class);
-        Disease.detach(ch, SpanishFlu.class);
+        if(Random.Boolean()){
+            Disease.detach(ch, Aids.class);
+            Disease.detach(ch, BlackDeath.class);
+            Disease.detach(ch, Cholera.class);
+            Disease.detach(ch, Cordyceps.class);
+            Disease.detach(ch, Ebola.class);
+            Disease.detach(ch, Herpes.class);
+            Disease.detach(ch, Influenza.class);
+            Disease.detach(ch, Leprosy.class);
+            Disease.detach(ch, Ligma.class);
+            Disease.detach(ch, Malaria.class);
+            Disease.detach(ch, Narcolepsy.class);
+            Disease.detach(ch, Polio.class);
+            Disease.detach(ch, Rabies.class);
+            Disease.detach(ch, SlowFever.class);
+            Disease.detach(ch, SmallPox.class);
+            Disease.detach(ch, SpanishFlu.class);
+        }
     }
 
     @Override

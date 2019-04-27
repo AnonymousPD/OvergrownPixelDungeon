@@ -53,7 +53,18 @@ public class Willowcane extends Plant {
         Plant.spawnLasher(pos);
     }
 
-	public static class Seed extends Plant.Seed{
+    @Override
+    public void attackProc(Char enemy, int damage) {
+        if(enemy instanceof Mob){
+            if(!enemy.properties().contains(Char.Property.INORGANIC)){
+                Buff.prolong( enemy, Slow.class, Slow.DURATION );
+            }
+        } else {
+            Buff.prolong( enemy, Slow.class, Slow.DURATION );
+        }
+    }
+
+    public static class Seed extends Plant.Seed{
 
 		{
 			image = ItemSpriteSheet.SEED_WILLOWCANE;

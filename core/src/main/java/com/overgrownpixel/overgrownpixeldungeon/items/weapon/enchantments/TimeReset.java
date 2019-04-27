@@ -62,7 +62,7 @@ public class TimeReset extends Weapon.Enchantment {
                 }
             } else {
                 for(int m1 = mobs.size()-1; m1 > 0; m1--){
-                    if(mobs.get(m1) != null){
+                    if(mobs.get(m1) != null && mobpos.get(m1) != null){
                         appear(mobs.get(m1), mobpos.get(m1));
                     }
                 }

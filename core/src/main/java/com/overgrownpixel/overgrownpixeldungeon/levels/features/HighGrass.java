@@ -104,7 +104,7 @@ public class HighGrass {
 				}
 
                 if (hero.belongings.armor != null && hero.belongings.armor.hasGlyph(Fauna.class, hero)) {
-                    Buff.affect( hero, Healing.class ).setHeal(1, 1f, 1);
+                    Buff.affect( hero, Healing.class ).setHeal(1, 100f, 1);
                 }
 			}
 			

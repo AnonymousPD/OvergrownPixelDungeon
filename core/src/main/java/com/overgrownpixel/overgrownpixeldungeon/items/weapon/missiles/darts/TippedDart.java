@@ -32,19 +32,44 @@ import com.overgrownpixel.overgrownpixeldungeon.actors.hero.HeroSubClass;
 import com.overgrownpixel.overgrownpixeldungeon.items.Generator;
 import com.overgrownpixel.overgrownpixeldungeon.items.Item;
 import com.overgrownpixel.overgrownpixeldungeon.items.Recipe;
+import com.overgrownpixel.overgrownpixeldungeon.items.wands.WandOfRegrowth;
+import com.overgrownpixel.overgrownpixeldungeon.plants.Apricobush;
+import com.overgrownpixel.overgrownpixeldungeon.plants.Blackholeflower;
 import com.overgrownpixel.overgrownpixeldungeon.plants.Blindweed;
+import com.overgrownpixel.overgrownpixeldungeon.plants.Butterlion;
+import com.overgrownpixel.overgrownpixeldungeon.plants.Chandaliertail;
+import com.overgrownpixel.overgrownpixeldungeon.plants.Chillisnapper;
+import com.overgrownpixel.overgrownpixeldungeon.plants.Crimsonpepper;
 import com.overgrownpixel.overgrownpixeldungeon.plants.Dreamfoil;
 import com.overgrownpixel.overgrownpixeldungeon.plants.Earthroot;
 import com.overgrownpixel.overgrownpixeldungeon.plants.Fadeleaf;
 import com.overgrownpixel.overgrownpixeldungeon.plants.Firebloom;
+import com.overgrownpixel.overgrownpixeldungeon.plants.Firefoxglove;
+import com.overgrownpixel.overgrownpixeldungeon.plants.Frostcorn;
+import com.overgrownpixel.overgrownpixeldungeon.plants.Grasslilly;
 import com.overgrownpixel.overgrownpixeldungeon.plants.Icecap;
+import com.overgrownpixel.overgrownpixeldungeon.plants.Kiwivetch;
+import com.overgrownpixel.overgrownpixeldungeon.plants.Musclemoss;
+import com.overgrownpixel.overgrownpixeldungeon.plants.Nightshadeonion;
+import com.overgrownpixel.overgrownpixeldungeon.plants.Parasiteshrub;
+import com.overgrownpixel.overgrownpixeldungeon.plants.Peanutpetal;
 import com.overgrownpixel.overgrownpixeldungeon.plants.Plant;
+import com.overgrownpixel.overgrownpixeldungeon.plants.Rose;
 import com.overgrownpixel.overgrownpixeldungeon.plants.Rotberry;
+import com.overgrownpixel.overgrownpixeldungeon.plants.Snowhedge;
 import com.overgrownpixel.overgrownpixeldungeon.plants.Sorrowmoss;
 import com.overgrownpixel.overgrownpixeldungeon.plants.Starflower;
+import com.overgrownpixel.overgrownpixeldungeon.plants.Steamweed;
 import com.overgrownpixel.overgrownpixeldungeon.plants.Stormvine;
+import com.overgrownpixel.overgrownpixeldungeon.plants.Sunbloom;
+import com.overgrownpixel.overgrownpixeldungeon.plants.Suncarnivore;
 import com.overgrownpixel.overgrownpixeldungeon.plants.Sungrass;
 import com.overgrownpixel.overgrownpixeldungeon.plants.Swiftthistle;
+import com.overgrownpixel.overgrownpixeldungeon.plants.Tomatobush;
+import com.overgrownpixel.overgrownpixeldungeon.plants.Venusflytrap;
+import com.overgrownpixel.overgrownpixeldungeon.plants.Waterweed;
+import com.overgrownpixel.overgrownpixeldungeon.plants.Willowcane;
+import com.overgrownpixel.overgrownpixeldungeon.plants.Witherfennel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -104,12 +129,39 @@ public abstract class TippedDart extends Dart {
 		types.put(Stormvine.Seed.class,     ShockingDart.class);
 		types.put(Sungrass.Seed.class,      HealingDart.class);
 		types.put(Swiftthistle.Seed.class,  AdrenalineDart.class);
+
+		types.put(Apricobush.Seed.class,            HealthDart.class);
+        types.put(Blackholeflower.Seed.class,       TeleportingDart.class);
+        types.put(Butterlion.Seed.class,            EarthquakeDart.class);
+        types.put(Chandaliertail.Seed.class,        TrackingDart.class);
+        types.put(Chillisnapper.Seed.class,         HeatDart.class);
+        types.put(Crimsonpepper.Seed.class,         SpicyDart.class);
+        types.put(Firefoxglove.Seed.class,          FirefoxDart.class);
+        types.put(Frostcorn.Seed.class,             FreezingDart.class);
+        types.put(Grasslilly.Seed.class,            ChaosDart.class);
+        types.put(Kiwivetch.Seed.class,             RootingDart.class);
+        types.put(Musclemoss.Seed.class,            PushingDart.class);
+        types.put(Nightshadeonion.Seed.class,       SmokingDart.class);
+        types.put(Parasiteshrub.Seed.class,         ParasiticDart.class);
+        types.put(Peanutpetal.Seed.class,           PeanutMarkDart.class);
+        types.put(Rose.Seed.class,                  WraithDart.class);
+        types.put(Snowhedge.Seed.class,             DiseaseDart.class);
+        types.put(Steamweed.Seed.class,             StormDart.class);
+        types.put(Sunbloom.Seed.class,              SunDart.class);
+        types.put(Suncarnivore.Seed.class,          CorruptionDart.class);
+        types.put(Tomatobush.Seed.class,            TomatoDart.class);
+        types.put(Venusflytrap.Seed.class,          ConfusingDart.class);
+        types.put(Waterweed.Seed.class,             WaterDart.class);
+        types.put(Willowcane.Seed.class,            SlownessDart.class);
+        types.put(Witherfennel.Seed.class,          WitherDart.class);
+        types.put(WandOfRegrowth.Seedpod.Seed.class,SeedChaosDart.class);
+        types.put(WandOfRegrowth.Dewcatcher.Seed.class,DewDart.class);
 	}
 	
 	public static TippedDart randomTipped(){
 		Plant.Seed s;
 		do{
-			s = (Plant.Seed) Generator.random(Generator.Category.BASESEED);
+			s = (Plant.Seed) Generator.random(Generator.Category.SEED);
 		} while (!types.containsKey(s.getClass()));
 		
 		try{

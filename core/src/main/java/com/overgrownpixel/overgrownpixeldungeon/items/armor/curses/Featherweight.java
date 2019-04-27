@@ -44,7 +44,7 @@ public class Featherweight extends Glyph {
         int oppositeAttacker = defender.pos + (defender.pos - attacker.pos);
         Ballistica trajectory = new Ballistica(defender.pos, oppositeAttacker, Ballistica.MAGIC_BOLT);
         WandOfBlastWave.throwChar(defender, trajectory, 2);
-        Buff.append(defender, Vertigo.class, Vertigo.DURATION/2);
+        Buff.affect(defender, Vertigo.class, Vertigo.DURATION/2);
 
         if(attacker instanceof Hero){
             if(((Hero) attacker).belongings.weapon instanceof Weapon){

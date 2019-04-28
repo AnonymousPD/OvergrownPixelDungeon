@@ -45,7 +45,7 @@ public class Assets {
 	public static final String SHADOW   = "gui/shadow.png";
 	public static final String BOSSHP   = "gui/boss_hp.png";
 
-	public static final String WARRIOR	= "mobs/warrior.png";
+	public static final String WARRIOR	= "heros/warrior.png";
 	public static final String MAGE		= "heros/mage.png";
 	public static final String ROGUE	= "heros/rogue.png";
 	public static final String HUNTRESS	= "heros/huntress.png";
@@ -65,7 +65,7 @@ public class Assets {
 	public static final String SWARM	= "mobs/swarm.png";
 	public static final String SKELETON	= "mobs/skeleton.png";
 	public static final String SHAMAN	= "mobs/shaman.png";
-	public static final String THIEF	= "heros/thief.png";
+	public static final String THIEF	= "mobs/thief.png";
 	public static final String TENGU	= "mobs/tengu.png";
 	public static final String SHEEP	= "mobs/sheep.png";
 	public static final String KEEPER	= "mobs/shopkeeper.png";

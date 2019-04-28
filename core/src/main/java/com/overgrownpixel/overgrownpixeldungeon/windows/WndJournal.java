@@ -348,7 +348,7 @@ public class WndJournal extends WndTabbed {
 			
 			int perRow = NUM_BUTTONS / (LPDSettings.landscape() ? 1 : 2);
 			float buttonWidth = width()/perRow;
-			
+
 			for (int i = 0; i < NUM_BUTTONS; i++) {
 				pageButtons[i].setRect((i%perRow) * (buttonWidth), (i/perRow) * (ITEM_HEIGHT),
 						buttonWidth, ITEM_HEIGHT);

@@ -28,6 +28,8 @@ import com.overgrownpixel.overgrownpixeldungeon.OvergrownPixelDungeon;
 import com.overgrownpixel.overgrownpixeldungeon.actors.Char;
 import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.Roots;
 import com.overgrownpixel.overgrownpixeldungeon.actors.mobs.Mob;
+import com.overgrownpixel.overgrownpixeldungeon.items.food.Blandfruit;
+import com.overgrownpixel.overgrownpixeldungeon.plants.BlandfruitBush;
 import com.overgrownpixel.overgrownpixeldungeon.plants.Plant;
 import com.overgrownpixel.overgrownpixeldungeon.sprites.CharSprite;
 import com.overgrownpixel.overgrownpixeldungeon.sprites.livingplants.LivingPlantSprite;
@@ -115,6 +117,9 @@ public class LivingPlant extends Mob {
             }
         } else {
             Dungeon.level.drop(plantClass.getPlant(plantClass), pos).sprite.drop();
+        }
+        if(plantClass instanceof BlandfruitBush){
+            Dungeon.level.drop(new Blandfruit(), pos);
         }
         super.die(cause);
     }

@@ -24,13 +24,13 @@
 package com.overgrownpixel.overgrownpixeldungeon.items.weapon.enchantments;
 
 import com.overgrownpixel.overgrownpixeldungeon.Dungeon;
+import com.overgrownpixel.overgrownpixeldungeon.actors.Actor;
 import com.overgrownpixel.overgrownpixeldungeon.actors.Char;
 import com.overgrownpixel.overgrownpixeldungeon.actors.hero.Hero;
 import com.overgrownpixel.overgrownpixeldungeon.actors.mobs.Mob;
 import com.overgrownpixel.overgrownpixeldungeon.items.weapon.Weapon;
 import com.overgrownpixel.overgrownpixeldungeon.sprites.ItemSprite.Glowing;
 import com.watabou.noosa.tweeners.AlphaTweener;
-import com.watabou.utils.Random;
 
 import java.util.ArrayList;
 
@@ -44,33 +44,31 @@ public class TimeReset extends Weapon.Enchantment {
 	@Override
 	public int proc( Weapon weapon, Char attacker, Char defender, int damage ) {
 
-		if (Random.Boolean()) {
+        if(mobs.isEmpty() && !mobpos.isEmpty()){
+            mobpos.clear();
+        }
+        if(!mobs.isEmpty() && mobpos.isEmpty()){
+            mobs.clear();
+        }
 
-            if(mobs.isEmpty() && !mobpos.isEmpty()){
-                mobpos.clear();
-            }
-            if(!mobs.isEmpty() && mobpos.isEmpty()){
-                mobs.clear();
-            }
-
-            if(mobs.isEmpty() && mobpos.isEmpty()){
-                for(Mob mob : Dungeon.level.mobs.toArray(new Mob[0])){
-                    if(Dungeon.level.heroFOV[mob.pos]){
-                        mobs.add(mob);
-                        mobpos.add(mob.pos);
-                    }
+        if(mobs.isEmpty() && mobpos.isEmpty()){
+            for(Mob mob : Dungeon.level.mobs.toArray(new Mob[0])){
+                if(Dungeon.level.heroFOV[mob.pos]){
+                    mobs.add(mob);
+                    mobpos.add(mob.pos);
                 }
-            } else {
-                for(int m1 = mobs.size()-1; m1 > 0; m1--){
-                    if(mobs.get(m1) != null && mobpos.get(m1) != null){
+            }
+        } else {
+            for(int m1 = mobs.size()-1; m1 > 0; m1--){
+                if(mobs.get(m1) != null && mobpos.get(m1) != null){
+                    if(Actor.findChar(mobpos.get(m1)) == null){
                         appear(mobs.get(m1), mobpos.get(m1));
                     }
                 }
-                mobs.clear();
-                mobpos.clear();
             }
-
-		}
+            mobs.clear();
+            mobpos.clear();
+        }
 
         if(attacker instanceof Hero){
             if(((Hero) attacker).belongings.armor.glyph != null){

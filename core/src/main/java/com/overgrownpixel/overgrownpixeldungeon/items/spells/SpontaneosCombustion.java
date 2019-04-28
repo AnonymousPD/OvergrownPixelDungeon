@@ -26,7 +26,7 @@ package com.overgrownpixel.overgrownpixeldungeon.items.spells;
 import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.Buff;
 import com.overgrownpixel.overgrownpixeldungeon.actors.buffs.Burning;
 import com.overgrownpixel.overgrownpixeldungeon.actors.hero.Hero;
-import com.overgrownpixel.overgrownpixeldungeon.items.potions.PotionOfLiquidFlame;
+import com.overgrownpixel.overgrownpixeldungeon.items.potions.alchemy.PotionOfFirestorm;
 import com.overgrownpixel.overgrownpixeldungeon.items.scrolls.ScrollOfRecharging;
 import com.overgrownpixel.overgrownpixeldungeon.messages.Messages;
 import com.overgrownpixel.overgrownpixeldungeon.sprites.ItemSpriteSheet;
@@ -57,7 +57,7 @@ public class SpontaneosCombustion extends Spell {
     public static class Recipe extends com.overgrownpixel.overgrownpixeldungeon.items.Recipe.SimpleRecipe {
 		
 		{
-			inputs =  new Class[]{ScrollOfRecharging.class, PotionOfLiquidFlame.class};
+			inputs =  new Class[]{ScrollOfRecharging.class, PotionOfFirestorm.class};
 			inQuantity = new int[]{1, 1};
 			
 			cost = 4;

@@ -66,7 +66,7 @@ public class PotionOfSuperPower extends ExoticPotion {
     public void apply(Hero hero) {
         setKnown();
 
-        Buff.prolong(hero, StrengthBoost.class, StrengthBoost.DURATION).setStr(2);
+        Buff.prolong(hero, StrengthBoost.class, StrengthBoost.DURATION/4);
 
         Buff.affect( hero, Healing.class ).setHeal((int)(0.8f*hero.HT + 14), 0.25f, 0);
         cure( hero );

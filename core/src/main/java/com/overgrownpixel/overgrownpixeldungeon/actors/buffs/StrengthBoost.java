@@ -35,7 +35,6 @@ public class StrengthBoost extends FlavourBuff {
 		type = buffType.POSITIVE;
 	}
 
-	public int str = 1;
 	
 	public static final float DURATION	= 100f;
 	
@@ -62,7 +61,7 @@ public class StrengthBoost extends FlavourBuff {
     @Override
     public boolean attachTo(Char target) {
 	    if(target instanceof Hero){
-	        ((Hero) target).STR += str;
+	        ((Hero) target).STR += 1;
         }
        return super.attachTo(target);
     }
@@ -70,17 +69,9 @@ public class StrengthBoost extends FlavourBuff {
     @Override
     public void detach() {
 	    if(target instanceof Hero){
-	        ((Hero) target).STR -= str;
+	        ((Hero) target).STR -= 1;
         }
         Buff.prolong(target, Exhaustion.class, Exhaustion.DURATION);
         super.detach();
-    }
-
-    public void setStr(int strengthBoostAmount){
-	    str = strengthBoostAmount;
-	    if(target instanceof Hero){
-	        ((Hero) target).STR--;
-        }
-	    attachTo(target);
     }
 }

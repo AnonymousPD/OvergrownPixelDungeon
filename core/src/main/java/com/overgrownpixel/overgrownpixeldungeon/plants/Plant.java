@@ -139,7 +139,6 @@ public abstract class Plant implements Bundlable {
     }
 
     public void spawnLivingPlant(LivingPlant livingPlant, Char activator) {
-
 	    //find the all tiles the living plant can be spawned at
         Collection arrayList = new ArrayList();
         for (int i : PathFinder.NEIGHBOURS8) {

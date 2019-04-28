@@ -260,7 +260,7 @@ public class ChangesScene extends PixelScene {
                         "_-_ Deals extra damage on surprised enemies"));
 
         changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.KNIFE_GLOVE, null), new KnifeGlove().trueName(),
-                "_-_ Tier 1\n"+
+                "_-_ Tier 2\n"+
                         "_-_ Can make your enemies bleed"));
 
         changes.addButton( new ChangeButton( new ItemSprite(ItemSpriteSheet.KNIFE_ON_A_STICK, null), new KnifeOnAStick().trueName(),

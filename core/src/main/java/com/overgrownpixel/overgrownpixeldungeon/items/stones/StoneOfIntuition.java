@@ -122,29 +122,29 @@ public class StoneOfIntuition extends InventoryStone {
             PotionOfPurity.class,
             PotionOfStrength.class,
             PotionOfToxicGas.class,
-            PotionOfDarkness.class,
-            PotionOfDisease.class,
-            PotionOfEruption.class,
-            PotionOfExplosion.class,
-            PotionOfFirestorm.class,
             PotionOfFood.class,
-            PotionOfGlowing.class,
-            PotionOfHealth.class,
-            PotionOfHeat.class,
-            PotionOfIce.class,
+            PotionOfDisease.class,
             PotionOfLight.class,
-            PotionOfMuscle.class,
             PotionOfPlants.class,
-            PotionOfPower.class,
-            PotionOfRain.class,
             PotionOfRegrowth.class,
-            PotionOfSecretion.class,
-            PotionOfSpirit.class,
-            PotionOfSpores.class,
-            PotionOfSteam.class,
-            PotionOfSunlight.class,
+            PotionOfMuscle.class,
+            PotionOfFirestorm.class,
+            PotionOfGlowing.class,
+            PotionOfEruption.class,
             PotionOfTeleportation.class,
-            PotionOfTime.class
+            PotionOfHealth.class,
+            PotionOfIce.class,
+            PotionOfHeat.class,
+            PotionOfDarkness.class,
+            PotionOfSpores.class,
+            PotionOfSpirit.class,
+            PotionOfSunlight.class,
+            PotionOfExplosion.class,
+            PotionOfSecretion.class,
+            PotionOfRain.class,
+            PotionOfTime.class,
+            PotionOfPower.class,
+            PotionOfSteam.class
 	};
 	
 	public static Class[] scrolls = new Class[]{
@@ -202,7 +202,7 @@ public class StoneOfIntuition extends InventoryStone {
 			guess.visible = false;
 			guess.icon( new ItemSprite(item) );
 			guess.enable(false);
-			guess.setRect(0, 80, WIDTH, 20);
+			guess.setRect(0, 180, WIDTH, 20);
 			add(guess);
 			
 			float left;
@@ -259,8 +259,11 @@ public class StoneOfIntuition extends InventoryStone {
 				top += BTN_SIZE/2f;
 				left = (WIDTH - BTN_SIZE*unIDed.size())/2f;
 			} else {
-				rows = 2;
-				left = (WIDTH - BTN_SIZE*((unIDed.size()+1)/2))/2f;
+				rows = unIDed.size()/5;
+				if(unIDed.size()%5 > 0 && unIDed.size()%5 <= 5){
+				    rows++;
+                }
+				left = (WIDTH - BTN_SIZE*((unIDed.size()+1)/rows))/2f;
 			}
 			
 			for (int i = 0; i < all.length; i++){
@@ -286,16 +289,16 @@ public class StoneOfIntuition extends InventoryStone {
 				add(btn);
 				
 				placed++;
-				if (rows == 2 && placed == ((unIDed.size()+1)/2)){
+				if (rows > 1 && placed == ((unIDed.size()+1)/rows)){
 					placed = 0;
-					if (unIDed.size() % 2 == 1){
+					if (unIDed.size() % rows == 1){
 						left += BTN_SIZE/2f;
 					}
 					top += BTN_SIZE;
 				}
 			}
 			
-			resize(WIDTH, 100);
+			resize(WIDTH, 200);
 			
 		}
 		

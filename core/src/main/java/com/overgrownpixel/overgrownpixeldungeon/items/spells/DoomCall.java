@@ -51,14 +51,16 @@ public class DoomCall extends Spell {
         for(Mob mob : Dungeon.level.mobs){
             mobs.add(mob);
         }
-        Random.shuffle(mobs);
-        Mob mob = Random.element(mobs);
-        if(!mob.properties().contains(Char.Property.BOSS) && !mob.properties().contains(Char.Property.MINIBOSS)){
-            mob.die(hero);
-            if (Dungeon.level.heroFOV[mob.pos]) {
-                Sample.INSTANCE.play( Assets.SND_HIT );
-                mob.sprite.emitter().burst( ShadowParticle.CURSE, 6);
-                GLog.p(Messages.get(this, "crushed", mob.name));
+        if(!mobs.isEmpty()){
+            Random.shuffle(mobs);
+            Mob mob = Random.element(mobs);
+            if(!mob.properties().contains(Char.Property.BOSS) && !mob.properties().contains(Char.Property.MINIBOSS)){
+                mob.die(hero);
+                if (Dungeon.level.heroFOV[mob.pos]) {
+                    Sample.INSTANCE.play( Assets.SND_HIT );
+                    mob.sprite.emitter().burst( ShadowParticle.CURSE, 6);
+                    GLog.p(Messages.get(this, "crushed", mob.name));
+                }
             }
         }
         detach( curUser.belongings.backpack );

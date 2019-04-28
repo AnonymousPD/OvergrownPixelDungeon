@@ -32,6 +32,8 @@ import com.overgrownpixel.overgrownpixeldungeon.items.weapon.Weapon;
 import com.overgrownpixel.overgrownpixeldungeon.sprites.ItemSprite;
 import com.watabou.utils.Random;
 
+import java.util.ArrayList;
+
 public class Whirlwind extends Weapon.Enchantment {
 
 	private static ItemSprite.Glowing WHITEISH = new ItemSprite.Glowing( 0xddfbc2 );
@@ -45,11 +47,20 @@ public class Whirlwind extends Weapon.Enchantment {
 
 		boolean hitOtherMobs = false;
 
+        ArrayList<Mob> mobs = new ArrayList<Mob>();
+
 		if (Random.Int( level + 5 ) >= 4) {
             attacker.sprite.emitter().burst( Speck.factory( Speck.EVOKE ), 3);
 
             for(Mob mob : Dungeon.level.mobs){
                 if(Dungeon.level.distance(attacker.pos, mob.pos) <= weapon.RCH){
+                    mobs.add(mob);
+                }
+            }
+
+            if(!mobs.isEmpty()){
+                hitOtherMobs = true;
+                for (Mob mob : mobs){
                     hitOtherMobs = true;
                     mob.damage(Math.round(damage/2), attacker);
                 }

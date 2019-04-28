@@ -33,7 +33,7 @@ public class KnifeGlove extends MeleeWeapon {
 	{
 		image = ItemSpriteSheet.KNIFE_GLOVE;
 
-		tier = 1;
+		tier = 2;
 		
 		bones = false;
 	}

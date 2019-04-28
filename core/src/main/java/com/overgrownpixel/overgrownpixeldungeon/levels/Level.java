@@ -754,10 +754,11 @@ public abstract class Level implements Bundlable {
 	
 	public void uproot( int pos ) {
 		plants.remove(pos);
-		if(map[pos] == Terrain.WATERPLANT){
-		    set(pos, Terrain.WATER);
-        } else {
+		if(map[pos] == Terrain.PLANT){
             set(pos, Terrain.GRASS);
+        }
+        if(map[pos] == Terrain.WATERPLANT){
+            set(pos, Terrain.WATER);
         }
 		GameScene.updateMap( pos );
 	}
